@@ -17,3 +17,7 @@ fixtures/replay/
 # 生成物
 reports/*.png
 !reports/.gitkeep
+
+# 个人规划与求职策略（含简历策略、招聘侧考量），不进版本库
+规划.md
+规划1.txt
