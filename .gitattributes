@@ -1,0 +1,5 @@
+# 统一按 LF 存进版本库，避免 Windows 上每个文件都显示为整体重写。
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.pdf binary

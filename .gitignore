@@ -1,0 +1,19 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 索引与模型缓存（体积大，可重建）
+data/index/
+.cache/
+models/
+
+# record-replay 录制（可能含 prompt 全文，不进版本库）
+fixtures/replay/
+
+# 生成物
+reports/*.png
+!reports/.gitkeep

@@ -1,0 +1,118 @@
+{
+  "error_rate": 0.3,
+  "calls_per_arm": 300,
+  "seed": 20261008,
+  "permanent_share": 0.25,
+  "attempt_cost_ms": 120.0,
+  "scenario_a_uniform": [
+    {
+      "name": "bare",
+      "label": "裸调用（无重试 / 无熔断）",
+      "logical_calls": 300,
+      "succeeded": 203,
+      "degraded": 0,
+      "failed": 97,
+      "success_rate": 0.6767,
+      "downstream_calls": 300,
+      "calls_per_logical": 1.0,
+      "simulated_mean_latency_ms": 120.0,
+      "error_types": {
+        "PermanentToolError": 27,
+        "TransientToolError": 70
+      },
+      "breaker_trips": 0,
+      "breaker_rejections": 0
+    },
+    {
+      "name": "retry_only",
+      "label": "仅重试退避（无熔断）",
+      "logical_calls": 300,
+      "succeeded": 261,
+      "degraded": 0,
+      "failed": 39,
+      "success_rate": 0.87,
+      "downstream_calls": 386,
+      "calls_per_logical": 1.287,
+      "simulated_mean_latency_ms": 154.4,
+      "error_types": {
+        "PermanentToolError": 34,
+        "TransientToolError": 5
+      },
+      "breaker_trips": 0,
+      "breaker_rejections": 0
+    },
+    {
+      "name": "full",
+      "label": "重试退避 + 熔断",
+      "logical_calls": 300,
+      "succeeded": 261,
+      "degraded": 0,
+      "failed": 39,
+      "success_rate": 0.87,
+      "downstream_calls": 386,
+      "calls_per_logical": 1.287,
+      "simulated_mean_latency_ms": 154.4,
+      "error_types": {
+        "PermanentToolError": 34,
+        "TransientToolError": 5
+      },
+      "breaker_trips": 0,
+      "breaker_rejections": 0
+    }
+  ],
+  "scenario_b_outage": [
+    {
+      "name": "bare",
+      "label": "裸调用（无重试 / 无熔断）",
+      "logical_calls": 300,
+      "succeeded": 0,
+      "degraded": 0,
+      "failed": 300,
+      "success_rate": 0.0,
+      "downstream_calls": 300,
+      "calls_per_logical": 1.0,
+      "simulated_mean_latency_ms": 120.0,
+      "error_types": {
+        "TransientToolError": 300
+      },
+      "breaker_trips": 0,
+      "breaker_rejections": 0
+    },
+    {
+      "name": "retry_only",
+      "label": "仅重试退避（无熔断）",
+      "logical_calls": 300,
+      "succeeded": 0,
+      "degraded": 0,
+      "failed": 300,
+      "success_rate": 0.0,
+      "downstream_calls": 900,
+      "calls_per_logical": 3.0,
+      "simulated_mean_latency_ms": 360.0,
+      "error_types": {
+        "TransientToolError": 300
+      },
+      "breaker_trips": 0,
+      "breaker_rejections": 0
+    },
+    {
+      "name": "full",
+      "label": "重试退避 + 熔断",
+      "logical_calls": 300,
+      "succeeded": 0,
+      "degraded": 0,
+      "failed": 300,
+      "success_rate": 0.0,
+      "downstream_calls": 15,
+      "calls_per_logical": 0.05,
+      "simulated_mean_latency_ms": 6.0,
+      "error_types": {
+        "CircuitOpenError": 295,
+        "TransientToolError": 5
+      },
+      "breaker_trips": 1,
+      "breaker_rejections": 295
+    }
+  ],
+  "outage_victim": "calc_overtime"
+}

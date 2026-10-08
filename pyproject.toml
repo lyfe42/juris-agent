@@ -1,0 +1,63 @@
+[project]
+name = "lexguard"
+version = "0.1.0"
+description = "可溯源劳动法咨询 Agent：从 RAG 到 Agent 的可靠性工程与评测体系"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.9",
+    "pydantic-settings>=2.5",
+    "python-dotenv>=1.0",
+    "structlog>=24.4",
+    "httpx>=0.27",
+    "pyyaml>=6.0",
+    "numpy>=1.26",
+    "jieba>=0.42.1",
+    "rank-bm25>=0.2.2",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "sse-starlette>=2.1",
+]
+
+[project.optional-dependencies]
+# 检索与重排的 GPU 栈。单独成组是刻意的：工具层（domain + executor）与它的测试
+# 只需要 pydantic，不该为了跑一次单元测试下载 2.5GB 的 CUDA torch。
+# 需要检索时：uv sync --extra ml
+ml = [
+    "chromadb>=1.0",
+    "faiss-cpu>=1.8",
+    "sentence-transformers>=3.0",
+    "transformers>=4.44",
+    "torch>=2.5",
+]
+
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6.0",
+    "matplotlib>=3.9",
+]
+
+[tool.uv]
+# torch 装 CUDA 版（cu124）：本机 RTX 4060，默认 PyPI 上是 CPU-only
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu124" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lexguard"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "network: 需要真实 API key 或联网下载模型的测试（CI 里用 -m 'not network' 跳过）",
+]
+addopts = "-q"
