@@ -11,14 +11,14 @@ import time
 import pytest
 from pydantic import BaseModel, Field
 
-from lexguard.config import ToolSettings
-from lexguard.tools.errors import (
+from juris_agent.config import ToolSettings
+from juris_agent.tools.errors import (
     PermanentToolError,
     TransientToolError,
     classify_http_status,
 )
-from lexguard.tools.executor import ToolExecutor, ToolStatus
-from lexguard.tools.registry import ToolRegistry, ToolSpec
+from juris_agent.tools.executor import ToolExecutor, ToolStatus
+from juris_agent.tools.registry import ToolRegistry, ToolSpec
 
 
 class PingArgs(BaseModel):

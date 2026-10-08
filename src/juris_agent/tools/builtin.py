@@ -20,16 +20,16 @@ from typing import Any, Protocol
 
 from pydantic import BaseModel, Field
 
-from lexguard.tools.domain.compensation import (
+from juris_agent.tools.domain.compensation import (
     SeveranceResult,
     TerminationCause,
     compute_severance,
 )
-from lexguard.tools.domain.contract_review import ContractInput, Finding, review_contract
-from lexguard.tools.domain.limitation import LimitationResult, compute_limitation
-from lexguard.tools.domain.overtime import OvertimeKind, OvertimeResult, compute_overtime
-from lexguard.tools.domain.probation import ProbationCheck, check_probation
-from lexguard.tools.registry import ToolRegistry, ToolSpec
+from juris_agent.tools.domain.contract_review import ContractInput, Finding, review_contract
+from juris_agent.tools.domain.limitation import LimitationResult, compute_limitation
+from juris_agent.tools.domain.overtime import OvertimeKind, OvertimeResult, compute_overtime
+from juris_agent.tools.domain.probation import ProbationCheck, check_probation
+from juris_agent.tools.registry import ToolRegistry, ToolSpec
 
 
 # ============================================================================

@@ -1,4 +1,4 @@
-"""lexguard —— 可溯源劳动法咨询 Agent。
+"""juris_agent —— 可溯源劳动法咨询 Agent。
 
 ⚠️ 本模块顶部的副作用是**刻意设计**的，不是随手写的样板：
 
@@ -6,7 +6,7 @@
 就存在于 `os.environ` 中。一旦 huggingface_hub 先加载，它会把默认 endpoint 固化
 到模块级常量里，之后再改环境变量也不会生效——模型下载会去 huggingface.co 并超时。
 
-因为任何 `from lexguard.xxx import ...` 都会先执行本文件，把 env 引导放在这里，
+因为任何 `from juris_agent.xxx import ...` 都会先执行本文件，把 env 引导放在这里，
 就得到"无论谁先 import 什么都安全"的保证。这也是为什么这里不 import
 pydantic-settings（避免引导阶段引入重依赖）。
 """

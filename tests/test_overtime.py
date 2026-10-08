@@ -10,7 +10,7 @@ from decimal import Decimal
 
 import pytest
 
-from lexguard.tools.domain.overtime import OvertimeKind, compute_overtime
+from juris_agent.tools.domain.overtime import OvertimeKind, compute_overtime
 
 
 @pytest.fixture

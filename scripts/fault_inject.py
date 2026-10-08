@@ -40,11 +40,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from pydantic import BaseModel  # noqa: E402
 
-from lexguard.config import Settings, ToolSettings, ensure_dirs  # noqa: E402
-from lexguard.tools.builtin import build_registry  # noqa: E402
-from lexguard.tools.errors import PermanentToolError, TransientToolError  # noqa: E402
-from lexguard.tools.executor import ToolExecutor, ToolStatus  # noqa: E402
-from lexguard.tools.registry import ToolRegistry, ToolSpec  # noqa: E402
+from juris_agent.config import Settings, ToolSettings, ensure_dirs  # noqa: E402
+from juris_agent.tools.builtin import build_registry  # noqa: E402
+from juris_agent.tools.errors import PermanentToolError, TransientToolError  # noqa: E402
+from juris_agent.tools.executor import ToolExecutor, ToolStatus  # noqa: E402
+from juris_agent.tools.registry import ToolRegistry, ToolSpec  # noqa: E402
 
 ATTEMPT_COST_MS = 120.0
 """每次物理尝试的模拟耗时。检索类工具真实耗时几十到几百毫秒，取 120ms 贴近现实。"""

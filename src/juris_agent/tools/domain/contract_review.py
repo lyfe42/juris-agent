@@ -26,7 +26,7 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
-from lexguard.tools.domain.probation import check_probation
+from juris_agent.tools.domain.probation import check_probation
 
 
 class Severity(str, Enum):

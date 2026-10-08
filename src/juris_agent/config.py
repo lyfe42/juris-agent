@@ -1,7 +1,7 @@
 """集中配置。所有可调参数只有这一处来源。
 
 设计约束：
-1. import 本模块即保证 HF 镜像已生效（靠 `lexguard/__init__.py` 的引导）。
+1. import 本模块即保证 HF 镜像已生效（靠 `juris_agent/__init__.py` 的引导）。
 2. 单价、阈值这类会变的数字**不进代码**，放 configs/pricing.yaml 与 configs/*.yaml，
    这里只放"指向它们的路径"。硬编码单价是面试里的减分项。
 3. 所有默认值都是可覆盖的，`Settings()` 在测试里可以直接构造而不读 .env。
@@ -15,13 +15,13 @@ from pathlib import Path
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from lexguard import PROJECT_ROOT
+from juris_agent import PROJECT_ROOT
 
 
 class Paths(BaseSettings):
     """目录布局。集中在嵌套模型里，避免 Settings 被几十个路径字段淹没。"""
 
-    model_config = SettingsConfigDict(env_prefix="LEXGUARD_", extra="ignore")
+    model_config = SettingsConfigDict(env_prefix="JURIS_AGENT_", extra="ignore")
 
     root: Path = PROJECT_ROOT
     data: Path = PROJECT_ROOT / "data"
@@ -49,7 +49,7 @@ class Paths(BaseSettings):
 
 
 class RetrievalSettings(BaseSettings):
-    model_config = SettingsConfigDict(env_prefix="LEXGUARD_RETRIEVAL_", extra="ignore")
+    model_config = SettingsConfigDict(env_prefix="JURIS_AGENT_RETRIEVAL_", extra="ignore")
 
     embedding_model: str = "BAAI/bge-base-zh-v1.5"
     reranker_model: str = "BAAI/bge-reranker-base"
@@ -70,7 +70,7 @@ class RetrievalSettings(BaseSettings):
 class ToolSettings(BaseSettings):
     """工具执行层的全部旋钮。故障注入实验就是改这里的值重跑。"""
 
-    model_config = SettingsConfigDict(env_prefix="LEXGUARD_TOOL_", extra="ignore")
+    model_config = SettingsConfigDict(env_prefix="JURIS_AGENT_TOOL_", extra="ignore")
 
     max_retries: int = 3
     backoff_base_ms: int = 200
@@ -96,7 +96,7 @@ class ToolSettings(BaseSettings):
 class GuardSettings(BaseSettings):
     """四重防死循环。"""
 
-    model_config = SettingsConfigDict(env_prefix="LEXGUARD_GUARD_", extra="ignore")
+    model_config = SettingsConfigDict(env_prefix="JURIS_AGENT_GUARD_", extra="ignore")
 
     max_steps: int = 12
     # 连续重复调用同一个 (tool, args) 达到该次数即中止
@@ -108,7 +108,7 @@ class GuardSettings(BaseSettings):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_prefix="LEXGUARD_", env_file=".env", extra="ignore"
+        env_prefix="JURIS_AGENT_", env_file=".env", extra="ignore"
     )
 
     # --- LLM ---

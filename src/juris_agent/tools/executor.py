@@ -45,9 +45,9 @@ from typing import Any, Callable
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
-from lexguard.config import Settings, ToolSettings
-from lexguard.tools.breaker import CircuitBreaker
-from lexguard.tools.errors import (
+from juris_agent.config import Settings, ToolSettings
+from juris_agent.tools.breaker import CircuitBreaker
+from juris_agent.tools.errors import (
     CircuitOpenError,
     PermanentToolError,
     RetryPolicy,
@@ -56,13 +56,13 @@ from lexguard.tools.errors import (
     ToolValidationError,
     is_retryable,
 )
-from lexguard.tools.registry import ToolRegistry, ToolSpec
+from juris_agent.tools.registry import ToolRegistry, ToolSpec
 
 # 同步工具的超时靠线程池实现。被超时放弃的线程**无法强制中断**（Python 没有
 # 安全的线程终止），它会继续跑完——这是 Python 的固有限制，不是这里的 bug。
 # 对本项目的工具（纯计算 + 一次 HTTP 调用，都带自己的 httpx 超时）代价可接受。
 # 真需要硬超时要用子进程，成本远大于收益。
-_TIMEOUT_POOL = ThreadPoolExecutor(max_workers=8, thread_name_prefix="lexguard-tool")
+_TIMEOUT_POOL = ThreadPoolExecutor(max_workers=8, thread_name_prefix="juris-agent-tool")
 
 
 class ToolStatus(str, Enum):

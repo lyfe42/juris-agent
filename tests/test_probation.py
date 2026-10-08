@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import pytest
 
-from lexguard.tools.domain.probation import check_probation, max_probation_months
+from juris_agent.tools.domain.probation import check_probation, max_probation_months
 
 
 class TestTiers:

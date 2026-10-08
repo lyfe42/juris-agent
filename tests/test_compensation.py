@@ -14,7 +14,7 @@ from decimal import Decimal
 
 import pytest
 
-from lexguard.tools.domain.compensation import (
+from juris_agent.tools.domain.compensation import (
     TerminationCause,
     compute_severance,
     service_multiplier,

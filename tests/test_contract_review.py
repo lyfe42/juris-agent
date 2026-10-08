@@ -6,7 +6,7 @@
 
 from __future__ import annotations
 
-from lexguard.tools.domain.contract_review import (
+from juris_agent.tools.domain.contract_review import (
     ContractInput,
     Severity,
     review_contract,

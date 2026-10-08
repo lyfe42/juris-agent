@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from lexguard.tools.breaker import CircuitBreaker, CircuitState
+from juris_agent.tools.breaker import CircuitBreaker, CircuitState
 
 
 def make(clock, **kw) -> CircuitBreaker:

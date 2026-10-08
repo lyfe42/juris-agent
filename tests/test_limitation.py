@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from lexguard.tools.domain.limitation import compute_limitation
+from juris_agent.tools.domain.limitation import compute_limitation
 
 TODAY = date(2026, 10, 8)
 

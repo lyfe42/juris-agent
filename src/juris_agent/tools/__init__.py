@@ -12,9 +12,9 @@ builtin.py  实例化七个工具并组装成 ToolRegistry
 ```
 """
 
-from lexguard.tools.builtin import build_registry
-from lexguard.tools.executor import ToolExecutor, ToolOutcome, ToolStatus
-from lexguard.tools.registry import ToolRegistry, ToolSpec
+from juris_agent.tools.builtin import build_registry
+from juris_agent.tools.executor import ToolExecutor, ToolOutcome, ToolStatus
+from juris_agent.tools.registry import ToolRegistry, ToolSpec
 
 __all__ = [
     "ToolExecutor",

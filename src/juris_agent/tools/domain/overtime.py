@@ -25,7 +25,7 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
-from lexguard.tools.domain import money
+from juris_agent.tools.domain import money
 
 #: 月计薪天数，(365 − 104) / 12。注意它不随法定节假日数量变化。
 MONTHLY_PAY_DAYS = Decimal("21.75")

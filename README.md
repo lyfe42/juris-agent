@@ -1,4 +1,4 @@
-# lexguard
+# juris-agent
 
 **可溯源劳动法咨询 Agent —— 从 RAG 到 Agent 的可靠性工程与评测体系**
 
@@ -64,8 +64,8 @@ pytest                         # 全部通过
 uv sync --extra ml --extra dev # 本机 RTX 4060，走 cu124 源（见 pyproject.toml）
 ```
 
-> `HF_ENDPOINT` 必须在 `transformers` 首次 import **之前**生效。`src/lexguard/__init__.py`
-> 里的引导负责这件事——任何 `from lexguard.x import y` 都会先执行它。详见该文件 docstring。
+> `HF_ENDPOINT` 必须在 `transformers` 首次 import **之前**生效。`src/juris_agent/__init__.py`
+> 里的引导负责这件事——任何 `from juris_agent.x import y` 都会先执行它。详见该文件 docstring。
 
 复制 `.env.example` 为 `.env` 并填入 `DEEPSEEK_API_KEY`。`.env` 已在 `.gitignore` 中。
 
@@ -151,7 +151,7 @@ python scripts/fault_inject.py --error-rate 0.3 --calls 300
 ## 目录结构
 
 ```
-src/lexguard/
+src/juris_agent/
 ├── __init__.py          # HF_ENDPOINT 引导（必须先于 transformers）
 ├── config.py            # 配置单一来源；单价/阈值不硬编码，读 configs/*.yaml
 ├── tools/

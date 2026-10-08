@@ -14,7 +14,7 @@
 ```
 F7  RRF 融合
 需求     面试官问「为什么用 RRF 而不是加权求和」，我要有实测数字回答
-做什么   src/lexguard/retrieval/fusion.py 的 rrf_fuse()
+做什么   src/juris_agent/retrieval/fusion.py 的 rrf_fuse()
 验收     同一个 query 两次检索结果喂进去，输出排名的顺序可预测；
          tests/test_fusion.py 全绿
 依赖     F5, F6
@@ -142,7 +142,7 @@ F7  RRF 融合
 
 - [ ] **F11 重写 executor.py** ★★
   - 需求：面试官问「工具调用失败怎么办」——这是全项目追问最密集的一个文件
-  - 做什么：**关掉 `src/lexguard/tools/executor.py`，从零重写。** 流水线：幂等键 → 入参校验 → 熔断放行 → 指数退避重试 → 出参校验 → 降级
+  - 做什么：**关掉 `src/juris_agent/tools/executor.py`，从零重写。** 流水线：幂等键 → 入参校验 → 熔断放行 → 指数退避重试 → 出参校验 → 降级
   - 验收：`tests/test_executor.py` 全绿（测试可复用，会告诉你哪里不对）
   - 依赖：无
   - 预估：6-8h
@@ -150,7 +150,7 @@ F7  RRF 融合
 
 - [ ] **F12 重写 breaker.py** ★★
   - 需求：面试官问「你的熔断器怎么实现的」——这里有三个经典实现缺陷，踩过和没踩过差别很大
-  - 做什么：**关掉 `src/lexguard/tools/breaker.py`，从零重写。** 三态机 + `min_samples` + 半开探测额度 + 探测成功清窗口 + `trips`/`rejections` 计数器
+  - 做什么：**关掉 `src/juris_agent/tools/breaker.py`，从零重写。** 三态机 + `min_samples` + 半开探测额度 + 探测成功清窗口 + `trips`/`rejections` 计数器
   - 验收：`tests/test_breaker.py` 全绿
   - 依赖：无
   - 预估：3-4h

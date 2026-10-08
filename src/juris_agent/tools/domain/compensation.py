@@ -27,7 +27,7 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
-from lexguard.tools.domain import money
+from juris_agent.tools.domain import money
 
 
 class TerminationCause(str, Enum):
