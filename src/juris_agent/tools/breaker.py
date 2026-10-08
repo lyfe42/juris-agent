@@ -89,7 +89,7 @@ class CircuitBreaker:
 
         if self.state is CircuitState.HALF_OPEN:
             if self._probes_left <= 0:
-                # 探测额度用尽仍未判定成功（并发场景），继续拒绝
+                # 试探名额用尽仍未判定成功（并发场景），继续拒绝
                 self.rejections += 1
                 return False, self.open_seconds
             self._probes_left -= 1

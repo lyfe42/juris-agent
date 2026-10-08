@@ -90,7 +90,7 @@ class TestHalfOpen:
         clock.advance(31)
         assert b.allow()[0] is True
         assert b.allow()[0] is True
-        assert b.allow()[0] is False  # 探测额度用尽
+        assert b.allow()[0] is False  # 试探名额用尽
 
     def test_probe_success_closes_and_clears_window(self, clock) -> None:
         """错误实现 C：不清空窗口 → 下一个请求立刻又熔断，形成抖动循环。"""
