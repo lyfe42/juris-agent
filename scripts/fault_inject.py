@@ -261,7 +261,7 @@ class ArmResult:
             self.downstream_calls / self.logical_calls if self.logical_calls else 0.0
         )
 
-    def simulated_p95_ms(self) -> float:
+    def simulated_mean_latency_ms(self) -> float:
         return self.downstream_calls / max(self.logical_calls, 1) * ATTEMPT_COST_MS
 
     def to_dict(self) -> dict[str, Any]:
@@ -275,7 +275,7 @@ class ArmResult:
             "success_rate": round(self.success_rate, 4),
             "downstream_calls": self.downstream_calls,
             "calls_per_logical": round(self.calls_per_logical, 3),
-            "simulated_mean_latency_ms": round(self.simulated_p95_ms(), 1),
+            "simulated_mean_latency_ms": round(self.simulated_mean_latency_ms(), 1),
             "error_types": dict(sorted(self.error_types.items())),
             "breaker_trips": self.breaker_trips,
             "breaker_rejections": self.breaker_rejections,
@@ -347,7 +347,7 @@ def _table(results: list[ArmResult]) -> list[str]:
         lines.append(
             f"| {r.label} | {r.logical_calls} | {r.succeeded} | {r.failed} | "
             f"**{r.success_rate:.1%}** | {r.downstream_calls} | {r.calls_per_logical:.2f} | "
-            f"{r.simulated_p95_ms():.0f}ms | "
+            f"{r.simulated_mean_latency_ms():.0f}ms | "
             f"{r.breaker_trips} | {r.breaker_rejections} |"
         )
     return lines
@@ -453,8 +453,8 @@ def render(
     )
     L.append(
         f"- 对**用户**的意义同样关键：下游挂掉时，仅重试臂要等 "
-        f"{retry_b.simulated_p95_ms():.0f}ms 才拿到失败，全机制臂 "
-        f"{full_b.simulated_p95_ms():.0f}ms 就快速失败了。"
+        f"{retry_b.simulated_mean_latency_ms():.0f}ms 才拿到失败，全机制臂 "
+        f"{full_b.simulated_mean_latency_ms():.0f}ms 就快速失败了。"
         "**熔断把「慢失败」变成「快失败」**——下游已经坏了，让用户多等 3 次退避毫无价值，"
         "而这段时间正该用来走降级路径或直接把问题抛回给模型换策略。"
     )
