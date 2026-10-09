@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司违反劳动合同，工会能替我们说话吗？我要去申请劳动仲裁，工会会给我撑腰吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接询问工会在用人单位违法时以及劳动者申请仲裁时的作用，法条明确规定了工会的监督权和给予支持帮助的义务。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 402,
+  "completion_tokens": 565,
+  "total_tokens": 967,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 146,
+  "reasoning_tokens": 480
+ },
+ "latency_ms": 3286.3951999970595,
+ "from_cache": false
+}

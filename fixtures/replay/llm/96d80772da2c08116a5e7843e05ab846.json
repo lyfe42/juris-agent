@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\": \"json_object\", \"askable\": true, \"question\": \"我们交的社保钱都花到哪儿了，有没有人定期公开社保基金的收支情况？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应社保经办机构定期向社会公布参保情况和社保基金收入、支出、结余、收益情况的义务。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 374,
+  "completion_tokens": 419,
+  "total_tokens": 793,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 335
+ },
+ "latency_ms": 2499.88029999804,
+ "from_cache": false
+}

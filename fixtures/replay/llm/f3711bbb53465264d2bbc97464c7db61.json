@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"公益性岗位 无固定期限劳动合同 签订条件\", \"公益性岗位 解除终止 经济补偿 支付\", \"政府安置 公益性岗位 不适用 无固定期限劳动合同 经济补偿\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 253,
+  "completion_tokens": 922,
+  "total_tokens": 1175,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 874
+ },
+ "latency_ms": 4441.450400001486,
+ "from_cache": false
+}

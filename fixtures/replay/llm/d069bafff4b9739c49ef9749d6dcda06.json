@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"非全日制用工 劳动者 与一个以上用人单位 订立劳动合同 多重劳动关系\",\"非全日制用工 书面劳动合同 口头协议 合同订立形式 要求\",\"小时工 非全日制用工 多个用人单位 同时建立劳动关系 劳动合同签订\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 1086,
+  "total_tokens": 1335,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 1029
+ },
+ "latency_ms": 5334.189699999115,
+ "from_cache": false
+}

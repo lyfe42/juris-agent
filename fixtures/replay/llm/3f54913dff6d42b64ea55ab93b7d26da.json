@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"听说有人挪用社保基金，管社保的部门能查吗？他们能采取什么措施？查出来的结果会告诉大家吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问的是社保行政部门对社保基金收支、管理、投资运营的监督检查权限、处理措施及检查结果公开，直接对应本条内容。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 484,
+  "completion_tokens": 1348,
+  "total_tokens": 1832,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 228,
+  "reasoning_tokens": 1259
+ },
+ "latency_ms": 11072.670499997912,
+ "from_cache": false
+}

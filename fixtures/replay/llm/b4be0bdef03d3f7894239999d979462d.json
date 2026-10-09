@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"终局裁决 用人单位申请撤销 劳动者申请强制执行 中止执行 劳动争议调解仲裁法\",\"撤销仲裁裁决 执行程序 中止执行 恢复执行 终结执行 最高人民法院劳动争议解释\",\"中级人民法院 申请撤销终局裁决 强制执行 中止执行 劳动争议\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 262,
+  "completion_tokens": 1158,
+  "total_tokens": 1420,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 1096
+ },
+ "latency_ms": 6233.516000000236,
+ "from_cache": false
+}

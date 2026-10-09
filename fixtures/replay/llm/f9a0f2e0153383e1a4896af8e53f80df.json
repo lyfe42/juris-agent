@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在有职业病危害的岗位干活，离职时公司没安排离岗前职业健康检查，我还能要求回去继续上班吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该法条直接回答了用人单位未安排离岗前职业健康检查时，劳动者解除劳动合同后能否请求继续履行劳动合同的问题，并列出例外情形。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 460,
+  "completion_tokens": 597,
+  "total_tokens": 1057,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 204,
+  "reasoning_tokens": 504
+ },
+ "latency_ms": 3434.9519000024884,
+ "from_cache": false
+}

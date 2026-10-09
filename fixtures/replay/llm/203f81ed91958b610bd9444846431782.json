@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"事业组织 劳动者 劳动合同关系 适用 劳动法\",\"事业单位 与劳动者 建立劳动关系 订立劳动合同 依照 劳动合同法 执行\",\"事业单位 工作人员 劳动合同 法律适用 特别规定 未作规定 依照 劳动合同法\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 1144,
+  "total_tokens": 1395,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 1085
+ },
+ "latency_ms": 5636.982299998635,
+ "from_cache": false
+}

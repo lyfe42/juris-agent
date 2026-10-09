@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\":\"json_object\",\"askable\":true,\"question\":\"公司扣着我的身份证不还，还收了我入职押金，离职时又扣着档案不给，会怎么处理？\",\"qtype\":\"single_fact\",\"difficulty\":\"normal\",\"reason\":\"问题直接对应法条中扣押证件、以担保等名义收取财物、扣押档案等情形及劳动行政部门的处理措施。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 444,
+  "completion_tokens": 660,
+  "total_tokens": 1104,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 188,
+  "reasoning_tokens": 577
+ },
+ "latency_ms": 3982.445600006031,
+ "from_cache": false
+}

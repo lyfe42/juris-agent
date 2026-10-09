@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"最低工资标准一般是怎么定出来的？会考虑哪些方面？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该法条直接列出了确定和调整最低工资标准时综合参考的五项因素，可以自然转化为普通打工人对最低工资标准制定依据的提问。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 405,
+  "completion_tokens": 858,
+  "total_tokens": 1263,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 149,
+  "reasoning_tokens": 772
+ },
+ "latency_ms": 7972.107499997946,
+ "from_cache": false
+}

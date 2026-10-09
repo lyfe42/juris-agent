@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是国家发展职业培训的原则性职责宣示，未赋予劳动者具体可问的权利义务，无法形成自然且答案唯一的生活化问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 379,
+  "completion_tokens": 323,
+  "total_tokens": 702,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 379,
+  "reasoning_tokens": 260
+ },
+ "latency_ms": 2575.23239999864,
+ "from_cache": false
+}

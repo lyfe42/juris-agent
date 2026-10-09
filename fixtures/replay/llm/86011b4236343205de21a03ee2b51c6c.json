@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我在现在这家公司干了3年零4个月，现在公司要裁我，按规定我能拿到几个月的工资作为经济补偿？\",\n  \"qtype\": \"calculation\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该条直接规定了经济补偿按工作年限计算的标准（满一年一个月、六个月以上不满一年按一年、不满六个月按半个月），能精确回答这个口语化的补偿月数问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 458,
+  "completion_tokens": 387,
+  "total_tokens": 845,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 202,
+  "reasoning_tokens": 283
+ },
+ "latency_ms": 3070.9092000033706,
+ "from_cache": false
+}

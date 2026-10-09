@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动者 随时通知 解除劳动合同 法定情形 用人单位 过错\", \"即时解除 劳动合同 未及时足额支付劳动报酬 未依法缴纳社会保险费 未提供劳动保护 劳动条件\", \"无需提前通知 立即解除 强迫劳动 违章指挥 强令冒险作业 危及人身安全 人身自由\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 245,
+  "completion_tokens": 809,
+  "total_tokens": 1054,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 733
+ },
+ "latency_ms": 4485.951700000442,
+ "from_cache": false
+}

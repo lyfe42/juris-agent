@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司拖欠我工资，或者拖欠工伤医疗费、经济补偿、赔偿金，我可以向劳动局投诉吗？他们应当管吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应劳动者可向劳动行政部门投诉、劳动行政部门应依法处理的情形，答案就是这条法条。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 391,
+  "completion_tokens": 391,
+  "total_tokens": 782,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 305
+ },
+ "latency_ms": 2482.401300003403,
+ "from_cache": false
+}

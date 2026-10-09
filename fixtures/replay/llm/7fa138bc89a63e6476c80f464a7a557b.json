@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司违法把我辞退了，如果它已经赔了赔偿金，还需要再给我经济补偿吗？赔偿金的年限是从什么时候开始算的？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应违法解除时赔偿金与经济补偿的关系以及赔偿金年限起算点，法条内容可完整回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 388,
+  "completion_tokens": 369,
+  "total_tokens": 757,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 260,
+  "reasoning_tokens": 279
+ },
+ "latency_ms": 2148.5994000031496,
+ "from_cache": false
+}

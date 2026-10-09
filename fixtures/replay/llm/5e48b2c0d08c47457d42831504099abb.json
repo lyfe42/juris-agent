@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动合同法第四十六条 用人单位应当向劳动者支付经济补偿 情形\", \"劳动者单方解除劳动合同 未及时足额支付劳动报酬 未依法缴纳社会保险费 经济补偿\", \"劳动合同期满终止 经济性裁员 无过失性辞退 协商一致解除 经济补偿金 支付义务\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 242,
+  "completion_tokens": 263,
+  "total_tokens": 505,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 191
+ },
+ "latency_ms": 1658.7789000041084,
+ "from_cache": false
+}

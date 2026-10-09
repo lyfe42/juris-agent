@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"经济性裁员 生产经营发生严重困难 提前三十日 说明情况 听取工会或全体职工意见 裁减人员方案 报告劳动行政部门\",\"裁减人员二十人以上 或不足二十人占职工总数百分之十以上 提前三十日 向工会或全体职工说明 听取意见 向劳动行政部门报告\",\"劳动合同法第四十一条 经济性裁员 程序 提前通知 裁减人员方案 工会意见 劳动行政部门报告\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 255,
+  "completion_tokens": 328,
+  "total_tokens": 583,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 226
+ },
+ "latency_ms": 1891.3069999980507,
+ "from_cache": false
+}

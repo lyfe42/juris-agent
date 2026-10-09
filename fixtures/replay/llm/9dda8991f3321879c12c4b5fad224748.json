@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动合同 必备条款 用人单位名称 住所 劳动者姓名 身份证号 劳动合同期限 工作内容 工作地点\", \"劳动合同法第十七条 劳动报酬 社会保险 劳动保护 劳动条件 职业危害防护 休息休假 工作时间\", \"劳动合同 应当载明事项 试用期 劳动纪律 违反劳动合同的责任 约定条款 法定条款 书面形式\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 250,
+  "total_tokens": 494,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 165
+ },
+ "latency_ms": 1625.8528999969712,
+ "from_cache": false
+}

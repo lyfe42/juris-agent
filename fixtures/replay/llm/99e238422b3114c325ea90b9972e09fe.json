@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"试用期工资",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 239,
+  "completion_tokens": 512,
+  "total_tokens": 751,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 239,
+  "reasoning_tokens": 503
+ },
+ "latency_ms": 2586.0219999958645,
+ "from_cache": false
+}

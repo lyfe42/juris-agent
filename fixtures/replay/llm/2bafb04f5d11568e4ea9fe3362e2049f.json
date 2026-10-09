@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议仲裁委员会 受理仲裁申请之日起五日内 仲裁庭组成情况 书面通知当事人\",\"劳动仲裁 受理 五日内 仲裁庭组成人员 书面通知 当事人\",\"仲裁庭 组成 首席仲裁员 独任仲裁员 受理之日起五日 书面告知 当事人\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 252,
+  "completion_tokens": 455,
+  "total_tokens": 707,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 387
+ },
+ "latency_ms": 2535.361300004297,
+ "from_cache": false
+}

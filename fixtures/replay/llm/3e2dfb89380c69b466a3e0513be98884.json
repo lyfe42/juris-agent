@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位单方解除劳动合同 经济补偿 法定情形 劳动合同法第四十六条\",\"辞退员工 经济补偿金 支付条件 非过失性解除 经济性裁员\",\"过失性辞退 非过失性辞退 经济性裁员 经济补偿 适用情形\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 691,
+  "total_tokens": 934,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 626
+ },
+ "latency_ms": 3584.326999996847,
+ "from_cache": false
+}

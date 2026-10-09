@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议仲裁 举证责任 用人单位解除劳动合同 证明责任分配\", \"违法解除劳动合同 用人单位 举证责任倒置 解除合法性 证据\", \"劳动争议调解仲裁法 第六条 证据由用人单位掌握管理 提供责任 不利后果\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 264,
+  "completion_tokens": 236,
+  "total_tokens": 500,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 178
+ },
+ "latency_ms": 1985.3527000013855,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我劳动仲裁赢了，公司还是不给钱，我去法院申请强制执行，公司能拿出什么理由让法院不执行这个仲裁结果？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应本条关于人民法院裁定不予执行劳动争议仲裁裁决书、调解书的七种法定情形，法条即为答案依据。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 538,
+  "completion_tokens": 1856,
+  "total_tokens": 2394,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 282,
+  "reasoning_tokens": 1767
+ },
+ "latency_ms": 11738.72339999798,
+ "from_cache": false
+}

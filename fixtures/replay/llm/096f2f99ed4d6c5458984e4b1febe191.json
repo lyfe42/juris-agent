@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我没提前跟公司说就突然离职了，公司说因为我走了造成了损失，要我赔钱，这有法律依据吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应劳动者违法解除劳动合同给单位造成损失的赔偿责任，法条明确规定了该情形下的赔偿义务。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 379,
+  "completion_tokens": 780,
+  "total_tokens": 1159,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 697
+ },
+ "latency_ms": 4416.5772999986075,
+ "from_cache": false
+}

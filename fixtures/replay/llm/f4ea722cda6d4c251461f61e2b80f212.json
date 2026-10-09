@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司不履行集体合同，我们跟公司协商不成，能直接去法院告吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应法条中因履行集体合同发生争议的解决途径，答案明确为需先申请仲裁，不服仲裁裁决的可在十五日内起诉。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 413,
+  "completion_tokens": 1253,
+  "total_tokens": 1666,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 157,
+  "reasoning_tokens": 1167
+ },
+ "latency_ms": 6607.333100000687,
+ "from_cache": false
+}

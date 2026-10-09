@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位管理人员 违章指挥 强令冒险作业 劳动者拒绝 不视为违反劳动合同\",\"未提供安全生产条件 从业人员 拒绝违章指挥 强令冒险作业 拒绝作业权\",\"危害生命安全和身体健康 劳动条件 劳动者拒绝执行 批评检举控告\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 958,
+  "total_tokens": 1202,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 895
+ },
+ "latency_ms": 5058.782200001588,
+ "from_cache": false
+}

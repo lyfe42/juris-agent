@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动仲裁裁决书里，有些事项是'一裁终局'的，有些不是，我不服去法院起诉，法院会按哪种裁决来处理？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应同一仲裁裁决同时包含终局和非终局事项时，当事人不服起诉应按非终局裁决处理的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 395,
+  "completion_tokens": 628,
+  "total_tokens": 1023,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 139,
+  "reasoning_tokens": 534
+ },
+ "latency_ms": 3739.6981999991112,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 招聘 就业歧视 民族 宗教信仰 平等就业权\",\"劳动者 求职 录用 因民族 宗教信仰 拒绝录用 就业促进法\",\"招聘条件 民族 宗教信仰 差别对待 拒绝录用 法律责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 422,
+  "total_tokens": 668,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 367
+ },
+ "latency_ms": 2594.411300000502,
+ "from_cache": false
+}

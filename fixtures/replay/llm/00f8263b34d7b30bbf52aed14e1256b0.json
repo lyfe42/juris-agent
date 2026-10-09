@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"未订立书面劳动合同 二倍工资 起算时间 截止时间 用工之日起满一个月的次日 补订书面劳动合同的前一日\",\"用人单位自用工之日起超过一个月不满一年未与劳动者订立书面劳动合同 每月支付二倍工资 计算期间 入职三个多月\",\"未签订书面劳动合同 二倍工资差额 用工满一个月 满一年前一日 未补订书面劳动合同\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 265,
+  "completion_tokens": 1810,
+  "total_tokens": 2075,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 137,
+  "reasoning_tokens": 1720
+ },
+ "latency_ms": 8009.03840000683,
+ "from_cache": false
+}

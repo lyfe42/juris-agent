@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"连续工作满十年 劳动合同期满 无固定期限劳动合同 订立\",\"同一用人单位 连续工作满十年 续订 无固定期限劳动合同 劳动者提出\",\"劳动合同期满 续订 无固定期限合同 十年 用人单位义务\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 257,
+  "completion_tokens": 459,
+  "total_tokens": 716,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 257,
+  "reasoning_tokens": 402
+ },
+ "latency_ms": 2189.631499997631,
+ "from_cache": false
+}

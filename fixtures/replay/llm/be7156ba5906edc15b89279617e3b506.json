@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我跟公司就拖欠工资达成了调解协议，公司到期还是不给钱，我能拿着调解协议去法院申请支付令吗？法院必须发吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题对应法条中关于拖欠劳动报酬达成调解协议后用人单位不履行、劳动者可申请支付令且法院应当发出的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 402,
+  "completion_tokens": 481,
+  "total_tokens": 883,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 146,
+  "reasoning_tokens": 389
+ },
+ "latency_ms": 2867.9005000012694,
+ "from_cache": false
+}

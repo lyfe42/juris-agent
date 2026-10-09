@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"工资支付 法定货币 实物 有价证券 替代 货币支付\",\"用人单位 以公司产品 抵付工资 未及时足额支付劳动报酬\",\"工资支付周期 延期支付 克扣 无故拖欠 劳动报酬\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 527,
+  "total_tokens": 778,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 469
+ },
+ "latency_ms": 2865.068999999494,
+ "from_cache": false
+}

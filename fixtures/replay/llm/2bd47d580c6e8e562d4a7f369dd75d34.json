@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司一直不给我加班费，劳动局让它限期支付它还是拖着不给，那公司除了欠我的加班费之外，还要额外赔我多少？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题对应法条中“安排加班不支付加班费”且逾期不支付时按应付金额50%以上100%以下加付赔偿金的规定，可直接回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 470,
+  "completion_tokens": 848,
+  "total_tokens": 1318,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 214,
+  "reasoning_tokens": 746
+ },
+ "latency_ms": 5120.243400000618,
+ "from_cache": false
+}

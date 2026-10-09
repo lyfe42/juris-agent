@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 招用 尚未解除劳动合同 劳动者 造成损失 连带赔偿责任\", \"招用 未解除或者终止劳动合同 劳动者 原用人单位 损失 赔偿\", \"新用人单位 双重劳动关系 招用 未解除劳动合同 原用人单位损失 连带赔偿\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 258,
+  "completion_tokens": 308,
+  "total_tokens": 566,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 258,
+  "reasoning_tokens": 244
+ },
+ "latency_ms": 1916.683199997351,
+ "from_cache": false
+}

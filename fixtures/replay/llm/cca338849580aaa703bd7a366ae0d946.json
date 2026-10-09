@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动者一方十人以上 共同请求 拖欠劳动报酬 推举代表人 参加仲裁活动\", \"集体劳动争议 仲裁代表人 十人以上 共同请求 拖欠工资 申请",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 512,
+  "total_tokens": 761,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 467
+ },
+ "latency_ms": 3030.0233000016306,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司拖欠我工资，我还没离职，是不是随时都能去申请劳动仲裁？如果离职了，最晚多久内必须去申请？\", \"qtype\": \"temporal\", \"difficulty\": \"normal\", \"reason\": \"直接对应法条第四款关于拖欠劳动报酬争议在劳动关系存续期间不受一年时效限制、劳动关系终止后一年内提出的特殊规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 497,
+  "completion_tokens": 1238,
+  "total_tokens": 1735,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 241,
+  "reasoning_tokens": 1147
+ },
+ "latency_ms": 7401.826699999219,
+ "from_cache": false
+}

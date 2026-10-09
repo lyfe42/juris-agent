@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是立法目的和立法依据的宣示性条款，未规定任何具体权利义务，普通人不会就此提出可被本条回答的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 377,
+  "completion_tokens": 86,
+  "total_tokens": 463,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 24
+ },
+ "latency_ms": 792.6928000015323,
+ "from_cache": false
+}

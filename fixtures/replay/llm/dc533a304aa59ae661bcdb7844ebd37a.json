@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"劳务派遣公司把我派到别的公司上班，他们两家之间签的协议里得写明哪些事？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该问题直接对应劳务派遣协议应当约定派遣岗位、人员数量、派遣期限、劳动报酬、社保数额与支付方式以及违约责任的规定。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 432,
+  "completion_tokens": 1137,
+  "total_tokens": 1569,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 176,
+  "reasoning_tokens": 1045
+ },
+ "latency_ms": 6341.04859999934,
+ "from_cache": false
+}

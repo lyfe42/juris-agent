@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"定点医药机构 欺诈骗取 医疗保障基金 医疗保障基金使用监督管理条例 行政处罚 解除服务协议\",\"医疗机构 药品经营单位 骗取社会保险基金支出 责令退回 罚款 吊销执业资格\",\"医疗机构 定点零售药店 骗取医疗保障基金 刑事责任 诈骗罪 追缴 退赔\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 242,
+  "completion_tokens": 1182,
+  "total_tokens": 1424,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 1111
+ },
+ "latency_ms": 5752.2962000002735,
+ "from_cache": false
+}

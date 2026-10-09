@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"老板说这个月工资用公司产品顶，下个月再给钱，这合法吗？\",\"qtype\":\"single_fact\",\"difficulty\":\"easy\",\"reason\":\"该问题直接对应工资必须以货币形式按月支付给劳动者本人、不得克扣或无故拖欠的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 371,
+  "completion_tokens": 919,
+  "total_tokens": 1290,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 852
+ },
+ "latency_ms": 4318.335899995873,
+ "from_cache": false
+}

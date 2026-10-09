@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"未成年工 矿山井下 有毒有害 禁忌从事的劳动 劳动法 第64条\", \"年满十六周岁未满十八周岁 矿山井下作业 有毒有害作业 不得安排\", \"未成年工特殊保护 禁止安排 矿山井下 有毒有害 国家规定 禁忌劳动范围\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 254,
+  "completion_tokens": 789,
+  "total_tokens": 1043,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 719
+ },
+ "latency_ms": 3960.81889999914,
+ "from_cache": false
+}

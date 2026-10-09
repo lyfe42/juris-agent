@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 拖欠 劳动报酬 劳动争议仲裁 前置 人民法院 起诉\",\"未及时足额支付劳动报酬 劳动争议 先仲裁后诉讼 直接起诉 受理\",\"劳动报酬争议 仲裁程序 人民法院 提起诉讼 支付令 申请\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 917,
+  "total_tokens": 1160,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 858
+ },
+ "latency_ms": 4919.866700001876,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动者 举报 用人单位 违反劳动保障法律 行为 劳动保障行政部门 受理\", \"任何组织或者个人 举报 违反劳动合同法 行为 劳动行政部门 核实 处理 奖励\", \"投诉 用人单位 侵犯劳动保障合法权益 劳动保障监察 受理 查处\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 253,
+  "completion_tokens": 695,
+  "total_tokens": 948,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 628
+ },
+ "latency_ms": 3468.427399995562,
+ "from_cache": false
+}

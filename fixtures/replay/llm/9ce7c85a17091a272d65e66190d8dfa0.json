@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"员工在上班时受伤或者出事，哪些情况不能算工伤？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应社会保险法第三十七条关于不认定为工伤的四种情形，答案完整落在本条法条内。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 398,
+  "completion_tokens": 478,
+  "total_tokens": 876,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 142,
+  "reasoning_tokens": 407
+ },
+ "latency_ms": 3070.4002999991644,
+ "from_cache": false
+}

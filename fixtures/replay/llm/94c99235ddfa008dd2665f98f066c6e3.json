@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我之前在公司上班，失业保险交了六年多，现在被裁了，失业金最多能领多少个月？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"缴费满五年不足十年对应最长十八个月领取期限，正是该条明确规定的分档标准，属打工人关心的实际问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 442,
+  "completion_tokens": 457,
+  "total_tokens": 899,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 186,
+  "reasoning_tokens": 368
+ },
+ "latency_ms": 2989.0191000013147,
+ "from_cache": false
+}

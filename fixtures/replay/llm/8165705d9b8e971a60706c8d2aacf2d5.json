@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"社保局偷偷把我的社保缴费基数调高了，让我多交钱，这多交的钱能要回来吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"法条直接规定征收机构擅自更改缴费基数导致多收的，应退还多收费用，可回答个人多缴退费问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 405,
+  "completion_tokens": 686,
+  "total_tokens": 1091,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 277,
+  "reasoning_tokens": 599
+ },
+ "latency_ms": 4054.571400003624,
+ "from_cache": false
+}

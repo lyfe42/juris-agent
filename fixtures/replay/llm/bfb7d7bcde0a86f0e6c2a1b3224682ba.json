@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我跳槽去了别的城市上班，之前交的医保会不会白交了？能跟着我一起转过去吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"直接对应跨统筹地区就业时医保关系随人转移、缴费年限累计计算的规定，是换城市工作的人常问的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 371,
+  "completion_tokens": 163,
+  "total_tokens": 534,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 78
+ },
+ "latency_ms": 1285.8405000006314,
+ "from_cache": false
+}

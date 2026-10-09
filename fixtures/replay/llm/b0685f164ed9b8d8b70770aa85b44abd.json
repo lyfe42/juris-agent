@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是政府建立劳动关系三方协调机制的宏观制度性规定，不涉及劳动者个人具体权利义务，普通打工人不会就此提问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 375,
+  "completion_tokens": 457,
+  "total_tokens": 832,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 397
+ },
+ "latency_ms": 3044.9574000012944,
+ "from_cache": false
+}

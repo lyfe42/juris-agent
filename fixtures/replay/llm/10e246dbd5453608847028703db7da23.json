@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"法定节假日、婚假、丧假，或者我依法参加社会活动的时候，公司该不该照常给我发工资？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"直接对应法条中法定休假日、婚丧假及依法参加社会活动期间用人单位应依法支付工资的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 374,
+  "completion_tokens": 337,
+  "total_tokens": 711,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 253
+ },
+ "latency_ms": 2417.4315000054776,
+ "from_cache": false
+}

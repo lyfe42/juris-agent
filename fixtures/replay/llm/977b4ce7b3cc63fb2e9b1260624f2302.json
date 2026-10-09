@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动者 拒绝 用人单位管理人员 违章指挥 强令冒险作业 不视为违反劳动合同\", \"从业人员 拒绝 违章指挥 强令冒险作业 不得解除劳动合同 降低工资福利待遇\", \"劳动者 拒绝执行 危害生命安全和身体健康 劳动条件 违章指挥 强令冒险作业 劳动合同\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 253,
+  "completion_tokens": 654,
+  "total_tokens": 907,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 581
+ },
+ "latency_ms": 3261.7917000025045,
+ "from_cache": false
+}

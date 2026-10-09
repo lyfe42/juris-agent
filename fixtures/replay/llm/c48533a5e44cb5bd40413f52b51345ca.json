@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"老板威胁我不签就开除，我只好签了劳动合同，这合同有法律效力吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题对应法条中采取威胁手段订立的劳动合同无效、从订立时起没有法律约束力的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 420,
+  "completion_tokens": 1288,
+  "total_tokens": 1708,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 164,
+  "reasoning_tokens": 1212
+ },
+ "latency_ms": 7122.198500001105,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"社会保险基金 专款专用 禁止侵占 挪用 平衡政府预算\",\"社会保险基金 不得用于 兴建办公场所 支付人员经费 管理费用\",\"社会保险法 第六十九条 挪用社会保险基金 法律责任 追回 罚款\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 253,
+  "completion_tokens": 831,
+  "total_tokens": 1084,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 775
+ },
+ "latency_ms": 4210.158599998977,
+ "from_cache": false
+}

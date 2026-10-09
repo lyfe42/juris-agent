@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"什么情况下我跟公司的劳动合同会算自动结束？比如公司倒闭了、我到了退休领养老金的年纪、或者我自己出了意外，这些情况合同都会跟着结束吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条正是列举劳动合同终止的各类情形，问题用口语询问“合同自动结束”的触发条件，答案直接对应本条各项。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 431,
+  "completion_tokens": 438,
+  "total_tokens": 869,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 175,
+  "reasoning_tokens": 340
+ },
+ "latency_ms": 3002.3491000029026,
+ "from_cache": false
+}

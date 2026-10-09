@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\": \"json_object\", \"askable\": true, \"question\": \"我在一家事业单位上班，单位跟我签的是劳动合同，那我这种情况能不能按劳动法来算？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条正是规定劳动法适用范围，第二款明确了国家机关、事业组织、社会团体与建立劳动合同关系的劳动者依照本法执行，可直接回答这类'我受不受劳动法管'的疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 392,
+  "completion_tokens": 738,
+  "total_tokens": 1130,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 637
+ },
+ "latency_ms": 4481.488500001433,
+ "from_cache": false
+}

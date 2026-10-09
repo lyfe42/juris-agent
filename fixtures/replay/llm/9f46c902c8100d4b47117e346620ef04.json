@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动仲裁开庭的时候，我觉得笔录把我说的内容记漏了或者记错了，能要求他们改吗？要是他们不给改怎么办？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"直接对应当事人对庭审笔录记录遗漏或差错的补正申请权，以及不予补正时应记录该申请的义务。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 410,
+  "completion_tokens": 1002,
+  "total_tokens": 1412,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 154,
+  "reasoning_tokens": 913
+ },
+ "latency_ms": 5357.925600001181,
+ "from_cache": false
+}

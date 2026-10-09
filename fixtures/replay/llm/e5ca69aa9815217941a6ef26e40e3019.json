@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 未订立书面劳动合同 二倍工资 差额 劳动合同法第八十二条\", \"用工之日起 超过一个月不满一年 未签订书面劳动合同 双倍工资 支付责任\", \"自用工之日起满一年 未订立书面劳动合同 视为订立无固定期限劳动合同 法律责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 244,
+  "total_tokens": 487,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 177
+ },
+ "latency_ms": 1415.7577000005404,
+ "from_cache": false
+}

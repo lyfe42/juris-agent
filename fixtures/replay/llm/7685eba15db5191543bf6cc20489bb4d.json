@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我入职三个多月了，公司一直没跟我签书面劳动合同，这样是不是要给我双倍工资？双倍从哪一天开始算、算到什么时候？\", \"qtype\": \"calculation\", \"difficulty\": \"normal\", \"reason\": \"法条直接规定了用工超过一个月不满一年未签书面合同时应支付双倍工资，以及双倍工资的起算与截止时间，是打工人最常问的切身问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 448,
+  "completion_tokens": 405,
+  "total_tokens": 853,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 192,
+  "reasoning_tokens": 299
+ },
+ "latency_ms": 2381.7312000028323,
+ "from_cache": false
+}

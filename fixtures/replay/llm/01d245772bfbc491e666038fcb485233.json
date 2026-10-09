@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动仲裁还没结束，劳动者要是去世了，或者人不清醒、没法自己处理事情了，谁能替他继续参加？要是没人能代理，仲裁委会管吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应劳动者丧失或部分丧失民事行为能力时由法定代理人或仲裁委指定代理人参加，以及劳动者死亡时由近亲属或代理人参加仲裁活动的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 395,
+  "completion_tokens": 969,
+  "total_tokens": 1364,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 139,
+  "reasoning_tokens": 864
+ },
+ "latency_ms": 5623.042200000782,
+ "from_cache": false
+}

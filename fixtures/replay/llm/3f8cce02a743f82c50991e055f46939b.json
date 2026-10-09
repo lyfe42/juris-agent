@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"特种作业人员 电工 焊接与热切割作业 安全技术培训 考核合格 特种作业操作证 持证上岗\",\"电工 焊工 特种作业操作证 培训 考核 上岗作业 法定条件\",\"从事电工 焊接作业 专门安全技术培训 取得相应资格 方可上岗 操作证\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 250,
+  "completion_tokens": 446,
+  "total_tokens": 696,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 250,
+  "reasoning_tokens": 370
+ },
+ "latency_ms": 2897.4788000050467,
+ "from_cache": false
+}

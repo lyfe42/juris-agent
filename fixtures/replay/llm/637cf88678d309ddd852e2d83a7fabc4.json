@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司不按规定给我们建员工名册，劳动局会怎么处理？会罚多少钱？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应用人单位违反职工名册规定的行政责任，答案就是本条规定的责令限期改正和逾期罚款。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 388,
+  "completion_tokens": 594,
+  "total_tokens": 982,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 260,
+  "reasoning_tokens": 517
+ },
+ "latency_ms": 3335.0967000005767,
+ "from_cache": false
+}

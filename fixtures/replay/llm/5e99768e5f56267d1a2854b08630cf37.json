@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议调解协议 约定期限 不履行 申请仲裁\", \"劳动争议调解仲裁法 第十五条 调解协议 不履行 仲裁\", \"用人单位 未按调解协议履行 给付义务 劳动争议仲裁\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 254,
+  "completion_tokens": 429,
+  "total_tokens": 683,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 376
+ },
+ "latency_ms": 2741.510699997889,
+ "from_cache": false
+}

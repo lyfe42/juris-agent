@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"农村人上的那个养老保险，钱都从哪儿来？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题问的是新型农村社会养老保险的资金来源，正对应法条中个人缴费、集体补助和政府补贴相结合的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 374,
+  "completion_tokens": 435,
+  "total_tokens": 809,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 365
+ },
+ "latency_ms": 2729.7794000041904,
+ "from_cache": false
+}

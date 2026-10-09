@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"找工作时，公司在我入职前必须主动告诉我哪些情况？他们能不能随便问我很多个人情况？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应录用阶段用人单位的如实告知义务和劳动者的如实说明义务，答案正是本条内容。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 402,
+  "completion_tokens": 650,
+  "total_tokens": 1052,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 146,
+  "reasoning_tokens": 574
+ },
+ "latency_ms": 4257.018199998129,
+ "from_cache": false
+}

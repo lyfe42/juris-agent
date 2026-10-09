@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 单方解除劳动合同 事先 将理由 通知工会\",\"单方解除 劳动合同 通知工会 程序 法定要求\",\"劳动合同法 第四十三条 解除 理由 工会 事先通知\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 393,
+  "total_tokens": 639,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 342
+ },
+ "latency_ms": 2569.3679000032716,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"扣押居民身份证 入职押金 收取财物 离职扣押档案 用人单位 法律责任 行政处罚 责令限期退还 赔偿\",\"招用劳动者 不得扣押居民身份证和其他证件 不得以担保或其他名义向劳动者收取财物 解除终止劳动合同 扣押劳动者档案 罚款 赔偿责任\",\"劳动行政部门 责令限期退还 居民身份证 押金 劳动者档案 五百元以上二千元以下 罚款 劳动争议仲裁 赔偿损失\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 257,
+  "completion_tokens": 968,
+  "total_tokens": 1225,
+  "prompt_cache_hit_tokens": 123,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 871
+ },
+ "latency_ms": 5507.228999995277,
+ "from_cache": false
+}

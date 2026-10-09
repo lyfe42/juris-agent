@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"基本养老金 正常调整机制 职工平均工资增长 物价上涨\",\"退休人员 基本养老保险待遇 调整 提高 条件\",\"基本养老保险待遇 调整机制 适时提高 社会保险法\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 392,
+  "total_tokens": 636,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 344
+ },
+ "latency_ms": 2255.0311000013608,
+ "from_cache": false
+}

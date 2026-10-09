@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"违法解除劳动合同 赔偿金 计算",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 242,
+  "completion_tokens": 512,
+  "total_tokens": 754,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 498
+ },
+ "latency_ms": 2622.6653999983682,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动合同履行地 用人单位注册地 不一致 最低工资标准 劳动保护 适用依据\", \"异地用工 实际工作地 注册地 最低工资 劳动条件 职业危害防护 标准适用\", \"劳动争议 劳动合同履行地 用人单位注册地 最低工资标准 劳动保护 法律适用\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 256,
+  "completion_tokens": 479,
+  "total_tokens": 735,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 407
+ },
+ "latency_ms": 2826.994900002319,
+ "from_cache": false
+}

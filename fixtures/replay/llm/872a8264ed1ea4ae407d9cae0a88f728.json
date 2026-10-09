@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是规范法院如何处理用人单位不服未载明类型仲裁裁决起诉的程序性条款，不涉及劳动者实体权利义务，普通打工人不会自然提出此类问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 481,
+  "completion_tokens": 1466,
+  "total_tokens": 1947,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 225,
+  "reasoning_tokens": 1400
+ },
+ "latency_ms": 11843.800199996622,
+ "from_cache": false
+}

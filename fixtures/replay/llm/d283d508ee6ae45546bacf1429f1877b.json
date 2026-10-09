@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 未按规定申报 应缴纳社会保险费数额 社会保险经办机构 暂按 上月缴费数额 110% 确定\",\"缴费单位 不申报 社会保险费 应缴数额 征收机构 经营状况 职工人数 核定\",\"社会保险法 第六十二条 未申报 社会保险费数额 补办申报 结算 核定标准\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 252,
+  "completion_tokens": 692,
+  "total_tokens": 944,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 611
+ },
+ "latency_ms": 3444.4619999994757,
+ "from_cache": false
+}

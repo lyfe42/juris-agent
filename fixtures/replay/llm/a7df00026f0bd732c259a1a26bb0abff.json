@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳务派遣 被派遣劳动者 用工单位 造成损害 劳务派遣单位 连带赔偿责任\",\"用工单位 劳务派遣单位 违反法定义务 被派遣劳动者 损害 连带责任\",\"劳务派遣 损害赔偿 劳动争议 被派遣劳动者 用工单位 劳务派遣单位 共同赔偿责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 522,
+  "total_tokens": 773,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 453
+ },
+ "latency_ms": 2943.997100002889,
+ "from_cache": false
+}

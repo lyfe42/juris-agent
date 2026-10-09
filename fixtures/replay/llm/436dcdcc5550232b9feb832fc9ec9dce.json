@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动者 享受 社会保险待遇 法定情形 条件\", \"参保人员 社会保险待遇 给付 养老保险 医疗保险 工伤保险 失业保险 生育保险\", \"用人单位 依法缴纳社会保险费 劳动者 社会保险待遇 资格 待遇项目\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 241,
+  "completion_tokens": 297,
+  "total_tokens": 538,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 241,
+  "reasoning_tokens": 240
+ },
+ "latency_ms": 1911.755599998287,
+ "from_cache": false
+}

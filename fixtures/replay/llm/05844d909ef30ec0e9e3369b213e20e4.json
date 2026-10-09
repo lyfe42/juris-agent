@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 劳动者 订立书面劳动合同 法定义务\", \"建立劳动关系 用工之日起一个月内 签订劳动合同 规定\", \"劳动合同 书面形式 法定要求 未订立 法律后果\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 242,
+  "completion_tokens": 341,
+  "total_tokens": 583,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 293
+ },
+ "latency_ms": 1835.114400004386,
+ "from_cache": false
+}

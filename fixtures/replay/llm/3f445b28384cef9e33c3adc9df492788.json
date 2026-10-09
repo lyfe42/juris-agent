@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我们县里的建筑工人，能不能让工会代表我们跟企业老板签一份覆盖整个行业的集体合同？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"法条直接规定了在县级以下区域内，建筑业等行业可以由工会与企业方面代表订立行业性集体合同，正好回答该问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 381,
+  "completion_tokens": 1132,
+  "total_tokens": 1513,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 1050
+ },
+ "latency_ms": 6607.709399999294,
+ "from_cache": false
+}

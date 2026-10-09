@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条只是指引性规则，说明对残疾人、少数民族人员、退役军人的就业如有特别规定则从其规定，本身没有具体权利义务内容，普通人不会就此提出自然问题，硬造会引入其他法条。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 374,
+  "completion_tokens": 474,
+  "total_tokens": 848,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 396
+ },
+ "latency_ms": 3270.769000002474,
+ "from_cache": false
+}

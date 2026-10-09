@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在单位受了工伤，现在合同到期公司不续签了，除了经济补偿，我还能不能再拿到一次性工伤医疗补助金和伤残就业补助金？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应工伤职工劳动合同依法终止时，用人单位除经济补偿外还应支付一次性工伤医疗补助金和伤残就业补助金的情形。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 392,
+  "completion_tokens": 974,
+  "total_tokens": 1366,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 878
+ },
+ "latency_ms": 5617.126099998131,
+ "from_cache": false
+}

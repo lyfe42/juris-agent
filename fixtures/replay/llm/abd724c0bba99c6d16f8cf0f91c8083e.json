@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"这条是政府发展职业培训的职责和倡导性规定，不涉及普通劳动者的具体权利义务，难以造出自然且答案唯一的打工人问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 380,
+  "completion_tokens": 224,
+  "total_tokens": 604,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 380,
+  "reasoning_tokens": 161
+ },
+ "latency_ms": 1942.849600003683,
+ "from_cache": false
+}

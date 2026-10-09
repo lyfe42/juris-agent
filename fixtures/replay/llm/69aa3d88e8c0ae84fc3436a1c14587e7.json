@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同 生效 法律约束力 用人单位 劳动者 履行 约定 义务\",\"劳动合同 全面履行 当事人 按照约定 履行 各自义务\",\"依法订立 劳动合同 双方 应当 履行 合同条款 约束力\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 247,
+  "completion_tokens": 324,
+  "total_tokens": 571,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 267
+ },
+ "latency_ms": 2243.4395999953267,
+ "from_cache": false
+}

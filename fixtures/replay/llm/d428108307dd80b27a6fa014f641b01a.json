@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司一直不跟我签劳动合同，这种事是哪个政府部门负责监督管理的？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题问的是劳动合同制度实施的监管部门，直接对应本条关于县级以上地方劳动行政部门负责本行政区域内监督管理的职责规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 400,
+  "completion_tokens": 1357,
+  "total_tokens": 1757,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 144,
+  "reasoning_tokens": 1284
+ },
+ "latency_ms": 8057.117500000459,
+ "from_cache": false
+}

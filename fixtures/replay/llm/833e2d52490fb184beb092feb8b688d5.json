@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是立法目的宣示性条款，不包含任何具体权利义务或可操作规则，无法生成打工人可问且答案唯一的实际问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 370,
+  "completion_tokens": 75,
+  "total_tokens": 445,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 12
+ },
+ "latency_ms": 1186.4404000007198,
+ "from_cache": false
+}

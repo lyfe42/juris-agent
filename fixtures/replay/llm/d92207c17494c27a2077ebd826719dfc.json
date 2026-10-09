@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司裁员的时候，哪些员工是不能被裁掉的？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该问题直接对应法条中列出的用人单位不得依据经济性裁员等规定解除劳动合同的六类情形。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 478,
+  "completion_tokens": 1374,
+  "total_tokens": 1852,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 222,
+  "reasoning_tokens": 1299
+ },
+ "latency_ms": 7229.127200000221,
+ "from_cache": false
+}

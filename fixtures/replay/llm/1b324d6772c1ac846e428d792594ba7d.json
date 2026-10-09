@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"经济补偿 本单位工作年限 每满一年支付一个月工资 六个月以上不满一年按一年 不满六个月半个月工资\",\"解除劳动合同 经济补偿金 计算标准 工作年限 月平均工资\",\"经济性裁员 经济补偿 工作年限 3年4个月 折算 月工资\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 258,
+  "completion_tokens": 1161,
+  "total_tokens": 1419,
+  "prompt_cache_hit_tokens": 124,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 1091
+ },
+ "latency_ms": 5242.9166000001715,
+ "from_cache": false
+}

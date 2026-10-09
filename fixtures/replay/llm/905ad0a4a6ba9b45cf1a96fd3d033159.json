@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"标准工时制 每日工作时间 不超过八小时 平均每周工作时间 不超过四十四小时\",\"劳动者 正常工作时间 每日上限 每周平均上限 劳动法第三十六条\",\"工时制度 日工作时间 周工作时间 法定最长 八小时 四十四小时 每周四十小时\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 247,
+  "completion_tokens": 761,
+  "total_tokens": 1008,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 694
+ },
+ "latency_ms": 4264.113500001258,
+ "from_cache": false
+}

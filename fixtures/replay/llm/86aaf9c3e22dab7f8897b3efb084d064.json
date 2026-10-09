@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"同一仲裁裁决 终局裁决事项 非终局裁决事项 当事人不服 向人民法院提起诉讼 按照非终局裁决处理\", \"劳动争议仲裁裁决 一裁终局 非终局裁决 混合事项 不服起诉 法院处理规则\", \"劳动争议调解仲裁法 第47条 第48条 第50条 劳动争议司法解释一 第20条 终局裁决 非终局裁决 起诉 受理\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 264,
+  "completion_tokens": 1141,
+  "total_tokens": 1405,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 1042
+ },
+ "latency_ms": 5325.53629999893,
+ "from_cache": false
+}

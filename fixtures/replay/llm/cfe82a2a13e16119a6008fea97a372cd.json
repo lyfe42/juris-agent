@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"解除劳动合同 经济补偿协议 显失公平 可撤销 撤销权\", \"离职补偿协议 效力 经济补偿法定标准 显失公平 劳动争议 仲裁\", \"劳动争议 和解协议 撤销 仲裁前置 人民法院 起诉\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 258,
+  "completion_tokens": 1033,
+  "total_tokens": 1291,
+  "prompt_cache_hit_tokens": 124,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 974
+ },
+ "latency_ms": 5604.739800000971,
+ "from_cache": false
+}

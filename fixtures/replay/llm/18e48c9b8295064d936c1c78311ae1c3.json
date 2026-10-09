@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议仲裁裁决 部分事项不服 向人民法院起诉 未起诉部分 法律效力\",\"劳动争议 仲裁裁决 部分起诉 其余部分 生效 发生法律效力\",\"劳动争议调解仲裁法 第五十条 仲裁裁决 部分不服 起诉 未起诉事项 效力\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 257,
+  "completion_tokens": 759,
+  "total_tokens": 1016,
+  "prompt_cache_hit_tokens": 123,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 695
+ },
+ "latency_ms": 3978.813800000353,
+ "from_cache": false
+}

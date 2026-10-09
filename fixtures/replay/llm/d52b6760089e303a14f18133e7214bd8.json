@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\": \"json_object\",\"askable\": true,\"question\": \"公司跟我签劳动合同，合同上必须写清楚哪些内容？\",\"qtype\": \"single_fact\",\"difficulty\": \"easy\",\"reason\": \"该问题直接对应劳动合同应当书面订立并具备法定必备条款的规定，普通人会自然这样问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 425,
+  "completion_tokens": 361,
+  "total_tokens": 786,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 169,
+  "reasoning_tokens": 292
+ },
+ "latency_ms": 2459.248799998022,
+ "from_cache": false
+}

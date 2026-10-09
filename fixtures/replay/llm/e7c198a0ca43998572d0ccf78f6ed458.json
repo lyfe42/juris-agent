@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我入职的时候要签劳动合同，一份正规的合同里必须写清楚哪些内容？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条正面列举了劳动合同的九项必备条款，正好回答打工人关于合同必须写明哪些内容的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 475,
+  "completion_tokens": 292,
+  "total_tokens": 767,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 219,
+  "reasoning_tokens": 217
+ },
+ "latency_ms": 2583.580200000142,
+ "from_cache": false
+}

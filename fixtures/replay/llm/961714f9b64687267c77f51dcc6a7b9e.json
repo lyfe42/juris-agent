@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳务派遣协议 应当约定 派遣岗位 人员数量 派遣期限 劳动报酬 社会保险费 数额 支付方式 违反协议责任\", \"劳务派遣单位 用工单位 签订 劳务派遣协议 必备条款 劳动报酬 社保费 支付方式 违约责任\", \"劳务派遣协议 法定载明事项 派遣岗位 派遣期限 劳动报酬和社会保险费 数额 支付方式 违反协议责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 253,
+  "completion_tokens": 707,
+  "total_tokens": 960,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 611
+ },
+ "latency_ms": 3526.3725999975577,
+ "from_cache": false
+}

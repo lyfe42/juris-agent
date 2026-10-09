@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"跟公司打劳动仲裁，我提的主张是不是都得我自己找证据？要是关键证据在公司手里，公司就是不交出来，会怎么样？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接询问劳动争议中当事人举证责任以及用人单位掌握证据却不提供时的后果，可由该条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 388,
+  "completion_tokens": 540,
+  "total_tokens": 928,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 260,
+  "reasoning_tokens": 456
+ },
+ "latency_ms": 2789.293199995882,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在一家没有营业执照的公司上班，干了活拿不到钱，能找老板个人要工资和补偿吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条正好回答不具备合法经营资格的用人单位中，劳动者已付出劳动时，由单位或出资人支付劳动报酬、经济补偿、赔偿金并承担损害赔偿责任。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 401,
+  "completion_tokens": 508,
+  "total_tokens": 909,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 145,
+  "reasoning_tokens": 416
+ },
+ "latency_ms": 3261.3970000020345,
+ "from_cache": false
+}

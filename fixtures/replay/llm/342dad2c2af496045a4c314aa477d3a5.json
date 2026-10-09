@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司要辞退我，工会能出面管吗？我去申请仲裁或者到法院告公司，工会能帮我吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条正好规定工会对用人单位解除劳动合同有权提意见、要求重新处理，并在劳动者仲裁或诉讼时给予支持帮助，能直接回答这个生活化问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 394,
+  "completion_tokens": 699,
+  "total_tokens": 1093,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 138,
+  "reasoning_tokens": 605
+ },
+ "latency_ms": 4328.384200001892,
+ "from_cache": false
+}

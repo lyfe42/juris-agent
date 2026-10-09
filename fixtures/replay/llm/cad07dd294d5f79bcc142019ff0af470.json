@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"社会保险行政部门 社会保险基金 收支 管理 投资运营 监督检查 职权\", \"隐匿 转移 侵占 挪用 社会保险基金 监督检查 措施 查阅 记录 复制 封存 询问 责令改正\", \"社会保险基金 检查结果 定期 向社会公布\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 258,
+  "completion_tokens": 1671,
+  "total_tokens": 1929,
+  "prompt_cache_hit_tokens": 124,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 1605
+ },
+ "latency_ms": 8275.50920000067,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我和公司发生劳动纠纷了，都可以通过哪些办法解决？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应法条中劳动争议当事人可协商、调解、仲裁、诉讼的解决途径，生活化且不涉及其他法条概念。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 379,
+  "completion_tokens": 398,
+  "total_tokens": 777,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 321
+ },
+ "latency_ms": 2947.3641000004136,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司能不能在劳动合同里自己加一些法律没规定的合同终止条件？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条明确禁止用人单位与劳动者约定法定终止情形之外的其他劳动合同终止条件，可以直接回答这个日常疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 373,
+  "completion_tokens": 327,
+  "total_tokens": 700,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 256
+ },
+ "latency_ms": 2243.015200001537,
+ "from_cache": false
+}

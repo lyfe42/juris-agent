@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"延长工作时间 不受第四十一条限制 自然灾害 事故 威胁劳动者生命健康 财产安全 紧急处理\", \"生产设备故障 影响生产 公众利益 必须及时抢修 延长工作时间 时长上限\", \"劳动法第四十二条 特殊情形 加班时长上限 每日三小时 每月三十六小时 排除适用\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 258,
+  "completion_tokens": 651,
+  "total_tokens": 909,
+  "prompt_cache_hit_tokens": 124,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 576
+ },
+ "latency_ms": 3378.3662999994704,
+ "from_cache": false
+}

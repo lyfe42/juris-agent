@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"社会保险经办机构 按时足额支付 社会保险待遇 养老金 失业保险金\",\"基本养老保险待遇 失业保险金 发放 拖欠 少发 未足额支付\",\"社会保险经办机构 未履行法定职责 未按时足额支付社会保险待遇 责令改正 赔偿\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 1397,
+  "total_tokens": 1646,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 1332
+ },
+ "latency_ms": 6842.626800003927,
+ "from_cache": false
+}

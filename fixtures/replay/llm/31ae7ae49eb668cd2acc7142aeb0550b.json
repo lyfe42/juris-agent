@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动者 单方解除劳动合同 提前三十日 书面形式通知用人单位\", \"辞职 通知期 试用期 提前三日 解除劳动合同\", \"劳动合同法第三十七条 预告期 通知期限 解除 劳动关系\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 241,
+  "completion_tokens": 186,
+  "total_tokens": 427,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 241,
+  "reasoning_tokens": 132
+ },
+ "latency_ms": 1352.1445999940624,
+ "from_cache": false
+}

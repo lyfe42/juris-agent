@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动者 法定权利 法定义务 劳动法\", \"职工 劳动权益 应当履行义务 劳动合同法\", \"劳动者 享有权利 承担义务 社会保险法\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 420,
+  "total_tokens": 664,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 376
+ },
+ "latency_ms": 2595.0089000034495,
+ "from_cache": false
+}

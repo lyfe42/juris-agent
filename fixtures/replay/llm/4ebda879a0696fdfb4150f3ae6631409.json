@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议 仲裁 举证责任 分配 谁主张谁举证 用人单位掌握管理证据 提供义务 不利后果\",\"劳动仲裁 用人单位掌握管理 与争议事项有关证据 拒不提供 证明妨碍 不利推定\",\"劳动争议调解仲裁法 第六条 第三十九条 劳动者无法提供 仲裁庭要求用人单位限期提供 逾期不提供 不利后果\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 260,
+  "completion_tokens": 778,
+  "total_tokens": 1038,
+  "prompt_cache_hit_tokens": 126,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 696
+ },
+ "latency_ms": 3888.4590000016033,
+ "from_cache": false
+}

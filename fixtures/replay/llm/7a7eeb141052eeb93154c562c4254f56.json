@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"工会 监督 用人单位 履行劳动合同 违反劳动法律 侵犯劳动者权益 提出意见 要求改正\",\"劳动者 申请劳动争议仲裁 工会 依法支持 帮助 参与劳动争议处理\",\"工会 代表职工 与用人单位交涉 劳动争议调解仲裁 维护职工合法权益\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 255,
+  "completion_tokens": 1254,
+  "total_tokens": 1509,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 1190
+ },
+ "latency_ms": 6740.9436000016285,
+ "from_cache": false
+}

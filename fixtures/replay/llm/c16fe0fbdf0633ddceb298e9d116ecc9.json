@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 创造条件 改善集体福利 提高 劳动者 福利待遇\", \"工资 之外 职工福利 用人单位 法定义务 劳动法\", \"法定福利 集体福利 福利待遇 用人单位 强制性规定\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 245,
+  "completion_tokens": 1480,
+  "total_tokens": 1725,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 1426
+ },
+ "latency_ms": 8564.90009999834,
+ "from_cache": false
+}

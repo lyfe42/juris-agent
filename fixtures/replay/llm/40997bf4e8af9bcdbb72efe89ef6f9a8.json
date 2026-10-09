@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"未及时足额支付劳动报酬 未依法为劳动者缴纳社会保险费 劳动者解除劳动合同\", \"用人单位未支付劳动报酬 未缴纳社会保险费 劳动者单方解除劳动合同 法定情形\", \"劳动合同法第三十八条 未足额支付工资 未缴社会保险 解除劳动合同\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 846,
+  "total_tokens": 1095,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 779
+ },
+ "latency_ms": 4106.729999999516,
+ "from_cache": false
+}

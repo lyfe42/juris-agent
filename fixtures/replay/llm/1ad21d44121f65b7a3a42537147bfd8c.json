@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动关系建立 用工之日 未订立书面劳动合同 用人单位 劳动者\", \"事实劳动关系 自用工之日起 起算 未签订劳动合同 入职第一天\", \"书面劳动合同 用工之日起一个月内 劳动关系存续 用工事实 未签合同\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 252,
+  "completion_tokens": 497,
+  "total_tokens": 749,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 437
+ },
+ "latency_ms": 2570.2799999999115,
+ "from_cache": false
+}

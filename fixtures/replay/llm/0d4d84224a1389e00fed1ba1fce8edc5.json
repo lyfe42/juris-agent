@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"外国人 无国籍人 中国境内用人单位 确认劳动关系 就业许可 就业证件 司法解释\",\"外国人在中国就业 工作许可 外国人就业证 劳动争议 确认劳动关系 仲裁前置 诉讼\",\"未依法取得就业证件 外国人 用人单位 确认劳动关系 人民法院 不予支持 主体资格\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 248,
+  "completion_tokens": 1056,
+  "total_tokens": 1304,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 248,
+  "reasoning_tokens": 985
+ },
+ "latency_ms": 6221.9320999938645,
+ "from_cache": false
+}

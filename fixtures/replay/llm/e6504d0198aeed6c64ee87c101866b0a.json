@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"工伤保险基金 支付 范围 工伤医疗费用 康复费用 住院伙食补助费 统筹地区以外就医交通食宿费 辅助器具安装配置费\", \"工伤职工 工伤保险待遇 项目 生活护理费 一次性伤残补助金 伤残津贴 劳动能力鉴定费 基金支付\", \"因工死亡 工伤保险基金 支付 丧葬补助金 供养亲属抚恤金 一次性工亡补助金 停工留薪期\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 268,
+  "total_tokens": 512,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 166
+ },
+ "latency_ms": 1568.3477000056882,
+ "from_cache": false
+}

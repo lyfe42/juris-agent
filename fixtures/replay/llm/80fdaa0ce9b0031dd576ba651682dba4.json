@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"竞业限制 期限 最长 二年 不得超过\", \"劳动合同解除或终止后 竞业限制 期限 上限 法定期间\", \"负有保密义务的劳动者 竞业限制协议 履行期限 超过二年 效力\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 240,
+  "completion_tokens": 233,
+  "total_tokens": 473,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 240,
+  "reasoning_tokens": 176
+ },
+ "latency_ms": 1293.7632000030135,
+ "from_cache": false
+}

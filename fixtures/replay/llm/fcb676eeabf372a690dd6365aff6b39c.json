@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"新成立的公司，最晚要在多少天内去社保局办社保登记？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"法条第一款明确规定了用人单位自成立之日起三十日内申请办理社会保险登记，该问题直接对应此时限。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 473,
+  "completion_tokens": 1288,
+  "total_tokens": 1761,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 217,
+  "reasoning_tokens": 1216
+ },
+ "latency_ms": 7691.3939000005485,
+ "from_cache": false
+}

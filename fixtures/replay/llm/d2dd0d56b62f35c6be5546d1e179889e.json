@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在上班时受伤了，或者得了职业病，认定工伤后能享受什么待遇？如果鉴定出来丧失了劳动能力，还能有别的待遇吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条直接规定经工伤认定后享受工伤保险待遇，经劳动能力鉴定丧失劳动能力的享受伤残待遇，能回答劳动者关于工伤待遇的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 397,
+  "completion_tokens": 749,
+  "total_tokens": 1146,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 141,
+  "reasoning_tokens": 654
+ },
+ "latency_ms": 4192.092000004777,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动仲裁结果出来后，我只对其中一部分不满意去法院起诉，那仲裁裁决里我没起诉的那部分还有效吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应法条中“部分事项不服起诉后，仲裁裁决整体不发生法律效力”的规则，生活化且可被本条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 387,
+  "completion_tokens": 224,
+  "total_tokens": 611,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 259,
+  "reasoning_tokens": 133
+ },
+ "latency_ms": 1455.5309999996098,
+ "from_cache": false
+}

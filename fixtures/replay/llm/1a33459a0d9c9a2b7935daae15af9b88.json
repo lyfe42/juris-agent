@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同被确认无效 劳动者已付出劳动 用人单位支付劳动报酬 参照相同或者相近岗位 劳动报酬数额\",\"劳动合同被确认无效 用人单位过错 劳动者解除劳动合同 经济补偿 赔偿责任\",\"劳动合同被确认无效 用人单位过错 劳动者损害 损失赔偿 赔偿责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 273,
+  "completion_tokens": 1442,
+  "total_tokens": 1715,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 145,
+  "reasoning_tokens": 1377
+ },
+ "latency_ms": 6952.818400000979,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"试用期里公司想把我辞退，是不是随便找个理由就行？就算要辞退，也得跟我说清楚为什么吧？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条直接规定试用期用人单位解除劳动合同的限制条件和说明理由义务，回答该问题正好落在本条。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 391,
+  "completion_tokens": 688,
+  "total_tokens": 1079,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 607
+ },
+ "latency_ms": 3980.218999997305,
+ "from_cache": false
+}

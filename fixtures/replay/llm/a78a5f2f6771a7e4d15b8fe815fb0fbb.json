@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我住院看病，医保能报销的那部分，是医院直接跟医保结算，还是要我先垫钱再拿发票去报销？在外地看病也能直接结算吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题问的是医保基金支付部分如何结算以及异地就医结算，正好对应本条关于直接结算和异地就医结算制度的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 399,
+  "completion_tokens": 685,
+  "total_tokens": 1084,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 143,
+  "reasoning_tokens": 590
+ },
+ "latency_ms": 4136.417199995776,
+ "from_cache": false
+}

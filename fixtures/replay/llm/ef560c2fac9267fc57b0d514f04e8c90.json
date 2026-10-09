@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"工伤职工 用人单位支付 工伤保险待遇 费用项目 停工留薪期工资 一次性伤残就业补助金\", \"用人单位承担 工伤费用 停工留薪期 工资福利待遇 伤残津贴 护理费\", \"工伤保险条例 用人单位责任 应当由用人单位支付 工伤职工 五级六级伤残 一次性伤残就业补助金\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 759,
+  "total_tokens": 1002,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 680
+ },
+ "latency_ms": 4124.414600002638,
+ "from_cache": false
+}

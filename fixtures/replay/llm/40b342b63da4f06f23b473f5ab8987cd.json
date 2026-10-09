@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"城镇居民基本医疗保险 个人缴费 政府补贴 无工作单位 参保缴费\",\"城镇居民基本医疗保险 个人缴费部分 政府补贴 最低生活保障对象 丧失劳动能力残疾人 低收入家庭老年人 未成年人\",\"城镇居民基本医疗保险 非从业居民 个人缴费 政府资助参保 缴费补助\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 255,
+  "completion_tokens": 1181,
+  "total_tokens": 1436,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 1112
+ },
+ "latency_ms": 6217.106100004457,
+ "from_cache": false
+}

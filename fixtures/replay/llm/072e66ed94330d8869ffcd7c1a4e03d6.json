@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我来例假的时候，公司还能安排我去做爬高、低温、碰冷水，或者国家规定的那种重体力活吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应本条关于女职工经期禁止从事特定作业和重体力劳动的 protective 规定，答案就是不得安排。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 373,
+  "completion_tokens": 807,
+  "total_tokens": 1180,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 721
+ },
+ "latency_ms": 4773.285700000997,
+ "from_cache": false
+}

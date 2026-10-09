@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动人事争议仲裁 鉴定机构 确定方式 双方当事人协商选定 仲裁庭指定\", \"劳动仲裁 鉴定人出庭 到场 当事人询问 鉴定意见质证\", \"劳动争议 专门性问题 鉴定机构选定 协商不成 鉴定人接受质询\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 267,
+  "completion_tokens": 1153,
+  "total_tokens": 1420,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 139,
+  "reasoning_tokens": 1089
+ },
+ "latency_ms": 6247.672400000738,
+ "from_cache": false
+}

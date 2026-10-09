@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我想去做电工或者焊工，是不是得先参加培训、考个证才能干？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"法条明确规定了从事特种作业的劳动者必须经过专门培训并取得特种作业资格，直接回答了从事电工、焊工等特种作业的上岗条件。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 366,
+  "completion_tokens": 417,
+  "total_tokens": 783,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 238,
+  "reasoning_tokens": 325
+ },
+ "latency_ms": 3426.6176000019186,
+ "from_cache": false
+}

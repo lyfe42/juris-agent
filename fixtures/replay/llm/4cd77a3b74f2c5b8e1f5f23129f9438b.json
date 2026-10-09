@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"基本养老保险 基本医疗保险 工伤保险 失业保险 生育保险 社会保险 险种\",\"社会保险 法定 险种 五险 种类 范围\",\"五项社会保险 具体项目 包括 法定 分类\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 638,
+  "total_tokens": 882,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 587
+ },
+ "latency_ms": 3643.9326999970945,
+ "from_cache": false
+}

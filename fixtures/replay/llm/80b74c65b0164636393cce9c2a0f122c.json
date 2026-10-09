@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我受了工伤，有哪些费用是公司必须负责给我的？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"法条明确列举了因工伤发生的三项费用由用人单位支付，问题直接对应这些费用项目。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 406,
+  "completion_tokens": 1013,
+  "total_tokens": 1419,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 150,
+  "reasoning_tokens": 947
+ },
+ "latency_ms": 5945.224300005066,
+ "from_cache": false
+}

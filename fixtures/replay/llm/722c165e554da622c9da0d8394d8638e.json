@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"劳动仲裁受理之后，他们要在几天内把仲裁庭都有谁、是怎么组成的，书面告诉我？\",\"qtype\":\"single_fact\",\"difficulty\":\"easy\",\"reason\":\"这条法条直接规定了劳动争议仲裁委员会受理仲裁申请后五日内应将仲裁庭组成情况书面通知当事人，能自然回答该问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 373,
+  "completion_tokens": 381,
+  "total_tokens": 754,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 306
+ },
+ "latency_ms": 2472.18590000557,
+ "from_cache": false
+}

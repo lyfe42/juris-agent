@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"离职的时候，公司给我开的离职证明上必须写清楚哪些东西？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应法条规定的解除、终止劳动合同证明应载明的四项内容，普通劳动者也常关心离职证明应包含什么。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 381,
+  "completion_tokens": 283,
+  "total_tokens": 664,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 206
+ },
+ "latency_ms": 2199.23469999776,
+ "from_cache": false
+}

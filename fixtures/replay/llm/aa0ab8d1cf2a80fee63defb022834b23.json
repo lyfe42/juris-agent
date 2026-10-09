@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我发现公司有违法用工的情况，我一个普通员工能去举报吗？举报了会有人管吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该条明确赋予任何组织或个人举报权，并要求劳动行政部门及时核实处理，正好回答员工能否举报及是否会被受理的问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 381,
+  "completion_tokens": 241,
+  "total_tokens": 622,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 151
+ },
+ "latency_ms": 1827.1893999990425,
+ "from_cache": false
+}

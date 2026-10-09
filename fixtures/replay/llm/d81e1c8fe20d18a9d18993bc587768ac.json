@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"企业劳动争议调解委员会 组成 职工代表 企业代表 主任 工会成员 全体职工推举 企业负责人指定 调解协议书 约束力 当事人应当履行\",\"用人单位劳动争议调解委员会 人员构成 主任产生方式 工会成员 双方推举 调解协议 生效 对双方当事人具有约束力 履行\",\"劳动争议调解组织 企业内部 调解委员会 组成人员 主任担任 调解达成协议 法律效力 当事人必须履行\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 264,
+  "completion_tokens": 1432,
+  "total_tokens": 1696,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 1330
+ },
+ "latency_ms": 7833.233900004416,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议 仲裁裁决 双方均不服 分别起诉 人民法院 处理\", \"用人单位 劳动者 不服仲裁裁决 同时起诉 诉讼地位 合并审理\", \"",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 252,
+  "completion_tokens": 512,
+  "total_tokens": 764,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 471
+ },
+ "latency_ms": 3453.802900003211,
+ "from_cache": false
+}

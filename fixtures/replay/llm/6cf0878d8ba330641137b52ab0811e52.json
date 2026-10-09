@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议调解组织 调解员 担任 公道正派 热心调解 法律知识 政策水平 文化水平\",\"劳动争议调解组织 调解员 任职条件 成年公民 调解工作 联系群众\",\"劳动争议调解组织 调解员 选聘 产生方式 人员来源 资格要求\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 242,
+  "completion_tokens": 788,
+  "total_tokens": 1030,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 718
+ },
+ "latency_ms": 4213.175899996713,
+ "from_cache": false
+}

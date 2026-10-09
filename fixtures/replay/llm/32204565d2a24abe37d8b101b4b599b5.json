@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 无故拖欠劳动者工资 劳动保障监察机构 责令限期支付 逾期不支付 加付赔偿金\",\"克扣或者无故拖欠工资报酬 劳动保障行政部门 查实 行政处理 责令改正 行政处罚\",\"劳动保障监察条例 第二十六条 拖欠工资 责令支付 加付赔偿金 劳动监察 处理\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 247,
+  "completion_tokens": 965,
+  "total_tokens": 1212,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 886
+ },
+ "latency_ms": 5088.9079999979,
+ "from_cache": false
+}

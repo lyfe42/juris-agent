@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同 必备条款 劳动合同法第十七条 应当载明\",\"劳动合同 应当具备 条款 工作内容 工作地点 劳动报酬 社会保险 劳动保护\",\"书面劳动合同 法定记载事项 用人单位 劳动者 合同期限 劳动条件 职业危害防护\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 318,
+  "total_tokens": 567,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 255
+ },
+ "latency_ms": 1921.2335999982315,
+ "from_cache": false
+}

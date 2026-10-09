@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我们几个同事一起申请了劳动仲裁，裁决下来后，有人不服去法院起诉了，我没有起诉。那这个仲裁结果对我还算数吗？我能不能拿着它去法院申请强制执行？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应多个劳动者仲裁后部分起诉、部分未起诉时，仲裁裁决对未起诉劳动者的效力及申请执行问题，法条可完整回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 411,
+  "completion_tokens": 637,
+  "total_tokens": 1048,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 155,
+  "reasoning_tokens": 530
+ },
+ "latency_ms": 4128.235899996071,
+ "from_cache": false
+}

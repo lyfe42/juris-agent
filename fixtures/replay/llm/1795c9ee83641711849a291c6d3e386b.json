@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议 仲裁裁决 遗漏 必须共同参加仲裁的当事人 人民法院 追加 一并处理\",\"不服仲裁裁决 起诉 遗漏 必须共同参加诉讼的当事人 依职权追加 责任承担\",\"劳动争议诉讼 未参加仲裁 必要共同诉讼当事人 追加 实体责任 一并审理\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 263,
+  "completion_tokens": 1139,
+  "total_tokens": 1402,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 1069
+ },
+ "latency_ms": 6055.4316000052495,
+ "from_cache": false
+}

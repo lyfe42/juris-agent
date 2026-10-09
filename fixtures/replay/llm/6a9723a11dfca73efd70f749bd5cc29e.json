@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司出钱让我去外面参加专业技术培训，还说提前辞职得赔培训费。那这个培训费到底包括哪些花销？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条直接列明了培训费用包含的有凭证培训费、培训期间差旅费以及因培训产生的其他直接费用，能回答员工对培训费范围的疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 395,
+  "completion_tokens": 615,
+  "total_tokens": 1010,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 139,
+  "reasoning_tokens": 519
+ },
+ "latency_ms": 3943.8374000019394,
+ "from_cache": false
+}

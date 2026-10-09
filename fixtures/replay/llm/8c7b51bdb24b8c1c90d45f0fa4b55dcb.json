@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"家里人去世了，如果丧葬补助金在养老、工伤、失业这边都符合条件，能不能几份一起领？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该问题直接对应法条中同时符合领取基本养老保险、工伤保险和失业保险丧葬补助金条件时，遗属只能选择领取其中一项的规定。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 423,
+  "completion_tokens": 1829,
+  "total_tokens": 2252,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 167,
+  "reasoning_tokens": 1731
+ },
+ "latency_ms": 9659.208400000352,
+ "from_cache": false
+}

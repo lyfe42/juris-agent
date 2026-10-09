@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"外国人没拿到在中国合法工作的证件，就和国内公司签了劳动合同，他能不能让法院确认自己和公司有劳动关系？如果他有外国专家证和外国人来华工作许可证，又算不算？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"这条直接规定了未取得就业证件不认定劳动关系，以及持有外国专家证和来华工作许可证可以认定的情形，问题正对应这两种常见疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 421,
+  "completion_tokens": 1020,
+  "total_tokens": 1441,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 165,
+  "reasoning_tokens": 914
+ },
+ "latency_ms": 5780.399600000237,
+ "from_cache": false
+}

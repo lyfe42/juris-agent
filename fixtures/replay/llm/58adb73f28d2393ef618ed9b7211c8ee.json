@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动仲裁裁决书拿到手了，如果我对结果不服，想去法院起诉，最晚多少天内必须去？过了这个时间会怎么样？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条直接规定了非终局裁决情形下不服仲裁裁决的15日起诉期限，以及期满不起诉裁决书发生法律效力的后果。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 391,
+  "completion_tokens": 1354,
+  "total_tokens": 1745,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 1260
+ },
+ "latency_ms": 9165.322200002265,
+ "from_cache": false
+}

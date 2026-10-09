@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我是劳务派遣工，如果用工单位觉得我不行或者我犯了错，能把我退回劳务公司吗？退回后劳务公司能跟我解除合同吗？\", \"qtype\": \"multi_article\", \"difficulty\": \"normal\", \"reason\": \"问题对应本条第二款关于用工单位退回被派遣劳动者及劳务派遣单位解除合同的规定，属于劳务派遣工常见疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 409,
+  "completion_tokens": 1919,
+  "total_tokens": 2328,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 153,
+  "reasoning_tokens": 1826
+ },
+ "latency_ms": 10793.560700003582,
+ "from_cache": false
+}

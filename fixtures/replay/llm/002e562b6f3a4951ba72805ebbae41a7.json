@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"未成年工 定义 年满十六周岁 未满十八周岁 劳动者\",\"未成年工 年龄界限 十六周岁至十八周岁 法律界定\",\"未成年工 法定年龄 已满十六周岁 不满十八周岁 劳动法 第五十八条\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 239,
+  "completion_tokens": 1203,
+  "total_tokens": 1442,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 239,
+  "reasoning_tokens": 1143
+ },
+ "latency_ms": 5252.701999997953,
+ "from_cache": false
+}

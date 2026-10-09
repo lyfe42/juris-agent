@@ -11,8 +11,17 @@ data/index/
 .cache/
 models/
 
-# record-replay 录制（可能含 prompt 全文，不进版本库）
-fixtures/replay/
+# record-replay 录制。**原先是整目录忽略的（怕 prompt 全文进库），现改为提交**。
+# 改的理由：README 里写着「`--mode replay` 可逐字节复现」，而 fixture 不进库的话
+# 这句话对克隆仓库的人就是假的——CI 和面试官都没法离线复现那一行数字。
+#
+# 提交前查过：录制内容是**发给模型的 payload（含 prompt）与模型返回的正文**，
+# 不含任何鉴权材料（`_cache_key` 是 payload 的 sha256，响应体里没有 key）。
+# 已 grep 过 `sk-` / `Authorization` / `Bearer`，无命中。
+#
+# 缓存是内容寻址的，所以改了 prompt 会自然 miss 而不是读到旧结果——
+# 不存在"fixture 与代码不一致却悄悄用旧值"的风险。
+!fixtures/replay/
 
 # 生成物
 reports/*.png

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"我们厂要扩建车间，安全卫生设施能不能等车间盖好了再装？\",\"qtype\":\"single_fact\",\"difficulty\":\"easy\",\"reason\":\"该问题直接对应法条第二款关于新建、改建、扩建工程劳动安全卫生设施必须与主体工程同时设计、同时施工、同时投入生产和使用的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 386,
+  "completion_tokens": 650,
+  "total_tokens": 1036,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 258,
+  "reasoning_tokens": 573
+ },
+ "latency_ms": 3756.1396999954013,
+ "from_cache": false
+}

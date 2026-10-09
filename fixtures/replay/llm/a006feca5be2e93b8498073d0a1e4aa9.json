@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"劳动仲裁的时候漏了必须一起参加的人，我到法院起诉后还能把他追加进来吗？要是他该担责，法院会一起处理吗？\",\"qtype\":\"single_fact\",\"difficulty\":\"normal\",\"reason\":\"直接对应法院发现仲裁裁决遗漏必须共同参加仲裁的当事人时应追加并一并处理的规则。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 408,
+  "completion_tokens": 744,
+  "total_tokens": 1152,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 152,
+  "reasoning_tokens": 667
+ },
+ "latency_ms": 4672.790900003747,
+ "from_cache": false
+}

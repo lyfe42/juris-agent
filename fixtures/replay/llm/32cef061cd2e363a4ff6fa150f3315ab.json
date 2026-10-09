@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"分公司 分支机构 用人单位主体资格 订立劳动合同 营业执照 登记证书\",\"未依法取得营业执照 分支机构 受用人单位委托 与劳动者订立劳动合同 劳动合同法实施条例第四条\",\"分公司 劳动合同签订主体 用工主体责任 营业执照 登记证书 委托\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 253,
+  "completion_tokens": 712,
+  "total_tokens": 965,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 651
+ },
+ "latency_ms": 3897.072700005083,
+ "from_cache": false
+}

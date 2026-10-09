@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 未建立 职工名册 劳动行政部门 责令限期改正 逾期不改正 罚款\",\"劳动合同法 第八十一条 职工名册 备查 法律责任 罚款 二千元 二万元\",\"劳动保障监察 未按规定 建立 职工名册 行政处罚 罚款幅度\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 250,
+  "completion_tokens": 511,
+  "total_tokens": 761,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 250,
+  "reasoning_tokens": 441
+ },
+ "latency_ms": 2710.097700000915,
+ "from_cache": false
+}

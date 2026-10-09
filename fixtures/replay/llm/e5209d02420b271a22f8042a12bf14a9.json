@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"政府 促进就业 法定职责 公共就业服务\", \"公共就业服务 政府 责任 职业介绍 职业指导\", \"政府 就业服务 义务 免费 职业介绍\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 645,
+  "total_tokens": 888,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 598
+ },
+ "latency_ms": 3651.926000005915,
+ "from_cache": false
+}

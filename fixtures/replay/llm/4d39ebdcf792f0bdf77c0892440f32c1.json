@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"基本养老保险 累计缴费满十五年 达到法定退休年龄 按月领取基本养老金\",\"职工基本养老保险 最低缴费年限 十五年 退休 按月领取养老金 条件\",\"社会保险法 第十六条 基本养老金 领取条件 缴费年限 法定退休年龄\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 482,
+  "total_tokens": 728,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 420
+ },
+ "latency_ms": 2517.1814000059385,
+ "from_cache": false
+}

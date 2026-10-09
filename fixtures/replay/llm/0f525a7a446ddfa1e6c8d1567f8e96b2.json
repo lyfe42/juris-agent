@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\":\"json_object\",\"askable\":true,\"question\":\"我在个体户或者民办非企业单位上班，签合同、被辞退这些事也受劳动合同法管吗？\",\"qtype\":\"single_fact\",\"difficulty\":\"easy\",\"reason\":\"问题问的是哪些用人单位与劳动者建立劳动关系后适用劳动合同法，正是本条规定的适用范围。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 416,
+  "completion_tokens": 735,
+  "total_tokens": 1151,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 160,
+  "reasoning_tokens": 661
+ },
+ "latency_ms": 4575.4780999996,
+ "from_cache": false
+}

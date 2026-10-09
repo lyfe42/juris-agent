@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我干的是按小时算钱的兼职零工，老板可以随时叫我不用来了吗？这样被辞退有没有经济补偿？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应非全日制用工双方可随时终止且无需支付经济补偿的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 375,
+  "completion_tokens": 584,
+  "total_tokens": 959,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 507
+ },
+ "latency_ms": 3809.1166999947745,
+ "from_cache": false
+}

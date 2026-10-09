@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司招我进去后一直不跟我签合同，是不是得给我双倍工资？从第几个月开始算？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应未签书面劳动合同超过一个月不满一年期间用人单位应每月支付二倍工资的规则，可由该法条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 405,
+  "completion_tokens": 958,
+  "total_tokens": 1363,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 149,
+  "reasoning_tokens": 873
+ },
+ "latency_ms": 4856.393699999899,
+ "from_cache": false
+}

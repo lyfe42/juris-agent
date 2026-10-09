@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"老板能不能招不到16岁的小孩来干活？有没有什么例外情况？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应法条关于禁止招用未满十六周岁未成年人及文艺、体育、特种工艺单位例外情形的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 391,
+  "completion_tokens": 369,
+  "total_tokens": 760,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 293
+ },
+ "latency_ms": 2565.551800005778,
+ "from_cache": false
+}

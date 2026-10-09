@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位缴纳生育保险费 职工未就业配偶 生育医疗费用待遇 生育保险基金支付\", \"男职工参加生育保险 配偶未就业 生育保险待遇 生育医疗费用 生育津贴\", \"未就业配偶生育 生育保险待遇 享受条件 生育医疗费用 生育保险基金\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 882,
+  "total_tokens": 1131,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 812
+ },
+ "latency_ms": 4384.799400002521,
+ "from_cache": false
+}

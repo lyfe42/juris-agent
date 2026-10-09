@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"人力资源和社会保障行政部门工作人员 滥用职权 玩忽职守 行政处分 刑事责任\",\"劳动保障监察人员 违法行使职权 不履行法定职责 投诉 监察 处分\",\"行政机关公务员 行政不作为 不依法履行职责 政务处分 渎职 监察机关\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 247,
+  "completion_tokens": 883,
+  "total_tokens": 1130,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 820
+ },
+ "latency_ms": 4532.771199999843,
+ "from_cache": false
+}

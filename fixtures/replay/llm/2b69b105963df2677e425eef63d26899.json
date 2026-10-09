@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"生孩子的医疗费用，生育保险都能报销哪些项目？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条以列举方式回答了生育医疗费用包含的具体项目，符合打工人对生育保险报销范围的常见疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 385,
+  "completion_tokens": 371,
+  "total_tokens": 756,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 257,
+  "reasoning_tokens": 302
+ },
+ "latency_ms": 2753.9895000008983,
+ "from_cache": false
+}

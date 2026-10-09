@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议 解决途径 协商 调解 仲裁 诉讼",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 512,
+  "total_tokens": 756,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 494
+ },
+ "latency_ms": 2875.742700001865,
+ "from_cache": false
+}

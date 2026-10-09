@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议调解 申请调解 书面申请 口头申请 调解组织 当场记录\", \"劳动争议调解申请 口头申请 记录事项 申请人基本情况 争议事项 理由 时间\", \"劳动争议调解仲裁法 申请调解 申请方式 书面 口头 调解组织 当场记录 记录内容\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 263,
+  "completion_tokens": 1112,
+  "total_tokens": 1375,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 1041
+ },
+ "latency_ms": 5259.426800002984,
+ "from_cache": false
+}

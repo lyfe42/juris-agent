@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"专项培训费用 范围 构成 包括 培训费 差旅费 其他直接费用\", \"服务期 违约金 培训费用 计算 包含 差旅费 食宿费 凭证\", \"劳动合同法第二十二条 专业技术培训 出资培训 费用 范围 直接费用 劳动者\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 488,
+  "total_tokens": 747,
+  "prompt_cache_hit_tokens": 125,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 416
+ },
+ "latency_ms": 2654.8266999961925,
+ "from_cache": false
+}

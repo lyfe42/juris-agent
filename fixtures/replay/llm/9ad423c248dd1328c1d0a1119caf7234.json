@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 违反集体合同 侵犯职工劳动权益 工会 要求承担责任\", \"履行集体合同发生争议 协商不成 工会 申请仲裁 提起诉讼\", \"工会 代表职工 集体合同 权益侵害 仲裁 诉讼 用人单位责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 255,
+  "completion_tokens": 758,
+  "total_tokens": 1013,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 699
+ },
+ "latency_ms": 4146.708899999794,
+ "from_cache": false
+}

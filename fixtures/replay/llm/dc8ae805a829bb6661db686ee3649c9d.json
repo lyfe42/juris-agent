@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条只是转致条款，说明三种医保待遇标准按国家规定执行，未给出具体标准，难以形成自然且答案唯一的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 370,
+  "completion_tokens": 1681,
+  "total_tokens": 2051,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 1619
+ },
+ "latency_ms": 8756.18399999803,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司因为经营困难要裁掉一批人，法律上要求它提前多久通知我们、还要走什么程序？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题询问经济性裁员的提前通知期限和必经程序，直接对应本条第一款关于提前三十日说明情况、听取意见并向劳动行政部门报告的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 424,
+  "completion_tokens": 1294,
+  "total_tokens": 1718,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 168,
+  "reasoning_tokens": 1205
+ },
+ "latency_ms": 7121.441800001776,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司给我们交工伤保险，这笔钱是按什么算出来的？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接指向用人单位缴纳工伤保险费的基数和费率，法条正好规定了按本单位职工工资总额和社保经办机构确定的费率缴纳。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 368,
+  "completion_tokens": 437,
+  "total_tokens": 805,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 240,
+  "reasoning_tokens": 364
+ },
+ "latency_ms": 2702.8702999959933,
+ "from_cache": false
+}

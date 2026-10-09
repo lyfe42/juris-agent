@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我怀孕七个多月了，公司还总让我加班、上夜班，这合法吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应怀孕七个月以上不得安排延长工作时间和夜班劳动的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 389,
+  "completion_tokens": 542,
+  "total_tokens": 931,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 261,
+  "reasoning_tokens": 472
+ },
+ "latency_ms": 2793.2128999964334,
+ "from_cache": false
+}

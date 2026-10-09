@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"如果公司跟我的劳动合同后来被认定无效了，但我之前已经干活了，公司还要给我发工资吗？要是发，按什么标准算？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应劳动合同被确认无效后，已付出劳动仍应支付劳动报酬以及报酬数额参照标准的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 385,
+  "completion_tokens": 351,
+  "total_tokens": 736,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 257,
+  "reasoning_tokens": 262
+ },
+ "latency_ms": 2693.297600002552,
+ "from_cache": false
+}

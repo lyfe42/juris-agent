@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"职工 连续工作满12个月 带薪年休假 享受条件\", \"累计工作年限 年休假天数 用人单位 职工 休假\", \"机关团体企业事业单位 民办非企业单位 有雇工的个体工商户 连续工作1年以上 年休假\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 288,
+  "total_tokens": 534,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 226
+ },
+ "latency_ms": 1607.8935999976238,
+ "from_cache": false
+}

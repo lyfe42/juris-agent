@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"如果有人挪用或者违规投资社保基金，会被怎么处理？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"这一条直接规定了对隐匿、转移、侵占、挪用社会保险基金或违规投资运营的处理措施，能回答该问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 402,
+  "completion_tokens": 517,
+  "total_tokens": 919,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 146,
+  "reasoning_tokens": 446
+ },
+ "latency_ms": 3266.066900003352,
+ "from_cache": false
+}

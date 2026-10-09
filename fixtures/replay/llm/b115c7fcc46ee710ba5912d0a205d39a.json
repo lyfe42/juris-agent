@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 招用 如实告知 工作内容 工作条件 工作地点 职业危害 安全生产状况 劳动报酬\",\"招聘 入职前 告知义务 劳动者知情权 劳动合同法第八条 主动告知\",\"招聘 个人信息收集 与劳动合同直接相关 基本情况 最小必要 告知同意 过度询问 隐私\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 252,
+  "completion_tokens": 522,
+  "total_tokens": 774,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 446
+ },
+ "latency_ms": 2575.401999994938,
+ "from_cache": false
+}

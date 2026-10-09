@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"竞业限制 未约定经济补偿 劳动者履行竞业限制义务 按月支付 补偿标准 劳动合同法第二十三条\",\"竞业限制协议 仅限制劳动者 未约定用人单位补偿 离职后 竞业限制经济补偿 前十二个月平均工资百分之三十 最低工资标准\",\"劳动争议 竞业限制补偿 无约定 补偿金请求权 最高人民法院劳动争议司法解释一 第三十六条 第三十七条 按月支付\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 275,
+  "completion_tokens": 877,
+  "total_tokens": 1152,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 147,
+  "reasoning_tokens": 780
+ },
+ "latency_ms": 4495.974900004512,
+ "from_cache": false
+}

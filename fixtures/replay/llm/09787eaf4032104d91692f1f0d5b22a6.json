@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 拖欠劳动报酬 未支付工伤医疗费 经济补偿 赔偿金 向劳动行政部门投诉 劳动保障监察 受理\",\"劳动保障行政部门 对用人单位 克扣或者无故拖欠工资 未依法支付工伤保险待遇 经济补偿 赔偿金 举报投诉 监管职责 应当受理\",\"劳动者 投诉 拖欠工资 工伤医疗费 经济补偿 赔偿金 劳动保障监察事项 责令限期支付 行政处理\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 260,
+  "completion_tokens": 790,
+  "total_tokens": 1050,
+  "prompt_cache_hit_tokens": 126,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 690
+ },
+ "latency_ms": 3902.6204999972833,
+ "from_cache": false
+}

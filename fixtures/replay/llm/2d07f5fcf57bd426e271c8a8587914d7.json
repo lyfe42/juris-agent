@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"签了劳动合同之后，公司和我是不是都得按合同上写的来履行？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条直接规定用人单位与劳动者应按劳动合同约定全面履行各自义务，问题问的是双方是否必须按合同履行，可由该条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 364,
+  "completion_tokens": 674,
+  "total_tokens": 1038,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 236,
+  "reasoning_tokens": 595
+ },
+ "latency_ms": 4360.90150000382,
+ "from_cache": false
+}

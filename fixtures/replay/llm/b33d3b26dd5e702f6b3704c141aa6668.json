@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我们交的社保，是谁负责登记、记录个人权益、发放待遇的？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该条明确了社会保险经办机构的职责，可自然转化为询问社保登记、权益记录和待遇支付由谁负责的问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 371,
+  "completion_tokens": 832,
+  "total_tokens": 1203,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 750
+ },
+ "latency_ms": 5831.83370000188,
+ "from_cache": false
+}

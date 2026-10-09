@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\":\"json_object\",\"askable\":true,\"question\":\"我收到劳动仲裁的裁决书，上面必须写清楚哪些内容？\",\"qtype\":\"single_fact\",\"difficulty\":\"easy\",\"reason\":\"该问题直接对应法条中裁决书应当载明仲裁请求、争议事实、裁决理由、裁决结果和裁决日期的规定，是普通劳动者会关心的具体问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 402,
+  "completion_tokens": 622,
+  "total_tokens": 1024,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 146,
+  "reasoning_tokens": 540
+ },
+ "latency_ms": 3745.6600000004983,
+ "from_cache": false
+}

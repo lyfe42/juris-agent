@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动者 不服 终局裁决 收到仲裁裁决书之日起 十五日内 向人民法院提起诉讼\", \"劳动争议调解仲裁法 第四十八条 一裁终局 劳动者起诉期限 十五日\", \"终局裁决 劳动者 起诉期限 起算点 收到裁决书之日 十五日 逾期\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 255,
+  "completion_tokens": 364,
+  "total_tokens": 619,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 292
+ },
+ "latency_ms": 2277.2222999992664,
+ "from_cache": false
+}

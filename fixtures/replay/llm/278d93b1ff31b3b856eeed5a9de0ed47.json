@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"不具备合法经营资格 用人单位 出资人 支付劳动报酬 经济补偿 赔偿责任\",\"无营业执照 用工主体 拖欠劳动报酬 出资人个人责任 支付工资\",\"未依法取得营业执照 劳动者 劳动报酬 补偿 出资人 清偿责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 254,
+  "completion_tokens": 954,
+  "total_tokens": 1208,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 892
+ },
+ "latency_ms": 5191.387600003509,
+ "from_cache": false
+}

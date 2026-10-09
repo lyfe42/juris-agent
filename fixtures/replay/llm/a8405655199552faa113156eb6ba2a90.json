@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司不服劳动仲裁结果，跑去中级法院申请撤销裁决，如果中院把公司的申请驳回了，公司还能接着往上告吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"hard\",\n  \"reason\": \"该条明确中院驳回撤销申请或撤销裁决的裁定为终审裁定，正好回答员工关心的“公司还能不能继续上诉”这一问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 390,
+  "completion_tokens": 695,
+  "total_tokens": 1085,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 595
+ },
+ "latency_ms": 3890.46899999812,
+ "from_cache": false
+}

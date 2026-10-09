@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"非全日制用工 每日工作时间 上限 四小时 每周累计二十四小时\",\"非全日制用工 平均每日工作时间 不超过四小时 法定工时\",\"劳动合同法 非全日制用工 每日最长工作时间 四小时\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 239,
+  "completion_tokens": 430,
+  "total_tokens": 669,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 239,
+  "reasoning_tokens": 377
+ },
+ "latency_ms": 2212.7391999965766,
+ "from_cache": false
+}

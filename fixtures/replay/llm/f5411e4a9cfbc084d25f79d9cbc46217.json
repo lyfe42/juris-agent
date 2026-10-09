@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"社会保险经办机构 定期 社会公布 社会保险基金 收入 支出 结余 收益\",\"社会保险基金 预算 执行 决算 收支情况 定期 公开 信息披露\",\"社会保险费 征缴 社会保险基金 支出 用途 使用情况 社会公布\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 1354,
+  "total_tokens": 1605,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 1289
+ },
+ "latency_ms": 7068.07320000371,
+ "from_cache": false
+}

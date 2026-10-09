@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"离职时跟公司签了补偿协议，后来觉得赔得太少、明显吃亏，还能去法院要求撤销这个协议吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题问的是解除劳动合同时达成协议在显失公平情形下能否撤销，正好由本条第二款回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 435,
+  "completion_tokens": 500,
+  "total_tokens": 935,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 179,
+  "reasoning_tokens": 414
+ },
+ "latency_ms": 3105.586099998618,
+ "from_cache": false
+}

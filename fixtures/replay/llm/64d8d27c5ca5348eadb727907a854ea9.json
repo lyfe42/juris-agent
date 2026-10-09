@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司有义务给我们做安全卫生方面的培训吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应法条中用人单位必须对劳动者进行劳动安全卫生教育的义务，答案就是本条。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 387,
+  "completion_tokens": 1142,
+  "total_tokens": 1529,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 259,
+  "reasoning_tokens": 1076
+ },
+ "latency_ms": 6636.531299998751,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"第三人原因造成工伤 第三人不支付工伤医疗费用 无法确定第三人 工伤保险基金先行支付 追偿\",\"第三人侵权工伤 医疗费用 支付责任主体 用人单位垫付 工伤保险基金先行支付 社会保险法第四十二条\",\"工伤事故 第三人 不赔偿医药费 找不到侵权人 工伤医疗费用 先行支付 用人单位支付\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 260,
+  "completion_tokens": 722,
+  "total_tokens": 982,
+  "prompt_cache_hit_tokens": 126,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 642
+ },
+ "latency_ms": 4066.8970000042464,
+ "from_cache": false
+}

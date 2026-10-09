@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"申请劳动仲裁后，仲裁庭是不是会先让我们调解？如果调解成了，调解书要什么时候才算数？要是对方在签收前反悔了，接下来会怎么处理？\", \"qtype\": \"temporal\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应仲裁庭裁决前先行调解、调解书制作与签收生效、以及调解不成或送达前反悔应及时裁决的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 435,
+  "completion_tokens": 651,
+  "total_tokens": 1086,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 179,
+  "reasoning_tokens": 549
+ },
+ "latency_ms": 3884.738100001414,
+ "from_cache": false
+}

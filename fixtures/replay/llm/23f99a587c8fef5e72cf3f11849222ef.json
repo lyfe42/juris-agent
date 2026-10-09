@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\": \"json_object\", \"askable\": true, \"question\": \"我在同一家公司连续干满十年了，合同到期的时候我能不能要求公司跟我签一份不约定到期时间的长期合同？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题对应本条第二款第（一）项，即在同一单位连续工作满十年、劳动者提出续订时应订立无固定期限劳动合同，答案完全由本条给出。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 509,
+  "completion_tokens": 339,
+  "total_tokens": 848,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 237
+ },
+ "latency_ms": 2569.8428000032436,
+ "from_cache": false
+}

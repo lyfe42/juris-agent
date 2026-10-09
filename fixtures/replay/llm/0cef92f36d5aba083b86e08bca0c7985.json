@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"违反女职工和未成年工保护规定 侵害合法权益 劳动行政部门 责令改正 罚款 赔偿责任\", \"侵害女职工合法权益 侵害未成年工合法权益 造成损害 用人单位 赔偿责任 损害赔偿\", \"违反女职工劳动保护特别规定 违反未成年工特殊保护规定 法律责任 行政处罚 赔偿损失\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 256,
+  "completion_tokens": 1200,
+  "total_tokens": 1456,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 1131
+ },
+ "latency_ms": 6249.939399996947,
+ "from_cache": false
+}

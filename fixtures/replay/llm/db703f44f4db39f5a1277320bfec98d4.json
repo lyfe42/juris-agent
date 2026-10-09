@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我退休后每个月能领的养老金是怎么定出来的？都跟哪些东西有关？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应基本养老金的组成和确定因素，法条能完整回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 389,
+  "completion_tokens": 389,
+  "total_tokens": 778,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 261,
+  "reasoning_tokens": 320
+ },
+ "latency_ms": 2480.45170000114,
+ "from_cache": false
+}

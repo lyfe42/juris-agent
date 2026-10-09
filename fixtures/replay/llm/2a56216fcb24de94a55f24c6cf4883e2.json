@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我和公司调解说好了赔钱，但公司过了约定的时间还不给，我能去申请劳动仲裁吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问的是调解协议约定期限内不履行后能否申请仲裁，法条直接回答可以依法申请仲裁。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 378,
+  "completion_tokens": 551,
+  "total_tokens": 929,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 250,
+  "reasoning_tokens": 471
+ },
+ "latency_ms": 3350.67529999651,
+ "from_cache": false
+}

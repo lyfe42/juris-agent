@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳务派遣单位 被派遣劳动者 劳动合同 期限 二年以上 固定期限\", \"被派遣劳动者 无工作期间 劳务派遣单位 最低工资标准 按月支付\", \"劳务派遣 无工作 劳动报酬 支付义务 最低工资 按月\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 258,
+  "completion_tokens": 426,
+  "total_tokens": 684,
+  "prompt_cache_hit_tokens": 124,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 363
+ },
+ "latency_ms": 2212.5414999973145,
+ "from_cache": false
+}

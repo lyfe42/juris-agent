@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动合同期满 女职工 孕期 产期 哺乳期 续延 终止\", \"劳动合同法第四十五条 第四十二条 顺延 哺乳期 不得终止 法定情形\", \"哺乳期 劳动合同期限届满 自动续延 相应情形消失 违法终止 赔偿金\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 252,
+  "completion_tokens": 290,
+  "total_tokens": 542,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 222
+ },
+ "latency_ms": 1641.1834000027739,
+ "from_cache": false
+}

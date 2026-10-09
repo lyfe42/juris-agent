@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"跨统筹地区就业 基本养老保险关系转移接续 缴费年限累计计算 个人账户储存额转移\", \"跨省流动就业 原参保地 新参保地 基本养老保险关系转移 缴费年限累计计算\", \"城镇企业职工基本养老保险 跨地区转移接续 缴费年限累计计算 待遇领取地\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 1021,
+  "total_tokens": 1272,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 945
+ },
+ "latency_ms": 5549.8731000043335,
+ "from_cache": false
+}

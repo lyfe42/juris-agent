@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司帮我交的养老保险，和我自己工资里扣的养老保险，最后是放到同一个地方还是分开的？分别放到哪儿了？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应本条关于用人单位缴费记入统筹基金、职工个人缴费记入个人账户的规定，普通打工人常关心自己缴的钱和单位缴的钱去向是否相同。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 430,
+  "completion_tokens": 728,
+  "total_tokens": 1158,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 174,
+  "reasoning_tokens": 629
+ },
+ "latency_ms": 4346.879999997327,
+ "from_cache": false
+}

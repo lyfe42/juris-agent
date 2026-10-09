@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我第一天去公司上班，还没签劳动合同，是不是从这天起就算和公司有劳动关系了？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应法条中'用人单位自用工之日起即与劳动者建立劳动关系'的规定，回答的就是用工第一天是否建立劳动关系。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 369,
+  "completion_tokens": 350,
+  "total_tokens": 719,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 241,
+  "reasoning_tokens": 269
+ },
+ "latency_ms": 2357.8350999960094,
+ "from_cache": false
+}

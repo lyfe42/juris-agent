@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我和同事干一样的活、业绩也差不多，但他工资比我高不少，公司这样区别对待合理吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"法条明确规定工资分配应实行同工同酬，可以直接回答干同样工作是否应拿同样工资的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 380,
+  "completion_tokens": 512,
+  "total_tokens": 892,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 432
+ },
+ "latency_ms": 3236.020800002734,
+ "from_cache": false
+}

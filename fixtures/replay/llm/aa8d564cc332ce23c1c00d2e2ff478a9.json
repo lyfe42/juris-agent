@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我打赢了劳动仲裁，拿着裁决书去法院申请强制执行，可公司转头又去申请撤销这个裁决，法院会先把执行停下来吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"hard\", \"reason\": \"问的是终局裁决执行中用人单位申请撤销时法院如何处理，正好对应本条第一句裁定中止执行的规定，是胜诉劳动者可能真实关心的程序问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 451,
+  "completion_tokens": 550,
+  "total_tokens": 1001,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 195,
+  "reasoning_tokens": 452
+ },
+ "latency_ms": 4308.691099999123,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是纯组织性、程序性条款，规定政府部门的社会保险管理职责分工，不涉及劳动者具体权利义务，无法构造出自然的生活化提问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 400,
+  "completion_tokens": 482,
+  "total_tokens": 882,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 144,
+  "reasoning_tokens": 417
+ },
+ "latency_ms": 3061.212400003569,
+ "from_cache": false
+}

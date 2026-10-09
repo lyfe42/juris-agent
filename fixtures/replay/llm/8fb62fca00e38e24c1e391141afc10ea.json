@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"多大年龄的劳动者算是未成年工？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应法条中未成年工的年龄定义，普通劳动者可以自然发问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 375,
+  "completion_tokens": 491,
+  "total_tokens": 866,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 432
+ },
+ "latency_ms": 2921.38949999935,
+ "from_cache": false
+}

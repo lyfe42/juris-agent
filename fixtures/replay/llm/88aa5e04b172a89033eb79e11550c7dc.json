@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"社会保险基金 包括 基本养老保险基金 基本医疗保险基金 工伤保险基金 失业保险基金 生育保险基金\", \"社会保险 险种 基金 分类 养老保险 医疗保险 工伤保险 失业保险 生育保险\", \"社会保险费 缴费 用人单位 职工 基本养老保险基金 基本医疗保险基金 工伤保险基金 失业保险基金 生育保险基金\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 811,
+  "total_tokens": 1054,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 732
+ },
+ "latency_ms": 3877.5699000034365,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动仲裁开庭的时候，外人能随便进去旁听吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应劳动仲裁是否公开进行以及不公开的例外情形，能由本条完整回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 375,
+  "completion_tokens": 269,
+  "total_tokens": 644,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 201
+ },
+ "latency_ms": 1946.1064000061015,
+ "from_cache": false
+}

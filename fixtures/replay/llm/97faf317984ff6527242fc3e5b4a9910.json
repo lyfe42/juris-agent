@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我是劳务派遣工，用工单位把我坑了造成损害，劳务派遣公司要不要一起赔？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"问题直接对应法条第二款中用工单位造成损害时劳务派遣单位与用工单位承担连带赔偿责任的规定。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 462,
+  "completion_tokens": 841,
+  "total_tokens": 1303,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 206,
+  "reasoning_tokens": 757
+ },
+ "latency_ms": 4701.618700004474,
+ "from_cache": false
+}

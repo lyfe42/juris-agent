@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我们公司跟工会签了集体合同，那我个人跟公司签的劳动合同里，工资能不能比集体合同里写的还低？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应法条后半句：劳动合同中劳动报酬等标准不得低于集体合同规定的标准。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 389,
+  "completion_tokens": 622,
+  "total_tokens": 1011,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 261,
+  "reasoning_tokens": 540
+ },
+ "latency_ms": 3803.1540000010864,
+ "from_cache": false
+}

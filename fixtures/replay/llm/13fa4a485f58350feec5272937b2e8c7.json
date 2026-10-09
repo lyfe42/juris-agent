@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司是不是必须给员工交社保？员工自己也要交吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"法条明确规定用人单位和劳动者必须依法参加社会保险并缴纳社会保险费，能直接回答公司和个人是否都要交社保的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 376,
+  "completion_tokens": 458,
+  "total_tokens": 834,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 248,
+  "reasoning_tokens": 385
+ },
+ "latency_ms": 2790.0363999942783,
+ "from_cache": false
+}

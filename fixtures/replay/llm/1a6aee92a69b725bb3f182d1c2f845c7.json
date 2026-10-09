@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\": \"json_object\", \"askable\": true, \"question\": \"劳动仲裁开庭时，我认出仲裁员是对方公司老板的亲戚，我能要求换人吗？要怎么提？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应本条第一项回避情形及当事人可口头或书面申请回避的规定，是打工人实际会遇到的场景。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 455,
+  "completion_tokens": 346,
+  "total_tokens": 801,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 199,
+  "reasoning_tokens": 255
+ },
+ "latency_ms": 2182.948199995735,
+ "from_cache": false
+}

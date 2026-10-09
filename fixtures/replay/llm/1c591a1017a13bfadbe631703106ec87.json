@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"新型农村社会养老保险 个人缴费 集体补助 政府补贴 相结合\",\"城乡居民基本养老保险 基金筹集 个人缴费 集体补助 政府补贴 资金来源\",\"农村居民养老保险 资金渠道 财政补贴 个人缴费 集体补助\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 757,
+  "total_tokens": 1000,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 700
+ },
+ "latency_ms": 4225.3132999976515,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"我去申请劳动争议调解，如果调解一直没成功，要等多少天才能去申请仲裁？\",\"qtype\":\"temporal\",\"difficulty\":\"easy\",\"reason\":\"这条法条明确规定了调解组织收到申请后十五日内未达成协议的，当事人可以申请仲裁，正好回答该问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 414,
+  "completion_tokens": 542,
+  "total_tokens": 956,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 158,
+  "reasoning_tokens": 472
+ },
+ "latency_ms": 3526.6132000033394,
+ "from_cache": false
+}

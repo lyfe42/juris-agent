@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我弟弟17岁，公司安排他下矿井干活，或者去有毒有害的车间上班，这样可以吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应法条禁止安排未成年工从事矿山井下、有毒有害等劳动的规定，属于该条能回答的典型用工场景。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 375,
+  "completion_tokens": 257,
+  "total_tokens": 632,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 172
+ },
+ "latency_ms": 1916.9624999994994,
+ "from_cache": false
+}

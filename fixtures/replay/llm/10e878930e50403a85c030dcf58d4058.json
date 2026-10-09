@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"没有工作单位的城镇居民参加医保，费用是全部自己交吗？哪些人自己那份钱政府会帮忙出？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条直接说明城镇居民基本医疗保险由个人缴费和政府补贴相结合，并列出了政府补贴个人缴费部分的具体困难人群，能回答这个问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 398,
+  "completion_tokens": 682,
+  "total_tokens": 1080,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 270,
+  "reasoning_tokens": 596
+ },
+ "latency_ms": 4518.1614000030095,
+ "from_cache": false
+}

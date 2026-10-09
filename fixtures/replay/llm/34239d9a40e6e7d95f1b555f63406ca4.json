@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 申请撤销终局裁决 中级人民法院 三十日 劳动争议调解仲裁法第四十九条\", \"终局裁决 撤销情形 适用法律确有错误 违反法定程序 无管辖权 伪造证据 隐瞒证据 仲裁员索贿受贿\", \"用人单位 不服仲裁裁决 十五日内 向人民法院起诉 裁决不发生法律效力 非终局裁决\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 260,
+  "completion_tokens": 389,
+  "total_tokens": 649,
+  "prompt_cache_hit_tokens": 126,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 307
+ },
+ "latency_ms": 2275.483899997198,
+ "from_cache": false
+}

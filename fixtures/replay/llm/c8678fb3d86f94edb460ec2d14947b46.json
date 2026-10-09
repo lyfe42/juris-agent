@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议仲裁委员会 不予受理 直接 向人民法院 起诉 法院 处理\",\"劳动仲裁 不予受理通知书 法院 受理 劳动争议 诉讼 仲裁前置\",\"仲裁委员会 无管辖权 驳回申请 当事人 向人民法院 起诉 法院 受理\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 256,
+  "completion_tokens": 384,
+  "total_tokens": 640,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 323
+ },
+ "latency_ms": 2694.3794999970123,
+ "from_cache": false
+}

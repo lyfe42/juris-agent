@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"跟公司签了竞业限制协议，现在公司想中途解除，我能要求它额外再给我三个月的竞业限制补偿吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条正好规定了竞业限制期内用人单位可请求解除协议，且劳动者可请求额外支付三个月经济补偿，问题直接对应这两项规则。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 405,
+  "completion_tokens": 405,
+  "total_tokens": 810,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 149,
+  "reasoning_tokens": 312
+ },
+ "latency_ms": 2528.628600004595,
+ "from_cache": false
+}

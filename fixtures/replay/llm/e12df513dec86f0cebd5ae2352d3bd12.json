@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"如果劳动合同被认定无效，还给我造成了损失，该由谁来赔？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应法条中劳动合同被确认无效后有过错方承担赔偿责任的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 372,
+  "completion_tokens": 276,
+  "total_tokens": 648,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 208
+ },
+ "latency_ms": 1739.2738999988069,
+ "from_cache": false
+}

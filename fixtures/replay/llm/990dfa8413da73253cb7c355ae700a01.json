@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我能免费查自己的社保缴费和待遇记录吗？社保局会给我寄记录单吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该条明确规定个人可以免费向社保经办机构查询核对缴费和待遇记录，且经办机构应定期免费寄送个人权益记录单，直接回答查询和寄送是否收费的问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 481,
+  "completion_tokens": 1034,
+  "total_tokens": 1515,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 225,
+  "reasoning_tokens": 934
+ },
+ "latency_ms": 5405.979100003606,
+ "from_cache": false
+}

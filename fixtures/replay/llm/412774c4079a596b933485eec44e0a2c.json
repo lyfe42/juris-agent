@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 设立 劳务派遣单位 向本单位或者所属单位 派遣劳动者 禁止\", \"用人单位 所属单位 出资 合伙 设立 劳务派遣单位 自我派遣 劳动合同法第六十七条\", \"劳务派遣单位 用工单位 关联 逆向派遣 被派遣劳动者 派回原单位 合法性\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 784,
+  "total_tokens": 1035,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 710
+ },
+ "latency_ms": 4287.961300004099,
+ "from_cache": false
+}

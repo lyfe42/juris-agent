@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条只是说明其他法律、行政法规已规定处罚时按相应规定处罚，属于转致/衔接条款，无法自然地回答普通打工人关心的具体问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 377,
+  "completion_tokens": 199,
+  "total_tokens": 576,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 133
+ },
+ "latency_ms": 1416.6677999965032,
+ "from_cache": false
+}

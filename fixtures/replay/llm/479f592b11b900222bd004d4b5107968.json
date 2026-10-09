@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司不给加班费，我去仲裁要加班费，得我自己证明加过班吗？要是考勤记录在公司手里，他们就是不拿出来，会怎么样？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"直接对应加班费争议中劳动者对加班事实的举证责任，以及用人单位掌握证据却不提供时的不利后果。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 396,
+  "completion_tokens": 442,
+  "total_tokens": 838,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 140,
+  "reasoning_tokens": 351
+ },
+ "latency_ms": 2772.9693000001134,
+ "from_cache": false
+}

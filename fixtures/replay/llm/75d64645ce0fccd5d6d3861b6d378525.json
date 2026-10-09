@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"和公司发生劳动争议后，我必须在多长时间内去申请劳动仲裁？\", \"qtype\": \"temporal\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应条文中“自劳动争议发生之日起六十日内”申请仲裁的期限规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 392,
+  "completion_tokens": 884,
+  "total_tokens": 1276,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 818
+ },
+ "latency_ms": 4566.928899999766,
+ "from_cache": false
+}

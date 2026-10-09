@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"解除或者终止劳动合同证明 应当载明 劳动合同期限 解除终止日期 工作岗位 本单位工作年限\", \"用人单位 出具 离职证明 法定记载事项 劳动合同期限 工作岗位 工作年限\", \"劳动合同法实施条例第二十四条 解除终止劳动合同证明 应写明内容 解除终止日期 本单位工作年限\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 587,
+  "total_tokens": 833,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 512
+ },
+ "latency_ms": 2878.6248000033083,
+ "from_cache": false
+}

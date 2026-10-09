@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"未办理营业执照 挂靠经营 借用营业执照 劳动仲裁 被申请人 营业执照出借方 当事人\", \"不具备合法经营资格 用人单位 挂靠 被挂靠单位 劳动人事争议仲裁 被申请人 出资人\", \"无照经营 挂靠 劳动争议仲裁 被申请人列明 实际经营者 营业执照出借方\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 1049,
+  "total_tokens": 1308,
+  "prompt_cache_hit_tokens": 125,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 969
+ },
+ "latency_ms": 5541.0450999988825,
+ "from_cache": false
+}

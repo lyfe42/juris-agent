@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条仅规定挪用社会保险基金构成犯罪的依法追究刑事责任，属于援引刑法的指引性条款，没有具体可操作内容，难以形成一道自然且答案唯一的打工人问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 369,
+  "completion_tokens": 1068,
+  "total_tokens": 1437,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 241,
+  "reasoning_tokens": 999
+ },
+ "latency_ms": 6046.567900004447,
+ "from_cache": false
+}

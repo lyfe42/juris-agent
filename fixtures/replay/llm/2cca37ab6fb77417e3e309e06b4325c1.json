@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"经济补偿 工作年限 每满一年 一个月工资 解除劳动合同\",\"劳动合同法第四十七条 经济补偿 月工资 工作年限 计算标准\",\"经济性裁员 经济补偿 工作年限 月工资 补偿标准\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 245,
+  "completion_tokens": 854,
+  "total_tokens": 1099,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 798
+ },
+ "latency_ms": 4380.747299997893,
+ "from_cache": false
+}

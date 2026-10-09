@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"被派遣劳动者 参加工会 劳务派遣单位 用工单位 会籍\",\"劳务派遣工 加入工会 劳务派遣单位工会 用工单位工会 工会关系\",\"劳务派遣 劳动者 入会 工会组织 派遣单位 用工单位 隶属\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 254,
+  "completion_tokens": 1087,
+  "total_tokens": 1341,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 1025
+ },
+ "latency_ms": 5341.068500005349,
+ "from_cache": false
+}

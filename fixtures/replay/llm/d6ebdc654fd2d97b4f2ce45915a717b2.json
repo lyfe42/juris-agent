@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议调解仲裁法 仲裁裁决书 应当载明 仲裁请求 争议事实 裁决理由 裁决结果\", \"劳动仲裁裁决书 法定内容 仲裁费用负担 裁决日期 仲裁员签名 仲裁委员会印章\", \"仲裁裁决书 必备事项 裁决书内容 载明事项 劳动争议\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 383,
+  "total_tokens": 629,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 309
+ },
+ "latency_ms": 2310.933599997952,
+ "from_cache": false
+}

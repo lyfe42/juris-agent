@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"失业保险金 领取条件 失业人员 非因本人意愿中断就业 缴费满一年 失业登记 求职要求\",\"失业保险待遇 享受条件 用人单位和个人已缴纳失业保险费满一年 非因本人意愿中断就业 办理失业登记\",\"社会保险法 失业保险金 申领资格 缴费义务 失业登记 求职要求\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 320,
+  "total_tokens": 569,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 242
+ },
+ "latency_ms": 1827.080200004275,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同 违约金 约定 效力 用人单位 劳动者\",\"劳动合同法 违约金 条款 无效 法定情形\",\"劳动者 承担 违约金 合法性",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 238,
+  "completion_tokens": 512,
+  "total_tokens": 750,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 238,
+  "reasoning_tokens": 475
+ },
+ "latency_ms": 2575.106100004632,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"如果老板动手打员工、把员工关起来逼着干活，法律上会给他什么处罚？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应法条中用人单位以暴力、威胁、非法限制人身自由强迫劳动，以及殴打、拘禁劳动者时，由公安机关拘留、罚款或警告，构成犯罪的追究刑事责任的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 412,
+  "completion_tokens": 644,
+  "total_tokens": 1056,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 156,
+  "reasoning_tokens": 551
+ },
+ "latency_ms": 3974.496500006353,
+ "from_cache": false
+}

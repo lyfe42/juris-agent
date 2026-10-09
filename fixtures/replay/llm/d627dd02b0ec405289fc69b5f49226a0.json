@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"延长工作时间 每月 不得超过三十六小时 劳动法第四十一条\", \"加班加点 工时上限 日一小时 特殊原因 三小时 月累计\", \"用人单位 安排加班 工作时间限制 劳动者休息权 保障身体健康\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 241,
+  "completion_tokens": 228,
+  "total_tokens": 469,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 241,
+  "reasoning_tokens": 172
+ },
+ "latency_ms": 1329.2319999964093,
+ "from_cache": false
+}

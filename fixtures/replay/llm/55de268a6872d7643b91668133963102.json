@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 以暴力 威胁 非法限制人身自由 强迫劳动 行政处罚 刑事责任 赔偿责任\",\"用人单位 违章指挥 强令冒险作业 危及劳动者人身安全 法律责任 处罚\",\"劳动条件恶劣 环境污染严重 劳动者身心健康 严重损害 用人单位 行政处罚 赔偿责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 615,
+  "total_tokens": 874,
+  "prompt_cache_hit_tokens": 125,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 549
+ },
+ "latency_ms": 2992.8703000041423,
+ "from_cache": false
+}

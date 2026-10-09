@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动者解除劳动合同 用人单位 十五日内 办理档案和社会保险关系转移手续\",\"劳动合同解除 用人单位 社会保险关系转移 档案转移 十五日 法定期限\",\"辞职 用人单位 办理社会保险转移手续 档案转移手续 十五日内\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 860,
+  "total_tokens": 1109,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 801
+ },
+ "latency_ms": 4320.907200002694,
+ "from_cache": false
+}

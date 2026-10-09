@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"用假证明骗领了社保待遇，被发现后会怎么样？要罚多少钱？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应骗取社会保险待遇的法律后果与罚款幅度，普通人会关心，且不涉及其他条文。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 384,
+  "completion_tokens": 272,
+  "total_tokens": 656,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 200
+ },
+ "latency_ms": 3077.452599995013,
+ "from_cache": false
+}

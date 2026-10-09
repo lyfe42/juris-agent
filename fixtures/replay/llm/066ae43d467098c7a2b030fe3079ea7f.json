@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"政府安排我去的公益性岗位，是不是既不能要求签长期合同，万一不干了也没有经济补偿？\",\"qtype\":\"single_fact\",\"difficulty\":\"normal\",\"reason\":\"该条直接规定政府安置就业困难人员的公益性岗位不适用无固定期限劳动合同和经济补偿的规定，问题正好对应这两项例外。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 395,
+  "completion_tokens": 1571,
+  "total_tokens": 1966,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 139,
+  "reasoning_tokens": 1496
+ },
+ "latency_ms": 8454.579400000512,
+ "from_cache": false
+}

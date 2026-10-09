@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司把我从原来的公司调到新成立的关联公司，工作岗位和地点都没变，只是合同换了个主体，现在新公司要辞退我，我以前在老公司的工龄能一起算进经济补偿里吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该法条直接规定了劳动者非因本人原因被安排到新用人单位时，原工作年限可合并计算为新单位工作年限的情形和条件，与问题核心一致。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 533,
+  "completion_tokens": 707,
+  "total_tokens": 1240,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 277,
+  "reasoning_tokens": 586
+ },
+ "latency_ms": 3726.8506000036723,
+ "from_cache": false
+}

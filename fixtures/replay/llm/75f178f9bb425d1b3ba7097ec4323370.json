@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司把我辞退了，还说是我的问题，如果去仲裁，是得我自己证明公司辞退不合理，还是公司得拿出证据证明辞退有理？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题对应因用人单位辞退决定发生的劳动争议，直接问举证责任归属，可由该条明确回答由用人单位负举证责任。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 393,
+  "completion_tokens": 351,
+  "total_tokens": 744,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 137,
+  "reasoning_tokens": 258
+ },
+ "latency_ms": 3099.9799000055646,
+ "from_cache": false
+}

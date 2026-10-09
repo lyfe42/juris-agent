@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"上班后生育保险是我自己掏钱交，还是公司交？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问的是生育保险由谁缴费，法条明确职工不缴、由用人单位缴纳，直接对应。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 371,
+  "completion_tokens": 297,
+  "total_tokens": 668,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 228
+ },
+ "latency_ms": 2247.561100004532,
+ "from_cache": false
+}

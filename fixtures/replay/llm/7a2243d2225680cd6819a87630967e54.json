@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司花钱送我去外面培训，还跟我签了个服务期协议，说提前走人要赔违约金。要是我因为公司老拖欠工资、实在干不下去才辞职的，这笔违约金还得赔吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"本条明确规定劳动者因用人单位过错（依劳动合同法第三十八条）解除合同时不属违反服务期约定、无需支付违约金，正好回答该问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 503,
+  "completion_tokens": 573,
+  "total_tokens": 1076,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 465
+ },
+ "latency_ms": 3731.7509000058635,
+ "from_cache": false
+}

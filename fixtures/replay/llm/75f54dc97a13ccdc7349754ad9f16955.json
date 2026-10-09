@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条只是规定劳动行政部门制定仲裁规则和进行工作指导的职责分工，属于纯程序性、机构性条款，普通打工人无法据此提出自然且以本条为答案的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 379,
+  "completion_tokens": 202,
+  "total_tokens": 581,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 130
+ },
+ "latency_ms": 1691.0558000017772,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"同工同酬 同岗位 同等工作量 业绩相当 工资差异 按劳分配原则\",\"工资分配 劳动报酬 差别待遇 薪酬歧视 同工同酬 合理性审查\",\"同岗不同酬 同等业绩 工资差额 劳动合同约定 劳动报酬争议\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 254,
+  "completion_tokens": 807,
+  "total_tokens": 1061,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 739
+ },
+ "latency_ms": 4451.633300006506,
+ "from_cache": false
+}

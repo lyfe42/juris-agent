@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是宣示性、政策性条款，只概括国家在劳动就业、职业教育、收入调节等方面的宏观职责，没有规定劳动者可直接主张的具体权利或用人单位的具体义务，难以形成自然且答案就是本条的打工人问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 382,
+  "completion_tokens": 237,
+  "total_tokens": 619,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 157
+ },
+ "latency_ms": 1983.637400000589,
+ "from_cache": false
+}

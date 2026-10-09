@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 未依法缴纳社会保险费 社会保险行政部门 责令限期缴纳 行政处罚\",\"用人单位 未按时足额缴纳社会保险费 社会保险费征缴 加收滞纳金 罚款 强制征缴\",\"劳动保障监察 投诉举报 未办理社会保险登记 未缴纳社会保险费 责令改正 行政处理\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 451,
+  "total_tokens": 697,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 377
+ },
+ "latency_ms": 2450.5323999983375,
+ "from_cache": false
+}

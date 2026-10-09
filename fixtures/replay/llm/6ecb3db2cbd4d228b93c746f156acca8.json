@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我还在试用期，公司给我开的工资最低不能低于什么标准？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应试用期工资下限的规定，能用本条法条回答，且不涉及其他法律概念。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 387,
+  "completion_tokens": 282,
+  "total_tokens": 669,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 259,
+  "reasoning_tokens": 211
+ },
+ "latency_ms": 1866.42739999661,
+ "from_cache": false
+}

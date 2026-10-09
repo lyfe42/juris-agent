@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司掏钱送我去外面参加专业培训，还让我签了协议保证得干满几年，要是我中途辞职走人，得赔给公司多少钱？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该条直接规定了违反服务期约定时违约金的支付义务及其上限（不超过培训费用、不超过服务期未履行部分应分摊的费用），是打工人最关心的赔偿金额问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 436,
+  "completion_tokens": 619,
+  "total_tokens": 1055,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 180,
+  "reasoning_tokens": 506
+ },
+ "latency_ms": 3747.8049999990617,
+ "from_cache": false
+}

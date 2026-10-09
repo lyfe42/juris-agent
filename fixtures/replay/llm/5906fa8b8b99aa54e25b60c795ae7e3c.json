@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"拖欠劳动报酬 劳动争议调解协议 逾期不履行 向人民法院申请支付令 人民法院应当依法发出\",\"用人单位 未按调解协议约定期限支付劳动报酬 劳动者 持调解协议书 申请支付令 法院发出义务\",\"劳动争议调解仲裁法 第十六条 拖欠劳动报酬 调解协议不履行 支付令 申请条件 应当发出\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 262,
+  "completion_tokens": 1181,
+  "total_tokens": 1443,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 1099
+ },
+ "latency_ms": 5824.7286999976495,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议仲裁 开庭审理 当事人 质证 辩论 最后意见\", \"仲裁庭 证据 质证权 辩论权 征询最后意见\", \"劳动争议调解仲裁法 第三十八条 质证 辩论终结 当事人最后意见\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 263,
+  "completion_tokens": 432,
+  "total_tokens": 695,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 372
+ },
+ "latency_ms": 2525.063400004001,
+ "from_cache": false
+}

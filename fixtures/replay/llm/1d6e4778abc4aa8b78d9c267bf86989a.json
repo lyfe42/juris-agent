@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"公司一直不跟我签书面劳动合同，他们该赔我的双倍工资怎么算？要是我干满一个月都不到，又怎么算？\",\"qtype\":\"calculation\",\"difficulty\":\"normal\",\"reason\":\"这条直接规定了未签书面劳动合同二倍工资按月计算，以及不满一个月按该月实际工作日计算，能回答打工人关心的计算方式。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 388,
+  "completion_tokens": 517,
+  "total_tokens": 905,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 388,
+  "reasoning_tokens": 433
+ },
+ "latency_ms": 3308.077699999558,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"违法约定试用期 超过法定试用期 已经履行 赔偿金 试用期满月工资 计算标准\",\"劳动合同法第八十三条 试用期超过法定上限 超期部分 赔偿金 月工资 支付期间\",\"违法约定试用期 超期履行 正常提供劳动 赔偿金 计算基数 试用期满",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 512,
+  "total_tokens": 771,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 259,
+  "reasoning_tokens": 437
+ },
+ "latency_ms": 2453.820700000506,
+ "from_cache": false
+}

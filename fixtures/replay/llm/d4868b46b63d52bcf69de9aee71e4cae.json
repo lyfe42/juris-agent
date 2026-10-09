@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在哪些情况下可以随时跟公司说一声就辞职走人？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题问的是劳动者可随时通知解除劳动合同的情形，答案正是本条列举的试用期内、被暴力威胁或非法限制人身自由强迫劳动、单位未按约支付报酬或提供劳动条件三种情况。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 403,
+  "completion_tokens": 1146,
+  "total_tokens": 1549,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 147,
+  "reasoning_tokens": 1056
+ },
+ "latency_ms": 6834.3638999940595,
+ "from_cache": false
+}

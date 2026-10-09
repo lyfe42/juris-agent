@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 非法招用 未满十六周岁 未成年人 法律责任 行政处罚\", \"禁止使用童工 招用童工 责令改正 罚款 吊销营业执照\", \"劳动法 第九十四条 未满十六周岁 招用 劳动行政部门 处罚\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 369,
+  "total_tokens": 613,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 306
+ },
+ "latency_ms": 2094.3998000002466,
+ "from_cache": false
+}

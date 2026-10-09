@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位规章制度 违反法律 法规规定 劳动行政部门 责令改正 警告 给劳动者造成损害 赔偿责任\",\"用人单位 乱罚款 克扣工资 强迫或者变相强迫加班 不支付加班费 劳动者举报 劳动保障监察 责令限期支付 加付赔偿金\",\"规章制度违法 直接涉及劳动者切身利益 劳动者损害 赔偿 劳动者投诉举报 劳动行政部门查处 行政处罚\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 270,
+  "completion_tokens": 1239,
+  "total_tokens": 1509,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 142,
+  "reasoning_tokens": 1147
+ },
+ "latency_ms": 6754.185599995253,
+ "from_cache": false
+}

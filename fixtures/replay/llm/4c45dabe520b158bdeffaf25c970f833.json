@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司最晚得在我开始上班后多少天内给我办社保登记？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题问用人单位办理社保登记的法定期限，直接对应本条第一款规定的“自用工之日起三十日内”。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 432,
+  "completion_tokens": 943,
+  "total_tokens": 1375,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 176,
+  "reasoning_tokens": 872
+ },
+ "latency_ms": 5225.284899999679,
+ "from_cache": false
+}

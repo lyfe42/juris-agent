@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位单方解除劳动合同 事先通知工会 工会要求纠正 处理结果书面通知工会\",\"劳动者申请仲裁 提起诉讼 工会依法给予支持和帮助\",\"工会 监督用人单位履行劳动合同 解除劳动合同 提出意见 要求纠正 维护劳动者合法权益\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 257,
+  "completion_tokens": 1020,
+  "total_tokens": 1277,
+  "prompt_cache_hit_tokens": 123,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 961
+ },
+ "latency_ms": 5384.269599999243,
+ "from_cache": false
+}

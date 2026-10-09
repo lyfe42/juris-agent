@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"正常情况下，一天上班最多不能超过几个小时？一周平均最多不能超过几个小时？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接询问标准工时制度中的每日和每周上限，正好由该条法条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 370,
+  "completion_tokens": 243,
+  "total_tokens": 613,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 174
+ },
+ "latency_ms": 1719.592699999339,
+ "from_cache": false
+}

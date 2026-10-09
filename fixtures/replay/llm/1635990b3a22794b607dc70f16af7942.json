@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"丧葬补助金 基本养老保险 工伤保险 失业保险 同时符合 选择领取 其中一项\",\"个人死亡 遗属 丧葬补助金 重复领取 社会保险基金 不得重复享受\",\"社会保险法 第四十九条 丧葬补助金 工伤保险 失业保险 养老保险 竞合 遗属选择权\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 257,
+  "completion_tokens": 749,
+  "total_tokens": 1006,
+  "prompt_cache_hit_tokens": 123,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 675
+ },
+ "latency_ms": 3445.40880000568,
+ "from_cache": false
+}

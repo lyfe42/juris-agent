@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司给我定的试用期比法律允许的长，多出来的那段时间我也正常上班了，公司要不要赔我钱？怎么算？\",\n  \"qtype\": \"calculation\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"问题直接对应违法约定试用期且已履行时，用人单位应按超过法定试用期的期间和试用期满月工资标准支付赔偿金的规定。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 400,
+  "completion_tokens": 723,
+  "total_tokens": 1123,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 144,
+  "reasoning_tokens": 627
+ },
+ "latency_ms": 4322.9527000003145,
+ "from_cache": false
+}

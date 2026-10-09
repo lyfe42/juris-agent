@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司必须给我放假的节日都有哪些？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应用人单位应在哪些节日安排劳动者休假，法条列出了元旦、春节、国际劳动节、国庆节及其他法定休假节日。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 396,
+  "completion_tokens": 270,
+  "total_tokens": 666,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 140,
+  "reasoning_tokens": 197
+ },
+ "latency_ms": 2016.4090000034776,
+ "from_cache": false
+}

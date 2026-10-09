@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用工单位 违反 劳务派遣 规定 劳动行政部门 责令改正 罚款 没收违法所得 吊销 劳务派遣业务经营许可证\",\"劳务派遣单位 用工单位 连带赔偿责任 被派遣劳动者 造成损害 赔偿\",\"劳务派遣 违规 行政处罚 劳动者损失 赔偿主体 连带责任 劳动合同法 第九十二条\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 262,
+  "completion_tokens": 486,
+  "total_tokens": 748,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 409
+ },
+ "latency_ms": 2974.212200002512,
+ "from_cache": false
+}

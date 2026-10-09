@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我们打工人依法享有哪些权利，又要承担哪些义务？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该条集中列举了劳动者的各项基本权利和应尽义务，问题直接对应其全部内容。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 418,
+  "completion_tokens": 1029,
+  "total_tokens": 1447,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 162,
+  "reasoning_tokens": 955
+ },
+ "latency_ms": 5396.169999999984,
+ "from_cache": false
+}

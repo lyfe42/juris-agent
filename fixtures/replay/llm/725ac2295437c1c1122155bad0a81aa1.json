@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我劳动合同要到期了，但我现在还在哺乳期，公司能不能到期就直接终止合同让我走？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题问的是合同期满时处于法定特殊保护情形能否直接终止，该条明确规定应续延至相应情形消失时终止。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 396,
+  "completion_tokens": 1502,
+  "total_tokens": 1898,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 140,
+  "reasoning_tokens": 1420
+ },
+ "latency_ms": 8038.439900003141,
+ "from_cache": false
+}

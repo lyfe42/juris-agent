@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"老板无故拖欠我工资，劳动监察大队查实后能怎么处理？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"直接对应本条第一项克扣或无故拖欠工资时，劳动行政部门责令支付工资报酬、经济补偿并可责令支付赔偿金的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 431,
+  "completion_tokens": 843,
+  "total_tokens": 1274,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 175,
+  "reasoning_tokens": 765
+ },
+ "latency_ms": 4187.571400005254,
+ "from_cache": false
+}

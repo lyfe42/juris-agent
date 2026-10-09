@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"temporal\", \"difficulty\": \"easy\", \"reason\": \"该条仅规定司法解释的施行日期、废止条款及新旧解释冲突时的适用规则，属于纯程序性/生效性条款，普通劳动者不会就司法解释本身的生效时间提问，也无法对应任何具体的劳动权利义务问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 414,
+  "completion_tokens": 544,
+  "total_tokens": 958,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 158,
+  "reasoning_tokens": 467
+ },
+ "latency_ms": 3616.067599999951,
+ "from_cache": false
+}

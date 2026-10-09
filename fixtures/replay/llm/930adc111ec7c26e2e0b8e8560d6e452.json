@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"未订立书面劳动合同 二倍工资 起算时间 用工之日起满一个月\", \"用人单位自用工之日起超过一个月不满一年未与劳动者订立书面劳动合同 每月支付二倍工资\", \"书面劳动合同 未签订 二倍工资差额 满一个月的次日 起算\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 255,
+  "completion_tokens": 771,
+  "total_tokens": 1026,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 704
+ },
+ "latency_ms": 3949.3921999965096,
+ "from_cache": false
+}

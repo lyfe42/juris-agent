@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"加班费 拖欠 劳动行政部门 责令限期支付 逾期不支付 加付赔偿金 劳动合同法第八十五条 应付金额百分之五十以上百分之一百以下\",\"安排加班不支付加班费 未及时足额支付劳动报酬 劳动保障监察 责令限期支付 逾期未支付 加付赔偿金 赔偿金标准\",\"劳动行政部门责令限期支付加班费 逾期仍不支付 额外赔偿金 加付赔偿金 应付金额百分之五十至百分之一百 劳动合同法第85条 劳动保障监察\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 263,
+  "completion_tokens": 1217,
+  "total_tokens": 1480,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 1097
+ },
+ "latency_ms": 5800.534400004835,
+ "from_cache": false
+}

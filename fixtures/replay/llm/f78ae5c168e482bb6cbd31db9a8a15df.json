@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\": \"json_object\",\"askable\": true, \"question\": \"我是劳务派遣工，想加入工会的话，应该找签合同的派遣公司，还是实际上班的用工单位？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应被派遣劳动者有权在劳务派遣单位或者用工单位参加或组织工会的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 372,
+  "completion_tokens": 363,
+  "total_tokens": 735,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 280
+ },
+ "latency_ms": 2115.3787999937776,
+ "from_cache": false
+}

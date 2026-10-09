@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"伪造证明材料 骗取社会保险待遇 责令退回 罚款 二倍以上五倍以下\",\"欺诈手段 骗取社保待遇 社会保险行政部门 行政处罚 法律责任\",\"虚假证明 违规领取社会保险待遇 骗取金额 罚款标准\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 248,
+  "completion_tokens": 494,
+  "total_tokens": 742,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 248,
+  "reasoning_tokens": 440
+ },
+ "latency_ms": 2747.1504999994067,
+ "from_cache": false
+}

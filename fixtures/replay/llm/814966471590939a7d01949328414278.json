@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是宏观政策宣示，规定政府支持社保事业的一般职责，不涉及劳动者具体权利义务，难以构造一道普通打工人会问且能被本条完整回答的自然问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 384,
+  "completion_tokens": 1580,
+  "total_tokens": 1964,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 1510
+ },
+ "latency_ms": 8897.373900006642,
+ "from_cache": false
+}

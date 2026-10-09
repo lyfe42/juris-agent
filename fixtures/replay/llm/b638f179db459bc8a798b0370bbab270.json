@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是法院审理撤销终局裁决案件的程序性规定，普通打工人不会就此提出自然问题，硬造会不切题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 439,
+  "completion_tokens": 116,
+  "total_tokens": 555,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 183,
+  "reasoning_tokens": 54
+ },
+ "latency_ms": 1120.6396999987192,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我最近失业了，想去领失业保险金，得满足哪些条件才能领啊？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题就是普通打工人问的“领失业金要什么条件”，答案正是本条列出的三项条件，不涉及其他法条。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 403,
+  "completion_tokens": 248,
+  "total_tokens": 651,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 147,
+  "reasoning_tokens": 168
+ },
+ "latency_ms": 1805.8767999973497,
+ "from_cache": false
+}

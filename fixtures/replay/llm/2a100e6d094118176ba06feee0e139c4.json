@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议仲裁 逾期未作出仲裁裁决 当事人 向人民法院提起诉讼\",\"仲裁庭 超过仲裁审理期限 未作出裁决 劳动争议事项 起诉\",\"劳动争议调解仲裁法 第四十三条 四十五日 延期十五日 逾期未裁决 诉讼\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 256,
+  "completion_tokens": 1006,
+  "total_tokens": 1262,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 946
+ },
+ "latency_ms": 5047.001099999761,
+ "from_cache": false
+}

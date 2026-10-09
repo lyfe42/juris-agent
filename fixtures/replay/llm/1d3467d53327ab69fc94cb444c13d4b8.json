@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 自用工之日起超过一个月不满一年 未订立书面劳动合同 二倍工资 计算\",\"未签订书面劳动合同 二倍工资 起算时间 用工之日起满一个月 次日 补订书面劳动合同前一日\",\"用工之日起一个月内 未订立书面劳动合同 二倍工资 不满一个月 法律责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 261,
+  "completion_tokens": 776,
+  "total_tokens": 1037,
+  "prompt_cache_hit_tokens": 127,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 702
+ },
+ "latency_ms": 3839.3238999997266,
+ "from_cache": false
+}

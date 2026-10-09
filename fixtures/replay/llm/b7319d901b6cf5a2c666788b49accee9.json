@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"强迫劳动罪 非法拘禁",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 252,
+  "completion_tokens": 512,
+  "total_tokens": 764,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 499
+ },
+ "latency_ms": 3158.568600003491,
+ "from_cache": false
+}

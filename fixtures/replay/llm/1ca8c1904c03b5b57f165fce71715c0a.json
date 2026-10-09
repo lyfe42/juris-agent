@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"生效劳动",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 512,
+  "total_tokens": 761,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 504
+ },
+ "latency_ms": 3599.3031000034534,
+ "from_cache": false
+}

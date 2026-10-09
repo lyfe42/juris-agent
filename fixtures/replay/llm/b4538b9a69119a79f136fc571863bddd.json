@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我上班都半个多月了，公司还没跟我签书面劳动合同，它最晚得在什么时候跟我签？\", \"qtype\": \"temporal\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应已建立劳动关系但未同时订立书面合同时，应自用工之日起一个月内订立的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 396,
+  "completion_tokens": 448,
+  "total_tokens": 844,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 140,
+  "reasoning_tokens": 370
+ },
+ "latency_ms": 2920.8709000013187,
+ "from_cache": false
+}

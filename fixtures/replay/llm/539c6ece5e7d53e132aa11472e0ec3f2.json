@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我跟公司闹了劳动纠纷，除了自己直接找公司谈，还能找谁一起去跟公司协商解决？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题问的是发生劳动争议后可以找谁共同与单位协商和解，正好对应本条规定的工会或第三方。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 374,
+  "completion_tokens": 263,
+  "total_tokens": 637,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 183
+ },
+ "latency_ms": 2144.1287999987253,
+ "from_cache": false
+}

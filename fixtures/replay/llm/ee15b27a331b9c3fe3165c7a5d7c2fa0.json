@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"养老保险得交够多少年，退休之后才能每个月领养老金啊？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条直接规定了按月领取基本养老金所需的累计缴费年限条件，是打工人最关心的退休待遇门槛问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 418,
+  "completion_tokens": 274,
+  "total_tokens": 692,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 162,
+  "reasoning_tokens": 202
+ },
+ "latency_ms": 1631.7127000002074,
+ "from_cache": false
+}

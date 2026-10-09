@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"平时加班、周末加班还有法定节假日加班，公司给我的加班费分别是几倍工资？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"这条法条直接规定了三种加班情形下用人单位应支付的工资报酬标准（150%、200%、300%），正是打工人最关心的加班费倍数问题，一问一答完全对应。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 433,
+  "completion_tokens": 355,
+  "total_tokens": 788,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 177,
+  "reasoning_tokens": 264
+ },
+ "latency_ms": 2560.8273000034387,
+ "from_cache": false
+}

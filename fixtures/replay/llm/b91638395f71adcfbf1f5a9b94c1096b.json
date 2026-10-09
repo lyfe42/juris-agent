@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动保障监察员 进入 用人单位 劳动场所 检查 查阅 复制 资料 出示 劳动保障监察证件\", \"劳动保障监察 现场检查 调阅 文件 资料 工作场所 执法证件 出示\", \"劳动监察 调查 检查 车间 资料 职权 出示 证件\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 252,
+  "completion_tokens": 384,
+  "total_tokens": 636,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 309
+ },
+ "latency_ms": 2385.835199995199,
+ "from_cache": false
+}

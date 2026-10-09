@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"违法解除劳动合同 赔偿金 经济补偿 能否同时适用 二倍 择一\", \"违法解除劳动合同 赔偿金 计算年限 起算 入职之日 连续工作年限\", \"劳动合同法第八十七条 第四十七条 赔偿金 二倍经济补偿标准 支付年限\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 261,
+  "completion_tokens": 338,
+  "total_tokens": 599,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 261,
+  "reasoning_tokens": 269
+ },
+ "latency_ms": 1957.2748999999021,
+ "from_cache": false
+}

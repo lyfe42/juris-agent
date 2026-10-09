@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 自成立之日起三十日内 办理社会保险登记 社会保险经办机构\", \"新成立 企业 社会保险登记 法定期限 三十日 社保经办机构\", \"用人单位 社会保险登记 申请时限 成立之日起 30日\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 247,
+  "completion_tokens": 387,
+  "total_tokens": 634,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 329
+ },
+ "latency_ms": 2066.0990000033053,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议调解 调解员 充分听取双方当事人陈述 事实和理由 耐心疏导 达成协议\", \"劳动争议调解仲裁法 第十三条 调解程序 听取当事人陈述 帮助达成调解协议\", \"劳动争议 调解组织 主持调解 当事人陈述事实理由 疏导 促成和解 调解协议\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 959,
+  "total_tokens": 1210,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 888
+ },
+ "latency_ms": 4824.2452000049525,
+ "from_cache": false
+}

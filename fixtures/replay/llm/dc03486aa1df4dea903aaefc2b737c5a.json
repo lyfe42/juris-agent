@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我去公司上班，公司是不是必须跟我签劳动合同？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应“建立劳动关系应当订立劳动合同”这一核心要求，是打工人常见疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 372,
+  "completion_tokens": 220,
+  "total_tokens": 592,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 155
+ },
+ "latency_ms": 1328.5303000011481,
+ "from_cache": false
+}

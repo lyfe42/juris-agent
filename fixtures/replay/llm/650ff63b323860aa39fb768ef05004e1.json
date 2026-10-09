@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议 仲裁裁决 不服 十五日内 向人民法院 起诉 收到仲裁裁决书之日起 期满不起诉 裁决书发生法律效力\",\"当事人 对仲裁裁决不服 提起诉讼 法定起诉期限 逾期未起诉 裁决书生效 劳动争议调解仲裁法 第五十条\",\"劳动仲裁裁决书 收到 十五日 起诉期限 届满 未起诉 法律效力 劳动争议 法院起诉\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 261,
+  "completion_tokens": 1062,
+  "total_tokens": 1323,
+  "prompt_cache_hit_tokens": 127,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 970
+ },
+ "latency_ms": 5754.479700000957,
+ "from_cache": false
+}

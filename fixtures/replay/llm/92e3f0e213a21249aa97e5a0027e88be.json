@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司跟我签的劳动合同后来被认定无效，可我已经实际上班干活了，公司还能不给工资和经济补偿吗？如果合同无效是公司造成的，我还因此受了损失，能不能让公司赔？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应劳动合同被确认无效后劳动者已付出劳动的报酬与经济补偿，以及用人单位原因导致合同无效造成损害的赔偿规则。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 414,
+  "completion_tokens": 873,
+  "total_tokens": 1287,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 158,
+  "reasoning_tokens": 771
+ },
+ "latency_ms": 5597.154299997783,
+ "from_cache": false
+}

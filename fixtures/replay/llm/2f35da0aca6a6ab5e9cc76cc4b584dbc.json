@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议 解决途径 协商 调解 仲裁 诉讼 申请仲裁时效\", \"用人单位 违反劳动法律 侵害劳动者合法权益 赔偿责任 经济补偿\", \"劳动保障监察 投诉举报 劳动行政部门 责令改正 行政处罚 工会监督\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 320,
+  "total_tokens": 563,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 261
+ },
+ "latency_ms": 2269.06020000024,
+ "from_cache": false
+}

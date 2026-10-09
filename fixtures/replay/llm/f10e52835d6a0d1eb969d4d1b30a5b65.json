@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"医院或者药店骗取医保基金，会被怎么处罚？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应本条对社保服务机构骗取社保基金支出的处罚规定，答案（责令退回、二至五倍罚款、解除服务协议、吊销执业资格）完全由本条涵盖。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 423,
+  "completion_tokens": 423,
+  "total_tokens": 846,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 167,
+  "reasoning_tokens": 340
+ },
+ "latency_ms": 2929.1931000043405,
+ "from_cache": false
+}

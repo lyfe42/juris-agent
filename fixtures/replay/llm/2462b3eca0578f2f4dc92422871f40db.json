@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"竞业限制期限内 用人单位请求解除竞业限制协议 额外支付三个月竞业限制经济补偿\",\"竞业限制协议 中途解除 用人单位提前解除 劳动者请求 额外三个月经济补偿\",\"竞业限制 解除协议 用人单位单方解除 额外补偿 三个月 竞业限制经济补偿\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 260,
+  "completion_tokens": 1049,
+  "total_tokens": 1309,
+  "prompt_cache_hit_tokens": 126,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 977
+ },
+ "latency_ms": 5010.231599997496,
+ "from_cache": false
+}

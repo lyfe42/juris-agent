@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司要单方面辞退我，是不是得先把理由告诉工会？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该问题直接对应用人单位单方解除劳动合同时应事先将理由通知工会的义务，属于法条核心内容，且用口语化方式提问。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 394,
+  "completion_tokens": 281,
+  "total_tokens": 675,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 138,
+  "reasoning_tokens": 192
+ },
+ "latency_ms": 1803.834000005736,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"经济补偿 工作年限 劳动合同法施行前 2008年1月1日 连续计算 本单位工作年限\", \"经济补偿年限 自劳动合同法施行之日起计算 本法施行前 当时有关规定 存续劳动合同\", \"经济性裁员 经济补偿 本单位工作年限 2007年入职 2008年前 工龄 分段计算\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 268,
+  "completion_tokens": 807,
+  "total_tokens": 1075,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 140,
+  "reasoning_tokens": 724
+ },
+ "latency_ms": 4059.6779999978025,
+ "from_cache": false
+}

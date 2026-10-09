@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议仲裁裁决 申请强制执行 被申请人 不予执行申请 法定事由 审查标准\",\"终局裁决 用人单位 申请撤销 劳动争议仲裁委员会所在地中级人民法院 适用法律错误 无管辖权 违反法定程序 伪造证据 隐瞒证据 枉法裁决\",\"劳动争议仲裁裁决书 执行 不予执行 裁决事项不属于劳动争议仲裁范围 无权仲裁 适用法律错误 违背社会公共利益\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 2015,
+  "total_tokens": 2274,
+  "prompt_cache_hit_tokens": 125,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 1923
+ },
+ "latency_ms": 9806.738300001598,
+ "from_cache": false
+}

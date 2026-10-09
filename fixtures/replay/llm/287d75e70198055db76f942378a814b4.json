@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司员工手册的规定和我的劳动合同写的不一样，我能要求按合同来吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应法条第二款关于内部规章制度与劳动合同约定不一致时，劳动者可请求优先适用合同约定的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 420,
+  "completion_tokens": 391,
+  "total_tokens": 811,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 164,
+  "reasoning_tokens": 314
+ },
+ "latency_ms": 2433.0298000058974,
+ "from_cache": false
+}

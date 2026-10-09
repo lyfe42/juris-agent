@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动仲裁结果出来后，公司要是不服气，能不能让法院把这个裁决作废？需要什么理由，多久之内必须去申请？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条直接规定了用人单位申请撤销仲裁裁决的法定情形、三十日期限、管辖法院及后续起诉期限，正是普通打工人会关心的实际问题，且无需引入其他法条即可作答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 505,
+  "completion_tokens": 557,
+  "total_tokens": 1062,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 454
+ },
+ "latency_ms": 3744.377100003476,
+ "from_cache": false
+}

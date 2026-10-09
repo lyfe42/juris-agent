@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"劳动仲裁的时候我没提对方申请已经超过仲裁时效，到了法院一审、二审还能再提这个理由吗？要是后来找到了新证据能证明时效确实过了，法院会认吗？再审的时候还能拿这个理由说事吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"问题直接对应法条关于仲裁时效抗辩在诉讼和再审阶段能否提出的规则，法条给出了明确答案。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 441,
+  "completion_tokens": 874,
+  "total_tokens": 1315,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 185,
+  "reasoning_tokens": 759
+ },
+ "latency_ms": 5224.9519000033615,
+ "from_cache": false
+}

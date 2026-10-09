@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动争议调解的时候，调解员是不是得让双方都把话讲完，再帮忙劝和？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"法条直接规定了劳动争议调解中调解员应充分听取双方陈述并帮助达成协议，问题围绕调解员的具体做法，可由该条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 375,
+  "completion_tokens": 1430,
+  "total_tokens": 1805,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 1346
+ },
+ "latency_ms": 9692.965399997775,
+ "from_cache": false
+}

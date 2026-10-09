@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司什么情况下可以合法把我辞退？\", \"qtype\": \"multi_article\", \"difficulty\": \"normal\", \"reason\": \"问题直接询问用人单位可以解除劳动合同的法定情形，本条以十四项列举完整回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 655,
+  "completion_tokens": 1814,
+  "total_tokens": 2469,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 399,
+  "reasoning_tokens": 1753
+ },
+ "latency_ms": 9916.369899998244,
+ "from_cache": false
+}

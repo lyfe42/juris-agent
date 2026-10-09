@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"老板拖欠我工资一直不给，我能不能直接去法院申请让他赶紧付钱？这个叫什么？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条明确用人单位拖欠或未足额支付劳动报酬时，劳动者可向当地人民法院申请支付令，问题直接对应这一救济途径。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 395,
+  "completion_tokens": 755,
+  "total_tokens": 1150,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 139,
+  "reasoning_tokens": 671
+ },
+ "latency_ms": 4783.899000001838,
+ "from_cache": false
+}

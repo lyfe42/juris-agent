@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司逼我加班，还不给加班费，这样合法吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接询问公司强迫加班且不支付加班费是否合法，法条明确禁止强迫加班并规定安排加班应支付加班费，因此可由该法条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 381,
+  "completion_tokens": 1551,
+  "total_tokens": 1932,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 1468
+ },
+ "latency_ms": 8590.091999998549,
+ "from_cache": false
+}

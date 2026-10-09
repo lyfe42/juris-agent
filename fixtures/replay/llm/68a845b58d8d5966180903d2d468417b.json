@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我离职时跟公司签过竞业限制协议，也写了会给经济补偿。现在公司让我离职后别去竞争对手那儿，我要是遵守了，能要求公司支付那笔补偿吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"问题对应法条中劳动者履行竞业限制义务后要求用人单位支付经济补偿、人民法院应予支持的情形。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 415,
+  "completion_tokens": 963,
+  "total_tokens": 1378,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 159,
+  "reasoning_tokens": 858
+ },
+ "latency_ms": 5198.919099995692,
+ "from_cache": false
+}

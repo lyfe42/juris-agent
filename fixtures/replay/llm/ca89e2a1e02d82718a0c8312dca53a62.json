@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"延长工作时间 休息日 法定休假日 加班工资 支付标准 百分之一百五十 百分之二百 百分之三百\", \"工作日加班 休息日加班 法定节假日加班 工资报酬 倍数 劳动法第四十四条\", \"用人单位安排加班 延长工作时间 休息日 法定休假日 加班费 计算标准 150% 200% 300%\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 444,
+  "total_tokens": 693,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 358
+ },
+ "latency_ms": 2190.2708999987226,
+ "from_cache": false
+}

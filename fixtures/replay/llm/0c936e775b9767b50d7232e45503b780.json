@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位未依法为劳动者缴纳社会保险费 社会保险费征缴 劳动保障监察投诉举报 劳动者维权\",\"社会保险经办机构不予办理社会保险关系转移接续 行政复议 行政诉讼 社保争议\",\"社会保险争议 劳动者权利救济 劳动争议调解仲裁 社会保险费补缴 转移接续\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 250,
+  "completion_tokens": 838,
+  "total_tokens": 1088,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 250,
+  "reasoning_tokens": 770
+ },
+ "latency_ms": 4222.055400001409,
+ "from_cache": false
+}

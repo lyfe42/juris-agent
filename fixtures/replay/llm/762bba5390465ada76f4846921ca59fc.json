@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"哺乳未满一周岁婴儿的女职工 用人单位 延长工作时间 夜班劳动 禁止\", \"哺乳期女职工 未满一周岁 加班 夜班 劳动保护特别规定\", \"女职工劳动保护 哺乳未满1周岁 不得延长劳动时间 不得安排夜班劳动\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 254,
+  "completion_tokens": 511,
+  "total_tokens": 765,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 442
+ },
+ "latency_ms": 2912.3655000003055,
+ "from_cache": false
+}

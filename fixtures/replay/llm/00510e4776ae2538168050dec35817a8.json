@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 单方解除劳动合同 合法情形 劳动合同法 第三十九条 第四十条 第四十一条\",\"过失性辞退 严重违反规章制度 严重失职 营私舞弊 试用期不符合录用条件 依法解除\",\"非过失性辞退 医疗期满 不能胜任工作 客观情况重大变化 经济性裁员 合法解除\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 240,
+  "completion_tokens": 439,
+  "total_tokens": 679,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 240,
+  "reasoning_tokens": 359
+ },
+ "latency_ms": 2219.901199998276,
+ "from_cache": false
+}

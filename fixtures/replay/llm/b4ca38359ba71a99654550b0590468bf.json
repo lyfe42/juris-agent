@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"工伤认定 排除情形 故意犯罪 醉酒 吸毒 自残 自杀 不得认定为工伤\", \"不予认定工伤 工伤保险条例第十六条 排除工伤 非因工作原因 与工作无关\", \"工作时间 工作场所 因工作原因 上下班途中 本人主要责任 不构成工伤 认定边界\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 245,
+  "completion_tokens": 285,
+  "total_tokens": 530,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 209
+ },
+ "latency_ms": 1832.1919000009075,
+ "from_cache": false
+}

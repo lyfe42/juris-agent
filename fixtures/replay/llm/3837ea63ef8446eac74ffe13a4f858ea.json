@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司一直拖着不给我办社保登记，要是被查到了，公司会被怎么处理、罚多少钱？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应用人单位不办理社会保险登记的法律后果，包括责令改正、逾期不改的罚款标准，可由该法条完整回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 401,
+  "completion_tokens": 342,
+  "total_tokens": 743,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 145,
+  "reasoning_tokens": 257
+ },
+ "latency_ms": 2594.818799996574,
+ "from_cache": false
+}

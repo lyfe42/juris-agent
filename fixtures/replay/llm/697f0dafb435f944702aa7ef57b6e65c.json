@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"参加了基本养老保险的人因病去世了，家里人可以领到哪些补助？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"问题直接对应法条中参加基本养老保险的个人因病死亡后遗属可领取丧葬补助金和抚恤金的规定。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 411,
+  "completion_tokens": 1058,
+  "total_tokens": 1469,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 155,
+  "reasoning_tokens": 976
+ },
+ "latency_ms": 5993.780500000867,
+ "from_cache": false
+}

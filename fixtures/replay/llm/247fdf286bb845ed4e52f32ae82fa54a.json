@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动仲裁委员会都是由哪些方面的人组成的？人数上有什么要求？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应法条关于劳动争议仲裁委员会组成及组成人员应为单数的规定，是劳动者了解仲裁机构中立性的常见疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 439,
+  "completion_tokens": 1633,
+  "total_tokens": 2072,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 183,
+  "reasoning_tokens": 1557
+ },
+ "latency_ms": 8593.16189999663,
+ "from_cache": false
+}

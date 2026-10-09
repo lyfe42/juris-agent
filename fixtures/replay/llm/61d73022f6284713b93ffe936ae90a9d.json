@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同法 适用范围 个体经济组织 民办非企业单位 用人单位\",\"个体工商户 民办非企业单位 劳动关系 订立书面劳动合同 解除劳动合同 法律适用\",\"民办非企业单位 个体经济组织 劳动合同法 调整范围 解除劳动合同\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 256,
+  "completion_tokens": 1192,
+  "total_tokens": 1448,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 1132
+ },
+ "latency_ms": 5588.581200005137,
+ "from_cache": false
+}

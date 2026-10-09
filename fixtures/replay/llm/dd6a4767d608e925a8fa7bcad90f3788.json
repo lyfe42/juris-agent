@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"劳动仲裁出了终局裁决，我作为员工不服，收到裁决书后最晚几天内可以去法院起诉？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该问题直接对应劳动者对终局仲裁裁决不服的起诉期限，是第四十八条的核心内容。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 376,
+  "completion_tokens": 1696,
+  "total_tokens": 2072,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 248,
+  "reasoning_tokens": 1611
+ },
+ "latency_ms": 8631.197599999723,
+ "from_cache": false
+}

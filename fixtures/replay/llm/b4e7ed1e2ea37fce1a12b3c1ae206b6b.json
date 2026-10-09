@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"职工基本医疗保险 用人单位缴费义务 职工个人缴费部分 社会保险费征缴\", \"用人单位未依法缴纳基本医疗保险费 要求职工全额承担 社会保险费\", \"基本医疗保险费 用人单位缴纳部分 个人缴纳部分 代扣代缴 社会保险法\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 252,
+  "completion_tokens": 485,
+  "total_tokens": 737,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 422
+ },
+ "latency_ms": 2768.235299998196,
+ "from_cache": false
+}

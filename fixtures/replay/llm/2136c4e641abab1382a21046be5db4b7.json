@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我离职后公司拿一份“不能去同行”的协议来限制我，可我在职时根本接触不到公司的商业秘密，或者协议限制的范围比我实际接触的东西大很多，这种情况下这协议算数吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"直接对应法条中劳动者未接触商业秘密时竞业限制条款不生效，以及限制范围等与接触秘密不相适应时超过合理比例部分无效的规则。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 441,
+  "completion_tokens": 1445,
+  "total_tokens": 1886,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 185,
+  "reasoning_tokens": 1332
+ },
+ "latency_ms": 8532.572500000242,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司自己出钱开了个劳务派遣公司，再把我派到这家公司上班，这样合法吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条明确认定用人单位自己出资设立劳务派遣单位并向本单位派遣劳动者，属于不得设立的劳务派遣单位，可直接回答这种自我派遣是否合法。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 386,
+  "completion_tokens": 617,
+  "total_tokens": 1003,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 258,
+  "reasoning_tokens": 531
+ },
+ "latency_ms": 3484.538500000781,
+ "from_cache": false
+}

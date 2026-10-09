@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议 申请仲裁 时效期间 一年\",\"仲裁时效 知道或者应当知道 权利被侵害 之日起计算\",\"劳动争议调解仲裁法 第二十七条 仲裁时效 劳动报酬 劳动关系终止 一年内\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 239,
+  "completion_tokens": 733,
+  "total_tokens": 972,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 239,
+  "reasoning_tokens": 681
+ },
+ "latency_ms": 3672.847099995124,
+ "from_cache": false
+}

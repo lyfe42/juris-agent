@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是关于行政主管部门职责分工的行政管理性条款，并非直接规定劳动者权利义务，普通打工人一般不会就此提问，难以构成自然问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 375,
+  "completion_tokens": 983,
+  "total_tokens": 1358,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 921
+ },
+ "latency_ms": 5698.776100005489,
+ "from_cache": false
+}

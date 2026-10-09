@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动仲裁开庭时，我能对公司的证据提出质疑、跟公司争辩吗？如果争完了，仲裁员会问我最后还有什么要说的吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应当事人仲裁中的质证、辩论权以及辩论终结时仲裁员应征询最后意见的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 386,
+  "completion_tokens": 431,
+  "total_tokens": 817,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 258,
+  "reasoning_tokens": 339
+ },
+ "latency_ms": 2550.353399994492,
+ "from_cache": false
+}

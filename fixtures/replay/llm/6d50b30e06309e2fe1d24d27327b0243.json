@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我失业了正在领失业金，这段时间的医保费还需要我自己交吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该法条直接规定领取失业保险金期间参加职工基本医疗保险，个人不缴纳基本医疗保险费，由失业保险基金支付，正好回答这个问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 388,
+  "completion_tokens": 574,
+  "total_tokens": 962,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 260,
+  "reasoning_tokens": 494
+ },
+ "latency_ms": 3614.7305999984383,
+ "from_cache": false
+}

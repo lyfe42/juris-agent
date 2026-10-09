@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"这是社会保险基金预算编制层次的程序性规定，普通打工人一般不会就此提问，难以构造自然的生活化问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 382,
+  "completion_tokens": 196,
+  "total_tokens": 578,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 139
+ },
+ "latency_ms": 1433.958800000255,
+ "from_cache": false
+}

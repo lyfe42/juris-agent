@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我实际工作的城市和公司注册的城市不一样，那我的最低工资、劳动保护这些该按哪个地方的标准来？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该法条直接规定了劳动合同履行地与注册地不一致时，最低工资、劳动保护等事项按履行地执行，以及注册地标准更高且双方约定时的例外，能回答此问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 424,
+  "completion_tokens": 828,
+  "total_tokens": 1252,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 168,
+  "reasoning_tokens": 722
+ },
+ "latency_ms": 3806.6761000009137,
+ "from_cache": false
+}

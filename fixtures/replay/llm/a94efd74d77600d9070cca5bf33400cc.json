@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我上班的公司没有营业执照，是挂靠在别人公司名下经营的，我要是去申请劳动仲裁，应该把谁列为被申请人？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该问题直接对应法条中关于借用他人营业执照经营时，应将用人单位和出借方列为当事人的规定，是打工人维权时会遇到的实际问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 395,
+  "completion_tokens": 1021,
+  "total_tokens": 1416,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 139,
+  "reasoning_tokens": 921
+ },
+ "latency_ms": 5917.9973999998765,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动仲裁开庭前，仲裁庭最晚要提前几天通知我开庭时间和地点？\", \"qtype\": \"temporal\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应法条中“开庭五日前书面通知双方当事人”的时限，可由此条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 392,
+  "completion_tokens": 1337,
+  "total_tokens": 1729,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 1265
+ },
+ "latency_ms": 7324.245100004191,
+ "from_cache": false
+}

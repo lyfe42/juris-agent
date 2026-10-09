@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司把业务承包给别的单位经营期间，我跟公司或者承包方闹了劳动纠纷，去法院起诉的话应该告谁、把谁列为当事人？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题问的是承包经营期间发生劳动争议起诉时该列谁为当事人，正好由本条直接回答，未引入其他法律概念。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 397,
+  "completion_tokens": 705,
+  "total_tokens": 1102,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 141,
+  "reasoning_tokens": 611
+ },
+ "latency_ms": 4439.048200001707,
+ "from_cache": false
+}

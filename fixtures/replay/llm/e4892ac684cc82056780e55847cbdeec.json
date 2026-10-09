@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"劳动仲裁时要做鉴定，鉴定机构谁说了算？能让我和对方先商量着选吗？另外，鉴定的人会到场吗，我能当面问他问题吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该问题对应本条关于鉴定机构如何确定以及鉴定人出庭、当事人提问的程序规则，是劳动者在仲裁遇到鉴定时可能自然提出的问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 415,
+  "completion_tokens": 1091,
+  "total_tokens": 1506,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 159,
+  "reasoning_tokens": 983
+ },
+ "latency_ms": 6688.552799998433,
+ "from_cache": false
+}

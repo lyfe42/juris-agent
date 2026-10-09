@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"终局裁决 工作时间 休息休假 社会保险 自作出之日起发生法律效力\",\"劳动争议仲裁裁决书 生效日期 送达 十五日 起诉期限\",\"劳动仲裁裁决 最终结果 法律效力 不服起诉 人民法院\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 262,
+  "completion_tokens": 1116,
+  "total_tokens": 1378,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 1060
+ },
+ "latency_ms": 5224.976099998457,
+ "from_cache": false
+}

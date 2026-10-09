@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"工伤认定 工伤保险待遇 职业病 工伤医疗待遇 停工留薪期 康复治疗费 住院伙食补助费\", \"劳动能力鉴定 丧失劳动能力 伤残等级 生活自理障碍 一次性伤残补助金 伤残津贴 生活护理费\", \"因工致残 伤残待遇 辅助器具配置 一次性工伤医疗补助金 伤残就业补助金 工伤保险基金支付\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 262,
+  "completion_tokens": 871,
+  "total_tokens": 1133,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 782
+ },
+ "latency_ms": 4613.528199995926,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议 申请仲裁 时效期间 一年 起算 知道或应当知道 权利被侵害之日\", \"劳动仲裁 申请期限 逾期 仲裁时效 中断 中止 劳动争议调解仲裁法 第二十七条\", \"仲裁时效期间 劳动报酬 争议 劳动关系终止 一年 提出仲裁申请\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 227,
+  "total_tokens": 473,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 154
+ },
+ "latency_ms": 1386.4886000010301,
+ "from_cache": false
+}

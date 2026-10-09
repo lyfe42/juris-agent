@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"女职工 生育保险 生育医疗费用 报销项目 支付范围\", \"生育医疗费用 产前检查 分娩 接生 手术 住院 药品 费用 报销\", \"生育保险基金 生育医疗费用 支付标准 结算办法 报销范围\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 896,
+  "total_tokens": 1139,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 832
+ },
+ "latency_ms": 4331.201300003158,
+ "from_cache": false
+}

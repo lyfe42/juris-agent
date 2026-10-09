@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"住院医疗费用 基本医疗保险 定点医疗机构 直接结算 医保基金支付 个人垫付 报销\",\"异地就医 跨省异地就医 住院费用 直接结算 备案 联网结算 医保经办机构\",\"基本医疗保险 医疗费用结算 直接结算 先行垫付 报销 异地就医 社会保险法\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 266,
+  "completion_tokens": 868,
+  "total_tokens": 1134,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 138,
+  "reasoning_tokens": 793
+ },
+ "latency_ms": 3942.9080999980215,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我做小时工，能不能同时给好几家单位干活？是不是必须签书面合同？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题问的是非全日制用工能否口头约定以及能否与多个用人单位建立劳动关系，正好由本条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 390,
+  "completion_tokens": 569,
+  "total_tokens": 959,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 495
+ },
+ "latency_ms": 2990.156100000604,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司除了发工资，有没有义务给员工改善一下福利待遇？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"直接对应用人单位应当创造条件、改善集体福利、提高劳动者福利待遇的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 386,
+  "completion_tokens": 749,
+  "total_tokens": 1135,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 258,
+  "reasoning_tokens": 684
+ },
+ "latency_ms": 4414.958200002729,
+ "from_cache": false
+}

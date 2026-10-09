@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我2007年就进公司了，一直干到现在，如果被裁掉拿经济补偿，工龄是按我全部的算，还是只从2008年开始算起？\", \"qtype\": \"temporal\", \"difficulty\": \"hard\", \"reason\": \"该条专门规定了施行前已存续的劳动合同在施行后解除时经济补偿年限如何起算，正好回答跨法入职老员工工龄认定的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 475,
+  "completion_tokens": 1041,
+  "total_tokens": 1516,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 219,
+  "reasoning_tokens": 937
+ },
+ "latency_ms": 5609.843699996418,
+ "from_cache": false
+}

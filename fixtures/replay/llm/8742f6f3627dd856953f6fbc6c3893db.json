@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动合同终止 法定情形 用人单位被依法宣告破产 劳动者开始依法享受基本养老保险待遇 劳动者死亡 被宣告死亡 被宣告失踪\", \"劳动合同法 第四十四条 劳动合同终止 用人单位被吊销营业执照 责令关闭 撤销 用人单位决定提前解散 劳动者达到法定退休年龄\", \"劳动合同自动终止 条件 用人单位破产 劳动者享受基本养老保险待遇 劳动者死亡 宣告死亡 宣告失踪 法定退休年龄\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 267,
+  "completion_tokens": 1293,
+  "total_tokens": 1560,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 139,
+  "reasoning_tokens": 1195
+ },
+ "latency_ms": 5649.120699999912,
+ "from_cache": false
+}

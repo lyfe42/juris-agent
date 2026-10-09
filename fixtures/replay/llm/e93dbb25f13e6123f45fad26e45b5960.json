@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"以胁迫手段订立劳动合同 违背真实意思 劳动合同无效 劳动争议仲裁机构 人民法院确认\",\"胁迫 劳动合同效力 劳动合同法第二十六条 无效劳动合同 确认\",\"用人单位威胁开除 强迫签订劳动合同 劳动合同无效 劳动争议仲裁 确认劳动合同无效\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 1106,
+  "total_tokens": 1357,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 1046
+ },
+ "latency_ms": 5738.355699999374,
+ "from_cache": false
+}

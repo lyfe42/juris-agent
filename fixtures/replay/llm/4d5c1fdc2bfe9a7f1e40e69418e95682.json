@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"基本养老保险 参保人员 因病死亡 遗属 丧葬补助金 抚恤金\", \"参加基本养老保险 个人死亡 个人账户余额 继承 丧葬补助金 抚恤金\", \"社会保险法 参保人员 因病或非因工死亡 遗属待遇 丧葬补助金 抚恤金\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 416,
+  "total_tokens": 662,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 338
+ },
+ "latency_ms": 2481.0121999980765,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"合同到期后我继续在公司上班，公司也没说反对，超过一个月了，我能要求公司按原来的条件续签劳动合同吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应条文第一句关于合同期满后继续工作、单位未表示异议超过一个月可请求按原条件续订劳动合同的情形。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 438,
+  "completion_tokens": 521,
+  "total_tokens": 959,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 182,
+  "reasoning_tokens": 430
+ },
+ "latency_ms": 3302.1005999980844,
+ "from_cache": false
+}

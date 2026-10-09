@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动合同 必备条款 法定条款 劳动合同法\", \"劳动合同 应当具备 条款 用人单位 劳动者\", \"劳动合同 内容 法定必备条款 第十七条\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 237,
+  "completion_tokens": 554,
+  "total_tokens": 791,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 237,
+  "reasoning_tokens": 512
+ },
+ "latency_ms": 3007.0168000020203,
+ "from_cache": false
+}

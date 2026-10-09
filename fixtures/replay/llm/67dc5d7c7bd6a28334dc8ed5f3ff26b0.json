@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我发现公司没给我们交社保，想去举报投诉，相关部门必须处理吗？如果找错部门会不会被踢皮球？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条规定了任何组织或个人有权举报投诉社保违法行为，以及相关部门对职责范围内外投诉的处理和移交义务，能直接回答群众举报投诉是否会被推诿的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 439,
+  "completion_tokens": 657,
+  "total_tokens": 1096,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 183,
+  "reasoning_tokens": 561
+ },
+ "latency_ms": 3697.660400001041,
+ "from_cache": false
+}

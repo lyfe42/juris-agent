@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"我申请劳动仲裁之后，还能不能跟公司私下和解？如果谈成了，能把仲裁申请撤回来吗？\",\"qtype\":\"single_fact\",\"difficulty\":\"easy\",\"reason\":\"该问题直接对应法条规定的申请仲裁后可自行和解、达成和解协议后可撤回仲裁申请。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 372,
+  "completion_tokens": 507,
+  "total_tokens": 879,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 437
+ },
+ "latency_ms": 3813.2347999999183,
+ "from_cache": false
+}

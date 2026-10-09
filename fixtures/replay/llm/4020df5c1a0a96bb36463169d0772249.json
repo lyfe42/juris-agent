@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司违反劳动法，劳动局能来查吗？能让公司改正吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该法条直接规定了劳动行政部门有权对用人单位遵守劳动法律法规的情况进行监督检查，并对违法行为制止和责令改正，能回答打工人关于‘谁管公司违法、能怎么处理’的疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 382,
+  "completion_tokens": 994,
+  "total_tokens": 1376,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 902
+ },
+ "latency_ms": 5242.492800003674,
+ "from_cache": false
+}

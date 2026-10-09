@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 变更名称 法定代表人 主要负责人 投资人 劳动合同 继续履行\",\"原劳动合同 继续有效 用人单位变更 重新订立 书面劳动合同\",\"劳动合同法第三十三条 用人单位变更事项 不影响劳动合同履行\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 1728,
+  "total_tokens": 1979,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 1677
+ },
+ "latency_ms": 8356.994300003862,
+ "from_cache": false
+}

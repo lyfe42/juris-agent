@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"先予执行 追索劳动报酬 仲裁庭 申请 移送人民法院执行 裁决\", \"先予执行 担保 劳动者 可以不提供担保 申请条件 劳动争议\", \"仲裁 拖欠工资 追索劳动报酬 先予执行 裁决 执行 生活费紧迫\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 269,
+  "completion_tokens": 322,
+  "total_tokens": 591,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 141,
+  "reasoning_tokens": 255
+ },
+ "latency_ms": 1840.7560999985435,
+ "from_cache": false
+}

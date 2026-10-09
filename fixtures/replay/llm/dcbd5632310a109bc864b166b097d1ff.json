@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动报酬 拖欠 劳动争议仲裁 时效 劳动关系存续期间 劳动关系终止 一年\",\"未支付工资 仲裁时效期间 起算 知道或者应当知道权利被侵害之日 离职 劳动关系终止\",\"拖欠劳动报酬 仲裁申请期限 在职 劳动关系存续 离职后 一年内\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 260,
+  "completion_tokens": 376,
+  "total_tokens": 636,
+  "prompt_cache_hit_tokens": 126,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 304
+ },
+ "latency_ms": 2415.0662000029115,
+ "from_cache": false
+}

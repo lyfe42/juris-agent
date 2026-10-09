@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"工会能帮我们职工盯着社保权益吗？比如参与讨论社保大事、监督单位有没有损害我们的社保权益？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应工会维护职工社保权益、参与社保重大事项研究和监督的法定职责。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 379,
+  "completion_tokens": 526,
+  "total_tokens": 905,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 450
+ },
+ "latency_ms": 3196.162899999763,
+ "from_cache": false
+}

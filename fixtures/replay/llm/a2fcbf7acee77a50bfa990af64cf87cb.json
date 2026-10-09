@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司自己定的规矩不合法，还害我们员工吃了亏，劳动局能怎么处理？公司要不要赔我们？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应公司规章制度违法时劳动行政部门责令改正、警告以及造成损害应赔偿的责任，可由本条完整回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 382,
+  "completion_tokens": 529,
+  "total_tokens": 911,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 445
+ },
+ "latency_ms": 3350.5670000013197,
+ "from_cache": false
+}

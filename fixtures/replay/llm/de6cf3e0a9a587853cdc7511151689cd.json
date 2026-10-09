@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"女职工 经期 禁忌从事的劳动范围 高处作业 低温作业 冷水作业 体力劳动强度分级 第三级 第四级\", \"用人单位 经期女职工 不得安排 高处作业 低温作业 冷水作业 重体力劳动 禁忌劳动\", \"女职工劳动保护特别规定 经期 冷水作业分级 低温作业分级 体力劳动强度分级 高处作业分级 第三级 第四级\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 258,
+  "completion_tokens": 903,
+  "total_tokens": 1161,
+  "prompt_cache_hit_tokens": 124,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 807
+ },
+ "latency_ms": 4373.413199995412,
+ "from_cache": false
+}

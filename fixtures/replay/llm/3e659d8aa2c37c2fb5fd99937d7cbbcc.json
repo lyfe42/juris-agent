@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 不办理 社会保险登记 责令限期改正 罚款\",\"未办理 社会保险登记 社会保险行政部门 应缴社会保险费数额 一倍以上三倍以下\",\"社会保险法 第八十四条 不办理社会保险登记 行政处罚 直接负责主管人员 罚款\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 253,
+  "completion_tokens": 892,
+  "total_tokens": 1145,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 830
+ },
+ "latency_ms": 4216.380500001833,
+ "from_cache": false
+}

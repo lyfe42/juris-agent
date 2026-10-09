@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"社会保险经办机构 社会保险登记 个人权益记录 社会保险待遇支付\", \"社保经办机构 参保登记 个人权益记录 待遇发放 职责\", \"社会保险法 社会保险经办机构 登记 记录 给付 社会保险待遇\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 248,
+  "completion_tokens": 468,
+  "total_tokens": 716,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 248,
+  "reasoning_tokens": 412
+ },
+ "latency_ms": 2457.970199997362,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"劳动仲裁赢了，但公司一直拖着不给钱，我能向法院申请强制执行吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该条直接规定生效调解书、裁决书一方逾期不履行时，另一方可以申请法院执行，对应劳动者仲裁胜诉后公司不履行的情况。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 397,
+  "completion_tokens": 647,
+  "total_tokens": 1044,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 141,
+  "reasoning_tokens": 556
+ },
+ "latency_ms": 3690.383599998313,
+ "from_cache": false
+}

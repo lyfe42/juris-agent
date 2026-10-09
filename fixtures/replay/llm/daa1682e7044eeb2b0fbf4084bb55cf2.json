@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"违法解除劳动合同 赔偿金 计算标准 劳动合同法第八十七条\", \"经济补偿 二倍 工作年限 月工资 解除劳动合同 第四十七条\", \"用人单位违法解除 赔偿金 数额 计算方式 劳动者 请求权\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 241,
+  "completion_tokens": 220,
+  "total_tokens": 461,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 241,
+  "reasoning_tokens": 162
+ },
+ "latency_ms": 1305.7705999963218,
+ "from_cache": false
+}

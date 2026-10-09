@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"达到法定退休年龄 职工基本医疗保险 累计缴费未达到国家规定年限 缴费至国家规定年限 继续缴费\",\"退休后 不再缴纳基本医疗保险费 累计缴费达到国家规定年限 享受基本医疗保险待遇 退休人员\",\"职工基本医疗保险 未达到国家规定年限 一次性补缴 延长缴费 缴足国家规定年限 停止缴费\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 667,
+  "total_tokens": 926,
+  "prompt_cache_hit_tokens": 125,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 584
+ },
+ "latency_ms": 3196.3643999988562,
+ "from_cache": false
+}

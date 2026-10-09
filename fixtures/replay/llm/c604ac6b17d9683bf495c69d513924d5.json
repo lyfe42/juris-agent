@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"竞业限制 经济补偿 支付义务 履行竞业限制义务 用人单位 劳动者\",\"竞业限制协议 约定经济补偿 未支付 劳动者遵守竞业限制 请求支付\",\"劳动合同法第二十三条 竞业限制 经济补偿 离职 竞争对手 劳动争议仲裁\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 273,
+  "completion_tokens": 795,
+  "total_tokens": 1068,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 145,
+  "reasoning_tokens": 728
+ },
+ "latency_ms": 4239.227600002778,
+ "from_cache": false
+}

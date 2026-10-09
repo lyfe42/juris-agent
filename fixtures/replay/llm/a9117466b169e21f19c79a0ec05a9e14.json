@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\":\"json_object\",\"askable\":true,\"question\":\"劳动仲裁结果出来了，我要是不服，最晚得在多少天内去法院起诉？\",\"qtype\":\"temporal\",\"difficulty\":\"easy\",\"reason\":\"问题直接对应劳动争议当事人对仲裁裁决不服时，自收到裁决书起十五日内可向法院起诉的期限规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 393,
+  "completion_tokens": 815,
+  "total_tokens": 1208,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 137,
+  "reasoning_tokens": 741
+ },
+ "latency_ms": 5060.562300001038,
+ "from_cache": false
+}

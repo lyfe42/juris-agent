@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"劳动争议调解组织的调解员一般由什么样的人担任？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该法条直接规定了劳动争议调解组织调解员的任职条件，问题自然且答案唯一对应法条内容。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 384,
+  "completion_tokens": 675,
+  "total_tokens": 1059,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 608
+ },
+ "latency_ms": 3577.4353000015253,
+ "from_cache": false
+}

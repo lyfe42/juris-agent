@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司违法把我辞退了，应该赔我多少钱？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应违法解除或终止劳动合同应支付二倍经济补偿的赔偿金标准。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 378,
+  "completion_tokens": 351,
+  "total_tokens": 729,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 250,
+  "reasoning_tokens": 287
+ },
+ "latency_ms": 2397.145199996885,
+ "from_cache": false
+}

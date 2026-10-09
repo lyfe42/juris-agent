@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 未及时足额支付劳动报酬 劳动者解除劳动合同 经济补偿\",\"拖欠工资 未及时足额支付劳动报酬 劳动者单方解除 经济补偿金\",\"未按劳动合同约定支付劳动报酬 劳动者解除 经济补偿 劳动合同法第三十八条 第四十六条\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 301,
+  "total_tokens": 552,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 235
+ },
+ "latency_ms": 1884.1557999985525,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我辞职了，公司最晚要在多少天内帮我把社保和档案转走？\",\n  \"qtype\": \"temporal\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"问题直接对应法条中'十五日内为劳动者办理档案和社会保险关系转移手续'的规定，是打工人离职时常见疑问。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 426,
+  "completion_tokens": 1072,
+  "total_tokens": 1498,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 170,
+  "reasoning_tokens": 986
+ },
+ "latency_ms": 5504.244099996868,
+ "from_cache": false
+}

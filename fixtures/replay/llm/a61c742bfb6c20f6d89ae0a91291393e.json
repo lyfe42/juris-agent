@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"集体合同 履行争议 协商不成 劳动争议仲裁 前置 人民法院 起诉\", \"用人单位 不履行 集体合同 工会 申请仲裁 提起诉讼 职工权益\", \"集体合同争议 协商解决 仲裁裁决 不服 十五日 向人民法院 诉讼\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 250,
+  "completion_tokens": 547,
+  "total_tokens": 797,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 250,
+  "reasoning_tokens": 483
+ },
+ "latency_ms": 3165.916899997683,
+ "from_cache": false
+}

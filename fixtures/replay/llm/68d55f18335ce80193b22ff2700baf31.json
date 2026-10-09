@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"经济性裁员 优先留用 无固定期限劳动合同 较长期限固定期限劳动合同\",\"裁减人员 优先留用 家庭无其他就业人员 需要扶养的老人 未成年人\",\"用人单位裁员 优先留",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 241,
+  "completion_tokens": 512,
+  "total_tokens": 753,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 241,
+  "reasoning_tokens": 460
+ },
+ "latency_ms": 2648.7678999983473,
+ "from_cache": false
+}

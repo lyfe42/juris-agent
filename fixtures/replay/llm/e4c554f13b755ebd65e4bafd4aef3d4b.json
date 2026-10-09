@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我们十几个工友都被公司拖欠工资，能不能选几个人代表大家一起去申请仲裁？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条直接回答十人以上且有共同请求的劳动者能否推举代表参加仲裁。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 379,
+  "completion_tokens": 366,
+  "total_tokens": 745,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 296
+ },
+ "latency_ms": 2062.5617999976384,
+ "from_cache": false
+}

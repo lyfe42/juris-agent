@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"基本养老保险基金 来源 用人单位缴费 个人缴费 政府补贴\",\"基本养老保险费",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 512,
+  "total_tokens": 756,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 488
+ },
+ "latency_ms": 3093.5737999971025,
+ "from_cache": false
+}

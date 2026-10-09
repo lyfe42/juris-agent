@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议 仲裁 调解 受案范围 劳动争议调解仲裁法 第二条\", \"劳动争议 仲裁 调解 适用范围 确认劳动关系 劳动合同 工资 工伤 经济补偿\", \"劳动争议处理 仲裁 调解 争议类型 社会保险 福利 培训 劳动保护 用人单位 劳动者\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 614,
+  "total_tokens": 865,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 545
+ },
+ "latency_ms": 2983.7074000024586,
+ "from_cache": false
+}

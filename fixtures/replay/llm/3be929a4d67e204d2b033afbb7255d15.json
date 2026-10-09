@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我向劳动局举报了公司，公司就给我穿小鞋、打击报复我，他们会受到什么处罚？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应用人单位打击报复举报人员时应承担的罚款或刑事责任，是打工人可能关心的自然提问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 387,
+  "completion_tokens": 422,
+  "total_tokens": 809,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 259,
+  "reasoning_tokens": 341
+ },
+ "latency_ms": 2681.258600001456,
+ "from_cache": false
+}

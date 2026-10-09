@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在同一家公司连续干满十年了，提出想签一份不约定具体到期日的长期合同，公司能拒绝吗？要是合同里的具体条款谈不拢，又该怎么处理？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条直接回答符合条件劳动者提出订立无固定期限劳动合同时用人单位的订立义务及内容协商不一致的处理，是打工人常见疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 424,
+  "completion_tokens": 1915,
+  "total_tokens": 2339,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 168,
+  "reasoning_tokens": 1812
+ },
+ "latency_ms": 9127.9704999979,
+ "from_cache": false
+}

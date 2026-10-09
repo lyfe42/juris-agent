@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议仲裁 不收费 劳动争议调解仲裁法 第五十三条\",\"劳动仲裁 仲裁费用 申请费 受理费 处理费\",\"劳动争议仲裁委员会 经费 财政保障 仲裁不收费\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 238,
+  "completion_tokens": 448,
+  "total_tokens": 686,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 238,
+  "reasoning_tokens": 399
+ },
+ "latency_ms": 2297.0095000055153,
+ "from_cache": false
+}

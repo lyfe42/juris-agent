@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司要跟我解除劳动合同，经济补偿金的月工资是按什么标准算的？如果我的平均工资比当地最低工资还低，或者我工作没满12个月，又该怎么算？\",\n  \"qtype\": \"calculation\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该问题直接对应经济补偿月工资的计算口径，法条明确了应得工资的范围（含奖金、津贴等），并规定了低于最低工资标准及工作不满",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 427,
+  "completion_tokens": 2048,
+  "total_tokens": 2475,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 171,
+  "reasoning_tokens": 1938
+ },
+ "latency_ms": 10243.909299999359,
+ "from_cache": false
+}

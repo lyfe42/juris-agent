@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司不给我缴社保，或者社保局不给我办社保转移，我能怎么维权？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题对应法条中关于社会保险争议的救济途径，包括行政复议、行政诉讼、调解、仲裁、诉讼等，法条可直接回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 453,
+  "completion_tokens": 1083,
+  "total_tokens": 1536,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 197,
+  "reasoning_tokens": 1001
+ },
+ "latency_ms": 5887.472399997932,
+ "from_cache": false
+}

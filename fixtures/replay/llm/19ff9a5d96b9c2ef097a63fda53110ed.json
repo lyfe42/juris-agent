@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 未订立 书面劳动合同 劳动行政部门 监督检查\", \"劳动合同制度 实施 监督管理 县级以上 劳动行政部门\", \"未签订劳动合同 劳动保障监察 人力资源和社会保障行政部门 职责\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 1125,
+  "total_tokens": 1371,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 1078
+ },
+ "latency_ms": 5675.032799998007,
+ "from_cache": false
+}

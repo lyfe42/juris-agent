@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司拖欠我工资、也不给我缴社保，我能以此为由提出解除劳动合同吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题对应法条中未及时足额支付劳动报酬、未依法缴纳社会保险费时劳动者可以解除劳动合同的情形。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 483,
+  "completion_tokens": 909,
+  "total_tokens": 1392,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 483,
+  "reasoning_tokens": 832
+ },
+ "latency_ms": 5505.777799997304,
+ "from_cache": false
+}

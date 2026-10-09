@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"竞业限制协议 解除或者终止劳动合同 按月经济补偿 违反竞业限制 违约金 返还经济补偿\",\"劳动合同法第二十三条 第二十四条 竞业限制 期限 经济补偿 违约金 用人单位 劳动者 同业竞争\",\"违反竞业限制约定 已支付经济补偿 返还 违约金 有竞争关系的其他用人单位 同类业务\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 276,
+  "completion_tokens": 1140,
+  "total_tokens": 1416,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 148,
+  "reasoning_tokens": 1058
+ },
+ "latency_ms": 6064.10329999926,
+ "from_cache": false
+}

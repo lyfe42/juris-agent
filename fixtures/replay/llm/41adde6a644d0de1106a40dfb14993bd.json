@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"这是关于社会保险水平应与经济社会发展水平相适应的原则性宣示条款，不针对任何具体权利义务，普通打工人无法据此提出一个能被本条回答的实际问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 362,
+  "completion_tokens": 108,
+  "total_tokens": 470,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 234,
+  "reasoning_tokens": 43
+ },
+ "latency_ms": 1300.6100999991759,
+ "from_cache": false
+}

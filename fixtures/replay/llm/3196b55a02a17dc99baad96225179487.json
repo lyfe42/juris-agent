@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"经济性裁员 不得解除劳动合同 禁止解除情形 劳动合同法第四十二条\", \"裁员 优先留用人员 无固定期限劳动合同 家庭无其他就业人员 扶养老人未成年人\", \"经济性裁员 三期女职工 医疗期 患职业病因工负伤 连续工作满十五年 距法定退休年龄不足五年\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 242,
+  "completion_tokens": 375,
+  "total_tokens": 617,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 297
+ },
+ "latency_ms": 2125.6178000039654,
+ "from_cache": false
+}

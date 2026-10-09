@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"跨统筹地区流动就业 基本医疗保险关系转移接续 缴费年限累计计算\",\"职工基本医疗保险 跨地区转移 个人账户余额转移 缴费记录\",\"流动就业人员 医保关系随同转移 缴费年限是否作废 累计计算\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 255,
+  "completion_tokens": 413,
+  "total_tokens": 668,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 353
+ },
+ "latency_ms": 2600.166899996111,
+ "from_cache": false
+}

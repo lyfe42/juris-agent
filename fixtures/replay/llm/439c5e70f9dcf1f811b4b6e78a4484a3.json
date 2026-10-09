@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司拖欠工资、不给缴社保、还老让我们超时加班，这些事劳动监察部门都能管吗？他们平时还查哪些方面？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该条正是列举劳动行政部门对劳动合同制度实施情况监督检查的范围，工资、社保、工时加班等都在其中，可直接回答打工人关心的投诉受理范围问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 462,
+  "completion_tokens": 444,
+  "total_tokens": 906,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 206,
+  "reasoning_tokens": 339
+ },
+ "latency_ms": 2889.0507999967667,
+ "from_cache": false
+}

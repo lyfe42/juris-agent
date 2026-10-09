@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"在跟公司签劳动合同、履行合同的时候，工会能给我什么帮助？\",\"qtype\":\"single_fact\",\"difficulty\":\"easy\",\"reason\":\"问题直接对应工会帮助、指导劳动者依法订立和履行劳动合同并维护劳动者权益的职责。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 375,
+  "completion_tokens": 429,
+  "total_tokens": 804,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 368
+ },
+ "latency_ms": 2792.671999995946,
+ "from_cache": false
+}

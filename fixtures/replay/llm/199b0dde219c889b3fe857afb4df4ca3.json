@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 253,
+  "completion_tokens": 512,
+  "total_tokens": 765,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 507
+ },
+ "latency_ms": 3067.5470999995014,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"专项培训费用 服务期协议 劳动者提前辞职 违约金 计算\", \"专业技术培训 用人单位出资 约定服务期 违反服务期 违约金 培训费用分摊\", \"劳动合同法第二十二条 服务期 违约金上限 尚未履行服务期 分摊 培训费用\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 265,
+  "completion_tokens": 434,
+  "total_tokens": 699,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 137,
+  "reasoning_tokens": 368
+ },
+ "latency_ms": 2501.79300000309,
+ "from_cache": false
+}

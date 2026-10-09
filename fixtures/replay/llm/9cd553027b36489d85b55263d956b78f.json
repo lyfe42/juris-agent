@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"领导让我在没安全保障的情况下冒险干活，我可以拒绝吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应法条中劳动者对违章指挥、强令冒险作业有权拒绝执行的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 392,
+  "completion_tokens": 342,
+  "total_tokens": 734,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 275
+ },
+ "latency_ms": 2199.0738000022247,
+ "from_cache": false
+}

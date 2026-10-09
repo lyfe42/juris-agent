@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议 增加诉讼请求 不可分性 合并审理 仲裁前置\",\"法院受理劳动争议案件后 追加诉讼请求 独立劳动争议 告知申请仲裁\",\"劳动争议司法解释一 第十四条 新增诉讼请求 与讼争劳动争议不可分 合并审理 仲裁\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 267,
+  "completion_tokens": 1302,
+  "total_tokens": 1569,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 139,
+  "reasoning_tokens": 1239
+ },
+ "latency_ms": 6381.423099999665,
+ "from_cache": false
+}

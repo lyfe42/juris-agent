@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"非全日制用工 随时通知 终止用工 经济补偿 不支付\",\"小时工 非全日制 用人单位 终止用工 经济补偿金\",\"按小时计酬 非全日制用工 单方终止 经济补偿 劳动合同法\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 258,
+  "completion_tokens": 960,
+  "total_tokens": 1218,
+  "prompt_cache_hit_tokens": 124,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 903
+ },
+ "latency_ms": 4757.456799998181,
+ "from_cache": false
+}

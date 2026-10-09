@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动者在该用人单位连续工作满十年 提出订立无固定期限劳动合同 用人单位应当订立 拒绝\",\"无固定期限劳动合同 订立争议 用人单位拒绝签订 劳动争议 仲裁 救济\",\"无固定期限劳动合同 条款协商不一致 劳动报酬 劳动条件 约定不明确 重新协商 集体合同 同工同酬 国家有关规定\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 270,
+  "completion_tokens": 1243,
+  "total_tokens": 1513,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 142,
+  "reasoning_tokens": 1164
+ },
+ "latency_ms": 6182.293600002595,
+ "from_cache": false
+}

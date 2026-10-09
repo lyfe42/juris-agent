@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动合同 试用期 约定 期限 最长 上限 法定标准\", \"试用期 不得超过 六个月 劳动合同期限 对应 档次\", \"劳动合同法 第十九条 试用期 期限 三个月 六个月 一年 三年 上限\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 240,
+  "completion_tokens": 432,
+  "total_tokens": 672,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 240,
+  "reasoning_tokens": 372
+ },
+ "latency_ms": 2107.809699999052,
+ "from_cache": false
+}

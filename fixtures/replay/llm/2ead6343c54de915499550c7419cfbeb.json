@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"劳动仲裁让公司先给我支付工资和医药费，公司一直拖着不给，我能直接去法院申请强制执行吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该法条明确规定用人单位不履行预先支付裁决中的给付义务时，劳动者申请强制执行的，人民法院应予受理，问题直接对应这一情形。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 410,
+  "completion_tokens": 1082,
+  "total_tokens": 1492,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 410,
+  "reasoning_tokens": 987
+ },
+ "latency_ms": 6051.76599999686,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司违反集体合同、侵害职工权益，工会能替我们出面追责或者申请仲裁、打官司吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应本条关于工会可要求用人单位承担责任，以及协商不成可申请仲裁、提起诉讼的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 390,
+  "completion_tokens": 316,
+  "total_tokens": 706,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 238
+ },
+ "latency_ms": 2275.83940000477,
+ "from_cache": false
+}

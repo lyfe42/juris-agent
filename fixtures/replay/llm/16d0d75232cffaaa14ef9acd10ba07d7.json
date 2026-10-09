@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"领导违规指挥、硬让我去干危险活儿，我拒绝的话，公司能说我违反劳动合同吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条直接规定劳动者拒绝用人单位管理人员违章指挥、强令冒险作业的，不视为违反劳动合同，问题答案就在法条中。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 390,
+  "completion_tokens": 564,
+  "total_tokens": 954,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 480
+ },
+ "latency_ms": 3788.9538000017637,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"竞业限制 经济补偿 劳动合同解除或者终止后 按月支付\",\"离职 竞业限制协议 补偿金 用人单位",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 242,
+  "completion_tokens": 512,
+  "total_tokens": 754,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 479
+ },
+ "latency_ms": 2746.7166999995243,
+ "from_cache": false
+}

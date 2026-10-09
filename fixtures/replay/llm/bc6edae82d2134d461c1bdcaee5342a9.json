@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司招人的时候，能因为我是少数民族或者信教就不要我吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条直接规定了就业中不得因民族、种族、性别、宗教信仰不同而歧视，问题正是围绕就业歧视的情形提问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 368,
+  "completion_tokens": 250,
+  "total_tokens": 618,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 240,
+  "reasoning_tokens": 175
+ },
+ "latency_ms": 1765.1823999985936,
+ "from_cache": false
+}

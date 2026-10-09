@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同 约定终止条件 法定终止情形之外 实施条例第十三条 效力\",\"用人单位 自行约定 劳动合同终止条件 法律未规定 合法性 无效\",\"劳动合同终止 法定终止情形 约定其他终止条件 排除 劳动者权益 条款效力\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 611,
+  "total_tokens": 857,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 549
+ },
+ "latency_ms": 3362.406899999769,
+ "from_cache": false
+}

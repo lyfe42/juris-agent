@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"外国人 未依法取得就业证件 签订劳动合同 确认劳动关系 人民法院 不予支持\",\"外国专家证 外国人来华工作许可证 合法就业 劳动关系认定 用人单位\",\"外国人就业许可 来华工作许可 劳动争议 劳动合同 确认劳动关系\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 272,
+  "completion_tokens": 1056,
+  "total_tokens": 1328,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 144,
+  "reasoning_tokens": 996
+ },
+ "latency_ms": 5828.621500004374,
+ "from_cache": false
+}

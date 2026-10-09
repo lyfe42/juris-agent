@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司老是拖欠工资，我实在干不下去了想辞职，能要求公司给我经济补偿吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条明确用人单位克扣或无故拖欠工资等情形迫使劳动者提出解除劳动合同时，应支付劳动报酬和经济补偿，题目以拖欠工资为例询问被迫辞职后的补偿，直接对应本条。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 454,
+  "completion_tokens": 684,
+  "total_tokens": 1138,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 198,
+  "reasoning_tokens": 589
+ },
+ "latency_ms": 4017.204400006449,
+ "from_cache": false
+}

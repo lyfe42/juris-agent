@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位未依法缴纳工伤保险费 工伤保险待遇 支付主体\", \"未参加工伤保险 工伤职工 工伤保险待遇 用人单位支付\", \"用人单位拒不支付工伤保险待遇 工伤保险基金先行支付 追偿\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 257,
+  "completion_tokens": 432,
+  "total_tokens": 689,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 257,
+  "reasoning_tokens": 383
+ },
+ "latency_ms": 2180.1500000001397,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"生效仲裁裁决 用人单位拒不履行 劳动者申请人民法院强制执行 劳动争议调解仲裁法第五十一条\", \"劳动争议仲裁裁决书 履行期限届满未支付 申请执行 执行管辖法院 执行程序\", \"追索劳动",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 256,
+  "completion_tokens": 512,
+  "total_tokens": 768,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 460
+ },
+ "latency_ms": 2799.9276999980793,
+ "from_cache": false
+}

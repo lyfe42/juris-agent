@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议仲裁 共同申请人 部分当事人 不服 起诉 未起诉 仲裁裁决 法律效力\", \"劳动争议 仲裁裁决书 部分劳动者 向人民法院提起诉讼 未起诉劳动者 裁决书发生法律效力\", \"劳动争议仲裁裁决 申请强制执行 未起诉当事人 执行依据 一方逾期不履行 申请人民法院执行\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 272,
+  "completion_tokens": 1472,
+  "total_tokens": 1744,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 144,
+  "reasoning_tokens": 1396
+ },
+ "latency_ms": 7831.836199999088,
+ "from_cache": false
+}

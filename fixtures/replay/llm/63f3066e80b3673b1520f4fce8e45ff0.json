@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我是公司高管，入职时签了在职期间不能去竞争对手那里工作的协议，但公司没给经济补偿，我能要求法院认定这个条款无效吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该问题直接对应法条关于在职期间竞业限制条款效力的规定，法院对劳动者以未支付经济补偿为由请求确认无效不予支持。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 408,
+  "completion_tokens": 937,
+  "total_tokens": 1345,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 152,
+  "reasoning_tokens": 832
+ },
+ "latency_ms": 5253.910600004019,
+ "from_cache": false
+}

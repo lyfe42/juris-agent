@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"专项培训费用 专业技术培训 服务期协议 违约金 未及时足额支付劳动报酬\",\"用人单位拖欠工资 劳动者单方解除劳动合同 服务期 培训费用分摊 违约金\",\"劳动合同法实施条例第二十六条 服务期 劳动者依照劳动合同法第三十八条解除 不属于违反服务期约定 违约金\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 274,
+  "completion_tokens": 1289,
+  "total_tokens": 1563,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 146,
+  "reasoning_tokens": 1216
+ },
+ "latency_ms": 6074.452699998801,
+ "from_cache": false
+}

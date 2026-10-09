@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"县级以下区域 建筑业 行业性集体合同 工会 企业方面代表 订立\", \"区域性集体合同 建筑业 县级以下区域 工会代表职工 用人单位方 协商签订\", \"建筑业 行业集体合同 工会 职工一方 企业方面代表 集体协商\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 253,
+  "completion_tokens": 709,
+  "total_tokens": 962,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 643
+ },
+ "latency_ms": 4520.735499994771,
+ "from_cache": false
+}

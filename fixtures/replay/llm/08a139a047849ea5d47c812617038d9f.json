@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议 仲裁时效 抗辩 仲裁阶段未提出 一审 二审 再审\", \"仲裁时效期间届满 新证据 证明 法院 采信 劳动争议\", \"劳动仲裁 时效抗辩 诉讼 再审 失权 审查\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 281,
+  "completion_tokens": 1182,
+  "total_tokens": 1463,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 153,
+  "reasoning_tokens": 1121
+ },
+ "latency_ms": 5946.664900002361,
+ "from_cache": false
+}

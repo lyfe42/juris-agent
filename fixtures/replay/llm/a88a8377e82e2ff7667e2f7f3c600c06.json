@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"在哪些情况下，公司应当向我支付经济补偿？\",\n  \"qtype\": \"multi_article\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该问题直接对应劳动合同法第四十六条列举的用人单位应当支付经济补偿的全部情形，法条内容即为完整答案。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 484,
+  "completion_tokens": 1234,
+  "total_tokens": 1718,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 228,
+  "reasoning_tokens": 1158
+ },
+ "latency_ms": 6996.730299993942,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议仲裁 先行调解 仲裁庭 作出裁决前 应当调解\", \"仲裁调解书 送达 双方当事人 签收 发生法律效力\", \"调解书送达前 一方当事人反悔 调解不成 仲裁庭 及时作出裁决\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 270,
+  "completion_tokens": 644,
+  "total_tokens": 914,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 142,
+  "reasoning_tokens": 584
+ },
+ "latency_ms": 3772.8463000021293,
+ "from_cache": false
+}

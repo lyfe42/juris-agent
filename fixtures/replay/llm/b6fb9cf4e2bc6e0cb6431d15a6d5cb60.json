@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是社会保险制度的方针性原则，没有规定普通打工人可具体适用的权利、义务或计算标准，难以构造自然且答案唯一的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 372,
+  "completion_tokens": 145,
+  "total_tokens": 517,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 82
+ },
+ "latency_ms": 1164.7606999977143,
+ "from_cache": false
+}

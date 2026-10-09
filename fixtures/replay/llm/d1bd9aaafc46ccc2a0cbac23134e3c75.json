@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"不具备用工主体资格的组织或自然人 挂靠 具备用工主体资格单位 招用劳动者 用工主体责任 劳动报酬 工伤保险责任\",\"个人挂靠其他单位对外经营 聘用人员 因工伤亡 被挂靠单位 承担工伤保险责任 劳动报酬支付\",\"个人承包经营 违法招用劳动者 发包方 连带赔偿责任 工资 工伤保险待遇 劳动争议\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 270,
+  "completion_tokens": 1525,
+  "total_tokens": 1795,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 142,
+  "reasoning_tokens": 1438
+ },
+ "latency_ms": 7595.632400007162,
+ "from_cache": false
+}

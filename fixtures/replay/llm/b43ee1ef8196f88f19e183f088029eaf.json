@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我换城市工作了，之前在别的城市交的养老保险还算数吗？缴费年限怎么算？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应个人跨统筹地区就业时养老保险关系随本人转移、缴费年限累计计算的规定，生活化且无需引入其他法律概念。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 392,
+  "completion_tokens": 358,
+  "total_tokens": 750,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 274
+ },
+ "latency_ms": 2074.226400000043,
+ "from_cache": false
+}

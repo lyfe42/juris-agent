@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司要是雇了不满16岁的小孩，会被怎么处理？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"问题直接问非法招用未满十六周岁未成年人的法律后果，法条给出了责令改正、罚款和情节严重吊销营业执照的答案。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 381,
+  "completion_tokens": 656,
+  "total_tokens": 1037,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 573
+ },
+ "latency_ms": 3369.2182000013418,
+ "from_cache": false
+}

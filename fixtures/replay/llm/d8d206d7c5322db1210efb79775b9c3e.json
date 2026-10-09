@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司一直拖着不给我交社保，劳动局能怎么管它？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题问的是用人单位不缴社保时劳动行政部门的处理措施，可直接由该条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 378,
+  "completion_tokens": 319,
+  "total_tokens": 697,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 250,
+  "reasoning_tokens": 251
+ },
+ "latency_ms": 2371.4675000010175,
+ "from_cache": false
+}

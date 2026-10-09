@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"服务期 违约金 数额上限 专项培训费用 不得超过\", \"服务期协议 违约金 培训费用 分摊 未履行部分\", \"劳动合同法第二十二条 服务期 违约金 专业技术培训 专项培训费用 约定限制\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 239,
+  "completion_tokens": 606,
+  "total_tokens": 845,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 239,
+  "reasoning_tokens": 548
+ },
+ "latency_ms": 3063.4336000002804,
+ "from_cache": false
+}

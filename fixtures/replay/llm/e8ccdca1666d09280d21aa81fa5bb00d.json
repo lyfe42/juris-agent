@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是社会保险监督委员会的设立、组成与职责的程序性/机构性条款，不直接涉及劳动者个人的权利义务，普通打工人不会就此类机构设置提问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 479,
+  "completion_tokens": 402,
+  "total_tokens": 881,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 223,
+  "reasoning_tokens": 335
+ },
+ "latency_ms": 2694.100900000194,
+ "from_cache": false
+}

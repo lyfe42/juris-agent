@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"法定休假日 婚丧假 依法参加社会活动 用人单位 工资支付\", \"劳动者 法定节假日 婚假 丧假 社会活动 工资照发 劳动法第五十一条\", \"法定休假节日 婚丧假期间 依法参加社会活动期间 用人单位应当依法支付工资\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 257,
+  "completion_tokens": 340,
+  "total_tokens": 597,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 257,
+  "reasoning_tokens": 269
+ },
+ "latency_ms": 1888.1773999964935,
+ "from_cache": false
+}

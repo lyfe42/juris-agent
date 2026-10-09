@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我老婆没工作，我单位交了生育保险，她生孩子能享受什么待遇？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"直接对应法条中职工未就业配偶可享受生育医疗费用待遇的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 397,
+  "completion_tokens": 1240,
+  "total_tokens": 1637,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 141,
+  "reasoning_tokens": 1172
+ },
+ "latency_ms": 6491.198399999121,
+ "from_cache": false
+}

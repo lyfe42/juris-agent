@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"最低工资标准 确定 参考因素 最低生活费用 赡养人口 城镇居民人均可支配收入 职工平均工资 经济发展水平 就业状况\", \"最低工资标准 调整 依据 社会保险费 住房公积金 个人缴纳部分 当地就业者 赡养人口 最低生活费用\", \"最低工资标准 制定 测算方法 比重法 恩格尔系数法 职工平均工资 经济发展水平 就业状况\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 733,
+  "total_tokens": 977,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 635
+ },
+ "latency_ms": 3745.433199997933,
+ "from_cache": false
+}

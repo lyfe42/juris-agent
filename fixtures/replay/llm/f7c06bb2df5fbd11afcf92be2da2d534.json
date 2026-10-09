@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"竞业限制 经济补偿 未支付 三个月 解除 竞业限制约定\",\"用人单位原因 未按月支付 竞业限制经济补偿 劳动者 请求解除 竞业限制协议\",\"劳动合同解除或终止后 竞业限制 经济补偿 拖欠 三个月 解除权\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 254,
+  "completion_tokens": 420,
+  "total_tokens": 674,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 351
+ },
+ "latency_ms": 2561.4110000024084,
+ "from_cache": false
+}

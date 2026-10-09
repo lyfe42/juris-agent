@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"怀孕七个月以上 女职工 延长工作时间 夜班劳动 不得安排 劳动法第六十一条\", \"女职工劳动保护特别规定 第六条 怀孕7个月以上 延长劳动时间 夜班劳动 用人单位\", \"孕期 用人单位 安排加班 夜班 禁止 女职工特殊保护 法律责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 1110,
+  "total_tokens": 1361,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 1038
+ },
+ "latency_ms": 5397.31049999682,
+ "from_cache": false
+}

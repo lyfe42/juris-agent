@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"个人 免费 查询 社会保险个人权益记录 缴费记录 待遇记录 社会保险经办机构\",\"社会保险经办机构 定期 免费 寄送 个人权益记录单 参保人员\",\"参保个人 免费 查询 核对 个人缴费 用人单位缴费 享受社会保险待遇 记录 社会保险经办机构\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 757,
+  "total_tokens": 1008,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 685
+ },
+ "latency_ms": 3816.1841000037384,
+ "from_cache": false
+}

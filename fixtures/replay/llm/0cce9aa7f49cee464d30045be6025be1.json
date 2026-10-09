@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 未依法缴纳社会保险费 举报 投诉 社会保险行政部门 劳动保障监察 受理 查处 法定职责\",\"社会保险费 未按时足额缴纳 投诉举报 征缴 管辖 移送 告知 有管辖权部门\",\"用人单位 未缴社保 投诉 行政机关 处理 推诿 管辖争议 行政不作为\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 257,
+  "completion_tokens": 1233,
+  "total_tokens": 1490,
+  "prompt_cache_hit_tokens": 123,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 1153
+ },
+ "latency_ms": 6595.992499998829,
+ "from_cache": false
+}

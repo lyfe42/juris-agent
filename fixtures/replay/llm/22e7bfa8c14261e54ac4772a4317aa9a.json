@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司改了名字或者换了老板，我之前签的劳动合同还算数吗？需要重新签吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条直接回答用人单位名称、法定代表人等变更不影响劳动合同履行，问法生活化且不涉及其他法律概念。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 368,
+  "completion_tokens": 185,
+  "total_tokens": 553,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 240,
+  "reasoning_tokens": 107
+ },
+ "latency_ms": 1802.2821999984444,
+ "from_cache": false
+}

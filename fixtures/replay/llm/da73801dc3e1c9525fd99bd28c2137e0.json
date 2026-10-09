@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同 违约金 约定 劳动者承担 限制\",\"用人单位 不得 约定 劳动者 违约金 法定情形\",\"劳动合同 违约金条款 任意约定 效力 无效\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 703,
+  "total_tokens": 949,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 660
+ },
+ "latency_ms": 4235.528799996246,
+ "from_cache": false
+}

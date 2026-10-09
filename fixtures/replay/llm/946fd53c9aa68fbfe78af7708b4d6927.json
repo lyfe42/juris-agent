@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"关联企业 混同用工 劳动关系主体认定 连带责任 劳动报酬 未签订书面劳动合同\",\"关联公司 交叉用工 用人单位混同 共同支付 拖欠工资 福利待遇 劳动争议\",\"多个用人单位 交替用工 事实劳动关系 连带清偿责任 拖欠劳动报酬 未订立书面劳动合同\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 274,
+  "completion_tokens": 667,
+  "total_tokens": 941,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 146,
+  "reasoning_tokens": 595
+ },
+ "latency_ms": 3766.929800003709,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我跟着一个没有营业执照的包工头干活，他挂靠在有资质的公司名下接活，我能不能要求那家被挂靠的公司给我发工资、管工伤待遇？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题问的是无合法经营资格主体挂靠有资质单位时，劳动者能否要求被挂靠单位承担支付劳动报酬和工伤保险待遇等用工主体责任，正是本条规范的内容。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 412,
+  "completion_tokens": 680,
+  "total_tokens": 1092,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 156,
+  "reasoning_tokens": 569
+ },
+ "latency_ms": 3784.4374000051175,
+ "from_cache": false
+}

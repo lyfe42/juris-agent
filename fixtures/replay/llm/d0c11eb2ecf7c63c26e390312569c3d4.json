@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"工伤保险 用人单位 缴纳 职工 个人不缴纳\", \"工伤保险费 缴费主体 用人单位 职工个人缴费\", \"社会保险法 工伤保险 职工不缴纳 用人单位缴纳\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 273,
+  "total_tokens": 517,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 228
+ },
+ "latency_ms": 1907.9993000050308,
+ "from_cache": false
+}

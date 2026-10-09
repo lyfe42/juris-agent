@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"竞业限制 协议效力 未接触商业秘密 未负有保密义务 人员范围 劳动合同法第二十四条\", \"竞业限制范围 过宽 超过实际接触商业秘密 合理性 必要性 无效\", \"离职后 同业竞争 竞业限制协议 商业秘密 保密义务 劳动争议 效力认定\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 276,
+  "completion_tokens": 1075,
+  "total_tokens": 1351,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 148,
+  "reasoning_tokens": 1002
+ },
+ "latency_ms": 5607.85549999855,
+ "from_cache": false
+}

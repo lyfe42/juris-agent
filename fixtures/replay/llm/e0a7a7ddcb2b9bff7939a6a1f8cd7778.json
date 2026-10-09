@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动行政部门 监督检查 用人单位 违反劳动法 责令改正\",\"劳动保障监察 用人单位 违法行为 责令限期改正 行政处罚\",\"劳动者 举报 投诉 劳动行政部门 调查处理 责令改正\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 248,
+  "completion_tokens": 351,
+  "total_tokens": 599,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 248,
+  "reasoning_tokens": 301
+ },
+ "latency_ms": 1982.7538000026834,
+ "from_cache": false
+}

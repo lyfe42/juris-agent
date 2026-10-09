@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我的劳动权益被公司侵害了，我可以怎么维权？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接询问劳动者权益受侵害时的维权途径，法条明确规定了要求有关部门处理、申请仲裁或提起诉讼三种方式，答案完全对应。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 370,
+  "completion_tokens": 892,
+  "total_tokens": 1262,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 816
+ },
+ "latency_ms": 4827.014599999529,
+ "from_cache": false
+}

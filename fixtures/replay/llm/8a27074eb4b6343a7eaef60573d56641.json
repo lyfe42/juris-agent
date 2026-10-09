@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司要裁员，哪些员工是法律不让裁的？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条正是规定用人单位不得依据经济性裁员等条款解除劳动合同的受保护员工范围，问题口语且直接对应条文。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 425,
+  "completion_tokens": 1812,
+  "total_tokens": 2237,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 169,
+  "reasoning_tokens": 1740
+ },
+ "latency_ms": 10721.471299999394,
+ "from_cache": false
+}

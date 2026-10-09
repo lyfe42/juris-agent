@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\":\"json_object\",\"askable\":true,\"question\":\"仲裁委发现原来的裁决错了，又重新裁了一次，我还是不服，能去法院起诉吗？\",\"qtype\":\"single_fact\",\"difficulty\":\"normal\",\"reason\":\"该问题直接对应法条规定的“仲裁机构重新作出裁决后，当事人不服起诉，法院应当受理”的情形。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 383,
+  "completion_tokens": 226,
+  "total_tokens": 609,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 151
+ },
+ "latency_ms": 2024.7184000036214,
+ "from_cache": false
+}

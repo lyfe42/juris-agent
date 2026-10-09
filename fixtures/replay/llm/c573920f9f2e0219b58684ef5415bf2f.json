@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"我已经因为劳动纠纷把公司告到法院了，开庭前想再追加一条要求。什么情况下法院会把这个新要求一起审，什么情况下会让我先去仲裁？\",\"qtype\":\"single_fact\",\"difficulty\":\"normal\",\"reason\":\"该问题对应法院受理劳动争议后当事人增加诉讼请求时，视是否具有不可分性决定合并审理或告知申请仲裁的规则。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 405,
+  "completion_tokens": 1419,
+  "total_tokens": 1824,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 149,
+  "reasoning_tokens": 1329
+ },
+ "latency_ms": 8373.211500002071,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 强迫 劳动者 加班 不支付 加班费 合法\", \"用人单位 变相强迫 延长工作时间 未支付 加班工资 法律责任\", \"安排加班 不支付 延长工作时间工资报酬 违反 劳动法\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 245,
+  "completion_tokens": 565,
+  "total_tokens": 810,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 507
+ },
+ "latency_ms": 2914.952999999514,
+ "from_cache": false
+}

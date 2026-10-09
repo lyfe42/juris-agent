@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"未建立工会 企业 集体合同 职工推举代表 签订\",\"没有工会 集体合同 订立主体 职工一方 代表 企业\",\"劳动法 第三十三条 集体合同 未建立工会 职工推举代表\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 253,
+  "completion_tokens": 524,
+  "total_tokens": 777,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 253,
+  "reasoning_tokens": 467
+ },
+ "latency_ms": 3297.170100006042,
+ "from_cache": false
+}

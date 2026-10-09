@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\": \"json_object\", \"askable\": true, \"question\": \"公司能不能跟我签那种把某个项目做完就结束的合同？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题对应法条第二款，即双方协商一致可以订立以完成一定工作任务为期限的劳动合同。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 392,
+  "completion_tokens": 459,
+  "total_tokens": 851,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 383
+ },
+ "latency_ms": 2918.117799999891,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位规章制度 劳动合同约定 不一致 优先适用 合同约定\",\"员工手册 规章制度 劳动合同 冲突 劳动者请求 按劳动合同履行\",\"内部规章制度 劳动合同 约定内容不一致 劳动合同效力优先 劳动争议 司法解释\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 826,
+  "total_tokens": 1075,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 772
+ },
+ "latency_ms": 4381.594200000109,
+ "from_cache": false
+}

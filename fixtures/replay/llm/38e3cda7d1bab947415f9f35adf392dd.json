@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":false,\"question\":\"\",\"qtype\":\"single_fact\",\"difficulty\":\"easy\",\"reason\":\"该条是劳动争议处理的宣示性、原则性条款，没有具体可操作的权利义务内容，难以形成自然且答案唯一的普通打工人问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 370,
+  "completion_tokens": 1185,
+  "total_tokens": 1555,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 1128
+ },
+ "latency_ms": 6751.500699996541,
+ "from_cache": false
+}

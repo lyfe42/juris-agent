@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"要是遇到天灾、事故或者机器坏了要紧急抢修，公司安排我们加班还受平时加班时长上限的限制吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题问的是加班时长限制的例外情形，正好由该条列明的三类紧急情况回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 419,
+  "completion_tokens": 612,
+  "total_tokens": 1031,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 163,
+  "reasoning_tokens": 531
+ },
+ "latency_ms": 3984.963399998378,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"集体合同 劳动报酬 标准 劳动合同 约定工资 低于 效力\",\"用人单位 工会 集体合同 劳动者 个人劳动合同 工资 不得低于 规定标准\",\"劳动合同法 第五十五条 集体合同 劳动报酬 劳动条件 劳动合同 标准 低于\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 375,
+  "total_tokens": 634,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 259,
+  "reasoning_tokens": 310
+ },
+ "latency_ms": 2360.5220000026748,
+ "from_cache": false
+}

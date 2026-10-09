@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同期满 劳动者继续工作 用人单位未表示异议 视为同意原条件继续履行 续订书面劳动合同\",\"固定期限劳动合同终止 继续用工 超过一个月 未续订书面劳动合同 二倍工资 事实劳动关系\",\"劳动合同到期后用工 未办理终止手续 原条件续订 劳动争议 用人单位未提出异议\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 866,
+  "total_tokens": 1125,
+  "prompt_cache_hit_tokens": 125,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 789
+ },
+ "latency_ms": 4560.789600000135,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\": \"json_object\", \"askable\": true, \"question\": \"我家宝宝还没满一周岁，我还在喂奶，公司能不能让我加班或者安排我上夜班？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条直接规定哺乳未满一周岁婴儿期间不得安排延长工作时间和夜班劳动，正好回答打工人的这一疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 389,
+  "completion_tokens": 279,
+  "total_tokens": 668,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 261,
+  "reasoning_tokens": 189
+ },
+ "latency_ms": 2362.3055999996723,
+ "from_cache": false
+}

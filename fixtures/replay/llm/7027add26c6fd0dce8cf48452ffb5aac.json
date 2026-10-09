@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位未依法为劳动者缴纳社会保险费 劳动者解除劳动合同 经济补偿\", \"未缴纳社会保险费 劳动者被迫解除劳动合同 经济补偿金\", \"社会保险费未依法缴纳 劳动者单方解除 经济补偿 劳动合同法第三十八条 第四十六条\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 472,
+  "total_tokens": 716,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 411
+ },
+ "latency_ms": 2355.550400003267,
+ "from_cache": false
+}

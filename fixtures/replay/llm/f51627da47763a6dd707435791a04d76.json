@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"经济补偿 计算标准 工作年限 月工资 劳动合同法第四十七条\",\"解除劳动合同 经济补偿金 计算基数 月平均工资 十二个月\",\"经济补偿 支付年限 三倍封顶 十二年 计算方式\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 238,
+  "completion_tokens": 495,
+  "total_tokens": 733,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 238,
+  "reasoning_tokens": 438
+ },
+ "latency_ms": 2829.8168999972404,
+ "from_cache": false
+}

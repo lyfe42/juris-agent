@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"未办理营业执照 用人单位 劳动争议 当事人 出资人 列明\",\"营业执照被吊销 营业期限届满 继续经营 劳动争议 诉讼主体 出资人\",\"不具备合法经营资格 用工 劳动报酬 经济补偿 赔偿金 出资人 责任承担\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 263,
+  "completion_tokens": 1129,
+  "total_tokens": 1392,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 1065
+ },
+ "latency_ms": 5731.686799997988,
+ "from_cache": false
+}

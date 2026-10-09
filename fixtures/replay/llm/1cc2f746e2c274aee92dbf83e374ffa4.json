@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"劳动局的人要是乱用权力、不好好干活，会怎么处理？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该法条规定了劳动行政部门工作人员滥用职权、玩忽职守、徇私舞弊的法律后果，可以直接回答这个问题。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 382,
+  "completion_tokens": 1495,
+  "total_tokens": 1877,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 1413
+ },
+ "latency_ms": 10584.530399995856,
+ "from_cache": false
+}

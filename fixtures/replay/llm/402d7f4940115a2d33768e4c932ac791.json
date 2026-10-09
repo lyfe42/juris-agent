@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司里要是设了处理劳动纠纷的调解委员会，一般都有谁参加？主任是谁来当？调解谈成了之后，双方是不是必须照办？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题围绕用人单位内劳动争议调解委员会的组成、主任人选和调解协议履行，均可直接由该法条回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 394,
+  "completion_tokens": 991,
+  "total_tokens": 1385,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 138,
+  "reasoning_tokens": 901
+ },
+ "latency_ms": 5972.57179999724,
+ "from_cache": false
+}

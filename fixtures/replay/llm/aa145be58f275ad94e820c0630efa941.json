@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议调解仲裁法 第五十条 不服仲裁裁决 十五日内 向人民法院提起诉讼 收到仲裁裁决书之日起\",\"劳动仲裁裁决 不服 起诉期限 法定期限 仲裁裁决书送达 十五日 法院起诉\",\"劳动争议 当事人 仲裁裁决 不服 期满不起诉 裁决书发生法律效力 起诉 十五日\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 250,
+  "completion_tokens": 538,
+  "total_tokens": 788,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 250,
+  "reasoning_tokens": 459
+ },
+ "latency_ms": 2976.4797000025283,
+ "from_cache": false
+}

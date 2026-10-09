@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"这条规定的是政府如何建设全国社会保险信息系统，属于行政管理和技术建设条款，普通打工人不会自然提问，也无法直接对应个人的劳动权益问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 368,
+  "completion_tokens": 246,
+  "total_tokens": 614,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 240,
+  "reasoning_tokens": 182
+ },
+ "latency_ms": 1844.5200999994995,
+ "from_cache": false
+}

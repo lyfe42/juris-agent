@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"社保中心发养老金、失业金这些待遇，能拖着不给或者少发吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条明确要求社会保险经办机构按时足额支付社会保险待遇，能直接回答社保待遇能否被拖延或少发。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 375,
+  "completion_tokens": 634,
+  "total_tokens": 1009,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 558
+ },
+ "latency_ms": 3532.7800000013667,
+ "from_cache": false
+}

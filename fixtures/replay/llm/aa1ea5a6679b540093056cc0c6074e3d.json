@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我们每个月交的社保钱，是存在社保局自己的账户里吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题用生活化说法询问社保基金的存放去向，法条明确回答社保基金存入财政专户，可以直接对应。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 364,
+  "completion_tokens": 487,
+  "total_tokens": 851,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 236,
+  "reasoning_tokens": 412
+ },
+ "latency_ms": 3469.7325000015553,
+ "from_cache": false
+}

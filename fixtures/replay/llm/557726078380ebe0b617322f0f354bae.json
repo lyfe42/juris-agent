@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"外国企业常驻代表机构 劳动争议 用人单位 诉讼主体资格 起诉\", \"外国公司驻华代表处 劳动纠纷 共同被告 追加外国总公司 当事人适格\", \"涉外劳动争议 代表机构 仲裁前置 法院管辖 总公司 共同诉讼\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 264,
+  "completion_tokens": 1060,
+  "total_tokens": 1324,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 996
+ },
+ "latency_ms": 6041.527700006554,
+ "from_cache": false
+}

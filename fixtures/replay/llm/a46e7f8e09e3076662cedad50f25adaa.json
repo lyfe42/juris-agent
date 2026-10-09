@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同 变更 协商一致 单方变更 法律效力\",\"用人单位 未经协商 擅自变更 劳动合同 条款 效力认定\",\"劳动合同内容变更 未协商一致 劳动者同意 变更无效\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 248,
+  "completion_tokens": 482,
+  "total_tokens": 730,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 248,
+  "reasoning_tokens": 432
+ },
+ "latency_ms": 2843.240499998501,
+ "from_cache": false
+}

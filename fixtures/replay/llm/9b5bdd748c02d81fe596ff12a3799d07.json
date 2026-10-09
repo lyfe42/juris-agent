@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议仲裁 开庭 五日前 书面通知 当事人 开庭日期 地点\",\"仲裁庭 开庭通知 提前几日 开庭时间 开庭地点 劳动争议调解仲裁法\",\"劳动仲裁 开庭前 通知期限 当事人 开庭日期 地点 书面通知\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 424,
+  "total_tokens": 673,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 360
+ },
+ "latency_ms": 2425.21680000209,
+ "from_cache": false
+}

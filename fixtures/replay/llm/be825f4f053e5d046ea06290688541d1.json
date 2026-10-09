@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"打工人得连续干满多长时间，才能享受带薪年休假？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"法条明确劳动者连续工作一年以上享受带薪年休假，问题直接问享受条件，答案就是本条内容。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 377,
+  "completion_tokens": 507,
+  "total_tokens": 884,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 434
+ },
+ "latency_ms": 2765.4070999997202,
+ "from_cache": false
+}

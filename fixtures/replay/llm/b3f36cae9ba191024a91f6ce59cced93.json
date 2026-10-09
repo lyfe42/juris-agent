@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议仲裁 开庭审理 公开进行 旁听 案外人\",\"劳动人事争议仲裁办案规则 仲裁庭 公开开庭 旁听人员 公民旁听\",\"劳动争议调解仲裁法 第二十六条 不公开审理 当事人协议不公开 国家秘密 商业秘密 个人隐私 旁听限制\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 244,
+  "completion_tokens": 900,
+  "total_tokens": 1144,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 828
+ },
+ "latency_ms": 4564.379499999632,
+ "from_cache": false
+}

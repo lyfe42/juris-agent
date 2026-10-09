@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动人事争议仲裁委员会 原仲裁裁决错误 重新作出仲裁裁决 当事人不服 向人民法院提起诉讼\",\"劳动争议调解仲裁法 仲裁裁决确有错误 撤销原裁决 重新裁决 不服 起诉\",\"劳动争议 重新作出的仲裁裁决 不服 向人民法院起诉 法院受理 仲裁裁决效力\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 1497,
+  "total_tokens": 1748,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 1428
+ },
+ "latency_ms": 7325.783699998283,
+ "from_cache": false
+}

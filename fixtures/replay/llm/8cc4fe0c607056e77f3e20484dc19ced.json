@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我离职时和公司签了不去同行工作的协议，公司按月给我补偿金，但我后来还是去了竞争对手那里。公司现在让我把之前给的补偿金退回去，还要我赔违约金，这合法吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应违反有效竞业限制约定后，用人单位能否要求返还经济补偿并支付违约金，法条给出了肯定的答案。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 388,
+  "completion_tokens": 669,
+  "total_tokens": 1057,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 260,
+  "reasoning_tokens": 564
+ },
+ "latency_ms": 3636.258899998211,
+ "from_cache": false
+}

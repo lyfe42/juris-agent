@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我们常说的“五险”具体是指哪几种保险？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条法条直接列举了国家建立的基本养老保险、基本医疗保险、工伤保险、失业保险、生育保险等社会保险制度，能自然回答“五险”包含哪些险种。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 391,
+  "completion_tokens": 587,
+  "total_tokens": 978,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 504
+ },
+ "latency_ms": 3568.415299996559,
+ "from_cache": false
+}

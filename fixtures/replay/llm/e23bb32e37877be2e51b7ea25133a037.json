@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 制定 修改 规章制度 劳动报酬 工作时间 休息休假 直接涉及劳动者切身利益 民主程序\",\"职工代表大会 全体职工讨论 提出方案和意见 工会 职工代表 平等协商确定 劳动报酬 工作时间 休息休假\",\"直接涉及劳动者切身利益的规章制度 重大事项决定 公示 告知劳动者 劳动合同法第四条\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 265,
+  "completion_tokens": 926,
+  "total_tokens": 1191,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 137,
+  "reasoning_tokens": 845
+ },
+ "latency_ms": 4146.32989999518,
+ "from_cache": false
+}

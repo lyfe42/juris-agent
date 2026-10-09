@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"基本养老金 计发办法 确定因素 个人累计缴费年限 缴费工资 当地职工平均工资 个人账户金额\",\"退休 基本养老金 计算 统筹养老金 个人账户养老金 累计缴费年限 缴费基数 上年度职工月平均工资\",\"社会保险法 第十五条 基本养老金 组成 确定 缴费年限 缴费工资 当地职工平均工资 个人账户金额 城镇人口平均预期寿命\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 249,
+  "completion_tokens": 499,
+  "total_tokens": 748,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 403
+ },
+ "latency_ms": 2795.382399999653,
+ "from_cache": false
+}

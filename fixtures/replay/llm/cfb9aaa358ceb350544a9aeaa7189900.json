@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在公司的分公司上班，分公司能直接跟我签劳动合同吗？如果分公司没有营业执照，还能签吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条直接规定了分支机构能否与劳动者订立劳动合同的两种情形，正好回答分公司签约资格的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 393,
+  "completion_tokens": 661,
+  "total_tokens": 1054,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 137,
+  "reasoning_tokens": 585
+ },
+ "latency_ms": 4178.095699993719,
+ "from_cache": false
+}

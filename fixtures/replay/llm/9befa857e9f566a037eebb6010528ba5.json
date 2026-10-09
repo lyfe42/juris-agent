@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司要是打员工、关员工、逼员工干危险活，或者工作环境差到严重损害健康，会面临什么处罚？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条列举了用人单位强迫劳动、侮辱殴打劳动者等情形下应承担的行政、刑事和赔偿责任，可以自然转化为打工人询问用人单位此类行为后果的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 438,
+  "completion_tokens": 557,
+  "total_tokens": 995,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 182,
+  "reasoning_tokens": 462
+ },
+ "latency_ms": 3536.3362999996752,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 建立劳动关系 订立书面劳动合同 法定期限 自用工之日起一个月内\", \"未同时订立书面劳动合同 用工之日起 签订书面劳动合同 最晚时间\", \"用人单位 书面劳动合同 订立义务 签订期限 一个月\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 254,
+  "completion_tokens": 412,
+  "total_tokens": 666,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 354
+ },
+ "latency_ms": 2383.004399998754,
+ "from_cache": false
+}

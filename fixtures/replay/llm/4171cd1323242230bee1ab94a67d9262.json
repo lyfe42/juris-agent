@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我签的是干完一个项目就结束的合同，项目完工后公司不续了，我能要求公司给补偿金吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该问题直接对应本条关于以完成一定工作任务为期限的劳动合同因任务完成终止时，用人单位应支付经济补偿的规定。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 382,
+  "completion_tokens": 852,
+  "total_tokens": 1234,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 757
+ },
+ "latency_ms": 4486.7805000030785,
+ "from_cache": false
+}

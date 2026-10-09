@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我跟公司之间闹了矛盾，哪些类型的劳动纠纷是能走仲裁、调解这条路的？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该条以列举方式界定了适用劳动仲裁调解的劳动争议范围，正好能回答'哪些劳动纠纷可以走仲裁/调解'这一常见打工人疑问。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 456,
+  "completion_tokens": 374,
+  "total_tokens": 830,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 200,
+  "reasoning_tokens": 280
+ },
+ "latency_ms": 2313.732299997355,
+ "from_cache": false
+}

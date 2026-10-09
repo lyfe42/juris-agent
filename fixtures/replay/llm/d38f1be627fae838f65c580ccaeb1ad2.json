@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"我在工作中受了工伤，哪些费用可以由工伤保险基金来支付？\",\"qtype\":\"single_fact\",\"difficulty\":\"normal\",\"reason\":\"该问题直接对应工伤保险基金支付范围的列举，法条可完整回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 501,
+  "completion_tokens": 467,
+  "total_tokens": 968,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 413
+ },
+ "latency_ms": 2984.144499998365,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"外国人给中国公司干活，什么情况下能要求法院确认自己和公司存在劳动关系？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应法条列举的外国人可请求确认劳动关系的三种情形，普通外籍打工人会关心，且答案就是本条内容。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 422,
+  "completion_tokens": 267,
+  "total_tokens": 689,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 166,
+  "reasoning_tokens": 186
+ },
+ "latency_ms": 2052.9879000023357,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"养老保险里的钱都从哪儿来？只是我自己交的吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"问题问养老保险基金的来源，本条第二款直接说明由用人单位和个人缴费以及政府补贴等组成。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 374,
+  "completion_tokens": 1423,
+  "total_tokens": 1797,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 1349
+ },
+ "latency_ms": 7848.189700001967,
+ "from_cache": false
+}

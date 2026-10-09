@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"高级管理人员 在职期间 竞业限制 经济补偿 条款效力\",\"用人单位 未支付 竞业限制 经济补偿 竞业限制条款 无效\",\"劳动者 竞业限制协议 经济补偿 未支付 无效 确认 劳动争议\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 264,
+  "completion_tokens": 1652,
+  "total_tokens": 1916,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 1591
+ },
+ "latency_ms": 7991.788400002406,
+ "from_cache": false
+}

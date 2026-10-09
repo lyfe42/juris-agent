@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 终局裁决 申请撤销 中级人民法院 驳回 上诉\",\"劳动争议 一裁终局 撤销仲裁裁决 驳回申请 裁决生效 起诉\",\"劳动争议调解仲裁法 第四十九条 第五十条 申请撤销裁决 驳回 救济途径\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 260,
+  "completion_tokens": 1092,
+  "total_tokens": 1352,
+  "prompt_cache_hit_tokens": 126,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 1031
+ },
+ "latency_ms": 5173.191499998211,
+ "from_cache": false
+}

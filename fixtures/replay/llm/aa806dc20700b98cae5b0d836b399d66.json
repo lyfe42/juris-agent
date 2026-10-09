@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"公司把我安排到另一家单位上班，不是我自己要跳槽的。我在原来公司干的那几年，能不能算到新单位的工龄里？如果原来公司当时已经给过我经济补偿，新单位以后算补偿时还会算原来那几年吗？\",\"qtype\":\"single_fact\",\"difficulty\":\"normal\",\"reason\":\"问题直接对应非因本人原因被安排到新用人单位时原工作年限如何合并计算，以及原单位已支付经济补偿后新单位是否再计算原年限。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 414,
+  "completion_tokens": 953,
+  "total_tokens": 1367,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 158,
+  "reasoning_tokens": 837
+ },
+ "latency_ms": 5251.76339999598,
+ "from_cache": false
+}

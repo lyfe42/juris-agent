@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司自己定的规章制度明显不合法，比如乱罚款、强迫员工无偿加班，被员工举报后公司会怎么样？要是已经给员工造成损失了，能要求公司赔吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题针对用人单位规章制度违法后的行政后果和损害赔偿责任，可由该条直接回答，且用生活化场景描述，未引入其他法条概念。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 379,
+  "completion_tokens": 461,
+  "total_tokens": 840,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 357
+ },
+ "latency_ms": 2750.472899999295,
+ "from_cache": false
+}

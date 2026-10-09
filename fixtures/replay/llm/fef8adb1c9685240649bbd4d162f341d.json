@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"合同到期后我还在原公司上班，公司也没说什么，这算不算双方同意按原来的条件继续履行合同？如果之后公司或者我不想继续了，能不能终止？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"直接对应合同期满后劳动者继续工作、单位未异议时视为按原条件继续履行，以及一方提出终止关系法院支持的规定，是打工人常见的续签与终止疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 435,
+  "completion_tokens": 773,
+  "total_tokens": 1208,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 179,
+  "reasoning_tokens": 665
+ },
+ "latency_ms": 5108.514799998375,
+ "from_cache": false
+}

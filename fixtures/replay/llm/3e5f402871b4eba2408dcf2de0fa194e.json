@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"连续订立二次固定期限劳动合同 关联公司 换签 劳动合同主体变更 工作场所岗位未变\", \"固定期限劳动合同期满 重新订立劳动合同 用人单位变更 关联企业 劳动关系连续 工龄连续计算\", \"劳动合同主体变更 关联公司交替用工 二次固定期限合同 连续订立认定 同一工作岗位\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 276,
+  "completion_tokens": 786,
+  "total_tokens": 1062,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 148,
+  "reasoning_tokens": 710
+ },
+ "latency_ms": 4393.544999998994,
+ "from_cache": false
+}

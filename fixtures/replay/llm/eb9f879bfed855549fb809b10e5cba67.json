@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我跟公司都不服劳动仲裁的结果，都去法院告了，法院会怎么处理我们的案子？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条直接规定了双方均不服同一仲裁裁决起诉时法院的并案审理、撤诉后续审及不同法院起诉的移送规则，能回答双方都起诉时法院如何处理的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 447,
+  "completion_tokens": 1787,
+  "total_tokens": 2234,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 191,
+  "reasoning_tokens": 1693
+ },
+ "latency_ms": 9062.476199993398,
+ "from_cache": false
+}

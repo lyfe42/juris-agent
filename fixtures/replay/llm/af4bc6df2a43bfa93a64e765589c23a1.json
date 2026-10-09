@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"有些地方把社保基金拿去盖办公楼、发工资，或者填补政府财政缺口，这允许吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"法条明确列举了社保基金禁止用于的用途，直接回答该问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 409,
+  "completion_tokens": 1033,
+  "total_tokens": 1442,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 153,
+  "reasoning_tokens": 961
+ },
+ "latency_ms": 5462.5252000041655,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"被派遣劳动者 用工单位 同工同酬 劳动报酬\",\"劳务派遣 相同岗位 相同工作量 工资 同工同酬\",\"劳务派遣单位 被派遣劳动者 与本单位劳动者 同工同酬 劳动报酬 分配办法\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 242,
+  "completion_tokens": 675,
+  "total_tokens": 917,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 614
+ },
+ "latency_ms": 3563.783699995838,
+ "from_cache": false
+}

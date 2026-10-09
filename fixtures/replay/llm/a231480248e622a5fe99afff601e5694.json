@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司可以自己决定工资怎么发、发多少吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该问题直接对应用人单位依法自主确定工资分配方式和工资水平的规定。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 370,
+  "completion_tokens": 313,
+  "total_tokens": 683,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 244
+ },
+ "latency_ms": 2150.520700000925,
+ "from_cache": false
+}

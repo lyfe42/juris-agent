@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"加班费 举证责任 劳动者 加班事实 考勤记录 用人单位掌握管理 不提供 不利后果\",\"劳动争议仲裁 加班事实 证明责任 用人单位 考勤记录 提供证据义务 拒绝提交 推定\",\"加班工资 证据 用人单位掌握 考勤记录 拒不提供 劳动争议调解仲裁法第六条 司法解释一第四十二条 不利后果\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 264,
+  "completion_tokens": 743,
+  "total_tokens": 1007,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 658
+ },
+ "latency_ms": 3744.5588000045973,
+ "from_cache": false
+}

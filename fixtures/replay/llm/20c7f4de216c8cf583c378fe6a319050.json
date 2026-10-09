@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在跟公司打劳动仲裁，公司欠我工资，我现在生活实在撑不下去了，能不能让仲裁庭先裁决让公司把钱付了？申请的话，要不要我提供担保？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应劳动争议仲裁中追索劳动报酬的先予执行申请条件，以及劳动者申请可不提供担保的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 429,
+  "completion_tokens": 594,
+  "total_tokens": 1023,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 173,
+  "reasoning_tokens": 499
+ },
+ "latency_ms": 5253.745300004084,
+ "from_cache": false
+}

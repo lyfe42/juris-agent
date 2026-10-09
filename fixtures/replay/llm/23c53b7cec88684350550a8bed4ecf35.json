@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"以完成一定工作任务为期限的劳动合同 任务完成 终止 经济补偿\",\"劳动合同因任务完成而终止 用人单位 支付经济补偿 实施条例第二十二条\",\"工作任务完成 劳动合同终止 不再续订 经济补偿金 劳动合同法\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 900,
+  "total_tokens": 1159,
+  "prompt_cache_hit_tokens": 125,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 841
+ },
+ "latency_ms": 4917.718700002297,
+ "from_cache": false
+}

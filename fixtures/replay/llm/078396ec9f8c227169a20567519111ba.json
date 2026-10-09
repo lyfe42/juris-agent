@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动安全卫生设施 新建 改建 扩建 工程 主体工程 同时设计 同时施工 同时投入生产和使用\",\"扩建 车间 安全卫生设施 与主体工程同时施工 三同时 制度\",\"建设项目 劳动安全卫生设施 未与主体工程同时施工 竣工后安装 投入使用\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 248,
+  "completion_tokens": 1021,
+  "total_tokens": 1269,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 248,
+  "reasoning_tokens": 948
+ },
+ "latency_ms": 4993.610199999239,
+ "from_cache": false
+}

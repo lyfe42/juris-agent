@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司没申报该缴多少社保费，那社保局会按什么标准确定要收多少钱？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题直接对应用人单位未按规定申报社保费数额时的核定标准，法条给出了按上月缴费额110%确定以及补办申报后结算的答案。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 394,
+  "completion_tokens": 451,
+  "total_tokens": 845,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 138,
+  "reasoning_tokens": 361
+ },
+ "latency_ms": 2668.3173999990686,
+ "from_cache": false
+}

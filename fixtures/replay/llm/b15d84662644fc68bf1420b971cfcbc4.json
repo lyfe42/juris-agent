@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"保密协议 商业秘密 竞业限制 经济补偿 违约金 劳动合同法\",\"解除或者终止劳动合同后 竞业限制 期限 按月给予经济补偿 违反竞业限制 支付违约金\",\"竞业限制条款 效力 合法性 劳动者 用人单位 劳动争议 仲裁\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 269,
+  "completion_tokens": 1242,
+  "total_tokens": 1511,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 141,
+  "reasoning_tokens": 1176
+ },
+ "latency_ms": 6205.8765000037965,
+ "from_cache": false
+}

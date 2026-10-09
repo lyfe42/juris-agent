@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司裁员的时候，哪些员工应当优先留下来？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"直接对应法条第二款关于裁减人员时应当优先留用的三类人员，是打工人常关心的自身权益问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 571,
+  "completion_tokens": 1929,
+  "total_tokens": 2500,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 315,
+  "reasoning_tokens": 1859
+ },
+ "latency_ms": 12494.544300003326,
+ "from_cache": false
+}

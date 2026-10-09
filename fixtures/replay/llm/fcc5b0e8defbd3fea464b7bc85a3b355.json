@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"工伤职工 劳动合同期满终止 用人单位不续订 一次性工伤医疗补助金 一次性伤残就业补助金 经济补偿 能否同时主张\",\"劳动合同到期终止 用人单位不续签 工伤保险待遇 一次性工伤医疗补助金 一次性伤残就业补助金 经济补偿金 支付条件\",\"工伤保险条例第三十七条 劳动合同法第四十六条 工伤 合同期满 终止劳动关系 一次性工伤医疗补助金 一次性伤残就业补助金 经济补偿 兼得\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 264,
+  "completion_tokens": 1194,
+  "total_tokens": 1458,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 1089
+ },
+ "latency_ms": 5267.375699993863,
+ "from_cache": false
+}

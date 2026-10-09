@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"试用期工资 最低标准 不得低于 用人单位所在地 最低工资标准\", \"试用期 工资 不得低于 本单位相同岗位最低档工资 或者 劳动合同约定工资 百分之八十\", \"试用期工资 法定下限 劳动合同法第二十条 实施条例第十五条\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 246,
+  "completion_tokens": 390,
+  "total_tokens": 636,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 246,
+  "reasoning_tokens": 323
+ },
+ "latency_ms": 2239.4293999968795,
+ "from_cache": false
+}

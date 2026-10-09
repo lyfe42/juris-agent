@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"以完成一定工作任务为期限的劳动合同 订立 合法性\", \"用人单位 劳动者 签订 以完成一定工作任务为期限 劳动合同 条件\", \"项目完成 劳动合同终止 以完成一定工作任务为期限 劳动合同法\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 245,
+  "completion_tokens": 625,
+  "total_tokens": 870,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 570
+ },
+ "latency_ms": 2950.590899999952,
+ "from_cache": false
+}

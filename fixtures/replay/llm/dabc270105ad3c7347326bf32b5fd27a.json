@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议调解组织 收到调解申请之日起 十五日 未达成调解协议 申请仲裁\", \"劳动争议调解 调解不成 十五日 当事人 依法申请仲裁 期限\", \"劳动争议调解委员会 调解期限 十五日内 未达成调解协议 仲裁申请\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 251,
+  "completion_tokens": 287,
+  "total_tokens": 538,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 251,
+  "reasoning_tokens": 223
+ },
+ "latency_ms": 1706.2735999934375,
+ "from_cache": false
+}

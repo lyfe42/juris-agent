@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我离职后一直遵守竞业协议，没去竞争对手公司，但当初合同里只写了限制我，没写公司要给我补偿。我还能要求公司按月给补偿吗？按什么标准给？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应未约定竞业限制经济补偿时，劳动者履行义务后能否要求补偿以及按前十二个月平均工资30%、不低于最低工资标准支付的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 447,
+  "completion_tokens": 644,
+  "total_tokens": 1091,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 191,
+  "reasoning_tokens": 532
+ },
+ "latency_ms": 3795.973000000231,
+ "from_cache": false
+}

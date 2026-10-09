@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是人大常委会对社保基金行使监督职权的程序性规定，不涉及普通劳动者的具体权利义务，无法造出自然的生活化提问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 387,
+  "completion_tokens": 293,
+  "total_tokens": 680,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 259,
+  "reasoning_tokens": 231
+ },
+ "latency_ms": 2632.468899995729,
+ "from_cache": false
+}

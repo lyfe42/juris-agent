@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"工会 帮助 指导 劳动者 订立 履行 劳动合同\", \"工会 监督 用人单位 履行 劳动合同 违法 提出 意见 要求 改正\", \"用人单位 单方 解除 劳动合同 事先 通知 工会 工会 支持 劳动者 申请 仲裁 诉讼\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 247,
+  "completion_tokens": 359,
+  "total_tokens": 606,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 289
+ },
+ "latency_ms": 2024.1001999966102,
+ "from_cache": false
+}

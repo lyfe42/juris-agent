@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我们交的社保钱，单位或者其他人能随便挪去用吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"直接对应法条中“任何组织和个人不得挪用社会保险基金”的禁止性规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 413,
+  "completion_tokens": 542,
+  "total_tokens": 955,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 157,
+  "reasoning_tokens": 474
+ },
+ "latency_ms": 3805.0846999976784,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议仲裁 劳动者死亡 近亲属 代理人 参加仲裁活动\",\"劳动争议仲裁 劳动者丧失民事行为能力 法定代理人 代为参加仲裁活动\",\"劳动争议仲裁 无法定代理人 劳动争议仲裁委员会 指定代理人 仲裁程序\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 267,
+  "completion_tokens": 1155,
+  "total_tokens": 1422,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 139,
+  "reasoning_tokens": 1100
+ },
+ "latency_ms": 6042.136600000958,
+ "from_cache": false
+}

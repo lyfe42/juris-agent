@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"社会保险基金 挪用 违规投资运营 责令追回 没收违法所得 罚款\",\"社会保险基金 违法运营 侵占 挪用 行政处分 纪律处分 法律责任\",\"社会保险基金 挪用 投资 构成犯罪的 刑事责任 国家工作人员\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 509,
+  "total_tokens": 752,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 452
+ },
+ "latency_ms": 3408.9119999989634,
+ "from_cache": false
+}

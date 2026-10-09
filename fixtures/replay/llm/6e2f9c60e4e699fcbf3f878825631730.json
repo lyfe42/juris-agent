@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"社会保险费 缴纳 社会保险基金 财政专户 专款专用 存入\", \"社会保险经办机构 社会保险基金 账户 管理 职责\", \"社会保险费 征收 缴纳 资金 归属 社会保险基金 账户\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 247,
+  "completion_tokens": 795,
+  "total_tokens": 1042,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 739
+ },
+ "latency_ms": 4019.870099997206,
+ "from_cache": false
+}

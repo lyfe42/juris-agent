@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 打击报复 举报人 劳动保障行政部门 责令改正 罚款 刑事责任\",\"劳动保障监察 举报 用人单位 报复 行政处罚 法律责任 劳动法 第一百零一条\",\"劳动保障监察条例 第三十条 打击报复举报人 处罚 罚款 2000元以上2万元以下\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 255,
+  "completion_tokens": 1728,
+  "total_tokens": 1983,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 1657
+ },
+ "latency_ms": 8444.103599998925,
+ "from_cache": false
+}

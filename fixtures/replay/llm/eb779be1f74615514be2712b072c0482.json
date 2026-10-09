@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司没工会，我们员工想跟公司签集体合同，该由谁代表我们跟公司签？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"法条第二款直接规定，尚未建立工会的用人单位，由上级工会指导劳动者推举的代表与用人单位订立集体合同。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 425,
+  "completion_tokens": 1231,
+  "total_tokens": 1656,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 169,
+  "reasoning_tokens": 1142
+ },
+ "latency_ms": 7124.072500002512,
+ "from_cache": false
+}

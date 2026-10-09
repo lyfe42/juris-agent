@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司没跟我商量，就自己把劳动合同的内容改了，这样改有效吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条明确变更劳动合同须平等自愿、协商一致，能直接回答公司单方改合同是否有效的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 388,
+  "completion_tokens": 370,
+  "total_tokens": 758,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 260,
+  "reasoning_tokens": 296
+ },
+ "latency_ms": 2227.278699996532,
+ "from_cache": false
+}

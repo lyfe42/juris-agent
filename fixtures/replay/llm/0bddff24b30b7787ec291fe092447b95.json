@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在公司上班，公司让我自己全额交职工医保，它一分钱不掏，这样对吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应法条第一款关于职工参加职工基本医疗保险、由用人单位和职工共同缴纳基本医疗保险费的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 404,
+  "completion_tokens": 1158,
+  "total_tokens": 1562,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 148,
+  "reasoning_tokens": 1079
+ },
+ "latency_ms": 6314.870700000029,
+ "from_cache": false
+}

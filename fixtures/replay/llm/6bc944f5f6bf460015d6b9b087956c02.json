@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是鼓励性、倡导性条款，未设定具体权利义务，无法形成有确定答案的劳动者常见问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 372,
+  "completion_tokens": 255,
+  "total_tokens": 627,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 244,
+  "reasoning_tokens": 198
+ },
+ "latency_ms": 1742.3840000046766,
+ "from_cache": false
+}

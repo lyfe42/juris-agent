@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位 劳动安全卫生 教育 培训 义务 劳动者\", \"生产经营单位 安全生产 教育培训 从业人员 义务\", \"用人单位 职业卫生 培训 劳动者 职业病防治 义务\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 242,
+  "completion_tokens": 355,
+  "total_tokens": 597,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 242,
+  "reasoning_tokens": 307
+ },
+ "latency_ms": 2110.7221999991452,
+ "from_cache": false
+}

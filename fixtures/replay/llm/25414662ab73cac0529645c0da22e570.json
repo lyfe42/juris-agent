@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"用人单位规章制度 违反法律 法规规定 损害劳动者权益 劳动行政部门 责令改正 警告 赔偿责任\", \"直接涉及劳动者切身利益 规章制度 违法 劳动保障监察 投诉 行政处理 赔偿损失\", \"规章制度 未经民主程序 未公示告知 劳动者权益损害 行政处罚 民事赔偿责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 256,
+  "completion_tokens": 562,
+  "total_tokens": 818,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 489
+ },
+ "latency_ms": 2920.7923999929335,
+ "from_cache": false
+}

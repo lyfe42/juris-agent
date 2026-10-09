@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我申请劳动仲裁后，仲裁委一直拖着不裁决，也不给个说法，我能直接去法院起诉吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"该问题直接对应劳动争议仲裁机构逾期未作出受理决定或仲裁裁决时，当事人能否直接向法院起诉，法条明确规定了人民法院应予受理及例外情形和所需材料。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 487,
+  "completion_tokens": 615,
+  "total_tokens": 1102,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 231,
+  "reasoning_tokens": 512
+ },
+ "latency_ms": 3718.569999997271,
+ "from_cache": false
+}

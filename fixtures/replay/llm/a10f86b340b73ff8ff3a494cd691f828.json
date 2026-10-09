@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在一家没有营业执照、或者执照被吊销了还在继续经营的公司上班，出了劳动纠纷要告谁？能把老板或出资人一起告吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条直接回答了与未办执照、执照被吊销或期满仍经营的用人单位发生争议时，应将用人单位或其出资人列为当事人，贴合打工人关心告谁的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 391,
+  "completion_tokens": 402,
+  "total_tokens": 793,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 300
+ },
+ "latency_ms": 2539.1896000000997,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司是不是能在劳动合同里随便写一条，我违约就要交违约金？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接对应本条关于用人单位不得随意约定劳动者承担违约金的禁止性规则，答案就是本条法条。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 371,
+  "completion_tokens": 869,
+  "total_tokens": 1240,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 797
+ },
+ "latency_ms": 5307.104300001811,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同无效 过错方 赔偿责任 损失\",\"确认无效劳动合同 损害赔偿 责任主体 用人单位 劳动者\",\"劳动合同法第二十六条 劳动合同法第八十六条 无效 损害 赔偿\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 247,
+  "completion_tokens": 363,
+  "total_tokens": 610,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 317
+ },
+ "latency_ms": 2048.2355000058305,
+ "from_cache": false
+}

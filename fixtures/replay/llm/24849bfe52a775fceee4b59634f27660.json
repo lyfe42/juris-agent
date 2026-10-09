@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"公司让我签协议，要求我保守商业秘密，还说我离职后一段时间不能去竞争对手那里上班，公司会按月给我补偿，如果我违反了就要赔违约金，这种约定可以吗？\",\"qtype\":\"single_fact\",\"difficulty\":\"normal\",\"reason\":\"该法条直接规定了保密事项、竞业限制条款、离职后按月支付经济补偿以及违反竞业限制需支付违约金，能回答这一生活化问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 425,
+  "completion_tokens": 702,
+  "total_tokens": 1127,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 169,
+  "reasoning_tokens": 604
+ },
+ "latency_ms": 4086.1828999986756,
+ "from_cache": false
+}

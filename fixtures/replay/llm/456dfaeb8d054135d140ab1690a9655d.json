@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 拖欠劳动报酬 劳动者 人民法院 申请支付令\",\"未足额支付工资 劳动报酬 支付令 申请条件 劳动合同法\",\"追索劳动报酬 支付令 督促程序 劳动争议 法院 直接申请\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 252,
+  "completion_tokens": 1384,
+  "total_tokens": 1636,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 252,
+  "reasoning_tokens": 1327
+ },
+ "latency_ms": 6549.381299999368,
+ "from_cache": false
+}

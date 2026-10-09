@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"跟公司闹了劳动纠纷，我想申请调解，必须写书面材料吗？口头申请行不行？要是口头申请，他们会当场记下什么？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"问题直接询问申请劳动争议调解的形式（书面或口头）以及口头申请时的记录要求，法条第十二条正是规定此内容。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 385,
+  "completion_tokens": 856,
+  "total_tokens": 1241,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 257,
+  "reasoning_tokens": 756
+ },
+ "latency_ms": 4560.935199995583,
+ "from_cache": false
+}

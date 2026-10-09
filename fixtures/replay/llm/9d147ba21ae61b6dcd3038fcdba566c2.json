@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是规范省级政府制定劳动合同制度实施步骤并报国务院备案的行政程序性条款，与普通打工人能提出的个人劳动权益问题无关。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 376,
+  "completion_tokens": 91,
+  "total_tokens": 467,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 248,
+  "reasoning_tokens": 26
+ },
+ "latency_ms": 887.8398000015295,
+ "from_cache": false
+}

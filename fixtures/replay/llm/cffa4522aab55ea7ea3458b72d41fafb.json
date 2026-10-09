@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同无效 劳动者已付出劳动 劳动报酬 支付 参照本单位相同或者相近岗位 劳动报酬标准\",\"劳动合同被确认无效 已履行劳动 工资支付义务 劳动报酬计算 同岗位 相近岗位 参照\",\"无效劳动合同 已提供劳动 劳动报酬给付 标准 本单位相同岗位 ",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 263,
+  "completion_tokens": 512,
+  "total_tokens": 775,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 135,
+  "reasoning_tokens": 440
+ },
+ "latency_ms": 3020.5207000035443,
+ "from_cache": false
+}

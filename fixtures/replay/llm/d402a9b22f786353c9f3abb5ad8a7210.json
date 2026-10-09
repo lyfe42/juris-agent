@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动保障监察 职责范围 受案范围 拖欠劳动报酬 未依法缴纳社会保险费 违法延长工作时间 工资支付 社会保险费 工作时间 休息休假\",\"劳动保障监察条例 第十一条 劳动保障监察事项 用人单位遵守劳动保障法律法规情况 工资支付 社会保险费缴纳 工作时间和休息休假 监督检查\",\"劳动保障行政部门 劳动保障监察机构 投诉举报 日常巡视检查 书面审查 专项检查 拖欠劳动报酬 未依法缴纳社会保险费 违法延长工作时间\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 262,
+  "completion_tokens": 1985,
+  "total_tokens": 2247,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 1872
+ },
+ "latency_ms": 9548.617100001138,
+ "from_cache": false
+}

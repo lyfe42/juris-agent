@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司要制定或修改涉及我们工资、工时、休假这些切身利益的制度，必须经过什么程序？我们员工有没有发言权？公司是不是得让我们知道？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该问题询问用人单位制定涉及劳动者切身利益的规章制度的法定程序，正好对应《劳动合同法》第四条关于职工讨论、协商确定和公示告知的规定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 480,
+  "completion_tokens": 1949,
+  "total_tokens": 2429,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 224,
+  "reasoning_tokens": 1850
+ },
+ "latency_ms": 10779.861100003473,
+ "from_cache": false
+}

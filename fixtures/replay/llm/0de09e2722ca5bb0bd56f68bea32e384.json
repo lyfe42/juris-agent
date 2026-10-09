@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我们平时交的社保，到底都包括哪些基金？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"法条第一句明确列举了社会保险基金包含的五类基金，能直接回答普通打工人对社保包含哪些项目的疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 449,
+  "completion_tokens": 899,
+  "total_tokens": 1348,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 193,
+  "reasoning_tokens": 827
+ },
+ "latency_ms": 5690.405800000008,
+ "from_cache": false
+}

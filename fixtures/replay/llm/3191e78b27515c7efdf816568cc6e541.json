@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我去申请劳动仲裁，仲裁说这事不归他们管，不给受理，我不服气去法院告，法院会怎么处理？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条正是规定劳动仲裁以不属于劳动争议为由不予受理后，当事人不服起诉时法院应分别情形受理，直接回答该问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 424,
+  "completion_tokens": 504,
+  "total_tokens": 928,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 168,
+  "reasoning_tokens": 414
+ },
+ "latency_ms": 3829.894599999534,
+ "from_cache": false
+}

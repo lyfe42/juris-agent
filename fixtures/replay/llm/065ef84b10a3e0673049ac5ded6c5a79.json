@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"职工基本养老保险 用人单位缴费 职工个人缴费 个人账户 统筹基金 分别记入\",\"基本养老保险 单位缴费部分 个人缴费部分 账户归属 个人账户 社会统筹基金\",\"养老保险 个人缴费 全额记入个人账户 单位缴费 计入统筹基金 去向\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 478,
+  "total_tokens": 737,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 259,
+  "reasoning_tokens": 409
+ },
+ "latency_ms": 2800.9414999978617,
+ "from_cache": false
+}

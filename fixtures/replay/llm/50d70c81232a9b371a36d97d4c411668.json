@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"我们每个月交的社保钱放进基金后，国家到底是怎么监管、保证它安全的？\",\"qtype\":\"single_fact\",\"difficulty\":\"easy\",\"reason\":\"该条直接规定了社保基金严格监管、建立监督管理制度并鼓励社会参与监督，能回答普通打工人对社保基金安全的自然疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 392,
+  "completion_tokens": 1061,
+  "total_tokens": 1453,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 987
+ },
+ "latency_ms": 6304.242199999862,
+ "from_cache": false
+}

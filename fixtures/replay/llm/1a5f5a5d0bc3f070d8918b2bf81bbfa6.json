@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"老板名下有好几家关联公司，一直让我在这几家公司之间来回干活，也没跟我签过劳动合同。现在拖欠工资和福利，我能不能要求这几家公司一起承担，把该给我的钱都给我？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"问题围绕关联单位交替/同时用工时如何认定劳动关系、以及能否要求关联单位共同支付劳动报酬和福利待遇，正好落在本条两款规定的射程内，答案即本条内容。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 485,
+  "completion_tokens": 400,
+  "total_tokens": 885,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 229,
+  "reasoning_tokens": 277
+ },
+ "latency_ms": 2450.946199998725,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"业务发包 承包经营 劳动争议 当事人 发包单位 承包单位 用人单位 共同当事人\",\"用人单位将业务承包给其他单位 用工主体责任 劳动关系 发包方 承包方 劳动者 被告\",\"劳动争议案件 法院起诉 诉讼主体 被告 承包经营 发包方 承包方 用人单位\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 264,
+  "completion_tokens": 2045,
+  "total_tokens": 2309,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 136,
+  "reasoning_tokens": 1972
+ },
+ "latency_ms": 11166.038700001081,
+ "from_cache": false
+}

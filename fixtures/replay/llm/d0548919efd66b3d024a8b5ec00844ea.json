@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"退休后领的养老金，以后会根据啥情况往上涨？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"法条直接说明了基本养老金调整的两个依据因素：职工平均工资增长和物价上涨，能回答普通人对养老金上涨依据的疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 376,
+  "completion_tokens": 555,
+  "total_tokens": 931,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 248,
+  "reasoning_tokens": 480
+ },
+ "latency_ms": 3352.430299994012,
+ "from_cache": false
+}

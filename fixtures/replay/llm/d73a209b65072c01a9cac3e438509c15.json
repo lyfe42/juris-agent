@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动合同变更 口头协议 未书面形式 实际履行超过一个月 效力\",\"岗位调整 工资调整 口头协商一致 未签书面协议 用人单位反悔\",\"劳动争议 变更劳动合同 书面形式 瑕疵 实际履行 变更无效\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 275,
+  "completion_tokens": 440,
+  "total_tokens": 715,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 147,
+  "reasoning_tokens": 381
+ },
+ "latency_ms": 2770.971700003429,
+ "from_cache": false
+}

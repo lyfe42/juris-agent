@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"社会保险经办机构 擅自调整 社会保险缴费基数 多缴 社会保险费 退还\", \"社会保险缴费基数 核定错误 多缴款 社会保险费退费 返还\", \"个人权益记录 缴费基数 更正 多缴社会保险费 退还 社会保险经办机构\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 255,
+  "completion_tokens": 1523,
+  "total_tokens": 1778,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 1457
+ },
+ "latency_ms": 7458.644300000742,
+ "from_cache": false
+}

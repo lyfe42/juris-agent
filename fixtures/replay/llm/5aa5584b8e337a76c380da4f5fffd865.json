@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\":true,\"question\":\"公司一直没给我缴工伤保险，万一我出了工伤，工伤待遇该由谁出？要是公司赖着不给呢？\",\"qtype\":\"single_fact\",\"difficulty\":\"normal\",\"reason\":\"该条直接规定了用人单位未依法缴纳工伤保险费时发生工伤的待遇支付责任，以及单位不支付时由工伤保险基金先行支付，正好回答这一疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 412,
+  "completion_tokens": 711,
+  "total_tokens": 1123,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 156,
+  "reasoning_tokens": 626
+ },
+ "latency_ms": 3972.6149999987683,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"非因本人原因 原用人单位 安排到新用人单位 工作年限合并计算\",\"原用人单位已支付经济补偿 新用人单位 解除或者终止劳动合同 计算经济补偿 原工作年限不再计算\",\"劳动者非因本人原因 用人单位安排 变更工作单位 本单位工作年限连续计算 经济补偿\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 286,
+  "completion_tokens": 1374,
+  "total_tokens": 1660,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 158,
+  "reasoning_tokens": 1302
+ },
+ "latency_ms": 6500.022300002456,
+ "from_cache": false
+}

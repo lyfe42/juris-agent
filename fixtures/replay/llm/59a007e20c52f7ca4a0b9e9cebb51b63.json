@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议仲裁委员会 不予受理 不属于劳动争议 当事人 向人民法院起诉 人民法院 应当受理 劳动争议案件 主管\",\"劳动仲裁 不予受理 通知 不服 法院起诉 仲裁前置 立案受理 驳回起诉 受案范围\",\"劳动争议 仲裁不予受理 法院 分别情况处理 属于劳动争议 应当受理 不属于劳动争议 但属于人民法院主管 依法受理\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 259,
+  "completion_tokens": 1084,
+  "total_tokens": 1343,
+  "prompt_cache_hit_tokens": 125,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 997
+ },
+ "latency_ms": 5802.2689999997965,
+ "from_cache": false
+}

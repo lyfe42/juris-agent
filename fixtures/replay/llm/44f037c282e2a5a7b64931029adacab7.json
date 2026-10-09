@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议仲裁 庭审笔录 遗漏 差错 申请补正 不予补正\", \"劳动人事争议仲裁 开庭笔录 记载错误 当事人 申请更正 仲裁庭 拒绝更正\", \"仲裁庭笔录 记录遗漏 记录错误 异议 补正申请 不予补正 记录在案\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 260,
+  "completion_tokens": 1055,
+  "total_tokens": 1315,
+  "prompt_cache_hit_tokens": 126,
+  "prompt_cache_miss_tokens": 134,
+  "reasoning_tokens": 982
+ },
+ "latency_ms": 5813.250700004573,
+ "from_cache": false
+}

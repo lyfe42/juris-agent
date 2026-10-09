@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"我跟公司因为工作时间、休息休假、社保这些事去申请劳动仲裁，裁决书下来后是不是就是最终结果了？从哪天开始生效？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"问题直接对应本条第二项关于因执行国家劳动标准在工作时间、休息休假、社会保险等方面发生争议的仲裁裁决为终局裁决及生效时间的规定。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 427,
+  "completion_tokens": 1406,
+  "total_tokens": 1833,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 171,
+  "reasoning_tokens": 1301
+ },
+ "latency_ms": 8580.391499999678,
+ "from_cache": false
+}

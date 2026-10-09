@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"经济性裁员 不得裁减 人员 范围 劳动合同法 第四十二条 禁止解除\",\"用人单位 裁减人员 不得解除劳动合同 情形 孕期 产期 哺乳期 医疗期 职业病 工伤 连续工作满十五年 距法定退休年龄不足五年\",\"劳动合同法 第四十一条 经济性裁员 不得裁减 员工 特殊保护 第42条 禁止性规定 法定情形\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 1091,
+  "total_tokens": 1334,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 994
+ },
+ "latency_ms": 5344.005699997069,
+ "from_cache": false
+}

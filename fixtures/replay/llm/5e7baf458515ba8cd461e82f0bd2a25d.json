@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"劳动监察的人来公司检查，他们能进车间、查资料吗？是不是必须出示证件？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"easy\",\n  \"reason\": \"该法条直接规定了劳动行政部门监督检查人员执行公务时的检查权限和出示证件等义务，能回答劳动者关于劳动监察检查权限的疑问。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 402,
+  "completion_tokens": 639,
+  "total_tokens": 1041,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 146,
+  "reasoning_tokens": 547
+ },
+ "latency_ms": 3635.065599999507,
+ "from_cache": false
+}

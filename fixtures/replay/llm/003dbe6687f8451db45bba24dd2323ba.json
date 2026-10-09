@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"社会保险基金 监督管理 安全 财政专户 专款专用 不得挪用\", \"社会保险基金 行政监督 审计监督 社会监督 监督委员会\", \"社会保险基金 预算管理 收支两条线 保值增值 法律责任\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 250,
+  "completion_tokens": 1083,
+  "total_tokens": 1333,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 250,
+  "reasoning_tokens": 1026
+ },
+ "latency_ms": 5362.107700006163,
+ "from_cache": false
+}

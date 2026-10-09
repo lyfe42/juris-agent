@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"工伤保险的保险费是公司交，还是我自己也要交一部分？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该问题直接询问工伤保险费的缴纳主体，法条明确用人单位缴纳、职工不缴纳，能准确回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 368,
+  "completion_tokens": 263,
+  "total_tokens": 631,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 240,
+  "reasoning_tokens": 194
+ },
+ "latency_ms": 1658.0906000017421,
+ "from_cache": false
+}

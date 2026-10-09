@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条规范的是社保经办机构的设立、分支机构审批以及人员经费和运行费用的财政保障，属于机构设置和财政保障条款，普通打工人不会就此提出自然、切身的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 408,
+  "completion_tokens": 292,
+  "total_tokens": 700,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 152,
+  "reasoning_tokens": 221
+ },
+ "latency_ms": 1832.8228000027593,
+ "from_cache": false
+}

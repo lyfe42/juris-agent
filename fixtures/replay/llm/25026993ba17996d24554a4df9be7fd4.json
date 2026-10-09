@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我是劳务派遣工，派遣公司最少得跟我签多久的合同？要是没活干，他们还得给我发钱吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该条直接规定劳务派遣单位应与被派遣劳动者订立二年以上固定期限劳动合同，并在无工作期间按当地最低工资标准按月支付报酬，正好回答派遣工最关心的合同期限和待岗待遇。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 445,
+  "completion_tokens": 1494,
+  "total_tokens": 1939,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 189,
+  "reasoning_tokens": 1390
+ },
+ "latency_ms": 8651.93200000067,
+ "from_cache": false
+}

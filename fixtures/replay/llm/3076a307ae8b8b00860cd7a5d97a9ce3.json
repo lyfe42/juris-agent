@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"打工人碰到哪些情况可以享受社保待遇？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"问题直接对应法条第一款列举的退休、患病负伤、工伤或职业病、失业、生育五种享受社保待遇的情形。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 432,
+  "completion_tokens": 860,
+  "total_tokens": 1292,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 176,
+  "reasoning_tokens": 790
+ },
+ "latency_ms": 4863.114500003576,
+ "from_cache": false
+}

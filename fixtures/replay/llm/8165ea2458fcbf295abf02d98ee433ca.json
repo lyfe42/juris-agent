@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"生育保险 缴费主体 用人单位 职工个人\", \"生育保险费 用人单位缴纳 职工不缴纳\", \"职工生育保险 单位缴费 个人缴费\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 245,
+  "completion_tokens": 296,
+  "total_tokens": 541,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 256
+ },
+ "latency_ms": 1715.767899993807,
+ "from_cache": false
+}

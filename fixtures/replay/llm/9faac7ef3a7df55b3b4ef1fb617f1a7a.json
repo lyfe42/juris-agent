@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"离职后公司一直不按约定给我竞业限制补偿，拖多久我就可以要求解除竞业限制？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应条文规定的因用人单位原因三个月未支付经济补偿时，劳动者可请求解除竞业限制约定。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 403,
+  "completion_tokens": 572,
+  "total_tokens": 975,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 147,
+  "reasoning_tokens": 492
+ },
+ "latency_ms": 3532.7632000044105,
+ "from_cache": false
+}

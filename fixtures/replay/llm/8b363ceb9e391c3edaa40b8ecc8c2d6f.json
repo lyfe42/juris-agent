@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"劳动仲裁委说他们管不了我的案子，不给受理，我要是直接去法院起诉，法院会怎么处理？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"问题对应仲裁机构以无管辖权为由不予受理后当事人起诉的处理规则，法条直接给出了分情形处理方式。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 461,
+  "completion_tokens": 1156,
+  "total_tokens": 1617,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 205,
+  "reasoning_tokens": 1066
+ },
+ "latency_ms": 7361.74690000189,
+ "from_cache": false
+}

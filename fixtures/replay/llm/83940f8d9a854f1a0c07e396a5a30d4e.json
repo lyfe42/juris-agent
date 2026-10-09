@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"试用期 用人单位 单方解除劳动合同 法定情形 说明理由\",\"试用期 解除劳动合同 不符合录用条件 告知解除理由 举证责任\",\"劳动合同法第二十一条 试用期 解除限制 说明理由 违法解除\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 257,
+  "completion_tokens": 466,
+  "total_tokens": 723,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 257,
+  "reasoning_tokens": 409
+ },
+ "latency_ms": 2936.081200001354,
+ "from_cache": false
+}

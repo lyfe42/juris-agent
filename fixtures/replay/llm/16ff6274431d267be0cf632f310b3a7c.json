@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"如果用工单位在使用派遣工时违规了，劳动局会怎么罚他们？我因此受了损失，能找派遣公司和用工单位一起赔吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"这条法条直接规定了用工单位违反劳务派遣规定的行政责任和连带赔偿责任，能回答劳动者关于违规后果及赔偿主体的疑问。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 407,
+  "completion_tokens": 935,
+  "total_tokens": 1342,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 151,
+  "reasoning_tokens": 843
+ },
+ "latency_ms": 5374.106399998709,
+ "from_cache": false
+}

@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"我在外国公司驻中国的办事处上班，跟它闹了劳动纠纷，能直接把这个办事处告到法院吗？能不能把外国总公司也一起拉进来？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"该法条直接规定了外国企业常驻代表机构可以作为劳动争议案件当事人，以及当事人申请追加外国企业参加诉讼时法院应予支持，能回答在代表处工作发生纠纷时告谁、能否追加外国公司的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 387,
+  "completion_tokens": 1037,
+  "total_tokens": 1424,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 259,
+  "reasoning_tokens": 924
+ },
+ "latency_ms": 6165.249799996673,
+ "from_cache": false
+}

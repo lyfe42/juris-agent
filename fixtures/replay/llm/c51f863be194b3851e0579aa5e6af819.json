@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动争议 协商 工会 第三方 共同与用人单位协商 和解协议\",\"劳动争议 和解 工会参与 第三方参与 协商解决\",\"劳动争议 劳动者 请工会 或者 第三方 共同 用人单位 协商\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 254,
+  "completion_tokens": 1409,
+  "total_tokens": 1663,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 254,
+  "reasoning_tokens": 1356
+ },
+ "latency_ms": 7010.005200005253,
+ "from_cache": false
+}

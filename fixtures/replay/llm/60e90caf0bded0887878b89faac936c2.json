@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"劳动者非因本人原因 从原用人单位被安排到新用人单位 工作年限连续计算 解除劳动合同 经济补偿\",\"关联公司 劳动合同主体变更 原用人单位工作年限 合并计算 经济补偿金\",\"新用人单位 辞退 工龄承继 原工作年限 计入经济补偿 计算基数\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 276,
+  "completion_tokens": 443,
+  "total_tokens": 719,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 148,
+  "reasoning_tokens": 369
+ },
+ "latency_ms": 2558.951999999408,
+ "from_cache": false
+}

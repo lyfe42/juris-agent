@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司先跟我签了一份固定期限合同，到期后让我跟老板的另一家公司重新签，我还在原来的地方干原来的活，现在这份合同也到期了。这算不算连续签了两次固定期限合同？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题对应法条第三项情形，问换合同主体但仍在原岗位工作是否构成连续二次固定期限合同，法条可直接回答。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 480,
+  "completion_tokens": 1234,
+  "total_tokens": 1714,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 224,
+  "reasoning_tokens": 1126
+ },
+ "latency_ms": 6946.912200000952,
+ "from_cache": false
+}

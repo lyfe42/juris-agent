@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条是立法目的宣示条款，不含任何可回答具体问题的权利义务规则，打工人无法据此提出自然问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 375,
+  "completion_tokens": 78,
+  "total_tokens": 453,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 247,
+  "reasoning_tokens": 20
+ },
+ "latency_ms": 1197.649600006116,
+ "from_cache": false
+}

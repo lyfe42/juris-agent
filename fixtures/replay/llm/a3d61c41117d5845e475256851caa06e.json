@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"公司跟我口头谈好调整了岗位和工资，没签书面协议，我已经按新安排干了一个多月。现在公司反悔，说没书面签字所以不算数，这说法站得住脚吗？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接针对口头变更劳动合同、已实际履行超过一个月后能否以未采书面形式主张无效，正是该条回答的内容。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 420,
+  "completion_tokens": 630,
+  "total_tokens": 1050,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 164,
+  "reasoning_tokens": 525
+ },
+ "latency_ms": 3853.9520999984234,
+ "from_cache": false
+}

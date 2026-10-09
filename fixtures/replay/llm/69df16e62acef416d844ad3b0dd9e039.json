@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"本条是对「固定期限劳动合同」的纯定义性条款（后半句只是重申协商一致即可订立，无独立可问的行为规范），真人不会把它当作一个需要查法条来解答的实际问题，硬造容易变成照抄术语的名词解释题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 377,
+  "completion_tokens": 995,
+  "total_tokens": 1372,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 249,
+  "reasoning_tokens": 908
+ },
+ "latency_ms": 5641.942900001595,
+ "from_cache": false
+}

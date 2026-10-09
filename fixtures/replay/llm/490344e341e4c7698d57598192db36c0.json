@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"该条属于倡导性、宣示性条款，没有规定具体的权利义务或可计算标准，普通打工人难以据此提出一个自然且答案唯一的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 387,
+  "completion_tokens": 138,
+  "total_tokens": 525,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 259,
+  "reasoning_tokens": 73
+ },
+ "latency_ms": 1335.071000001335,
+ "from_cache": false
+}

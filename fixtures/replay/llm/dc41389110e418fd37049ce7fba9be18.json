@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 劳动者 缴纳 社会保险费 法定义务 强制\",\"职工 参加 社会保险 用人单位 共同缴纳 社会保险费\",\"用人单位 代扣代缴 职工 个人缴费 社会保险费 缴费义务\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 245,
+  "completion_tokens": 605,
+  "total_tokens": 850,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 245,
+  "reasoning_tokens": 551
+ },
+ "latency_ms": 3051.056999996945,
+ "from_cache": false
+}

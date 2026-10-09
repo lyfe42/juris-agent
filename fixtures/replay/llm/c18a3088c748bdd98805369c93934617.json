@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"工会 职工 社会保险权益 监督 用人单位 侵害\", \"工会 参与 社会保险 重大事项 讨论 研究\", \"工会 维护 职工 社会保险 合法权益 用人单位 监督\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 255,
+  "completion_tokens": 974,
+  "total_tokens": 1229,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 925
+ },
+ "latency_ms": 4872.018100002606,
+ "from_cache": false
+}

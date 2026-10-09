@@ -1,0 +1,14 @@
+{
+ "text": "{\"type\": \"json_object\", \"askable\": true, \"question\": \"我上班时受伤是因为别人造成的，但那个人不赔医药费，或者根本找不到是谁，这笔医药费该找谁先出？\", \"qtype\": \"single_fact\", \"difficulty\": \"normal\", \"reason\": \"问题直接对应第三人造成工伤且第三人不支付或无法确定时，由工伤保险基金先行支付医疗费用的规则。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 388,
+  "completion_tokens": 543,
+  "total_tokens": 931,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 260,
+  "reasoning_tokens": 450
+ },
+ "latency_ms": 3328.075399993395,
+ "from_cache": false
+}

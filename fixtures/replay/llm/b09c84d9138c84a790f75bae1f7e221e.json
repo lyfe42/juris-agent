@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": true, \"question\": \"政府有没有责任帮大家找工作、提供就业方面的服务？\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"本条直接规定地方各级政府应发展多种类型的职业介绍机构并提供就业服务，能回答政府是否承担就业服务职责的问题。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 368,
+  "completion_tokens": 822,
+  "total_tokens": 1190,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 240,
+  "reasoning_tokens": 751
+ },
+ "latency_ms": 4494.8471000025165,
+ "from_cache": false
+}

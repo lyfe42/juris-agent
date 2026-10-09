@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\": [\"劳动争议仲裁 仲裁员回避 近亲属 当事人 法定代表人 申请回避 口头 书面\", \"劳动仲裁 仲裁员 与本案当事人 有利害关系 其他关系 可能影响公正仲裁 回避申请\", \"仲裁庭 仲裁员 更换 回避事由 当事人申请回避 开庭 劳动争议调解仲裁法 第三十三条\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 256,
+  "completion_tokens": 850,
+  "total_tokens": 1106,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 256,
+  "reasoning_tokens": 769
+ },
+ "latency_ms": 4071.805799998401,
+ "from_cache": false
+}

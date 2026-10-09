@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"法定休假日 用人单位 应当依法安排劳动者休假 全体公民放假的节日\",\"法定节假日 放假 劳动者 休息 用人单位 义务\",\"全国年节及纪念日放假办法 全体公民放假 节日 用人单位 休假\"]}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 240,
+  "completion_tokens": 348,
+  "total_tokens": 588,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 240,
+  "reasoning_tokens": 291
+ },
+ "latency_ms": 2154.765100000077,
+ "from_cache": false
+}

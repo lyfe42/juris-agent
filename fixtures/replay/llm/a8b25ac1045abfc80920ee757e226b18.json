@@ -1,0 +1,14 @@
+{
+ "text": "{\n  \"askable\": true,\n  \"question\": \"公司要是违反保护女员工或者未成年工的规定，侵害了他们的权益，会被怎么处理？需要赔钱吗？\",\n  \"qtype\": \"single_fact\",\n  \"difficulty\": \"normal\",\n  \"reason\": \"问题直接对应本条关于用人单位违反女职工和未成年工保护规定应承担的行政责任（责令改正、罚款）和民事赔偿责任，属于普通劳动者会关心的违法后果。\"\n}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 388,
+  "completion_tokens": 401,
+  "total_tokens": 789,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 260,
+  "reasoning_tokens": 301
+ },
+ "latency_ms": 2749.2335999995703,
+ "from_cache": false
+}

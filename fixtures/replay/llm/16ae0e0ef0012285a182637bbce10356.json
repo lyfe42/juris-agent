@@ -1,0 +1,14 @@
+{
+ "text": "{\"askable\": false, \"question\": \"\", \"qtype\": \"single_fact\", \"difficulty\": \"easy\", \"reason\": \"这是立法宗旨条款，只说明立法目的和依据，不包含任何可被普通打工人提问的具体权利义务规则，硬造会导致答案错位。\"}",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 383,
+  "completion_tokens": 88,
+  "total_tokens": 471,
+  "prompt_cache_hit_tokens": 128,
+  "prompt_cache_miss_tokens": 255,
+  "reasoning_tokens": 24
+ },
+ "latency_ms": 873.1294999961392,
+ "from_cache": false
+}

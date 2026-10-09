@@ -1,0 +1,14 @@
+{
+ "text": "{\"variants\":[\"用人单位 自主确定 工资分配方式 工资水平 工资分配自主权\",\"工资",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 243,
+  "completion_tokens": 512,
+  "total_tokens": 755,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 243,
+  "reasoning_tokens": 488
+ },
+ "latency_ms": 2722.1978999950807,
+ "from_cache": false
+}
