@@ -3,7 +3,17 @@ name = "juris-agent"
 version = "0.1.0"
 description = "可溯源劳动法咨询 Agent：从 RAG 到 Agent 的可靠性工程与评测体系"
 readme = "README.md"
-requires-python = ">=3.12"
+# 上界卡在 <3.14 是**踩过坑之后加的**，不是随手写的：
+# uv 在没有 `.python-version` 时会挑机器上最新的解释器（本机是 3.14.8），
+# 于是 `uv sync --extra ml` 里那条 `torch==2.6.0+cu124` 直接装不上——
+#    error: Distribution torch==2.6.0+cu124 ... doesn't have a source distribution
+#           or wheel for the current platform
+#    hint:  You're using CPython 3.14 (cp314), but torch has wheels with ABI tags
+#           cp312, cp313, cp313t
+# 这个错发生在**依赖解析之后、装包之前**，报错信息绕，第一次很容易以为是网络问题。
+# 真正的约束是「PyTorch 的 cu124 wheel 还没出 cp314 版本」，与我们的代码无关。
+# 钉在 3.12：wheel 最全，也是 torch 生态最稳的版本。
+requires-python = ">=3.12,<3.14"
 dependencies = [
     "pydantic>=2.9",
     "pydantic-settings>=2.5",
@@ -23,8 +33,22 @@ dependencies = [
 # 检索与重排的 GPU 栈。单独成组是刻意的：工具层（domain + executor）与它的测试
 # 只需要 pydantic，不该为了跑一次单元测试下载 2.5GB 的 CUDA torch。
 # 需要检索时：uv sync --extra ml
+# ⚠️ 原计划（need.md F3）这里写的是 chromadb，**实测后被我拿掉了**，理由留档：
+#
+#   语料是 1730 条、向量 768 维 → 整个索引 1730×768×4B ≈ 5.3 MB。
+#   在这个规模下暴力点积（numpy 的 `mat @ q`）是**微秒级**的，比任何向量库的
+#   查询开销都低，而且是**精确**检索——向量库在这个规模上唯一的卖点是近似加速，
+#   而近似只会让 Recall 变差。
+#
+#   代价却是实打实的：chromadb 会拖进 kubernetes / onnxruntime / grpcio /
+#   opentelemetry，装完 300MB+ 依赖、冷启动拉起一个持久化客户端，**换来的指标
+#   一分不涨**。面试里被问「为什么用向量库」，答不出「因为数据量大」就是硬伤。
+#
+#   所以：核心用 numpy 暴力检索（`retrieval/dense.py` 的 `NumpyIndex`）；
+#   `faiss-cpu` 保留成**可选后端**，专门给 F24 做「精确 vs IVF 近似」的对照臂——
+#   这条轴比「Chroma vs FAISS」有意义，因为后者两者的 Recall 必然完全相同
+#   （都是精确检索），差别只在 QPS，而那属于压测（F32）不属于消融（F24）。
 ml = [
-    "chromadb>=1.0",
     "faiss-cpu>=1.8",
     "sentence-transformers>=3.0",
     "transformers>=4.44",

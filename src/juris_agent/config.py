@@ -12,7 +12,7 @@ from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import Field
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from juris_agent import PROJECT_ROOT
@@ -108,14 +108,43 @@ class GuardSettings(BaseSettings):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_prefix="JURIS_AGENT_", env_file=".env", extra="ignore"
+        env_prefix="JURIS_AGENT_",
+        env_file=".env",
+        extra="ignore",
+        # 下面 `deepseek_api_key` 用了 validation_alias，字段名本身也要能用于构造，
+        # 否则测试里 `Settings(deepseek_api_key="x")` 会静默变成 None。
+        populate_by_name=True,
     )
 
     # --- LLM ---
-    deepseek_api_key: str | None = None
+    # ⚠️ 这个字段**必须显式写 alias**，不能靠 `env_prefix`。
+    #
+    # 踩过的坑：`env_prefix="JURIS_AGENT_"` 会把所有字段映射成
+    # `JURIS_AGENT_<字段名>`，于是这个字段实际去找的是
+    # `JURIS_AGENT_DEEPSEEK_API_KEY`。而 `.env.example`（以及所有人的肌肉记忆、
+    # CI secrets 的惯例）写的都是 `DEEPSEEK_API_KEY`——**两者对不上**。
+    #
+    # 症状特别难查：`.env` 读进去了、`os.environ` 里也有
+    # （`juris_agent/__init__.py` 的引导会把它塞进去），但 `Settings` 就是拿到 None，
+    # 最后表现为"明明配了 key，LLMClient 却报没有 key"。
+    #
+    # `AliasChoices` 让两种写法都认，省掉"到底该加不加前缀"的反复。
+    deepseek_api_key: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices("DEEPSEEK_API_KEY", "JURIS_AGENT_DEEPSEEK_API_KEY"),
+    )
+
+    # ⚠️ 模型名是**实测出来的**，不是猜的：`GET https://api.deepseek.com/models`
+    # 当前只返回两个 id：`deepseek-flash`(V4.1-Flash) 与 `deepseek-v4-pro`。
+    # 老文档里的 `deepseek-chat` / `deepseek-reasoner` 在这个账号上**不存在**，
+    # 用它们会直接 400。换账号/换时间点之前，先跑一次 scripts/check_api.py 核对。
     deepseek_base_url: str = "https://api.deepseek.com"
-    model_gen: str = "deepseek-chat"
-    model_judge: str = "deepseek-reasoner"
+    # 生成与判分**用不同模型**是刻意的：LLM-as-Judge 有自我偏好偏差，
+    # 让同一个模型给自己生成的答案打分，分数会系统性偏高（F26 要讲这件事）。
+    # 生成用 flash（快、便宜、1M 上下文，造 180 条题的活它够用）；
+    # 判分用 pro（更强，且与生成模型不同 → 至少不是一个"自己"）。
+    model_gen: str = "deepseek-flash"
+    model_judge: str = "deepseek-v4-pro"
     llm_timeout_seconds: float = 60.0
     llm_max_retries: int = 3
 
