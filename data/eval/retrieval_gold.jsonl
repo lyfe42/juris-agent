@@ -1,0 +1,21 @@
+{"id": "g001", "query": "劳动合同的试用期最长可以约定多久？", "gold": ["lcl#19", "ldf#21"], "qtype": "single_fact", "difficulty": "easy", "source": "human", "note": "试用期上限：劳动合同法19（分三档）与劳动法21（统称六个月）是并行条款，两条都要引"}
+{"id": "g002", "query": "试用期工资最低不能低于多少？", "gold": ["lcl#20", "lcl_tiaoli#15"], "qtype": "single_fact", "difficulty": "normal", "source": "human", "note": "80% 且不低于最低工资；实施条例15是同一条规则的并行条款"}
+{"id": "g003", "query": "竞业限制的期限最长是几年？", "gold": ["lcl#24"], "qtype": "single_fact", "difficulty": "easy", "source": "human", "note": "不得超过二年"}
+{"id": "g004", "query": "离职后被要求竞业限制，期间有没有补偿？", "gold": ["lcl#23"], "qtype": "single_fact", "difficulty": "normal", "source": "human", "note": "竞业限制期内按月给经济补偿"}
+{"id": "g005", "query": "公司不跟我签书面劳动合同，要赔钱吗？", "gold": ["lcl#82"], "qtype": "single_fact", "difficulty": "normal", "source": "human", "note": "二倍工资"}
+{"id": "g006", "query": "平时加班、休息日加班和法定节假日加班的加班费分别是几倍工资？", "gold": ["ldf#44"], "qtype": "single_fact", "difficulty": "normal", "source": "human", "note": "1.5 / 2 / 3 倍"}
+{"id": "g007", "query": "公司每个月最多能安排我加班多少小时？", "gold": ["ldf#41"], "qtype": "single_fact", "difficulty": "normal", "source": "human", "note": "每月不超过三十六小时"}
+{"id": "g008", "query": "申请劳动仲裁的时效是多久？", "gold": ["tjzc#27"], "qtype": "single_fact", "difficulty": "easy", "source": "human", "note": "一年"}
+{"id": "g009", "query": "劳动仲裁要交钱吗？", "gold": ["tjzc#53"], "qtype": "single_fact", "difficulty": "easy", "source": "human", "note": "仲裁不收费"}
+{"id": "g010", "query": "我要辞职，得提前多久跟公司说？", "gold": ["lcl#37"], "qtype": "single_fact", "difficulty": "easy", "source": "human", "note": "三十日书面；试用期三日"}
+{"id": "g011", "query": "经济补偿金是怎么算的？", "gold": ["lcl#47"], "qtype": "single_fact", "difficulty": "normal", "source": "human", "note": "每满一年一个月工资；三倍封顶"}
+{"id": "g012", "query": "劳动合同里必须具备哪些条款？", "gold": ["lcl#17"], "qtype": "single_fact", "difficulty": "normal", "source": "human", "note": "九项必备条款"}
+{"id": "g013", "query": "服务期违约金最多能约定多少？", "gold": ["lcl#22"], "qtype": "single_fact", "difficulty": "hard", "source": "human", "note": "不得超过培训费用"}
+{"id": "g014", "query": "非全日制用工每天最多干几个小时？", "gold": ["lcl#68"], "qtype": "single_fact", "difficulty": "normal", "source": "human", "note": "每日不超过四小时、每周不超过二十四小时"}
+{"id": "g015", "query": "劳务派遣工能和正式员工拿一样的工资吗？", "gold": ["lcl#63"], "qtype": "single_fact", "difficulty": "normal", "source": "human", "note": "同工同酬"}
+{"id": "g016", "query": "被公司辞退了，什么情况下能拿到经济补偿？", "gold": ["lcl#46", "lcl#47"], "qtype": "multi_article", "difficulty": "normal", "source": "human", "note": "先看情形（46）再看算法（47）"}
+{"id": "g017", "query": "公司违法把我开除，我能拿到多少赔偿？", "gold": ["lcl#87", "lcl#47"], "qtype": "multi_article", "difficulty": "normal", "source": "human", "note": "二倍经济补偿，需引到 47 条算基数"}
+{"id": "g018", "query": "公司跟我约定的违约金有效吗？", "gold": ["lcl#25", "lcl#22", "lcl#23"], "qtype": "multi_article", "difficulty": "hard", "source": "human", "note": "25 条限定只有 22、23 两种情形可约定"}
+{"id": "g019", "query": "公司一直没给我交社保，我能辞职并要求补偿吗？", "gold": ["lcl#38", "lcl#46"], "qtype": "multi_article", "difficulty": "hard", "source": "human", "note": "未缴社保属 38 条可解除情形，解除后 46 条要补偿"}
+{"id": "g021", "query": "老板拖欠工资，我能直接去法院告他吗？", "gold": ["lcl#30", "tjzc#5"], "qtype": "multi_article", "difficulty": "hard", "source": "human", "note": "已核：30 条给支付令途径，5 条给调解-仲裁-诉讼顺序"}
+{"id": "g022", "query": "干满一年被裁员，大概能拿几个月工资的补偿？", "gold": ["lcl#47"], "qtype": "calculation", "difficulty": "normal", "source": "human", "note": "满一年=一个月工资，计算题也要能召回依据条款"}
