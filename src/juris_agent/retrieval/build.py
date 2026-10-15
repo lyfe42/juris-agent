@@ -149,4 +149,67 @@ def build_pipeline(
     )
 
 
-__all__ = ["ArmConfig", "ArmDeps", "build_pipeline"]
+def production_arm(settings: Any | None = None) -> ArmConfig:
+    """**线上跑的那一条臂**——把 `RetrievalSettings` 里的选型翻译成 `ArmConfig`。
+
+    和消融矩阵的关系：消融枚举了 33 条臂（每条只改一件事），
+    这里是**把每条轴上赢的那个值合起来**。所以它不是一个"新的臂"，
+    而是矩阵的最后一行——挑完之后落地的配置。
+
+    ⚠️ 一个诚实提醒：合起来跑**不等于**各项收益相加。
+    `+精排` 的 +7.8 点是在 RRF 等权基线上测的，换成 bm25=0.25 的基线后再叠精排，
+    未必正好是 0.903 + 7.8 点。要报这个数就得**真跑一次这条合起来的臂**。
+    （这就是"消融表里的单因素收益不能直接相加"这条常识——面试可以主动讲。）
+    """
+    from juris_agent.config import get_settings
+
+    s = settings or get_settings()
+    r = s.retrieval
+    return ArmConfig(
+        name="production",
+        chunker=r.chunker,
+        use_bm25=True,
+        use_dense=True,
+        use_dict=True,
+        fusion="rrf",
+        rrf_k=r.rrf_k,
+        sparse_weight=r.sparse_weight,
+        dense_weight=r.dense_weight,
+        use_rerank=r.use_rerank,
+        rewrite=r.rewrite,
+        neighbor_window=r.neighbor_window,
+        top_k=r.top_k,
+        fused_k=r.fused_k,
+        dense_backend="exact",
+    )
+
+
+def build_default_retriever(
+    *,
+    settings: Any | None = None,
+    deps: ArmDeps | None = None,
+    config: ArmConfig | None = None,
+) -> Any:
+    """造出给 `search_law` 用的检索服务（F13 的落地入口）。
+
+    三件事一句话讲完：**按生产臂装配管道 → 包一层适配器 → 交给工具层**。
+
+    懒加载是刻意的：这个函数一调用就会加载 bge 嵌入模型和精排模型（约 1GB 显存、
+    十几秒冷启动）。所以**它不该在 `import` 时执行**，只能由真正的入口
+    （API 服务的 lifespan、CLI 脚本）调用一次，然后复用同一个实例。
+    """
+    from juris_agent.retrieval.service import PipelineRetriever
+
+    arm = config or production_arm(settings)
+    d = deps or ArmDeps()
+    pipeline = build_pipeline(arm, d)
+    return PipelineRetriever(pipeline, d.articles_by_key)
+
+
+__all__ = [
+    "ArmConfig",
+    "ArmDeps",
+    "build_default_retriever",
+    "build_pipeline",
+    "production_arm",
+]

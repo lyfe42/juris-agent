@@ -140,6 +140,25 @@ class LLMResponse(BaseModel):
     latency_ms: float = 0.0
     from_cache: bool = False
 
+    # Function Calling（工具调用）。模型"想调工具"时，`text` 通常是空串，
+    # 内容全在这里。**必须进缓存**，否则 replay 时工具调用会凭空消失——
+    # 那种复现出来的轨迹是假的，比不复现更危险。
+    #
+    # 结构照抄 OpenAI 协议（DeepSeek 兼容）：
+    # `[{"id": "call_1", "type": "function",
+    #    "function": {"name": "calc_severance", "arguments": "{\"months_of_service\": 36}"}}]`
+    #
+    # ⚠️ `arguments` 是**字符串**不是对象（协议就这么定的，服务端不解析它）。
+    # 所以拿到的第一件事是 `json.loads`，而它**可能解析失败**——
+    # 模型偶尔会输出带注释或尾逗号的 JSON。这一层不做兜底，
+    # 由 `agent/nodes.py` 把解析错误变成一条"参数不合法"的工具反馈喂回模型让它重试，
+    # **那比在这里静默修 JSON 好**：修错了会执行一个用户没要求的计算。
+    tool_calls: list[dict[str, Any]] = Field(default_factory=list)
+
+    @property
+    def wants_tools(self) -> bool:
+        return bool(self.tool_calls)
+
 
 # --------------------------------------------------------------------------- #
 # 内容寻址缓存
@@ -147,7 +166,14 @@ class LLMResponse(BaseModel):
 
 
 def _cache_key(payload: dict[str, Any]) -> str:
-    """键只由**影响输出的入参**决定；`stream` 之类不影响结果的不进键。"""
+    """键只由**影响输出的入参**决定；`stream` 之类不影响结果的不进键。
+
+    ⚠️ `tools` / `tool_choice` **必须进键**。漏了会导致：
+    "不带工具的一次调用"和"带工具的一次调用"算出同一个 key，
+    于是 replay 时读到的是**另一次调用的结果**——工具调用凭空出现或消失，
+    指标看着正常，轨迹是假的。第 33 条需求（record-replay）里
+    "改了 prompt 会自然 miss"这句话，对 tools 同样成立。
+    """
     material = {
         "model": payload.get("model"),
         "messages": payload.get("messages"),
@@ -155,6 +181,8 @@ def _cache_key(payload: dict[str, Any]) -> str:
         "max_tokens": payload.get("max_tokens"),
         "top_p": payload.get("top_p"),
         "response_format": payload.get("response_format"),
+        "tools": payload.get("tools"),
+        "tool_choice": payload.get("tool_choice"),
     }
     blob = json.dumps(material, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:32]
@@ -275,10 +303,17 @@ class LLMClient:
                     u = body.get("usage", {}) or {}
                     details = u.get("completion_tokens_details", {}) or {}
                     text = msg.get("content") or ""
+                    tool_calls = msg.get("tool_calls") or []
                     completion = u.get("completion_tokens", 0)
                     # 空正文 + 消耗了 token = 预算被思维链吃光了（见 LLMTruncated）。
                     # 抛出去让 `chat()` 加预算重试，绝不把空串往下游传。
-                    if not text.strip() and completion > 0:
+                    #
+                    # ⚠️ `and not tool_calls` 这个条件是**必需的**：模型决定调工具时
+                    # 正文本来就是空的（内容在 tool_calls 里），token 也确实花了。
+                    # 少了这个判断，每次工具调用都会被误判成"预算不够"，
+                    # 于是自动翻 4 倍重试——**白烧一遍钱，而且重试结果被缓存下来，
+                    # 后面所有人都吃到这个被污染的结果**。
+                    if not text.strip() and not tool_calls and completion > 0:
                         raise LLMTruncated(
                             f"模型返回空正文（completion_tokens={completion}，"
                             f"reasoning_tokens={details.get('reasoning_tokens', 0)}），"
@@ -295,6 +330,7 @@ class LLMClient:
                             prompt_cache_miss_tokens=u.get("prompt_cache_miss_tokens", 0),
                             reasoning_tokens=details.get("reasoning_tokens", 0),
                         ),
+                        tool_calls=tool_calls,
                         latency_ms=(time.perf_counter() - t0) * 1000,
                     )
                 if r.status_code in (401, 403):
@@ -315,18 +351,29 @@ class LLMClient:
 
     def chat(
         self,
-        messages: list[dict[str, str]],
+        messages: list[dict[str, Any]],
         *,
         model: str | None = None,
         temperature: float = 0.0,
         max_tokens: int = 2048,
         response_format: dict[str, Any] | None = None,
+        tools: list[dict[str, Any]] | None = None,
+        tool_choice: str | dict[str, Any] | None = None,
     ) -> LLMResponse:
         """一次对话补全。
 
         `temperature` 默认 0：**评测路径上必须是 0**，否则同样输入两次跑出两个数，
         消融就不可比。需要采样多样性的地方（如 F26 的"同一题问 3 次取多数"）
         由调用方显式传 temperature > 0，那时它自己负责去聚合。
+
+        ⚠️ **`temperature=0` 不等于可复现**——本项目实测过：同一道题连问两次，
+        改写结果 20/20 不同。托管推理模型的解码在这个层面就不确定。
+        它买到的是"稳定一些"，不是"确定性"。要真正的可复现只有 `replay` 模式。
+
+        `messages` 的类型放宽到 `dict[str, Any]` 是为了 Function Calling：
+        工具调用往返里会出现 `{"role": "assistant", "content": null, "tool_calls": [...]}`
+        和 `{"role": "tool", "tool_call_id": "call_1", "content": "{...}"}` 这两种消息，
+        它们的字段不是纯字符串。
         """
         payload: dict[str, Any] = {
             "model": model or self.model_gen,
@@ -336,6 +383,10 @@ class LLMClient:
         }
         if response_format:
             payload["response_format"] = response_format
+        if tools:
+            payload["tools"] = tools
+            if tool_choice is not None:
+                payload["tool_choice"] = tool_choice
 
         key = _cache_key(payload)
         if self.mode in ("record", "replay"):
@@ -368,7 +419,7 @@ class LLMClient:
 
     def complete(self, prompt: str, system: str | None = None, **kw: Any) -> str:
         """便利方法：只想要文本。"""
-        msgs: list[dict[str, str]] = []
+        msgs: list[dict[str, Any]] = []
         if system:
             msgs.append({"role": "system", "content": system})
         msgs.append({"role": "user", "content": prompt})

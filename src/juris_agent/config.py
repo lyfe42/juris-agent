@@ -66,6 +66,24 @@ class RetrievalSettings(BaseSettings):
     # 邻条扩展：命中的法条向前后各取 N 条并入上下文
     neighbor_window: int = 1
 
+    # --- 生产臂的选型（下面这几个不是"默认值"，是**消融矩阵挑出来的结果**）----
+    # 全部有实测依据，见 reports/ablation.md：
+    #   chunker  : by_article（固定 512 字切分的 hit@5 只有 0.394，法条切分是 0.606 起）
+    #   weights  : bm25=0.25 / dense=1.0。等权 RRF 是 0.866，把 BM25 压到 0.25 是 0.903；
+    #              纯 dense 是 0.907——两者差 0.4 个点，在评测噪声范围内。
+    #              **留一路低权重 BM25 是为了法条编号/原文措辞能精确命中**，
+    #              那是 dense 的弱项（问「第四十七条」时稠密模型未必给它最高分）。
+    #   rerank   : 单开关收益最大（0.866 → 0.944），必开。代价是 p50 从 20ms 到 221ms。
+    #   rewrite  : **默认 none**。LLM 改写实测能到 0.952（最高），但有三个代价：
+    #              ① p50 从 221ms 涨到约 6.8s；② 约一成的调用会静默失败退回原文；
+    #              ③ temperature=0 下不可复现（同一题连问两次结果不同，20/20）。
+    #              所以它是**可选项**，由 `JURIS_AGENT_RETRIEVAL_REWRITE=llm` 打开。
+    chunker: str = "by_article"
+    sparse_weight: float = 0.25
+    dense_weight: float = 1.0
+    use_rerank: bool = True
+    rewrite: str = Field(default="none", pattern="^(none|synonym|llm)$")
+
 
 class ToolSettings(BaseSettings):
     """工具执行层的全部旋钮。故障注入实验就是改这里的值重跑。"""
@@ -147,6 +165,15 @@ class Settings(BaseSettings):
     model_judge: str = "deepseek-v4-pro"
     llm_timeout_seconds: float = 60.0
     llm_max_retries: int = 3
+
+    # --- 生成预算 ---
+    # ⚠️ 这两个数**不能小气**。DeepSeek 这两个模型都是推理模型，
+    # **思维链也计入 max_tokens**：预算给小了会拿到"HTTP 200、正文为空、
+    # token 照扣"的结果（`LLMTruncated` 描述的就是这个）。`chat()` 里会自动
+    # 翻 4 倍重试一次，但那要**多花一次请求的钱**——不如一开始就给够。
+    # 实测 2048 对工具调用够用，3072 对"引用 + 算式 + 建议"的完整答案够用。
+    tool_max_tokens: int = 2048
+    answer_max_tokens: int = 3072
 
     # --- 运行模式 ---
     # record: 真调 API 并把 (prompt_hash, response) 录进 fixtures/replay

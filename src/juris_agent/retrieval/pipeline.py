@@ -129,6 +129,15 @@ class PipelineResult(BaseModel):
     chunks: list[Chunk]
     stages: list[StageStat] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
+    # chunk_id → 打分阶段给出的分数。**默认空字典，所以老调用方不受影响。**
+    #
+    # 为什么要有这个字段：评测层只看顺序（它要的是排名），但**产品和调试要看分数**——
+    # 界面上要显示"相关度"，日志里要能看出"第二名和第八名差多少"。
+    #
+    # ⚠️ 分数的**含义随臂而变**：开了精排就是 CrossEncoder 分（可正可负，无上界），
+    # 没开精排就是融合分（RRF 时是 1/(60+rank) 量级的**倒数排名**，不是相似度，
+    # 不能当"0.9 分很相关"来读）。所以它只能横向比大小，不能跨臂比绝对值。
+    rank_scores: dict[str, float] = Field(default_factory=dict)
 
     @property
     def elapsed_ms(self) -> float:
@@ -265,11 +274,17 @@ class RetrievalPipeline:
         )
         by_id = {c.chunk_id: c for c in self._all_chunks(sparse_per_variant, dense_per_variant)}
         candidates = [by_id[cid] for cid, _ in fused if cid in by_id]
+        # 融合分先记一份。精排若跑成功会覆盖它（见下）——**没跑精排时这就是最终分数**。
+        rank_scores: dict[str, float] = {cid: sc for cid, sc in fused}
 
         # --- 5. 精排（含超时降级） ---------------------------------------- #
         if self.reranker is not None:
             r = self.reranker.rerank(query, candidates, top_k=cfg.fused_k)
             candidates = r.chunks
+            # 只有"分数个数与块个数对得上"才采纳，否则宁可留着融合分——
+            # 降级路径上 `scores` 可能为空，错位赋值会让第 3 名顶着第 1 名的分数。
+            if len(r.scores) == len(r.chunks):
+                rank_scores = {c.chunk_id: s for c, s in zip(r.chunks, r.scores, strict=True)}
             if r.warning:
                 warnings.append(r.warning)
             stages.append(
@@ -317,7 +332,15 @@ class RetrievalPipeline:
             StageStat(stage="dedup", elapsed_ms=t.ms, n_in=before, n_out=len(deduped))
         )
 
-        return PipelineResult(chunks=deduped, stages=stages, warnings=warnings)
+        # 只保留真正留下来的块的分（被去重掉的、以及"邻条扩展带出来的"不在里面——
+        # 后者本来就没有分数，服务层会把它标成 0.0 并在文案里说明来源）。
+        kept = {c.chunk_id for c in deduped}
+        return PipelineResult(
+            chunks=deduped,
+            stages=stages,
+            warnings=warnings,
+            rank_scores={k: v for k, v in rank_scores.items() if k in kept},
+        )
 
     # -- 内部 ------------------------------------------------------------- #
 
