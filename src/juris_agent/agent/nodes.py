@@ -760,6 +760,12 @@ class Nodes:
                 ],
                 temperature=0.0,
                 max_tokens=self.deps.settings.answer_max_tokens,
+                # 只有这一处生成会**流式**——工具循环那几次调用不流式，
+                # 理由很直接：**工具调用那一轮的正文本来就是空的**
+                # （内容全在 `tool_calls` 里），逐段推一个空字符串没有意义，
+                # 反而多一圈 HTTP 流式解析的开销。
+                on_delta=state.on_delta,
+                on_reasoning=state.on_reasoning,
             )
             draft = resp.text
             tokens = state.tokens_used + (resp.usage.total_tokens or 0)

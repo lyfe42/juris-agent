@@ -245,6 +245,30 @@ class AgentState(BaseModel):
     `forced_final=True` 把这条路堵死：**强行收尾只能有一次**。
     """
 
+    # ---- 流式输出（F29 用）----
+    on_delta: Any = Field(default=None, exclude=True)
+    """**逐段收到答案正文时**调用的回调：`on_delta(piece: str)`。
+
+    ⚠️ `exclude=True` 是必须的，不是顺手写的：状态会被 LangGraph 的
+    checkpointer 序列化成 JSON 存档，而**函数没法序列化**。
+    不排除它，开了 checkpointer 的路径会在第一次存档时炸，
+    报的还是"Object of type function is not JSON serializable"这种
+    和业务毫无关系的错。
+
+    ⚠️ 它放在**状态**里而不是 `AgentDeps` 里，理由和 `memory` 一样：
+    **它是一个请求一个的**，而 `AgentDeps` 是进程级共享的。
+    把回调挂到共享的 deps 上，并发时 A 请求的答案会流进 B 用户的页面——
+    这类串数据的 bug 在日志里完全看不出来。"""
+
+    on_reasoning: Any = Field(default=None, exclude=True)
+    """**推理模型边想边吐时的回调**：`on_reasoning(piece: str)`。
+
+    用途只有一个：前端显示"思考中…"。**它不能和正文混在一起**——
+    混进去用户会看到答案是"嗯，用户问的是试用期，让我查一下第四十七条……"。
+
+    没有这个回调时（比如离线评测）就整段丢弃，不留任何痕迹：
+    思考过程**不参与任何指标**。"""
+
     # ---- 记账 ----
     steps: int = 0
     tokens_used: int = 0

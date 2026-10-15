@@ -84,6 +84,62 @@ def test_contract_review_needs_both_groups(rules: RouterRules) -> None:
     assert decide("我刚才签了合同", rules=rules).route != "calc"
 
 
+# --------------------------------------------------------------------------- #
+# 越界识别：词表天生不全，但**已知的洞必须补上并留个测试**
+# --------------------------------------------------------------------------- #
+
+
+@pytest.mark.parametrize(
+    "q",
+    [
+        # 「帮我写一首关于秋天的诗」是**真机演示里踩出来的洞**：
+        # 原先一个词都不命中 → 兜底走法条路 → 白检索一遍 + reranker 白跑 3.4 秒，
+        # 最后由模型在正文里自己拒绝。模型拒得挺好，但**系统的判定是错的**：
+        # `finish_reason` 记成 `answered`，于是"拒答率"这类指标一个都统计不到它。
+        "帮我写一首关于秋天的诗",
+        "写一首诗",
+        "给我讲个笑话",
+        "帮我算一道数学题：1+1",
+        "今天天气怎么样",
+    ],
+)
+def test_known_off_topic_questions_are_refused_by_the_router(q: str, rules: RouterRules) -> None:
+    d = decide(q, rules=rules)
+    assert d.route == "out_of_scope", f"{q} 走了 {d.route}（{d.reason}）"
+
+
+@pytest.mark.parametrize(
+    "q",
+    [
+        # ⚠️ 这一组是给上面那组**踩刹车**的。加越界词最大的风险是**误伤**：
+        # 用户正常的需求被当成越界打回去，比漏掉一个越界问题严重得多
+        # （前者用户直接走了，后者用户能看到它其实在认真答）。
+        # 尤其是「写一份/写一段」这类文稿需求在劳动法场景里很常见
+        # （仲裁申请书、情况说明、答辩状），**绝不能因为「写」字被打成越界**。
+        "帮我写一份劳动仲裁申请书",
+        "帮我写一段情况说明，公司拖欠我工资",
+        "劳动合同里的试用期纠纷，被写进了一首诗里，这种情况怎么算",
+        "这首诗的作者和公司签了劳动合同，公司不给工资",
+    ],
+)
+def test_writing_requests_that_are_legitimate_are_not_refused(q: str, rules: RouterRules) -> None:
+    assert decide(q, rules=rules).route != "out_of_scope", f"{q} 被误判成越界了"
+
+
+def test_in_scope_signal_beats_out_of_scope(rules: RouterRules) -> None:
+    """**顺序不能反**：劳动法信号必须压过越界词。
+
+    句子同时命中两边时（"这首诗写的是劳动合同里的试用期纠纷"），
+    说明用户真的在问劳动法，越界词只是顺带出现的。
+    判定顺序反过来，这类问题会被直接拒答——**这是最坏的一种错**：
+    用户明明是目标用户，却被系统赶走了。
+
+    这条测试是给"以后有人想调整 `decide` 里那几个 if 的顺序"准备的。
+    """
+    d = decide("这首诗写的是劳动合同里的试用期纠纷，公司不给钱", rules=rules)
+    assert d.route in {"calc", "law"}, f"顺序反了，被判成 {d.route}"
+
+
 @pytest.mark.parametrize(
     "q",
     [

@@ -233,6 +233,8 @@ class AgentRunner:
         history: list[dict[str, str]] | None = None,
         memory: Any = None,
         thread_id: str | None = None,
+        on_delta: Any = None,
+        on_reasoning: Any = None,
     ) -> AgentState:
         """跑一轮。**返回完整状态**，包括 trace——
         调用方要展示"检索了哪些、引用了哪些"，这些都在里面。
@@ -240,10 +242,19 @@ class AgentRunner:
         `memory` 给多轮会话用：把同一段会话的每一轮都指向同一个管理器，
         省掉每轮重抽历史的开销。**不同会话之间绝不能共用**——
         理由写在 `_memory_for` 里。
+
+        `on_delta` / `on_reasoning` 是**流式输出**用的回调（F29）：
+        传了它们，答案就是边生成边交出去的，而不是等生成完再一次给。
+        **一轮只影响这一轮**——它们进 `AgentState`，不进 `deps`，
+        所以并发请求之间不会串（理由见 `state.py` 上那两个字段）。
         """
         hist = list(history or [])
         init = AgentState(
-            question=question, history=hist, memory=self._memory_for(memory, hist)
+            question=question,
+            history=hist,
+            memory=self._memory_for(memory, hist),
+            on_delta=on_delta,
+            on_reasoning=on_reasoning,
         )
         cfg = {"configurable": {"thread_id": thread_id}} if thread_id else None
         out = self.graph.invoke(init, cfg) if cfg else self.graph.invoke(init)
@@ -257,6 +268,9 @@ class AgentRunner:
         *,
         history: list[dict[str, str]] | None = None,
         memory: Any = None,
+        on_delta: Any = None,
+        on_reasoning: Any = None,
+        with_values: bool = False,
     ):
         """按步产出 `(节点名, 该步的状态增量)`。
 
@@ -268,12 +282,44 @@ class AgentRunner:
         ⚠️ 流式模式下**调用方要自己把增量拼起来**才能拿到
         `memory_block` / `injected` 这些跨节点的字段。SSE 层真正要的是
         "这一步产出了什么事件"，不是"现在的完整状态"。
+
+        ⚠️ **这个方法只是"按节点分步"，不等于"逐字"。** 真正的逐字流
+        来自 `on_delta`（它在一次 `next()` 内部被调用很多次，都在同一个节点里）。
+        两者是**两个不同粒度**，SSE 层要同时转发：见 `api/events.py`。
+
+        ## `with_values=True`：连全量状态一起要
+
+        `updates` 模式有个绕不开的限制：**它不给你最终状态**。
+        请求结束时"答案是什么、引用了哪几条、撞没撞闸门"这些要报给用户的字段，
+        全都在**累积之后**的状态里，而不在任何单个增量里。
+
+        自己把增量拼起来是**错的**（而且错得很隐蔽）：状态里那些
+        `Annotated[..., operator.add]` 的字段要按 `+` 合并，普通字段要覆盖、
+        `None` 要跳过——这就是 LangGraph 的 reducer。**自己再实现一遍 reducer，
+        等于把"合并规则"复制成两份**，改了一份忘了另一份，
+        表现为"trace 里少了几步"这种没人会想到去查的偏差。
+
+        所以要全量时用这个开关：多要一路 `values`，
+        让 LangGraph 把它已经算好的全量状态直接给你。
+        代价是**每步都要序列化一遍完整状态**（本项目状态里带着法条正文，
+        一次几十 KB），所以**默认关着**——离线评测那种跑几千次的场景不该付这个钱。
+
+        开了之后产出变成 `(mode, payload)` 二元组，`mode` 是 `"updates"` 或
+        `"values"`。这个形状变化放在参数后面而不是默认行为里，
+        是因为调用方**必须显式处理两种形状**，而默认形状保持简单。
         """
         hist = list(history or [])
         init = AgentState(
-            question=question, history=hist, memory=self._memory_for(memory, hist)
+            question=question,
+            history=hist,
+            memory=self._memory_for(memory, hist),
+            on_delta=on_delta,
+            on_reasoning=on_reasoning,
         )
-        yield from self.graph.stream(init, stream_mode="updates")
+        if with_values:
+            yield from self.graph.stream(init, stream_mode=["updates", "values"])
+        else:
+            yield from self.graph.stream(init, stream_mode="updates")
 
 
 def make_runner(
