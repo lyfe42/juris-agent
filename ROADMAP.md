@@ -73,10 +73,12 @@
 | `llm.py` LLM 客户端 | ✅ | 内容寻址缓存 + record/replay/off 三挡 + 截断自动扩容 |
 | `agent/` Agent 层 | ✅ | 路由（规则）→ 检索 → 工具循环（Function Calling）→ 生成 → 收尾；四道防死循环闸门；引用校验 |
 | `memory/` 记忆层 | ✅ | 四层（槽位/窗口/摘要/长期召回）+ 预算分配 + 四策略开关；**已接进主链路** |
-| `api/` `web/` | ⬜ | |
-| CI + QPS/成本报表 | ⬜ | |
+| `api/` `web/` | ✅ | FastAPI + SSE + 单文件前端；事件流见 README 的事件表 |
+| `observability/` | ✅ | 分项成本（含缓存命中/思考）+ 结构化日志 + 请求 id 全链路可 grep |
+| CI + Recall 门禁 | ✅ | `.github/workflows/ci.yml` + `scripts/check_recall.py`（三条门禁，含"基线过期拒绝比较"）|
+| QPS/成本报表 | ⬜ | |
 
-测试：**643 passed**（`uv run pytest`，不需要 key、不需要 GPU）
+测试：**738 passed**（`uv run pytest`，不需要 key、不需要 GPU）
 
 ---
 
@@ -162,7 +164,7 @@
 | **W3** | 🟡 `guard.py` 四重防死循环 + LangGraph 图 | **你** | 图与闸门 ✅；⬜ **对抗集上量化死循环占比还没做** |
 | **W4** | ✅ 分层记忆 + 20 轮评测 + **产品壳可演示** | **你** | 全部完成：记忆层与四策略对照（`reports/memory_ablation.md`）；产品壳已落地并能当场演示（`api/` + `web/`，见 README 的「产品壳」一节） |
 | **W5** | 完整评测报告 + 归因 + badcase 收敛曲线 | 一起 | `answer_eval.py` 程序化引用校验 + 拒答/误拒成对；`judge.py` + 30 条人工校准 κ；`intent_eval.py`；`attribute.py` 六类归因 |
-| **W6** | CI 绿 + QPS/成本报表 + README + 演示脚本 | 一起 | ⬜ `bench_qps.py`(mock/real 分开) + `reports/qps.md`；⬜ 成本三报表 `reports/cost.md`（**记账层已好**：分项 token + 缓存命中 + 单价读配置 + `billable` 标记）；✅ 演示脚本 `scripts/demo.py`（终端）+ `uvicorn`（网页）；✅ 固定演示路线：带引用问答 + 计算题 + 越界拒答 |
+| **W6** | CI 绿 + QPS/成本报表 + README + 演示脚本 | 一起 | ✅ **CI + Recall 门禁**（`.github/workflows/ci.yml` + `scripts/check_recall.py`，含 `configs/recall_gate.yaml` 三条门禁）；⬜ `bench_qps.py`(mock/real 分开) + `reports/qps.md`；⬜ 成本三报表 `reports/cost.md`（**记账层已好**：分项 token + 缓存命中 + 单价读配置 + `billable` 标记）；✅ 演示脚本 `scripts/demo.py`（终端）+ `uvicorn`（网页）；✅ 固定演示路线：带引用问答 + 计算题 + 越界拒答 |
 
 > **W3 的 🟡 是"半成品"，不是"做完了一半"**：闸门落地并被测试钉住了，
 > 但缺一样**能让面试官相信它**的东西——对抗集上的死循环占比数字。

@@ -1,0 +1,79 @@
+# F34 Recall 回归门禁的基线。**这个文件由 scripts/check_recall.py 生成/更新**，
+# 手工改也行，但改完请用 --update-baseline 让 baseline_hashes 跟上，
+# 否则门禁会判定基线过期（状态下 STALE）而拒绝比较。
+# 生成命令：python scripts/check_recall.py --update-baseline
+version: 1
+gates:
+- name: bm25-test
+  guards: 数据层：语料清洗 → 条级切分（by_article）→ jieba + 法律领域词典 → BM25。 这条红了，先去看 ingest/clean.py
+    和 configs/legal_dict.txt， 而不是去看检索算法——它压根没碰稠密和精排。
+  arm:
+    chunker: by_article
+    use_bm25: true
+    use_dense: false
+    use_dict: true
+  split: test
+  source: all
+  requires: bm25
+  min_values:
+    recall_art@5: 0.48
+    recall_hit@5: 0.52
+  tolerance: 0.01
+  baseline:
+    recall_art@5: 0.52957
+    recall_hit@5: 0.569892
+  baseline_hashes:
+    corpus_hash: 160bb106bb79130f
+    gold_hash: 3c1dee52aabfc47e
+    split: test
+    n: '93'
+- name: dense-test
+  guards: 稠密召回单路（bge 编码 + numpy 精确检索）。换模型、改归一化、 动 index 构建逻辑，最先在这里显形。
+  arm:
+    chunker: by_article
+    use_bm25: false
+    use_dense: true
+    dense_backend: exact
+  split: test
+  source: all
+  requires: ml
+  min_values:
+    recall_hit@5: 0.85
+    recall_art@5: 0.78
+  tolerance: 0.01
+  baseline:
+    recall_hit@5: 0.892473
+    recall_art@5: 0.834229
+  baseline_hashes:
+    corpus_hash: 160bb106bb79130f
+    gold_hash: 3c1dee52aabfc47e
+    split: test
+    n: '93'
+- name: prod-arm-test
+  guards: 生产臂：by_article 切分 + 稠密(权1.0) + BM25(权0.25) + RRF 融合 + 精排。 与线上 runtime 的装配一致。这条红了就是真的退化了，直接看检索层。
+  arm:
+    chunker: by_article
+    use_bm25: true
+    use_dense: true
+    use_dict: true
+    fusion: rrf
+    sparse_weight: 0.25
+    dense_weight: 1.0
+    use_rerank: true
+  split: test
+  source: all
+  requires: ml
+  min_values:
+    recall_art@5: 0.85
+    recall_hit@5: 0.9
+    mrr@10: 0.78
+  tolerance: 0.01
+  baseline:
+    recall_art@5: 0.896953
+    recall_hit@5: 0.946237
+    mrr@10: 0.82567
+  baseline_hashes:
+    corpus_hash: 160bb106bb79130f
+    gold_hash: 3c1dee52aabfc47e
+    split: test
+    n: '93'
