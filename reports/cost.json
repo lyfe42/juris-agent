@@ -1,0 +1,211 @@
+{
+  "model": "deepseek-flash",
+  "mode": "off",
+  "pricing": {
+    "file": "pricing.yaml",
+    "as_of": "2026-10",
+    "currency": "CNY",
+    "input": 2.0,
+    "output": 8.0,
+    "cache_hit_discount": 0.1
+  },
+  "inject_k": 8,
+  "n_questions": 8,
+  "n_ok": 8,
+  "stages": {
+    "total_cny": 0.158936,
+    "by_stage": {
+      "工具循环": {
+        "calls": 8,
+        "prompt": 45653,
+        "completion": 3519,
+        "reasoning": 1065,
+        "cache_hit": 36224,
+        "ms_p50": 2801.1,
+        "cny": 0.054255
+      },
+      "生成答案": {
+        "calls": 6,
+        "prompt": 15173,
+        "completion": 10861,
+        "reasoning": 5957,
+        "cache_hit": 7296,
+        "ms_p50": 13632.1,
+        "cny": 0.104101
+      },
+      "闲聊": {
+        "calls": 1,
+        "prompt": 118,
+        "completion": 43,
+        "reasoning": 0,
+        "cache_hit": 0,
+        "ms_p50": 1020.1,
+        "cny": 0.00058
+      }
+    }
+  },
+  "cache": {
+    "prompt_tokens": 60944,
+    "hit": 43520,
+    "miss": 17424,
+    "no_usage_calls": 0,
+    "cost_full": 0.121888,
+    "cost_real": 0.043552,
+    "saved": 0.6427
+  },
+  "per_question": [
+    {
+      "question": "试用期最长可以约定多久",
+      "route": "calc",
+      "finish": "answered",
+      "ok": true,
+      "calls": 3,
+      "prompt_tokens": 13658,
+      "completion_tokens": 1588,
+      "reasoning_tokens": 503,
+      "cny": 0.021127,
+      "ms": 16944.6
+    },
+    {
+      "question": "经济补偿怎么算",
+      "route": "calc",
+      "finish": "answered",
+      "ok": true,
+      "calls": 3,
+      "prompt_tokens": 15895,
+      "completion_tokens": 3674,
+      "reasoning_tokens": 1755,
+      "cny": 0.040446,
+      "ms": 25472.3
+    },
+    {
+      "question": "被违法辞退能拿多少赔偿",
+      "route": "calc",
+      "finish": "answered",
+      "ok": true,
+      "calls": 3,
+      "prompt_tokens": 15072,
+      "completion_tokens": 3069,
+      "reasoning_tokens": 1495,
+      "cny": 0.036725,
+      "ms": 22468.7
+    },
+    {
+      "question": "竞业限制没约定补偿怎么办",
+      "route": "law",
+      "finish": "answered",
+      "ok": true,
+      "calls": 1,
+      "prompt_tokens": 890,
+      "completion_tokens": 2155,
+      "reasoning_tokens": 1226,
+      "cny": 0.017868,
+      "ms": 15239.6
+    },
+    {
+      "question": "劳动合同到期不续签有补偿吗",
+      "route": "law",
+      "finish": "answered",
+      "ok": true,
+      "calls": 1,
+      "prompt_tokens": 1011,
+      "completion_tokens": 1826,
+      "reasoning_tokens": 1221,
+      "cny": 0.0164,
+      "ms": 13137.2
+    },
+    {
+      "question": "加班费怎么算",
+      "route": "calc",
+      "finish": "answered",
+      "ok": true,
+      "calls": 3,
+      "prompt_tokens": 14300,
+      "completion_tokens": 2068,
+      "reasoning_tokens": 822,
+      "cny": 0.02579,
+      "ms": 15310.2
+    },
+    {
+      "question": "帮我写一首关于秋天的诗",
+      "route": "out_of_scope",
+      "finish": "refused",
+      "ok": true,
+      "calls": 0,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "reasoning_tokens": 0,
+      "cny": 0.0,
+      "ms": 11.9
+    },
+    {
+      "question": "你好",
+      "route": "chitchat",
+      "finish": "answered",
+      "ok": true,
+      "calls": 1,
+      "prompt_tokens": 118,
+      "completion_tokens": 43,
+      "reasoning_tokens": 0,
+      "cny": 0.00058,
+      "ms": 1026.9
+    }
+  ],
+  "cost_p50": 0.021127,
+  "cost_p95": 0.040446,
+  "cost_total": 0.158936,
+  "sweep": {
+    "per_k": {
+      "2": {
+        "prompt_tokens_answer_avg": 2661,
+        "calls": 9,
+        "cny_total": 0.087478,
+        "cny_per_question": 0.029159
+      },
+      "4": {
+        "prompt_tokens_answer_avg": 3018,
+        "calls": 9,
+        "cny_total": 0.092798,
+        "cny_per_question": 0.030933
+      },
+      "8": {
+        "prompt_tokens_answer_avg": 3322.3,
+        "calls": 9,
+        "cny_total": 0.096908,
+        "cny_per_question": 0.032303
+      },
+      "12": {
+        "prompt_tokens_answer_avg": 3486.3,
+        "calls": 9,
+        "cny_total": 0.099994,
+        "cny_per_question": 0.033331
+      }
+    },
+    "recall": {
+      "2": {
+        "n": 269,
+        "hit": 0.8661710037174721,
+        "art": 0.8188971499380421
+      },
+      "4": {
+        "n": 269,
+        "hit": 0.929368029739777,
+        "art": 0.878004956629492
+      },
+      "8": {
+        "n": 269,
+        "hit": 0.966542750929368,
+        "art": 0.9201363073110285
+      },
+      "12": {
+        "n": 269,
+        "hit": 0.9814126394052045,
+        "art": 0.9337670384138784
+      }
+    },
+    "n_gold": 269,
+    "gold_hash": "57875f7d38eb54c1",
+    "corpus_hash": "160bb106bb79130f",
+    "sweep_n": 3
+  }
+}
