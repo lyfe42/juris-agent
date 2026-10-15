@@ -183,7 +183,8 @@ python scripts/fault_inject.py --error-rate 0.3 --calls 300
    **重试单独用是有害的**——它让一个已经过载的下游承受 3 倍流量。
 
 > ⚠️ 这里所有延迟都是**模拟量**（每次物理尝试计价 120ms），不是实测 P95。
-> 实测 QPS/延迟由后续的 `bench_qps.py` 单独产出，mock 与 real 分开报。
+> 实测 QPS/延迟由 `scripts/bench_qps.py` 单独产出，见
+> [`reports/qps.md`](reports/qps.md)（三档分开报：mock / nollm / real）。
 > 完整报告见 [`reports/fault_injection.md`](reports/fault_injection.md)，
 > 结构化原始数字见 `reports/fault_injection.json`（可作回归基线）。
 
@@ -906,6 +907,8 @@ scripts/
 ├── fault_inject.py      # 工具层故障注入
 ├── demo.py              # ★ 终端演示：把"系统里发生了什么"打在屏幕上
 ├── check_recall.py      # F34 Recall 回归门禁：现场重跑，变差了就变红
+├── bench_qps.py         # F32 压测：mock/nollm/real 三档分开报（**自带宽严的防坑机制**，
+│                        #      因为这台机器会被跑慢，见脚本开头）
 └── check_api.py         # 验 key + 列模型名，配置写错时大声失败
 .github/workflows/ci.yml # CI：单测 + Recall 门禁（含手动触发的 ml 组门禁）
 tests/                   # 738 项
@@ -932,6 +935,13 @@ python scripts/memory_ablation.py       # 长对话记忆四策略对照，秒�
 python scripts/check_recall.py          # Recall 回归门禁：检索变差了就变红（F34）
                                        # ⚠️ 本机装 ml extra 会跑 3 条；CI 里只跑得动
                                        #    `bm25-test` 那条，其余会被 SKIP 并**明确打出来**
+
+python scripts/bench_qps.py --tier mock     # F32 压测，服务层吞吐（假模型 + 假检索）
+                                            # 不用 GPU / 不用 key，约 3 分钟
+python scripts/bench_qps.py --tier mock --tier nollm   # 再加上真检索（需 ml extra）
+python scripts/bench_qps.py --tier real     # 真调 API、**真花钱**，一条十几秒
+                                            # ⚠️ 跑之前先读 reports/qps.md 开头那一段：
+                                            #    这台机器满载几秒后会变慢，绝对值只当量级看
 
 uv sync --extra ml                      # 稠密臂与精排需要（约 2.5GB CUDA torch）
 python scripts/build_index.py           # 预编码四个切分臂的向量（本机 GPU 约 70 秒）

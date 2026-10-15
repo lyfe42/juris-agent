@@ -227,6 +227,17 @@ class Settings(BaseSettings):
     llm_mode: str = Field(default="off", pattern="^(record|replay|off)$")
     env: str = Field(default="dev", pattern="^(dev|ci|prod)$")
 
+    # 日志级别。**原先是硬编码在 `api/app.py` 的 lifespan 里的（写死 INFO）**，
+    # 改成配置项是因为两件真事：
+    #   ① 压测时每个请求都会打一条「一轮结束」，几百行日志把结果淹没了；
+    #   ② 反过来，排查线上问题时又想把级别调到 DEBUG。
+    # 两件事都不该改代码。环境变量：`JURIS_AGENT_LOG_LEVEL=WARNING`。
+    #
+    # ⚠️ **不用 `Literal[...]` 钉死取值**，因为 structlog/stdlib 认的级别名
+    # 有好几种写法（`WARN` / `WARNING` / 数字 / 小写）。这里只存字符串，
+    # 由 `configure_logging` 去解析——**在错误的层做校验只会把别的写法挡在外面**。
+    log_level: str = "INFO"
+
     paths: Paths = Field(default_factory=Paths)
     retrieval: RetrievalSettings = Field(default_factory=RetrievalSettings)
     tool: ToolSettings = Field(default_factory=ToolSettings)

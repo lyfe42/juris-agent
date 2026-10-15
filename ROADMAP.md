@@ -76,7 +76,8 @@
 | `api/` `web/` | ✅ | FastAPI + SSE + 单文件前端；事件流见 README 的事件表 |
 | `observability/` | ✅ | 分项成本（含缓存命中/思考）+ 结构化日志 + 请求 id 全链路可 grep |
 | CI + Recall 门禁 | ✅ | `.github/workflows/ci.yml` + `scripts/check_recall.py`（三条门禁，含"基线过期拒绝比较"）|
-| QPS/成本报表 | ⬜ | |
+| QPS 压测 | ✅ | `scripts/bench_qps.py` + `reports/qps.md`；三档（mock/nollm/real）分开报。**报告的主要价值是那两次排查**：① 第一版把云主机降频当成了"高并发拖慢服务"，靠一段与项目无关的纯计算负载定位；② 修好 harness（多轮取最快 + 倒序重跑）之后发现**推翻过头了**——并发确实掉吞吐（1→32 从 101 掉到 57），真因是**线程抢 GIL**，用 `--probe`（对照组）和 `--threads 1`（把池子压到一个线程，吞吐回到 90）两个实验分开证明 |
+| 成本报表 | ⬜ | 记账层已完成，`reports/cost.md` 三张表 + 成本-Recall 曲线待做（F31） |
 
 测试：**738 passed**（`uv run pytest`，不需要 key、不需要 GPU）
 
@@ -164,7 +165,7 @@
 | **W3** | 🟡 `guard.py` 四重防死循环 + LangGraph 图 | **你** | 图与闸门 ✅；⬜ **对抗集上量化死循环占比还没做** |
 | **W4** | ✅ 分层记忆 + 20 轮评测 + **产品壳可演示** | **你** | 全部完成：记忆层与四策略对照（`reports/memory_ablation.md`）；产品壳已落地并能当场演示（`api/` + `web/`，见 README 的「产品壳」一节） |
 | **W5** | 完整评测报告 + 归因 + badcase 收敛曲线 | 一起 | `answer_eval.py` 程序化引用校验 + 拒答/误拒成对；`judge.py` + 30 条人工校准 κ；`intent_eval.py`；`attribute.py` 六类归因 |
-| **W6** | CI 绿 + QPS/成本报表 + README + 演示脚本 | 一起 | ✅ **CI + Recall 门禁**（`.github/workflows/ci.yml` + `scripts/check_recall.py`，含 `configs/recall_gate.yaml` 三条门禁）；⬜ `bench_qps.py`(mock/real 分开) + `reports/qps.md`；⬜ 成本三报表 `reports/cost.md`（**记账层已好**：分项 token + 缓存命中 + 单价读配置 + `billable` 标记）；✅ 演示脚本 `scripts/demo.py`（终端）+ `uvicorn`（网页）；✅ 固定演示路线：带引用问答 + 计算题 + 越界拒答 |
+| **W6** | CI 绿 + QPS/成本报表 + README + 演示脚本 | 一起 | ✅ **CI + Recall 门禁**（`.github/workflows/ci.yml` + `scripts/check_recall.py`，含 `configs/recall_gate.yaml` 三条门禁）；✅ `bench_qps.py` + `reports/qps.md`（**三档**分开报：mock / nollm / real；real 真调 API）；⬜ 成本三报表 `reports/cost.md`（**记账层已好**：分项 token + 缓存命中 + 单价读配置 + `billable` 标记）；✅ 演示脚本 `scripts/demo.py`（终端）+ `uvicorn`（网页）；✅ 固定演示路线：带引用问答 + 计算题 + 越界拒答 |
 
 > **W3 的 🟡 是"半成品"，不是"做完了一半"**：闸门落地并被测试钉住了，
 > 但缺一样**能让面试官相信它**的东西——对抗集上的死循环占比数字。

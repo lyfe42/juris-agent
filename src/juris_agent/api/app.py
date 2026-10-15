@@ -524,7 +524,10 @@ def create_app(runtime: Runtime | None = None, *, serve_web: bool = True) -> Fas
         if app.state.runtime is None:
             app.state.runtime = build_runtime()
         rt: Runtime = app.state.runtime
-        configure_logging(level="INFO", json=rt.settings.is_prod)
+        # 级别读配置（`JURIS_AGENT_LOG_LEVEL`），原来是写死的 INFO。
+        # 压测和批量跑评测时 INFO 会淹掉结果，排查问题时又想要 DEBUG——
+        # 两件事都不该改代码。默认值仍是 INFO，行为不变。
+        configure_logging(level=rt.settings.log_level, json=rt.settings.is_prod)
         log.info("服务启动", ready=rt.ready, problems=rt.problems)
         try:
             yield
