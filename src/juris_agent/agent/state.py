@@ -203,11 +203,15 @@ class AgentState(BaseModel):
     tokens_used: int = 0
     trace: Annotated[list[TraceStep], operator.add] = Field(default_factory=list)
     progress_keys: Annotated[list[str], operator.add] = Field(default_factory=list)
-    """每一步"产出了什么新东西"的指纹。`guard.py` 靠它判有没有进展。
+    """每一步"产出了什么"的指纹。`guard.py` 靠它判有没有进展。
 
-    累加字段（`operator.add`），所以节点只要 `return {"progress_keys": ["工具名:状态"]}`
-    就会**追加**，不会把前面几步的痕迹冲掉。防死循环的"无进展检测"就是数
-    这个列表末尾**连续相同**的项有几个（见 `guard.py`）。"""
+    累加字段（`operator.add`），所以节点只要 `return {"progress_keys": ["工具:..."]}`
+    就会**追加**，不会把前面几步的痕迹冲掉。
+
+    ⚠️ **判"没进展"的读法不是"数末尾连续相同"**（那是第一版的做法，会漏掉
+    "换个说法来回问同一件事"这种最常见的原地打转）。真正的读法是
+    "末尾连续几步产出的东西以前出现过"——见 `guard.no_progress_run()`。
+    """
 
     guard_hits: Annotated[list[GuardHit], operator.add] = Field(default_factory=list)
 
