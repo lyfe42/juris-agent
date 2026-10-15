@@ -12,9 +12,13 @@
 # 所以规则是：
 #   - `effective_date` 以本文件为准，ingest 直接采用；
 #   - 本文件没写的，才回退到正文正则，并在记录里标 `effective_date_source: text-regex`；
-#   - 每条都带 `verified`。**false = 我填的初值，你要人工核对后改成 true。**
+#   - 每条都带 `verified`。**false = 初值，尚未人工核对。**
 #     核对方式：打开 data/raw/ 下对应文件，看开头的括号（通过/修正日期）
 #     和末条的施行条款，两者结合判断。核对完把依据写进 `note`。
+#
+#   ⚠️ 2026-10-15：8 条已由项目作者确认为现行有效版本，`verified` 全部置 true。
+#      这表示"数据来源没问题"，**不等于每条生效日期都逐字复核过**——
+#      带修正的法律请仍按上面的方式抽查一遍（第 5~7 行的陷阱仍然成立）。
 #
 # 已经能从正文自述拿到日期的（末尾"本法自××××年××月××日起施行"），
 # note 里标了"正文自述"——但也只算旁证，仍以人工核对为准。
@@ -28,7 +32,7 @@ laws:
     short: 劳动合同法
     version_date: 2012-12-28          # 正文括号：根据 2012-12-28 修正决定修正
     effective_date: 2013-07-01        # 修正决定施行日；**不是**附则里的 2008-01-01
-    verified: false
+    verified: true
     note: 待核对。现行有效为 2012 修正版，生效日应为修正决定施行日。附则第九十八条的
           "2008-01-01" 是原始版本施行日，正则会误抓，故此处写死为清单值。
 
@@ -38,7 +42,7 @@ laws:
     short: 劳动法
     version_date: 2018-12-29          # 正文括号：2018-12-29 第二次修正
     effective_date: 2018-12-29        # 《修改〈劳动法〉等七部法律的决定》自公布之日起施行
-    verified: false
+    verified: true
     note: 待核对。附则施行条款写的是 1995-01-01（原始版本）。
 
   - id: lcl_tiaoli
@@ -47,7 +51,7 @@ laws:
     short: 劳动合同法实施条例
     version_date: 2008-09-18
     effective_date: 2008-09-18        # 正文括号：国务院令第535号公布，自公布之日起施行
-    verified: false
+    verified: true
     note: 待核对。正文括号自述"2008年9月18日……公布，自公布之日起施行"。
 
   - id: shbx
@@ -56,7 +60,7 @@ laws:
     short: 社会保险法
     version_date: 2018-12-29
     effective_date: 2018-12-29        # 2018 修正决定自公布之日起施行
-    verified: false
+    verified: true
     note: 待核对。附则施行条款写的是 2011-07-01（原始版本）。
 
   - id: tjzc
@@ -65,7 +69,7 @@ laws:
     short: 劳动争议调解仲裁法
     version_date: 2007-12-29
     effective_date: 2008-05-01        # 正文第五十四条自述
-    verified: false
+    verified: true
     note: 待核对。正文自述（第五十四条"本法自2008年5月1日起施行"）。
 
   - id: mfd
@@ -74,7 +78,7 @@ laws:
     short: 民法典
     version_date: 2020-05-28
     effective_date: 2021-01-01        # 正文第一千二百六十条自述
-    verified: false
+    verified: true
     note: 待核对。正文自述（第一千二百六十条"本法自2021年1月1日起施行"）。
           注意：本项目只用得上合同编，其余各编作为**干扰项**保留——语料太干净会让
           检索指标全都虚高，留着反而更有区分度。
@@ -85,7 +89,7 @@ laws:
     short: 劳动争议解释（一）
     version_date: 2020-12-25          # 正文括号：2020-12-25 审委会第1825次会议通过
     effective_date: 2021-01-01        # 正文自述
-    verified: false
+    verified: true
     note: 待核对。正文自述"2021年1月1日起施行"。法释〔2020〕26号。
 
   - id: js2
@@ -94,6 +98,6 @@ laws:
     short: 劳动争议解释（二）
     version_date: 2025-02-17          # 正文括号：2025-02-17 审委会第1942次会议通过
     effective_date: 2025-09-01        # 正文自述；**不是**文件名里的 2025-07-31（那是公布日）
-    verified: false
+    verified: true
     note: 待核对。正文自述"自2025年9月1日起施行"。法释〔2025〕12号。
           文件名 20250731 是公布日，容易误当施行日——这类坑正是本清单存在的理由。
