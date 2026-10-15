@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>juris-agent · 劳动法咨询（可溯源）</title>
+<!--
+  为什么是"单文件 + 零外部依赖"
+  ============================================================================
+  1. **演示不能依赖网络。** 现场的网络可能很差，CDN 可能刚好被墙
+     （这个项目本身就要走代理才能跑）。一个从 CDN 拉 react / tailwind 的页面，
+     在演示现场打不开的概率**不为零**，而那一刻你没法解释。
+     这个文件里没有一行外部请求：没有 `<script src>`、没有 `<link href>`、
+     没有字体、没有图标库。**打开就是能用的。**
+
+  2. **面试官可能就在看你改这一行。** 单文件意味着"改一个词、刷新、立刻看到"，
+     不需要 node / npm / 构建步骤。这个项目的定位是"能当场演示"，
+     而一个要先 `npm install` 三分钟的前端**在演示里等于不存在**。
+
+  3. 代价是**没有组件复用**。几百行原生 DOM 操作，比 react 啰嗦。
+     这是明确接受的取舍：**这个界面的复杂度是一次性的，不是会长大的**。
+     等它真的长到需要框架，再换也不迟——那时候换的成本比现在猜要低。
+-->
+<style>
+  /* 配色只用一个变量表。改主题只改这里，不用全文件搜颜色值。 */
+  :root {
+    --bg: #f6f7f9;
+    --panel: #ffffff;
+    --ink: #1c1e21;
+    --ink-dim: #6b7280;
+    --line: #e3e6ea;
+    --accent: #1d4ed8;
+    --accent-soft: #eef2ff;
+    --ok: #15803d;
+    --warn: #b45309;
+    --bad: #b91c1c;
+    --code: #f3f4f6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    /* 中文优先的字体栈：先找系统里的中文黑体，找不到再退回通用无衬线。
+       不引外部字体——理由见文件头第 1 条。 */
+    font-family: -apple-system, "Segoe UI", "Microsoft YaHei", "PingFang SC",
+                 "Hiragino Sans GB", "Source Han Sans SC", sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  header {
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 20px;
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 10;
+  }
+  header h1 { font-size: 17px; margin: 0; font-weight: 650; }
+  header .sub { color: var(--ink-dim); font-size: 13px; }
+  header .right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+  .pill {
+    font-size: 12px; padding: 3px 9px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent); border: 1px solid #dbe2fb;
+  }
+  .pill.bad { background: #fef2f2; color: var(--bad); border-color: #fecaca; }
+  .pill.ok  { background: #f0fdf4; color: var(--ok);  border-color: #bbf7d0; }
+
+  main { max-width: 900px; margin: 0 auto; padding: 18px 20px 120px; }
+
+  /* 免责声明：**永久显示，不可关闭**。
+     这个项目会给出金额和法条，把它当法律意见用是有真实后果的。
+     做成"点一下就没"的弹窗，等于鼓励用户忽略它。 */
+  .disclaimer {
+    background: #fffbeb; border: 1px solid #fde68a; color: #78350f;
+    border-radius: 8px; padding: 9px 13px; font-size: 13px; margin-bottom: 16px;
+  }
+
+  .turn { margin-bottom: 26px; }
+  .q {
+    background: var(--accent); color: #fff; border-radius: 10px 10px 3px 10px;
+    padding: 9px 13px; margin-left: auto; max-width: 78%; width: fit-content;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 13px 15px; margin-top: 12px;
+  }
+
+  /* ---- 系统动作时间线 ---- */
+  /* ⚠️ 外层 `<details>` 用 `.stepsbox`、内层列表用 `.steps`，两个类名必须不同。
+     之前两边都叫 `.steps`，于是 `turn.querySelector(".steps")` 会命中
+     **外层那个 `<details>`**（querySelector 返回文档顺序里的第一个），
+     新条目会被塞到内层容器外面。它看起来"也能显示"，所以这个 bug 不会报错，
+     只是 DOM 结构和你以为的不一样——排查的时候会很懵。 */
+  .stepsbox summary {
+    cursor: pointer; font-size: 13px; color: var(--ink-dim); user-select: none;
+    list-style: none;
+  }
+  .stepsbox summary::-webkit-details-marker { display: none; }
+  .stepsbox summary::before { content: "▸ "; }
+  .stepsbox[open] summary::before { content: "▾ "; }
+  .steps { display: flex; flex-direction: column; gap: 5px; }
+  .step {
+    font-size: 13px; padding: 4px 9px; border-left: 2px solid var(--line);
+    margin-left: 4px; color: var(--ink-dim);
+  }
+  .step b { color: var(--ink); font-weight: 600; }
+  .step.route   { border-color: #93c5fd; }
+  .step.retrieval { border-color: #a7f3d0; }
+  .step.tool    { border-color: #fcd34d; }
+  .step.guard   { border-color: var(--bad); color: var(--bad); }
+  .step.memory  { border-color: #c4b5fd; }
+
+  /* ---- 计算题的"算式与代入过程" ---- */
+  /* 为什么这块不能省：计算题的答案如果只有一句结论（"能拿 24000"），
+     用户没有任何办法核对它对不对。算式是**可核验性**的全部来源——
+     这和法条要附原文编号是同一件事。 */
+  .calc { margin: 6px 0 0 6px; padding: 8px 11px; background: #fffdf5;
+          border: 1px solid #fde68a; border-radius: 7px; font-size: 13px; }
+  .calc .title { font-weight: 600; margin-bottom: 5px; }
+  .calc ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 3px; }
+  .calc li { line-height: 1.55; }
+  .calc .warn { color: var(--warn); margin-top: 5px; }
+  .calc details { margin-top: 6px; }
+  .calc summary { cursor: pointer; color: var(--ink-dim); font-size: 12.5px; }
+  .calc pre { margin: 5px 0 0; padding: 7px 9px; background: var(--code);
+              border-radius: 6px; overflow-x: auto; font-size: 12px; }
+
+  .answer { white-space: pre-wrap; word-break: break-word; }
+  .answer.streaming::after {
+    /* 光标。**它同时是一个状态指示器**：还在闪 = 还在生成，
+       停了 = 生成完了或者断了。用户不用去看别的按钮。 */
+    content: "▌"; color: var(--accent); animation: blink 1s steps(2) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* 【1】这种引用标记做成熟链接，点了打开原文 */
+  .cite-ref {
+    color: var(--accent); cursor: pointer; font-weight: 600;
+    text-decoration: underline dotted; padding: 0 1px;
+  }
+  .cite-ref:hover { background: var(--accent-soft); }
+
+  .cites { margin-top: 12px; display: flex; flex-direction: column; gap: 7px; }
+  .cite {
+    border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
+    background: #fcfcfd;
+  }
+  .cite > .head {
+    padding: 7px 11px; cursor: pointer; display: flex; gap: 9px;
+    align-items: baseline; font-size: 13.5px;
+  }
+  .cite > .head:hover { background: #f5f7fa; }
+  .cite .law { font-weight: 600; }
+  .cite .score { margin-left: auto; color: var(--ink-dim); font-size: 12px; }
+  .cite .body {
+    padding: 9px 12px 12px; border-top: 1px solid var(--line);
+    white-space: pre-wrap; font-size: 13.5px; color: #333;
+  }
+  .cite .meta { font-size: 12px; color: var(--ink-dim); margin-top: 7px; }
+
+  .refusal {
+    border-left: 3px solid var(--warn); background: #fffbeb;
+    padding: 11px 14px; border-radius: 6px;
+  }
+  .refusal .cat { font-weight: 650; margin-bottom: 4px; }
+  .refusal .sugg { margin-top: 7px; font-size: 13.5px; color: #78350f; }
+
+  .err {
+    border-left: 3px solid var(--bad); background: #fef2f2; color: #7f1d1d;
+    padding: 10px 13px; border-radius: 6px; font-size: 13.5px; margin-top: 10px;
+    white-space: pre-wrap;
+  }
+  .foot {
+    margin-top: 10px; font-size: 12px; color: var(--ink-dim);
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: baseline;
+  }
+  .foot code { background: var(--code); padding: 1px 5px; border-radius: 4px; }
+
+  /* ---- 输入区 ---- */
+  .composer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, var(--bg) 70%, transparent);
+    padding: 14px 20px 18px;
+  }
+  .composer-inner { max-width: 900px; margin: 0 auto; display: flex; gap: 9px; }
+  textarea {
+    flex: 1; resize: none; font: inherit; padding: 11px 13px;
+    border: 1px solid var(--line); border-radius: 10px; background: var(--panel);
+    min-height: 46px; max-height: 180px;
+  }
+  textarea:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  button {
+    font: inherit; padding: 0 17px; border-radius: 10px; cursor: pointer;
+    border: 1px solid var(--accent); background: var(--accent); color: #fff;
+  }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.ghost { background: var(--panel); color: var(--accent); }
+  button.stop { background: var(--bad); border-color: var(--bad); }
+
+  .examples { max-width: 900px; margin: 0 auto 10px; display: flex; gap: 7px; flex-wrap: wrap; }
+  .examples button {
+    background: var(--panel); color: var(--ink); border-color: var(--line);
+    font-size: 12.5px; padding: 4px 11px; border-radius: 999px;
+  }
+  .examples button:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* 窄屏：把固定输入区收窄一点，别把正文挤没了 */
+  @media (max-width: 640px) {
+    main { padding: 14px 12px 150px; }
+    .q { max-width: 92%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>juris-agent</h1>
+  <span class="sub">劳动法咨询 · 答案附法条原文 · 超出范围会明确拒答</span>
+  <span class="right">
+    <span class="pill" id="health">检查服务中…</span>
+    <button class="ghost" id="newSession" title="清掉前面对话的上下文，从头开始">新会话</button>
+  </span>
+</header>
+
+<main>
+  <div class="disclaimer">
+    <b>这不是法律意见。</b>本页答案是机器生成的普法参考，可能出错。
+    涉及真实劳动争议（尤其金额、时效、证据），请以现行法律原文和执业律师意见为准。
+  </div>
+  <div id="turns"></div>
+</main>
+
+<div class="composer">
+  <div class="examples" id="examples">
+    <button data-q="试用期最长可以约定多久？">试用期最长多久</button>
+    <button data-q="我在公司干了 3 年 2 个月，月薪 12000，被无故辞退能拿多少经济补偿？">算经济补偿</button>
+    <button data-q="公司拖欠我三个月工资不发，我可以怎么办？">拖欠工资怎么办</button>
+    <button data-q="帮我写一首关于秋天的诗。">问一个范围外的问题</button>
+  </div>
+  <div class="composer-inner">
+    <textarea id="input" rows="1"
+      placeholder="问一个劳动法问题，例如：试用期最长可以约定多久？（Enter 发送，Shift+Enter 换行）"></textarea>
+    <button id="send">发送</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ============================================================================
+ * 这个脚本要干的三件事
+ * ============================================================================
+ *   ① 把问题发给后端（`POST /api/chat/stream`），**自己解析 SSE**
+ *   ② 把收到的事件画到页面上（答案逐字追加、"系统做了什么"进时间线）
+ *   ③ 会话不丢：把 session_id 存 localStorage，刷新页面还能接着聊
+ *
+ * 为什么不用 `EventSource`
+ * ---------------------------------------------------------------------------
+ * 浏览器自带的 `EventSource` **只能发 GET、不能带请求体**。我们的问题是用户
+ * 敲进去的一整段话（可能很长，还带换行），塞进 URL 又丑又有长度上限。
+ * 所以用 `fetch` + `response.body.getReader()` 自己解析 SSE 帧。
+ *
+ * **SSE 的帧格式就三条规则**（这是全部，不用查文档）：
+ *   1. 一帧由若干 `字段: 值` 行组成；
+ *   2. **空行 = 这一帧结束**；
+ *   3. `event:` 是事件名，`data:` 是内容（多行 data 用换行拼起来）。
+ * 拿不准的时候，`curl -N` 打一遍接口，肉眼看帧长什么样最快。
+ */
+
+// ---------------------------------------------------------------------------
+// 第一个坑：网络的断点不是"帧的断点"
+// ---------------------------------------------------------------------------
+// `reader.read()` 返回的 chunk **可能在任意位置切开**——一帧被切成两半、
+// 或者三帧粘在一起，都是正常的。所以必须自己攒一个 buffer，
+// 只在看到完整的空行时才切出一帧，剩下的留着等下一个 chunk。
+//
+// 忘了这件事的典型症状是："答案偶尔缺字/串行，刷新一下又好了"——
+// 因为短回答通常刚好一个 chunk 读完，长回答才会被切开。
+// **这种 bug 只在长回答上出现，测试短句子永远测不出来。**
+
+const $ = (id) => document.getElementById(id);
+const turnsEl = $("turns");
+const inputEl = $("input");
+const sendBtn = $("send");
+
+const state = {
+  sessionId: localStorage.getItem("juris.session") || null,
+  // 发给后端的历史。**只用来给记忆层当上下文**，页面上不复原渲染——
+  // 页面刷新后旧气泡会消失，但后端记得住（那正是"记忆层"要展示的能力）。
+  history: [],
+  busy: false,
+  abort: null,
+};
+
+// ---------------------------------------------------------------------------
+// 小工具
+// ---------------------------------------------------------------------------
+
+/** 把文本里的 HTML 特殊字符转义掉。
+ *
+ * ⚠️ **这一步不能省。** 模型输出是"外部输入"，里面完全可能出现 `<` `&`。
+ * 直接 `innerHTML = 答案` 的话，模型嘴瓢输出一段 `<script>` 就在用户浏览器里执行了。
+ * 转义后再自己拼标签，是这类"把文本变富文本"的标准做法。
+ */
+function esc(s) {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+function el(tag, cls, html) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (html != null) n.innerHTML = html;
+  return n;
+}
+
+function scoreText(s) {
+  return typeof s === "number" ? s.toFixed(3) : String(s ?? "—");
+}
+
+// ---------------------------------------------------------------------------
+// 时间线：把"系统做了什么"画出来
+// ---------------------------------------------------------------------------
+// 这一块是这个项目和"套壳聊天框"的分界线。
+// 面试官/用户看到的不只是答案，还有：路由为什么这么判、检索命中几条、
+// 调了哪个工具、工具是不是幂等命中、有没有撞上防死循环闸门。
+// **看不到这些，"可溯源"就只是一句话。**
+
+function addStep(turn, cls, html) {
+  const box = turn.querySelector(".steps");
+  const n = el("div", "step " + cls, html);
+  box.appendChild(n);
+  // 每次都滚到底：时间线是"正在发生"的东西，用户看的是最新那条。
+  // （答案区不一样，那里不能无条件滚——见 nearBottom 那段。）
+  return n;
+}
+
+// ---------------------------------------------------------------------------
+// 一次问答 = 一个 turn 元素
+// ---------------------------------------------------------------------------
+
+function newTurn(question) {
+  const t = el("div", "turn");
+  t.appendChild(el("div", "q", esc(question)));
+
+  const card = el("div", "card");
+  // 时间线默认是**展开**的。收起来看着更清爽，但那样"系统在做什么"
+  // 就要用户多点一下才看得到——而它恰恰是这里最该被看到的东西。
+  const det = el("details", "stepsbox");
+  det.open = true;
+  det.appendChild(el("summary", null, "系统做了什么"));
+  det.appendChild(el("div", "steps"));
+  card.appendChild(det);
+
+  const ans = el("div", "answer streaming");
+  card.appendChild(ans);
+  const cites = el("div", "cites");
+  card.appendChild(cites);
+  const errs = el("div");
+  card.appendChild(errs);
+  const foot = el("div", "foot");
+  card.appendChild(foot);
+
+  t.appendChild(card);
+  turnsEl.appendChild(t);
+  t._answer = ans; t._cites = cites; t._errs = errs; t._foot = foot;
+  t._articles = {};   // index → 法条对象，供点开原文用
+  return t;
+}
+
+// ---------------------------------------------------------------------------
+// 点开引用看原文
+// ---------------------------------------------------------------------------
+// 两个入口共用这一个函数：
+//   ① 答案正文里的 【1】 标记
+//   ② 答案下面的法条卡片
+// 两条路都走这里，是为了**行为完全一致**——分别实现的话，
+// 迟早出现"点标记能展开、点卡片没反应"这类只在一条路上存在的毛病。
+
+function showArticle(turn, index) {
+  let box = turn.querySelector(`.cite[data-idx="${index}"]`);
+  if (box) {
+    // 已经画出来了就直接展开/收起。
+    const body = box.querySelector(".body");
+    if (body) { body.hidden = !body.hidden; }
+    box.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    return;
+  }
+  // 正文里出现了 【N】 但对应的法条不在列表里（理论上不该发生，
+  // 因为生成后引用校验会把编造的编号删掉）。**不静默忽略**——
+  // 静默忽略会让用户以为自己点错了。
+  alert(`这条引用（${index}）没有对应的法条原文。可能是编号被改动过。`);
+}
+
+/** 把答案里的 【1】【2】 变成可点的 span。
+ *
+ * ⚠️ 只在**转义之后**做替换，而且用正则匹配"全角括号包数字"这种特定形状。
+ * 反过来（先替换再转义）会把刚拼好的 `<span>` 标签一起转义掉，
+ * 页面上就会直接显示出 HTML 源码。
+ */
+function linkifyCitations(text, validIndexes) {
+  const ok = new Set(validIndexes || []);
+  return esc(text).replace(/【(\d+)】/g, (m, d) => {
+    const i = parseInt(d, 10);
+    if (ok.size && !ok.has(i)) return m;   // 不在校验通过集合里的原样显示
+    return `<span class="cite-ref" data-idx="${i}">【${d}】</span>`;
+  });
+}
+
+// ---------------------------------------------------------------------------
+// 各事件的渲染
+// ---------------------------------------------------------------------------
+
+const render = {
+  memory(turn, d) {
+    const parts = [];
+    if (d.tokens) parts.push(`占 ${d.tokens} token`);
+    const slots = (d.slots || []).filter(s => s.value);
+    if (slots.length) {
+      // 槽位**连出处一起显示**：用户问"你怎么知道我月薪多少"的时候，
+      // 这里能直接答"第 1 轮你自己说的，原话是『…』"。
+      parts.push(slots.map(s =>
+        `<b>${esc(s.label)}</b>=${esc(s.value)}` +
+        (s.turn ? `<span style="color:var(--ink-dim)">（第${s.turn}轮：『${esc(s.quote)}』）</span>` : "")
+      ).join("，"));
+    }
+    if ((d.missing || []).length) {
+      parts.push(`<span style="color:var(--warn)">还缺：${esc(d.missing.join("、"))}</span>`);
+    }
+    if ((d.dropped || []).length) {
+      parts.push(`<span style="color:var(--ink-dim)">砍掉：${esc(d.dropped.join("、"))}</span>`);
+    }
+    const text = parts.length ? parts.join("；") : "本轮没有可复用的历史事实";
+    addStep(turn, "memory", `<b>记忆</b>（${esc(d.policy || "")}）${text}`);
+  },
+
+  route(turn, d) {
+    const label = { calc: "计算路", law: "法条路", out_of_scope: "范围外", chitchat: "闲聊" }[d.route] || d.route;
+    addStep(turn, "route", `<b>路由</b> → ${esc(label)}　<span style="color:var(--ink-dim)">${esc(d.reason || "")}</span>`);
+  },
+
+  retrieval(turn, d) {
+    const arts = d.articles || [];
+    // 把法条原文按 index 存起来，供后面点引用时展开用。
+    // **正文是跟着检索事件一起到的**（后端刻意这么发），所以点开的时候
+    // 不需要再发一次请求——那一次往返的延迟正好会让"点开看原文"发顿。
+    arts.forEach(a => { turn._articles[a.index] = a; });
+    addStep(turn, "retrieval",
+      `<b>检索</b> 命中 ${arts.length} 条` +
+      (d.note ? `　<span style="color:var(--ink-dim)">${esc(d.note)}</span>` : ""));
+  },
+
+  tool_call(turn, d) {
+    addStep(turn, "tool", `<b>调用工具</b> <code>${esc(d.tool)}</code>　${esc(JSON.stringify(d.args || {}))}`);
+  },
+
+  tool_result(turn, d) {
+    const mark = { ok: "✅", degraded: "⚠️", failed: "❌" }[d.status] || "·";
+    const bits = [];
+    if (d.idempotency_hit) bits.push("命中幂等缓存");
+    if (d.attempts > 1) bits.push(`重试 ${d.attempts - 1} 次`);
+    if (d.breaker_state && d.breaker_state !== "closed") bits.push(`熔断器：${d.breaker_state}`);
+    if (d.error) bits.push(`原因：${d.error.message || d.error.code || JSON.stringify(d.error)}`);
+    bits.push(`${(d.elapsed_ms || 0).toFixed(0)}ms`);
+    const node = addStep(turn, "tool",
+      `${mark} <code>${esc(d.tool)}</code> ${esc(d.status)}　<span style="color:var(--ink-dim)">${esc(bits.join(" · "))}</span>`);
+
+    // ---- 计算题的算式与代入过程 ----
+    //
+    // ⚠️ **`payload` 一直都有，是这里没渲染。** 后端的计算器返回里带着
+    // `steps`（每个数是怎么代进去的、哪一步触发了封顶），
+    // `tool_result` 事件也一路把它送到浏览器了——但界面只显示了
+    // "✅ calc_severance ok 12ms"，把最要紧的那部分扔了。
+    //
+    // 为什么这块值得单独写：计算题如果只给一句结论（"能拿 24000"），
+    // 用户**没有任何办法核对它对不对**，只能信或者不信。
+    // 算式才是"可核验"这件事的全部来源——和法条必须附原文编号是同一个道理。
+    const p = d.payload;
+    const steps = (p && Array.isArray(p.steps)) ? p.steps : [];
+    if (steps.length) {
+      const box = el("div", "calc");
+      box.appendChild(el("div", "title", `算式与代入过程（${steps.length} 步）`));
+      const ol = el("ol");
+      // 逐条转义。模型/工具的输出**不能当 HTML 用**——
+      // 这一步漏了，工具返回里带一段标签就会在页面上变成真的标签。
+      steps.forEach(s => ol.appendChild(el("li", null, esc(String(s)))));
+      box.appendChild(ol);
+
+      // 工具的提醒（比如"三倍封顶已触发""这个数需要你自己核对"）也要显示：
+      // 它们是**结论的适用条件**，藏起来等于让用户拿一个条件不明的数去谈判。
+      (p.warnings || []).forEach(w => box.appendChild(el("div", "warn", "⚠︎ " + esc(String(w)))));
+
+      // 原始字段收起来给想深挖的人。**默认收起**：上面那些步骤已经够看了，
+      // 一屏 JSON 会把答案挤下去。
+      const det = el("details");
+      det.appendChild(el("summary", null, "全部字段（原始值）"));
+      const pre = el("pre", null, esc(JSON.stringify(p, null, 2)));
+      det.appendChild(pre);
+      box.appendChild(det);
+
+      node.appendChild(box);
+    }
+  },
+
+  missing(turn, d) {
+    addStep(turn, "tool",
+      `<span style="color:var(--warn)">还需要你补充：${esc((d.labels || []).join("、"))}</span>`);
+  },
+
+  thinking(turn) {
+    // 推理模型的思考过程**不显示内容**，只显示"还在想"。
+    // 理由：思考过程又长又乱（几千字），显示出来会把答案挤下去，
+    // 而且它本来就不是给用户看的东西。用户需要知道的只是"没卡住"。
+    let n = turn.querySelector(".thinking");
+    if (!n) {
+      n = addStep(turn, "route", `<span style="color:var(--ink-dim)">思考中…</span>`);
+      n.className = "step route thinking";
+    }
+  },
+
+  guard(turn, d) {
+    addStep(turn, "guard", `<b>防死循环闸门</b> 触发：${esc(d.message || d.limit)}`);
+  },
+
+  refusal(turn, d) {
+    const box = turn._errs;
+    const n = el("div", "refusal");
+    n.appendChild(el("div", "cat", "这个问题超出了我的范围：" + esc(d.category || "")));
+    n.appendChild(el("div", null, esc(d.reason || "")));
+    if (d.suggestion) n.appendChild(el("div", "sugg", "可以试试：" + esc(d.suggestion)));
+    box.appendChild(n);
+  },
+
+  error(turn, d) {
+    turn._errs.appendChild(el("div", "err", "出错了：" + esc(d.message || JSON.stringify(d))));
+  },
+
+  answer(turn, d) {
+    // 逐字追加。**这里不转义就拼**是故意的吗？不是——用的是 textContent，
+    // 由浏览器负责转义，比手写 `innerHTML += esc(x)` 更安全也更快
+    // （后者每次都重新解析整段 HTML）。
+    turn._answer.textContent += (d.text || "");
+    autoscroll(turn);
+  },
+
+  citations(turn, d) {
+    // 引用校验的结果。这一条是"防编造"最直接的证据：
+    // 模型引了 3 条、其中 1 条不存在，那条会被删掉，并且在这里报出来。
+    const inv = d.invalid || [];
+    if (inv.length) {
+      addStep(turn, "guard",
+        `<b>引用校验</b> 模型引用了不存在的编号 ${esc(inv.join("、"))}，<b>已从答案里删掉</b>`);
+    } else if ((d.valid || []).length) {
+      addStep(turn, "retrieval", `<b>引用校验</b> 通过（${d.valid.length} 条）`);
+    }
+  },
+
+  done(turn, d) {
+    // ⚠️ 用权威答案**覆盖**，不是追加。
+    // 逐字流出去的字节是模型的原始输出，而最终答案在生成节点里被引用校验
+    // 处理过了（编造的编号会被删）。两者可能不一样，**以最终状态为准**——
+    // 这样"屏幕上是什么、后端存的就是什么"。
+    const report = d.citation_report || {};
+    const valid = report.valid || [];
+    turn._answer.classList.remove("streaming");
+    turn._answer.innerHTML = linkifyCitations(d.answer || "", valid);
+
+    // 法条卡片
+    turn._cites.innerHTML = "";
+    (d.citations || []).forEach(c => {
+      const art = turn._articles[c.index] || {};
+      const box = el("div", "cite");
+      box.dataset.idx = c.index;
+      const head = el("div", "head");
+      head.innerHTML =
+        `<span style="color:var(--ink-dim)">【${c.index}】</span>` +
+        `<span class="law">${esc(c.citation || art.citation || c.article_key)}</span>` +
+        `<span class="score">相关度 ${scoreText(c.score ?? art.score)}</span>`;
+      const body = el("div", "body");
+      body.textContent = c.text || art.text || "（没有取到原文）";
+      body.hidden = true;
+      head.addEventListener("click", () => showArticle(turn, c.index));
+      box.appendChild(head); box.appendChild(body);
+      // 深链：把 ?article=lcl#47 记到地址栏，复制给别人能直接打开。
+      const meta = el("div", "meta",
+        `编号 <code>${esc(c.article_key)}</code>` +
+        (art.source === "neighbor" ? "（邻条扩展带出来的，不是直接命中）" : ""));
+      box.appendChild(meta);
+      turn._cites.appendChild(box);
+    });
+
+    // 脚注：成本 + 收尾原因 + 请求 id
+    const cost = d.cost;
+    const bits = [];
+    if (cost) {
+      bits.push(`token <code>${cost.prompt_tokens}+${cost.completion_tokens}</code>`);
+      // ⚠️ 三种"钱"要分开说，判断顺序是 `billable` 在前、金额在后：
+      //   1. billable=false 且没有 token → 这一轮没调模型（拒答、闲聊）；
+      //   2. billable=false 但 token 不为 0 → 读的是旧记录（replay/缓存），
+      //      本次 0 元。**这种情况下 `total_cny` 不是 0**，它是"当初真调
+      //      那一次花了多少"。所以要把它写清成"若真调约 ¥…"，
+      //      不能当成这一轮的开销——那是虚报。
+      //   3. billable=true → 真的花了，照实显示。
+      // 判定顺序反了（先看金额）就会把第 2 种显示成第 3 种：
+      // 明明一分没花，页面上却挂着一个 ¥0.138040。
+      if (cost.billable) {
+        bits.push(cost.total_cny > 0
+          ? `约 <code>¥${cost.total_cny.toFixed(6)}</code>（按 ${esc(cost.as_of)} 价格）`
+          : `<code>¥0</code>（没记账：${esc(cost.basis || "未知")}）`);
+      } else if (cost.prompt_tokens + cost.completion_tokens > 0) {
+        bits.push(`<code>¥0</code>（本次没调用模型，重放旧记录；`
+          + `若真调约 ¥${cost.total_cny.toFixed(6)}）`);
+      } else {
+        bits.push(`<code>¥0</code>（这一轮没有调用模型）`);
+      }
+    }
+    bits.push(`收尾 <code>${esc(d.finish_reason || "")}</code>`);
+    if (d.finish_detail) bits.push(esc(d.finish_detail));
+    if (d.request_id) bits.push(`请求 <code>${esc(d.request_id)}</code>`);
+    turn._foot.innerHTML = bits.join(" · ");
+
+    // 出错的细节（有的话）也一并显示出来——**被吞掉的错误是最贵的错误**。
+    (d.errors || []).forEach(e => turn._errs.appendChild(el("div", "err", esc(e))));
+    (d.warnings || []).forEach(w => turn._errs.appendChild(el("div", "err", esc(w))));
+
+    // 把这一轮存进历史，供下一轮当上下文。
+    state.history.push({ role: "user", content: turn._question });
+    state.history.push({ role: "assistant", content: d.answer || "" });
+    // 历史只留最近 20 条（10 轮）。**这是前端的个人卫生**：
+    // 每轮都把完整历史塞进请求体，聊到 50 轮的话请求体就几十 KB 了。
+    // 真正的"记多久"由后端的记忆层决定，前端只是别把请求撑爆。
+    if (state.history.length > 20) state.history = state.history.slice(-20);
+
+    state.sessionId = d.session_id;
+    localStorage.setItem("juris.session", d.session_id);
+  },
+};
+
+// ---------------------------------------------------------------------------
+// 自动滚动：**只在用户已经在底部时才滚**
+// ---------------------------------------------------------------------------
+// 无条件滚到底是最常见的做法，也是最烦人的一种：用户往上翻着看某条法条，
+// 答案每出一个字就把他拽回底部。判断"用户是不是在底部"只多两行，
+// 体验差别很大。
+
+function nearBottom() {
+  return window.innerHeight + window.scrollY >= document.body.scrollHeight - 120;
+}
+function autoscroll(force) {
+  if (force === true || nearBottom()) {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 发一次请求
+// ---------------------------------------------------------------------------
+
+async function ask(question) {
+  if (state.busy) return;
+  state.busy = true;
+  sendBtn.textContent = "停止";
+  sendBtn.classList.add("stop");
+
+  const turn = newTurn(question);
+  turn._question = question;
+  autoscroll(true);
+
+  state.abort = new AbortController();
+  const body = {
+    question,
+    session_id: state.sessionId,
+    history: state.history.length ? state.history : null,
+    stream_llm: true,
+  };
+
+  try {
+    const resp = await fetch("/api/chat/stream", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      signal: state.abort.signal,
+    });
+
+    if (!resp.ok) {
+      // 非 200 时后端返回的是普通 JSON（不是 SSE），所以这里读 json()。
+      // **分两种情况读**是必要的：对 SSE 响应调 json() 会一直等下去。
+      const detail = await resp.json().catch(() => ({}));
+      throw new Error(`HTTP ${resp.status} ${JSON.stringify(detail.detail || detail)}`);
+    }
+
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let buf = "";
+
+    // ---- SSE 解析主循环 ----
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      // `stream: true` 是必须的：一个 UTF-8 汉字的 3 个字节**可能跨 chunk**，
+      // 不带这个参数就会在边界上出现乱码（经典的"偶发几个字变成问号"）。
+      buf += decoder.decode(value, { stream: true });
+
+      let cut;
+      while ((cut = buf.indexOf("\n\n")) !== -1) {
+        const frame = buf.slice(0, cut);
+        buf = buf.slice(cut + 2);
+        const ev = parseFrame(frame);
+        if (ev) dispatch(turn, ev.name, ev.data);
+      }
+    }
+    // 流结束时 buffer 里可能还剩最后半帧（服务端没发空行就断了）。
+    // 尽力解析一次，**不要静默丢掉**——丢掉的可能是最后一条 done。
+    if (buf.trim()) {
+      const ev = parseFrame(buf);
+      if (ev) dispatch(turn, ev.name, ev.data);
+    }
+  } catch (e) {
+    if (e.name === "AbortError") {
+      turn._errs.appendChild(el("div", "err", "已停止（服务端可能仍在跑完这次生成，见 README）"));
+    } else {
+      turn._errs.appendChild(el("div", "err", "请求失败：" + esc(e.message || String(e))));
+    }
+  } finally {
+    turn._answer.classList.remove("streaming");
+    state.busy = false;
+    state.abort = null;
+    sendBtn.textContent = "发送";
+    sendBtn.classList.remove("stop");
+    sendBtn.disabled = false;
+  }
+}
+
+/** 解析一帧 `event: x\ndata: {...}`。解析不出来返回 null。 */
+function parseFrame(frame) {
+  let name = "message", data = "";
+  for (const line of frame.split("\n")) {
+    if (!line || line.startsWith(":")) continue;   // 冒号开头是注释，忽略
+    const i = line.indexOf(":");
+    if (i < 0) continue;
+    const field = line.slice(0, i).trim();
+    // 按 SSE 规范，冒号后面那个空格要吃掉一个（只有一个）。
+    let v = line.slice(i + 1);
+    if (v.startsWith(" ")) v = v.slice(1);
+    if (field === "event") name = v;
+    else if (field === "data") data += v;
+  }
+  if (!data) return null;
+  try { return { name, data: JSON.parse(data) }; }
+  catch { return { name: "error", data: { message: "无法解析的事件：" + data.slice(0, 200) } }; }
+}
+
+function dispatch(turn, name, data) {
+  const fn = render[name];
+  if (fn) {
+    try { fn(turn, data); }
+    // **渲染出错不能把整个流带崩。** 一条时间线画不出来，答案还得继续显示。
+    catch (e) { console.error("渲染事件失败", name, data, e); }
+  } else {
+    // 后端加了新事件而前端还没处理时，**不要炸**，也不要无声无息。
+    console.debug("未处理的事件", name, data);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 输入区
+// ---------------------------------------------------------------------------
+
+function submit() {
+  const q = inputEl.value.trim();
+  if (!q || state.busy) return;
+  inputEl.value = "";
+  inputEl.style.height = "auto";
+  ask(q);
+}
+
+sendBtn.addEventListener("click", () => {
+  // 忙的时候按钮变成"停止"——这就是取消的唯一入口。
+  if (state.busy && state.abort) state.abort.abort();
+  else submit();
+});
+
+inputEl.addEventListener("keydown", (e) => {
+  // Enter 发送、Shift+Enter 换行。**这是聊天框的肌肉记忆**，
+  // 弄反了会让人很烦躁（想换行结果发出去了）。
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); }
+});
+
+// 输入框随内容长高。上限由 CSS 的 max-height 兜住，超过就内部滚动。
+inputEl.addEventListener("input", () => {
+  inputEl.style.height = "auto";
+  inputEl.style.height = Math.min(inputEl.scrollHeight, 180) + "px";
+});
+
+$("examples").addEventListener("click", (e) => {
+  if (e.target.tagName !== "BUTTON") return;
+  inputEl.value = e.target.dataset.q;
+  submit();
+});
+
+$("newSession").addEventListener("click", () => {
+  // 只清前端的会话指针，**不动页面上的历史气泡**——
+  // 用户想的是"从现在开始重新聊"，不是"把刚才的答案也抹掉"。
+  state.sessionId = null;
+  state.history = [];
+  localStorage.removeItem("juris.session");
+  turn_placeholder();
+});
+
+function turn_placeholder() {
+  const t = el("div", "turn");
+  const c = el("div", "card");
+  c.innerHTML = '<span style="color:var(--ink-dim)">已开始新会话。' +
+                '后端不再把之前的对话当作上下文。</span>';
+  t.appendChild(c); turnsEl.appendChild(t);
+  autoscroll(true);
+}
+
+// ---------------------------------------------------------------------------
+// 启动时问一次健康检查
+// ---------------------------------------------------------------------------
+// 为什么要这一下：**"服务没起来"和"服务起来了但缺配置"看起来一模一样**
+// （都是"发消息没反应"），而这两种情况该做的事完全不同。
+// 把后端自己报的问题直接显示在右上角，能省掉一大类"演示现场干瞪眼"。
+
+(async function health() {
+  const pill = $("health");
+  try {
+    const r = await fetch("/api/health");
+    const h = await r.json();
+    if (h.ready) {
+      const bits = [h.model_gen, h.retrieval?.chunker, "记忆 " + (h.memory?.policy || "")];
+      pill.textContent = "服务就绪 · " + bits.filter(Boolean).join(" · ");
+      pill.className = "pill ok";
+    } else {
+      pill.textContent = "服务在跑，但答不了问题（缺配置，看控制台）";
+      pill.className = "pill bad";
+      console.warn("后端自报的问题：", h.problems);
+    }
+  } catch (e) {
+    pill.textContent = "连不上后端";
+    pill.className = "pill bad";
+  }
+})();
+</script>
+</body>
+</html>

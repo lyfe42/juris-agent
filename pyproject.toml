@@ -26,7 +26,14 @@ dependencies = [
     "rank-bm25>=0.2.2",
     "fastapi>=0.115",
     "uvicorn[standard]>=0.30",
-    "sse-starlette>=2.1",
+    # ⚠️ **这里原本还有 `sse-starlette`，装完就没用过，已删除。**
+    # 一开始想着"SSE 就该用专门的库"，实际写的时候发现直接
+    # `StreamingResponse` + 手写 `event: xxx\ndata: {...}\n\n` 就够了：
+    # 事件的形状由我们自己定（见 `api/events.py`），而 sse-starlette 提供的
+    # 额外东西（自动心跳、ping 事件、内置的断连检测）这里都不需要——
+    # 断连检测我用的是 `request.is_disconnected()`，一条 if 的事。
+    # **一个声明了却没人 import 的依赖，是"你以为在用、其实没在用"的隐患**：
+    # 面试时被问"为什么选 sse-starlette"，答案只能是"我不记得了"。
     "langgraph>=1.2.15",
 ]
 
@@ -86,3 +93,13 @@ markers = [
     "network: 需要真实 API key 或联网下载模型的测试（CI 里用 -m 'not network' 跳过）",
 ]
 addopts = "-q"
+# HTTP 层的测试是 async 的（接口和测试客户端都是异步的），需要这一行才能跑。
+#
+# 为什么用 `auto` 而不是给每个测试挂 `@pytest.mark.asyncio`：
+# 挂标记的写法下，**忘挂的那个测试不会失败，它会被静默跳过**——
+# pytest-asyncio 的 strict 模式对未标记的 async 函数是"不认它"，
+# 于是它既不算通过也不算失败，只是不出现在结果里。
+# 一个"写完了但一直没跑"的测试比没有测试更坏：它让人以为那部分被盖住了。
+# `auto` 让"写了就一定跑"。代价是少了一层"这个测试确实是异步的"的显式声明，
+# 而那层声明在这个项目里没有任何实际作用。
+asyncio_mode = "auto"
