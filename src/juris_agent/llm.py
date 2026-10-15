@@ -140,6 +140,15 @@ class LLMResponse(BaseModel):
     latency_ms: float = 0.0
     from_cache: bool = False
 
+    reasoning_text: str = ""
+    """推理模型的思考过程（流式时才有值）。
+
+    ⚠️ **它已经计在 `usage.completion_tokens` 里**（供应商是这么算的），
+    所以**成本记账绝不能把它再加一遍**。它存在的唯一理由是
+    "答案很短但很贵，钱花哪了"这个问题——前端把它显示成"思考中"，
+    也是为了回答同一个问题。默认空串：非流式调用拿不到它，
+    老缓存文件里也没有这个字段，空串让两者都能正常读出来。"""
+
     # Function Calling（工具调用）。模型"想调工具"时，`text` 通常是空串，
     # 内容全在这里。**必须进缓存**，否则 replay 时工具调用会凭空消失——
     # 那种复现出来的轨迹是假的，比不复现更危险。
@@ -163,6 +172,27 @@ class LLMResponse(BaseModel):
 # --------------------------------------------------------------------------- #
 # 内容寻址缓存
 # --------------------------------------------------------------------------- #
+
+
+def _classify_http(status: int, text: str) -> LLMError:
+    """把 HTTP 状态码翻成一个错误对象。**`_post` 和 `_post_stream` 共用这一份。**
+
+    为什么必须共用：流式和非流式是**同一个接口的两种传输方式**，
+    对同一个状态码给出不同的处理（比如流式那条路把 429 当成永久错误）
+    会让"重试不重试"取决于"用户点没点流式开关"——这种 bug 极难发现，
+    因为它只在你打开流式的时候才出现。
+
+    返回错误对象而不是抛，是因为两条路径的**处理方式不同**：
+    非流式可以重试整个请求；流式一旦已经把前半段 token 交给用户了，
+    就没法"重新来过"了（会把前面的字重复打一遍）。
+    """
+    if status in (401, 403):
+        return LLMAuthError(f"鉴权失败 HTTP {status}: {text[:200]}", status=status)
+    if status == 429:
+        return LLMRateLimit(f"限流 HTTP 429: {text[:200]}", status=429)
+    if 400 <= status < 500:
+        return LLMBadRequest(f"请求错误 HTTP {status}: {text[:300]}", status=status)
+    return LLMServerError(f"服务端错误 HTTP {status}: {text[:200]}", status=status)
 
 
 def _cache_key(payload: dict[str, Any]) -> str:
@@ -264,6 +294,52 @@ class LLMClient:
         # 记账：整个进程累计，脚本结束时打出来
         self.usage_total = Usage()
         self._usage_lock = threading.Lock()
+        # 按**线程**记的另一本账，给"这一次请求花了多少"用。见 `begin_turn`。
+        self._turn = threading.local()
+
+    # -- 记账：整进程 vs 单次请求 ------------------------------------------ #
+
+    def begin_turn(self) -> None:
+        """在**当前线程**里开一本新账。
+
+        ## 为什么不能靠"调用前后各读一次 `usage_total` 做差"
+
+        那是第一版的做法，并发下**直接算错**：两个请求重叠时，
+        A 做差得到的数是"A 加上 B 中途花掉的部分"。而且它**不会报错**——
+        成本报表上只会看到一个偏大的数，没有任何人看得出来。
+
+        ## 线程本地为什么在这里是够用的
+
+        本服务每次请求的整轮处理都跑在**同一个工作线程**里
+        （`api/app.py` 用 `asyncio.to_thread` 把同步的图丢给线程池）。
+        所以"线程"恰好和"一次请求"对齐，线程本地就等价于请求本地。
+
+        ⚠️ **这个前提是必须说清楚的**：如果哪天改成"一次请求跨多个线程"
+        （比如工具并发执行），这本账就会把几个线程的数字混起来。
+        那时要做的是换成显式传入的记账对象，而不是在这里打补丁。
+
+        ⚠️ 线程是被线程池**复用**的，所以必须在每轮开始时重置——
+        不重置的话这一轮会带着上一轮的账。
+        """
+        self._turn.usage = Usage()
+
+    @property
+    def turn_usage(self) -> Usage:
+        """当前线程自 `begin_turn()` 以来真实花掉的 token。
+
+        **没调过 `begin_turn()` 时返回全 0**——脚本、单测里没人会去调它。
+        返回 0 而不抛异常，是因为"这次没记账"和"这次没花钱"
+        对调用方的正确行为一样（都是别去读它），而抛异常会让
+        `chat()` 里多加一个 try。
+        """
+        return getattr(self._turn, "usage", Usage())
+
+    def _record_usage(self, usage: Usage) -> None:
+        """两本账一起记。**只在这一个地方记**，免得漏了一本。"""
+        with self._usage_lock:
+            self.usage_total = self.usage_total + usage
+        if hasattr(self._turn, "usage"):
+            self._turn.usage = self._turn.usage + usage
 
     # -- 生命周期 ---------------------------------------------------------- #
 
@@ -334,19 +410,199 @@ class LLMClient:
                         latency_ms=(time.perf_counter() - t0) * 1000,
                     )
                 if r.status_code in (401, 403):
-                    raise LLMAuthError(f"鉴权失败 HTTP {r.status_code}: {r.text[:200]}", status=r.status_code)
+                    raise _classify_http(r.status_code, r.text)
                 if r.status_code == 429:
-                    last = LLMRateLimit(f"限流 HTTP 429: {r.text[:200]}", status=429)
+                    last = _classify_http(r.status_code, r.text)
                 elif 400 <= r.status_code < 500:
                     # 4xx 不重试。抛出去让调用方看见真实的错误原因。
-                    raise LLMBadRequest(f"请求错误 HTTP {r.status_code}: {r.text[:300]}", status=r.status_code)
+                    raise _classify_http(r.status_code, r.text)
                 else:
-                    last = LLMServerError(f"服务端错误 HTTP {r.status_code}: {r.text[:200]}", status=r.status_code)
+                    last = _classify_http(r.status_code, r.text)
 
             if attempt < self.max_retries and last is not None and last.retryable:
                 time.sleep(min(2.0 ** attempt, 8.0))
                 continue
             break
+        raise last or LLMError("未知失败")
+
+    def _post_stream(
+        self,
+        payload: dict[str, Any],
+        on_delta: Any,
+        on_reasoning: Any,
+    ) -> LLMResponse:
+        """流式发一次请求：边收边把增量交给回调，最后拼成和 `_post` 一样的返回值。
+
+        ## 为什么不另开一个 `stream()` 方法
+
+        如果另开一个方法，`chat()` 里那些**必须做的事**——缓存读写、
+        额度不够时自动升级重试、usage 累计——就得在两边各写一遍。
+        **缓存那条尤其危险**：漏了它，流式路径的响应不进缓存，
+        于是"离线可复现"这个承诺在开了流式的场景下悄悄失效，
+        而且失效的方式是"replay 时查不到 → 报错"，看起来像是录少了，
+        根本想不到是"用了另一条代码路径"。
+
+        所以这里把它做成 `_post` 的**传输层替身**：上层 `chat()` 一行不改。
+
+        ## 两条硬约束
+
+        **① 一旦吐出去一个字，就不能再重试了。** 重试会把同一段话
+        从头再吐一遍，用户看到的是"试用期最长……试用期最长不得超过六个月"。
+        所以重试只在 `emitted == 0` 时进行——这个条件比"收到了多少字节"
+        更可靠，因为**没吐出去的字用户根本没看见**。
+
+        **② `stream_options.include_usage` 必须带上。** 不带的话，
+        流式响应里**没有 usage 字段**，成本记账会全部记成 0，
+        而 0 和"没算"在报表上长得一模一样。带上它之后，
+        服务端会在最后一个 chunk 里补一份 usage。
+        """
+        stream_payload = {
+            **payload,
+            "stream": True,
+            # 这一步是"要 usage"的开关。它不改变答案，只影响最后一个 chunk
+            # 里多不多一个 usage 字段。所以**它不进缓存键**——
+            # `_cache_key` 只取那几个影响输出的字段，加不加它算出来是同一个 key。
+            # 这是刻意的：同一次调用在流式和非流式下应当读到同一份缓存。
+            "stream_options": {"include_usage": True},
+        }
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+        }
+
+        last: LLMError | None = None
+        for attempt in range(self.max_retries + 1):
+            t0 = time.perf_counter()
+            text_parts: list[str] = []
+            reasoning_parts: list[str] = []
+            tool_calls: dict[int, dict[str, Any]] = {}
+            usage = Usage()
+            emitted = 0
+
+            try:
+                with self._client.stream(
+                    "POST",
+                    f"{self.base_url}/chat/completions",
+                    headers=headers,
+                    json=stream_payload,
+                ) as r:
+                    if r.status_code != 200:
+                        # 错误响应体是普通 JSON，不是事件流。先读完再分类。
+                        r.read()
+                        err = _classify_http(r.status_code, r.text)
+                        if not err.retryable:
+                            raise err
+                        last = err
+                        continue
+
+                    for raw in r.iter_lines():
+                        line = raw.strip()
+                        # SSE 的空行是分隔符，`:` 开头的是心跳注释——都不是数据。
+                        if not line or line.startswith(":"):
+                            continue
+                        if not line.startswith("data:"):
+                            continue
+                        data = line[5:].strip()
+                        if data == "[DONE]":
+                            break
+                        try:
+                            chunk = json.loads(data)
+                        except json.JSONDecodeError:
+                            # 单块解析不了就跳过。**不抛**——一块坏数据
+                            # 不该让整段已经收到的答案作废。
+                            continue
+
+                        if u := chunk.get("usage"):
+                            details = u.get("completion_tokens_details", {}) or {}
+                            usage = Usage(
+                                prompt_tokens=u.get("prompt_tokens", 0),
+                                completion_tokens=u.get("completion_tokens", 0),
+                                total_tokens=u.get("total_tokens", 0),
+                                prompt_cache_hit_tokens=u.get("prompt_cache_hit_tokens", 0),
+                                prompt_cache_miss_tokens=u.get("prompt_cache_miss_tokens", 0),
+                                reasoning_tokens=details.get("reasoning_tokens", 0),
+                            )
+
+                        choices = chunk.get("choices") or []
+                        if not choices:
+                            continue
+                        delta = choices[0].get("delta") or {}
+
+                        if piece := delta.get("content"):
+                            text_parts.append(piece)
+                            emitted += 1
+                            if on_delta is not None:
+                                on_delta(piece)
+                        if piece := delta.get("reasoning_content"):
+                            reasoning_parts.append(piece)
+                            if on_reasoning is not None:
+                                on_reasoning(piece)
+
+                        # 流式下 tool_calls 是**碎片**：第一块给 id 和函数名，
+                        # 后面几块只给参数字符串的一小段，靠 `index` 拼起来。
+                        # 拼错的话结果是参数 JSON 不完整——下游 `json.loads` 会失败，
+                        # 表现为"模型老是填不对参数"，而真相是我们没拼好。
+                        for frag in delta.get("tool_calls") or []:
+                            idx = int(frag.get("index", 0))
+                            slot = tool_calls.setdefault(
+                                idx, {"id": "", "type": "function", "function": {"name": "", "arguments": ""}}
+                            )
+                            if fid := frag.get("id"):
+                                slot["id"] = fid
+                            fn = frag.get("function") or {}
+                            if fname := fn.get("name"):
+                                slot["function"]["name"] = fname
+                            if fargs := fn.get("arguments"):
+                                slot["function"]["arguments"] += fargs
+
+            except httpx.TimeoutException as e:
+                last = LLMTimeout(f"请求超时: {e}")
+                # ⚠️ 已经吐出去一个字就不能重试（见 docstring 约束 ①）：
+                # 重试会让用户看到同一段话打两遍。这里直接放弃并把错误抛出去，
+                # 让调用方决定怎么收场——**半段答案通常比"系统忙"更有用**。
+                if emitted:
+                    break
+                if attempt < self.max_retries:
+                    time.sleep(min(2.0**attempt, 8.0))
+                    continue
+                break
+            except httpx.HTTPError as e:
+                last = LLMServerError(f"网络错误: {e}")
+                if emitted:
+                    break
+                if attempt < self.max_retries:
+                    time.sleep(min(2.0**attempt, 8.0))
+                    continue
+                break
+            else:
+                text = "".join(text_parts)
+                calls = [tool_calls[i] for i in sorted(tool_calls)]
+                completion = usage.completion_tokens
+                # 和非流式路径**同一条判据**：空正文 + 没工具调用 + 花了 token
+                # = 预算被思维链吃光了（见 `LLMTruncated`）。
+                #
+                # 抛出去之后由 `chat()` 接住并翻 4 倍预算重来。
+                # 这里比非流式多一层隐式保证：**走到这一行就说明一个字都没吐出去**
+                # （有正文就不会进这个分支），所以"重来一遍"不会让用户看到重复内容。
+                if not text.strip() and not calls and completion > 0:
+                    raise LLMTruncated(
+                        f"模型返回空正文（completion_tokens={completion}，"
+                        f"reasoning_tokens={usage.reasoning_tokens}），"
+                        f"max_tokens={payload.get('max_tokens')} 不够推理模型用"
+                    )
+                return LLMResponse(
+                    text=text,
+                    model=payload.get("model", ""),
+                    usage=usage,
+                    tool_calls=calls,
+                    reasoning_text="".join(reasoning_parts),
+                    latency_ms=(time.perf_counter() - t0) * 1000,
+                )
+
+            # 走到这里只有两种可能：上面 `else` 分支 return 了（不会到这），
+            # 或者某个 except 分支 `break` 了（已经出循环）。
+            # 所以循环体末尾**没有**收尾代码——重试的决策全部写在
+            # "为什么失败"的那一处，不在这里再判一遍（判两遍就会不一致）。
         raise last or LLMError("未知失败")
 
     def chat(
@@ -359,6 +615,8 @@ class LLMClient:
         response_format: dict[str, Any] | None = None,
         tools: list[dict[str, Any]] | None = None,
         tool_choice: str | dict[str, Any] | None = None,
+        on_delta: Any = None,
+        on_reasoning: Any = None,
     ) -> LLMResponse:
         """一次对话补全。
 
@@ -374,6 +632,27 @@ class LLMClient:
         工具调用往返里会出现 `{"role": "assistant", "content": null, "tool_calls": [...]}`
         和 `{"role": "tool", "tool_call_id": "call_1", "content": "{...}"}` 这两种消息，
         它们的字段不是纯字符串。
+
+        ## 流式：传 `on_delta` 就开
+
+        `on_delta(piece: str)` 会被**逐段**调用，`on_reasoning(piece)` 收到的是
+        推理模型的思考过程（`deepseek-flash` 这类模型会边想边吐，前端可以显示
+        "思考中…"）。返回值仍是完整的 `LLMResponse`——**流式改变的是
+        "你什么时候看到内容"，不是"你拿到什么"**。
+
+        ## ⚠️ 三件关于流式必须知道的事
+
+        **① 缓存命中时不流式。** 缓存是从磁盘读的，本来就一瞬间读完，
+        "逐段吐"没有意义。命中时会把整段文本**作为一次 delta** 交出去，
+        所以调用方看到的仍然是"有 delta 事件"，只是只有一次。
+        （调用方不需要区分这两种情况——见 `api/events.py` 怎么用。）
+
+        **② 流式下 `usage` 依赖 `stream_options.include_usage`。**
+        这个客户端会自动带上它。万一服务端不支持，usage 会全是 0，
+        成本报表上那一笔就是 0——**`CostBreakdown.is_free` 就是为了让
+        "真的是 0"和"没拿到数"区分开。**
+
+        **③ 只在"一个字都没吐出去"时才重试。** 见 `_post_stream` 的约束 ①。
         """
         payload: dict[str, Any] = {
             "model": model or self.model_gen,
@@ -392,6 +671,18 @@ class LLMClient:
         if self.mode in ("record", "replay"):
             hit = self.cache.get(key)
             if hit is not None:
+                # 缓存命中也得"响一下"——见 docstring 第 ① 条。
+                # 否则前端会出现"转了半天圈，然后整段答案突然出现"，
+                # 那看起来像是页面卡了，而不是"这一轮是从缓存来的"。
+                if on_delta is not None and hit.text:
+                    on_delta(hit.text)
+                if on_reasoning is not None and hit.reasoning_text:
+                    on_reasoning(hit.reasoning_text)
+                # ⚠️ **不要累加 `hit.usage`。** `usage_total` 的含义是
+                # "这个进程实际花了多少 token"，而这一轮是读磁盘、**一分钱没花**。
+                # 加上去会让成本报表凭空多出一份钱——而且报表上完全看不出来，
+                # 因为那些 token 数看着就是"正常的一次调用"。
+                # （这条有测试盯着：`test_cached_response_adds_no_tokens`。）
                 return hit
             if self.mode == "replay":
                 raise ReplayMiss(
@@ -399,8 +690,13 @@ class LLMClient:
                     "要么先用 --mode record 跑一遍，要么改用 --mode off。"
                 )
 
+        streaming = on_delta is not None or on_reasoning is not None
         try:
-            resp = self._post(payload)
+            resp = (
+                self._post_stream(payload, on_delta, on_reasoning)
+                if streaming
+                else self._post(payload)
+            )
         except LLMTruncated:
             # 推理模型的思维链也计入 max_tokens，预算给小了会拿到空正文。
             # 自动翻 4 倍重试一次——**这比把空串抛给调用方好**，
@@ -409,10 +705,18 @@ class LLMClient:
             # 缓存键仍用**原始** payload 算出的那个：升级是确定性的
             # （同样的输入必然触发同样的升级），所以 replay 时读到的
             # 就是当初升级后的那份响应，复现性不受影响。
+            #
+            # ⚠️ 升级重试**保持流式**。早期版本这里写死了 `_post`，
+            # 结果是"预算不够 → 触发升级 → 用户那边突然断了流、
+            # 最后整段答案一次蹦出来"——只在推理模型预算给小的时候才出现，
+            # 而且看起来像是"流式坏了"，不像"预算升级了"。
             escalated = {**payload, "max_tokens": min(int(payload.get("max_tokens", 2048)) * 4, 32768)}
-            resp = self._post(escalated)
-        with self._usage_lock:
-            self.usage_total = self.usage_total + resp.usage
+            resp = (
+                self._post_stream(escalated, on_delta, on_reasoning)
+                if streaming
+                else self._post(escalated)
+            )
+        self._record_usage(resp.usage)
         if self.mode == "record":
             self.cache.put(key, resp)
         return resp

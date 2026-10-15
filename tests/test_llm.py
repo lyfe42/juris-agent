@@ -273,3 +273,299 @@ class TestCompleteMany:
     def test_empty_input(self, tmp_path: Path) -> None:
         client, _ = make_client(tmp_path, [(200, ok_body())])
         assert client.complete_many([]) == []
+
+
+# --------------------------------------------------------------------------- #
+# 流式（F29 的前置：SSE 要边收边推，但缓存/重试这些"必须做的事"不能少）
+# --------------------------------------------------------------------------- #
+
+USAGE_CHUNK = {
+    "choices": [],
+    "usage": {
+        "prompt_tokens": 300,
+        "completion_tokens": 40,
+        "total_tokens": 340,
+        "prompt_cache_hit_tokens": 100,
+        "prompt_cache_miss_tokens": 200,
+        "completion_tokens_details": {"reasoning_tokens": 25},
+    },
+}
+
+
+def evt(*chunks: dict | str) -> str:
+    """拼若干数据行，**不补 `[DONE]`**。
+
+    ⚠️ 每个 `data:` 后面必须跟一个空行——那是 SSE 的事件分隔符。
+    少了空行，服务端会把相邻两个事件当成一个，解析出来是"少了一段答案"。
+    这里用真实格式而不是"看起来像"的格式，就是为了让"漏了空行"这种错
+    在测试里就暴露出来。
+    """
+    lines = []
+    for c in chunks:
+        payload = c if isinstance(c, str) else json.dumps(c, ensure_ascii=False)
+        lines.append(f"data: {payload}\n\n")
+    return "".join(lines)
+
+
+def sse(*chunks: dict | str) -> str:
+    """一段**完整**的事件流（末尾补 `[DONE]`）。
+
+    `[DONE]` 在协议里是**终止符**：收到它就停止读流。
+    所以想拼"两段流接起来"的测试必须用 `evt()`——用 `sse()`
+    会在第一个 `[DONE]` 处断掉，而症状是"后半段内容凭空消失"，
+    看起来像是解析器漏了，其实是测试自己把流截短了。
+    """
+    return evt(*chunks) + "data: [DONE]\n\n"
+
+
+def delta(**kw) -> dict:
+    """一个只有 delta 的 chunk。`choices` 的形状和真实响应一致。"""
+    return {"choices": [{"delta": kw}]}
+
+
+class _ScriptedStream(httpx.SyncByteStream):
+    """故意在流中间断掉的响应体。**这是"吐出去一半就断了"唯一能造出来的方式**。"""
+
+    def __init__(self, pieces: list[str], fail_at: int) -> None:
+        self.pieces = pieces
+        self.fail_at = fail_at
+
+    def __iter__(self):
+        for i, p in enumerate(self.pieces):
+            if i == self.fail_at:
+                raise httpx.ReadError("流断了")
+            yield p.encode("utf-8")
+
+
+class TestStreaming:
+    def _client(
+        self, tmp_path: Path, handler, *, mode: str | None = None
+    ) -> tuple[LLMClient, list[dict]]:
+        seen: list[dict] = []
+
+        def wrapped(request: httpx.Request) -> httpx.Response:
+            seen.append(json.loads(request.content))
+            return handler(request, len(seen) - 1)
+
+        kw = {"mode": mode} if mode else {}
+        c = LLMClient(
+            api_key="sk-test-not-a-real-key",
+            base_url="https://example.invalid",
+            cache_dir=tmp_path / "cache",
+            client=httpx.Client(transport=httpx.MockTransport(wrapped)),
+            max_retries=2,
+            **kw,
+        )
+        return c, seen
+
+    def test_deltas_arrive_in_order_and_concatenate_to_the_text(
+        self, tmp_path: Path
+    ) -> None:
+        body = sse(delta(content="试用期"), delta(content="最长"), delta(content="六个月。"))
+        client, _ = self._client(
+            tmp_path, lambda r, i: httpx.Response(200, content=body.encode("utf-8"))
+        )
+
+        got: list[str] = []
+        resp = client.chat([{"role": "user", "content": "q"}], on_delta=got.append)
+
+        assert got == ["试用期", "最长", "六个月。"]
+        assert resp.text == "试用期最长六个月。"
+        assert resp.text == "".join(got), "拼出来的正文必须等于 delta 的拼接，否则前端会少字"
+
+    def test_request_asks_for_usage_and_stream(self, tmp_path: Path) -> None:
+        """**必须显式要 usage。** 不带上它，流式响应的 usage 全是 0，
+        成本报表会把每次问答都记成 0 元——而 0 和"没算"在报表上长得一样。"""
+        body = sse(delta(content="答案"), USAGE_CHUNK)
+        client, seen = self._client(
+            tmp_path, lambda r, i: httpx.Response(200, content=body.encode("utf-8"))
+        )
+        client.chat([{"role": "user", "content": "q"}], on_delta=lambda _: None)
+
+        assert seen[0]["stream"] is True
+        assert seen[0]["stream_options"] == {"include_usage": True}
+
+    def test_usage_is_read_from_the_trailing_chunk(self, tmp_path: Path) -> None:
+        body = sse(delta(content="答案"), USAGE_CHUNK)
+        client, _ = self._client(
+            tmp_path, lambda r, i: httpx.Response(200, content=body.encode("utf-8"))
+        )
+        resp = client.chat([{"role": "user", "content": "q"}], on_delta=lambda _: None)
+
+        assert resp.usage.prompt_tokens == 300
+        assert resp.usage.completion_tokens == 40
+        assert resp.usage.reasoning_tokens == 25
+        assert resp.usage.prompt_cache_hit_tokens == 100
+
+    def test_reasoning_deltas_go_to_their_own_callback(self, tmp_path: Path) -> None:
+        """思考过程**不能混进正文**。混进去的话答案是
+        "嗯，用户问的是试用期……试用期最长六个月"，用户看到一脸问号。"""
+        body = sse(delta(reasoning_content="用户在问"), delta(content="六个月。"))
+        client, _ = self._client(
+            tmp_path, lambda r, i: httpx.Response(200, content=body.encode("utf-8"))
+        )
+
+        answer: list[str] = []
+        think: list[str] = []
+        resp = client.chat(
+            [{"role": "user", "content": "q"}], on_delta=answer.append, on_reasoning=think.append
+        )
+        assert answer == ["六个月。"]
+        assert think == ["用户在问"]
+        assert resp.reasoning_text == "用户在问"
+
+    def test_tool_call_fragments_are_stitched_together(self, tmp_path: Path) -> None:
+        """流式下 tool_calls 是**碎片**：先给 id 和函数名，再一段段给参数。
+
+        拼错的结果是参数 JSON 不完整 → 下游 `json.loads` 失败 →
+        表现为"模型老是填不对参数"。**真相是我们没拼好**，不是模型不听话。
+        """
+        body = sse(
+            {"choices": [{"delta": {"tool_calls": [{"index": 0, "id": "call_1", "function": {"name": "calc_severance", "arguments": ""}}]}}]},
+            {"choices": [{"delta": {"tool_calls": [{"index": 0, "function": {"arguments": '{"months'}}]}}]},
+            {"choices": [{"delta": {"tool_calls": [{"index": 0, "function": {"arguments": '_of_service": 36}'}}]}}]},
+        )
+        client, _ = self._client(
+            tmp_path, lambda r, i: httpx.Response(200, content=body.encode("utf-8"))
+        )
+        resp = client.chat([{"role": "user", "content": "q"}], on_delta=lambda _: None)
+
+        assert len(resp.tool_calls) == 1
+        call = resp.tool_calls[0]
+        assert call["id"] == "call_1"
+        assert call["function"]["name"] == "calc_severance"
+        assert json.loads(call["function"]["arguments"]) == {"months_of_service": 36}
+
+    def test_a_broken_chunk_does_not_throw_away_the_answer(self, tmp_path: Path) -> None:
+        """一块坏数据不该让**已经收到的**答案作废。
+
+        真实世界里这种块来自心跳、代理插入的注释、或半个被截断的 JSON。
+        抛出去的结果是"用户等了 5 秒，然后收到一个错误"，
+        而正确的做法是丢掉那一块、把剩下的答案给出去。
+        """
+        broken = (
+            'data: {"choices": [{"delta": {"content"\n\n'
+            "data: " + json.dumps(delta(content="中间"), ensure_ascii=False) + "\n\n"
+        )
+        body = (
+            evt(delta(content="前半"))
+            + broken
+            + evt(delta(content="后半"))
+            + "data: [DONE]\n\n"
+        )
+        client, _ = self._client(
+            tmp_path, lambda r, i: httpx.Response(200, content=body.encode("utf-8"))
+        )
+        got: list[str] = []
+        resp = client.chat([{"role": "user", "content": "q"}], on_delta=got.append)
+
+        assert "前半" in resp.text and "后半" in resp.text
+        assert got == ["前半", "中间", "后半"]
+
+    def test_retries_when_absolutely_nothing_was_emitted(self, tmp_path: Path) -> None:
+        """一个字都没吐出去时，重试是安全的。**这里 500 之后必须重试成功。**"""
+        good = sse(delta(content="好的")).encode("utf-8")
+
+        def handler(request: httpx.Request, i: int) -> httpx.Response:
+            if i == 0:
+                return httpx.Response(500, json={"error": "boom"})
+            return httpx.Response(200, content=good)
+
+        client, seen = self._client(tmp_path, handler)
+        got: list[str] = []
+        resp = client.chat([{"role": "user", "content": "q"}], on_delta=got.append)
+
+        assert resp.text == "好的"
+        assert got == ["好的"], "第一次失败什么都没吐，所以不该出现重复内容"
+        assert len(seen) == 2
+
+    def test_never_retries_once_a_single_delta_went_out(self, tmp_path: Path) -> None:
+        """**这条是流式设计里最硬的一条约束。**
+
+        已经吐出去的字用户已经看见了。这时候重试会把同一段话从头再吐一遍，
+        用户看到的是"试用期最长……试用期最长不得超过六个月"。
+
+        所以判据是 **"有没有字真的到过用户那边"**，而不是"这段流完整不完整"。
+        """
+        good = sse(delta(content="不该被用到"))
+        pieces = [
+            "data: " + json.dumps(delta(content="已经"), ensure_ascii=False) + "\n\n",
+            "data: " + json.dumps(delta(content="吐出去了"), ensure_ascii=False) + "\n\n",
+        ]
+
+        def handler(request: httpx.Request, i: int) -> httpx.Response:
+            if i == 0:
+                return httpx.Response(200, stream=_ScriptedStream(pieces, fail_at=1))
+            return httpx.Response(200, content=good.encode("utf-8"))
+
+        client, seen = self._client(tmp_path, handler)
+        got: list[str] = []
+        with pytest.raises(LLMError):
+            client.chat([{"role": "user", "content": "q"}], on_delta=got.append)
+
+        assert got == ["已经"], "只应看到断流之前吐出去的那部分"
+        assert len(seen) == 1, "已经吐过字了就不许再发一次请求"
+
+    def test_truncated_stream_escalates_budget_and_stays_streaming(
+        self, tmp_path: Path
+    ) -> None:
+        """推理模型预算不够时会返回"空正文但烧了 token"。
+
+        非流式路径会自动翻倍预算重试，流式路径**也必须**——
+        而且升级之后**仍然是流式**。早期版本这里写死了走非流式，
+        表现是"预算不够时用户那边的流突然断了、答案一次蹦出来"，
+        看起来像流式坏了，不像预算升级了。
+        """
+        starved = sse({
+            "choices": [{"delta": {}}],
+            "usage": {
+                "prompt_tokens": 100,
+                "completion_tokens": 32,
+                "total_tokens": 132,
+                "completion_tokens_details": {"reasoning_tokens": 32},
+            },
+        })
+        good = sse(delta(content="六个月。"))
+
+        def handler(request: httpx.Request, i: int) -> httpx.Response:
+            body = starved if i == 0 else good
+            return httpx.Response(200, content=body.encode("utf-8"))
+
+        client, seen = self._client(tmp_path, handler)
+        got: list[str] = []
+        resp = client.chat(
+            [{"role": "user", "content": "q"}], max_tokens=32, on_delta=got.append
+        )
+
+        assert len(seen) == 2
+        assert seen[0]["max_tokens"] == 32
+        assert seen[1]["max_tokens"] == 128, "预算是翻了 4 倍"
+        assert seen[1]["stream"] is True, "升级之后必须还是流式"
+        assert resp.text == "六个月。"
+        assert got == ["六个月。"]
+
+    def test_cache_hit_still_produces_one_delta(self, tmp_path: Path) -> None:
+        """缓存命中时"逐段吐"没有意义（本来就是一瞬读完的），
+        但**必须给一个 delta 事件**——否则前端会转半天圈、然后整段答案突然出现，
+        看起来像页面卡了，而不像"这一轮是从缓存来的"。"""
+        body = sse(delta(content="缓存里的答案"))
+        client, _ = self._client(
+            tmp_path,
+            lambda r, i: httpx.Response(200, content=body.encode("utf-8")),
+            mode="record",
+        )
+        client.chat([{"role": "user", "content": "q"}], on_delta=lambda _: None)
+
+        replay = LLMClient(
+            api_key="sk-test-not-a-real-key",
+            base_url="https://example.invalid",
+            cache_dir=tmp_path / "cache",
+            client=httpx.Client(
+                transport=httpx.MockTransport(lambda r: httpx.Response(200, content=b""))
+            ),
+            mode="replay",
+        )
+        got: list[str] = []
+        resp = replay.chat([{"role": "user", "content": "q"}], on_delta=got.append)
+        assert resp.from_cache is True
+        assert got == ["缓存里的答案"]

@@ -1,0 +1,35 @@
+{
+ "text": "我先查一下法条依据，再帮你算具体金额。",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 4557,
+  "completion_tokens": 592,
+  "total_tokens": 5149,
+  "prompt_cache_hit_tokens": 256,
+  "prompt_cache_miss_tokens": 4301,
+  "reasoning_tokens": 452
+ },
+ "latency_ms": 3416.540399999576,
+ "from_cache": false,
+ "reasoning_text": "",
+ "tool_calls": [
+  {
+   "index": 0,
+   "id": "call_00_XSFDBfpOOALeIktxw1SO7131",
+   "type": "function",
+   "function": {
+    "name": "search_law",
+    "arguments": "{\"query\": \"违法解除劳动合同的赔偿金 二倍 经济补偿标准 工作年限折算\"}"
+   }
+  },
+  {
+   "index": 1,
+   "id": "call_01_VNLNjh57KvzMy4Dv6dCA9069",
+   "type": "function",
+   "function": {
+    "name": "calc_severance",
+    "arguments": "{\"cause\": \"illegal_dismissal\", \"months_of_service\": 38, \"avg_monthly_wage\": 12000}"
+   }
+  }
+ ]
+}

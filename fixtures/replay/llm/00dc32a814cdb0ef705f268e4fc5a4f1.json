@@ -1,0 +1,35 @@
+{
+ "text": "",
+ "model": "deepseek-flash",
+ "usage": {
+  "prompt_tokens": 4500,
+  "completion_tokens": 120,
+  "total_tokens": 4620,
+  "prompt_cache_hit_tokens": 4352,
+  "prompt_cache_miss_tokens": 148,
+  "reasoning_tokens": 29
+ },
+ "latency_ms": 1070.2209999999468,
+ "from_cache": false,
+ "reasoning_text": "",
+ "tool_calls": [
+  {
+   "index": 0,
+   "id": "call_00_ucsKyA3KYWSsl3YKSrpY0170",
+   "type": "function",
+   "function": {
+    "name": "search_law",
+    "arguments": "{\"query\": \"试用期最长可以约定多久 劳动合同法第19条\"}"
+   }
+  },
+  {
+   "index": 1,
+   "id": "call_01_pI9PKoKdI5uaoO3Gyol97255",
+   "type": "function",
+   "function": {
+    "name": "search_law",
+    "arguments": "{\"query\": \"违法约定试用期 赔偿金 劳动合同法第83条\"}"
+   }
+  }
+ ]
+}
