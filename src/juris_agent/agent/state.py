@@ -167,6 +167,53 @@ class AgentState(BaseModel):
     draft: str = ""
     """生成节点的原始输出（**未经过引用校验**）。"""
 
+    memory: Any = None
+    """**这次会话的记忆管理器**（`MemoryManager`，F19–F22 接进主链路的那根线）。
+
+    ⚠️ 它是一个**有状态的对象**，放在状态里而不是放在 `AgentDeps` 里，
+    理由是"会话"这个概念属于状态，不属于依赖：
+
+    - `AgentDeps` 是**进程级**的（检索器、熔断器、模型客户端），
+      一份要服务所有请求；把记忆管理器放进去，A 用户说的月薪会漏进 B 用户的回答。
+    - 一次会话就该有**一个**管理器。放状态里之后，"同一个会话"就等于
+      "同一个 `state.memory`"，这个对应关系是显式的、看得见的。
+
+    ⚠️ 这个字段是 `Any` 而不是 `MemoryManager`，是**为了不让 `state.py`
+    依赖 `memory` 包**。state 是每个模块都要 import 的东西，
+    它多依赖一个包，将来那个包想 import state 就成环了。
+    类型约束交给 `nodes.py`（那里是真用到它的地方）。"""
+
+    memory_block: str = ""
+    """记忆层组装出来、准备塞进提示词的那段文本。**空串 = 这一轮没有记忆。**"""
+
+    memory_policy: str = ""
+    memory_tokens: int = 0
+    memory_layers: list[dict[str, Any]] = Field(default_factory=list)
+    """每层实际用了多少 token、放了几条（`LayerUse` 的字典形态）。
+
+    **这四个字段看着冗余，但它们是"这是回忆出来的、还是这一轮刚说的"
+    唯一的证据。**线上用户问"你怎么知道我月薪多少"时，
+    你要能立刻答出"第 1 轮你自己说的，原文是『月薪 12000』"——
+    那靠的是 `slots_provenance`，不是靠重新推理一遍。"""
+
+    memory_dropped: list[str] = Field(default_factory=list)
+    """被预算砍掉的东西 + 原因。**给"答浅了"归因用**：答得不全时，
+    先看这份清单是不是把某层砍光了。"""
+
+    slots_provenance: dict[str, str] = Field(default_factory=dict)
+    """槽位值 → 出处（`月工资: 12000（第1轮：『我月薪12000』）`）。
+
+    这是整个项目里**唯一一份"用户亲口说过什么"的凭证**。
+    答案里出现数字时，前端可以把它挂在这上面做"点击看原话"。"""
+
+    missing_slots: list[str] = Field(default_factory=list)
+    """**用户还没说、但工具算不出结果必需的事实**（中文标签，比如"工作年限（月）"）。
+
+    用途是"主动追问"：工具报缺参数时，把这条塞进生成提示词，
+    模型就知道该问用户什么——**而不是自己假设一个数算下去**。
+    ⚠️ 必须存中文标签，不能存 `months_of_service` 这种字段名：
+    这个字段会直接出现在给用户看的追问里。"""
+
     tool_messages: Annotated[list[dict[str, Any]], operator.add] = Field(default_factory=list)
     """Function Calling 往返的原始消息（assistant 的 `tool_calls` + tool 的返回）。
 

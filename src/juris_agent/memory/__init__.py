@@ -24,6 +24,7 @@ from juris_agent.memory.manager import (
     MemoryBundle,
     MemoryManager,
     MemoryPolicy,
+    manager_from_settings,
 )
 from juris_agent.memory.slots import (
     SLOT_SPECS,
@@ -62,5 +63,6 @@ __all__ = [
     "WorkingMemory",
     "count_messages",
     "count_tokens",
+    "manager_from_settings",
     "rule_summarize",
 ]

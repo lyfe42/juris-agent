@@ -56,10 +56,66 @@ from juris_agent.agent.state import (
 )
 from juris_agent.agent.verify import resolve_keys, strip_invalid, verify_citations
 from juris_agent.config import Settings, get_settings
+from juris_agent.memory.manager import MemoryManager
+from juris_agent.memory.slots import SLOT_SPECS, TOOL_SLOTS
 
 
 def _now() -> float:
     return time.perf_counter()
+
+
+def _current_turn(history: list[dict[str, str]]) -> int:
+    """**这一轮是第几轮。** 数历史里有几条用户消息，再加 1。
+
+    为什么要显式算而不是让调用方传：**这个数和记忆层的窗口、槽位的"第几轮
+    说的"、探针的 `gap` 全部要对得上**。让调用方传，就多了一个可以填错的入口；
+    而填错的表现是"窗口少算一轮"，不报错、只是慢慢变傻。
+
+    口径必须和 `memory/manager._to_messages()` 一致（那里也是"一条用户消息
+    加一轮"，助手消息沿用当轮的号）——两处不一致就会出现
+    "槽位说第 7 轮、窗口按第 6 轮算"这种查不出来的错位。
+    """
+    return sum(1 for m in history if str(m.get("role", "")) == "user") + 1
+
+
+def _is_missing_fact(error: dict[str, Any] | None) -> bool:
+    """这个工具失败**是不是因为"用户没说过某个必需的事实"**。
+
+    ⚠️ 判据必须是**字段级**的，不能只看"是不是校验失败"：
+
+    | 校验失败的原因 | 该不该问用户 |
+    |---|---|
+    | `missing`（字段没给） | ✅ 该问——他不知道你要什么，告诉他他就会说 |
+    | 类型不符、枚举越界（模型填错了） | ❌ 不该问——**这是模型的错，不是用户的错** |
+    | 出参不符（工具实现有 bug） | ❌ 不该问，该报警 |
+
+    只看"校验失败就问用户"的话，模型自己把 `cause` 填成
+    `"economic_layoff "`（多了个空格）这种错也会变成"请问您是哪种解除情形"——
+    用户会莫名其妙，而且这条追问掩盖了真正的 bug。
+    """
+    if not error or error.get("error_type") != "ToolValidationError":
+        return False
+    if error.get("direction") != "input":
+        return False
+    return any(
+        str(f.get("type", "")).startswith("missing")
+        for f in (error.get("field_errors") or [])
+        if isinstance(f, dict)
+    )
+
+
+def _field_to_slot(tool: str) -> dict[str, str]:
+    """`工具参数字段名 → 槽位名`（只含这个工具真正要的）。
+
+    由 `SLOT_SPECS` 的 `targets` 反查出来，**不手写**：
+    手写就会和槽位定义漂移，而漂移的表现是"某个槽位明明填了却没送去工具"。
+    """
+    return {
+        fld: name
+        for name in TOOL_SLOTS.get(tool, [])
+        for (t, fld) in SLOT_SPECS[name].targets
+        if t == tool
+    }
 
 
 @dataclass
@@ -76,6 +132,17 @@ class AgentDeps:
     retriever: Any = None         # PipelineRetriever（有 search(query, top_k) 即可）
     llm: Any = None               # LLMClient（有 chat(messages, **kw) 即可）
     logger: Any = None
+    memory: MemoryManager | None = None
+    """记忆管理器。**想共享才传，不传就是"每次请求新建一个"。**
+
+    ⚠️ 这里默认 `None` 不是"记忆层关掉了"，而是**"由调用方决定怎么持有它"**：
+
+    - `None` → `remember` 节点每轮现造一个（`manager_from_settings`），
+      靠 `MemoryManager.catch_up()` 从完整历史里补齐槽位。**结果一定对**，
+      代价是每轮把历史重抽一遍（几十毫秒，20 轮的规模下可以忽略）。
+    - 传进来 → 跨轮复用，省掉重抽。**但必须一个会话一个实例**——
+      两个用户共用一个，A 的月薪会出现在 B 的回答里（见 `state.memory` 的说明）。
+    """
 
     def checker(self, state: AgentState) -> InvariantChecker:
         """每个请求一个新的断言器（它要带上 request 上下文）。"""
@@ -91,6 +158,93 @@ class Nodes:
 
     def __init__(self, deps: AgentDeps) -> None:
         self.deps = deps
+
+    # ------------------------------------------------------------------ #
+    # 记忆：把多轮对话压成一段能塞进提示词的东西
+    # ------------------------------------------------------------------ #
+
+    def remember(self, state: AgentState) -> dict[str, Any]:
+        """**把记忆层接进主链路的那一步。**
+
+        ## 这一步之前，记忆层是"死代码"
+
+        四层记忆（槽位/窗口/摘要/长期召回）写完了、也评估过了
+        （`reports/memory_ablation.md`），但**图里没有任何地方调它**。
+        表现是"代码很漂亮、线上一次都没跑过"——这是交付里最危险的一种状态，
+        **因为它的失败是静默的**：没有报错，只是答案里少了几个数。
+
+        接进来只需要三步，分别对应三个真实故障：
+
+        | 步骤 | 不做的后果 |
+        |---|---|
+        | `remember()` 组装出记忆块 | 模型看不到几十轮前说过的事实，开始重新问一遍 |
+        | 记忆块进系统提示词 | 同上（组装了但没送进去，等于没做） |
+        | 槽位预填工具参数 | 模型知道月薪了，但填参数时还是漏掉——工具报缺参数 |
+
+        第三步在 `tool` 节点里（见 `_prefill_args`），不在这里。
+
+        ## 为什么放在 `entry` 之前
+
+        路由（`entry`）将来要看槽位（比如"上下文里有解除情形"就该走计算路），
+        放在它之前，路由拿到的就是最新的槽位表。现在路由还没用到，
+        但**顺序先定对**，比将来再挪一次安全——挪的时候一定会漏掉某个分支。
+        """
+        t0 = _now()
+        mgr = state.memory or self.deps.memory
+        if not self.deps.settings.memory.enabled:
+            return {
+                "trace": [
+                    TraceStep(
+                        step=state.steps + 1,
+                        node="remember",
+                        elapsed_ms=(_now() - t0) * 1000,
+                        note="记忆层已关闭（JURIS_AGENT_MEMORY_ENABLED=false）",
+                    )
+                ]
+            }
+        if mgr is None:
+            # 走到这里说明调用方既没传管理器、也没走 `AgentRunner`（它一定会造一个）。
+            # **不抛异常**：记忆层缺了，答案会变浅，但链路还能给出带出处的回答，
+            # 那比"整个服务 500"强得多。留下痕迹让运维能发现。
+            return {
+                "steps": state.steps + 1,
+                "errors": ["记忆层未装配，本轮不注入历史"],
+                "progress_keys": ["memory:none"],
+                "trace": [
+                    TraceStep(
+                        step=state.steps + 1,
+                        node="remember",
+                        elapsed_ms=(_now() - t0) * 1000,
+                        note="未装配记忆管理器，跳过",
+                    )
+                ],
+            }
+
+        turn = _current_turn(state.history)
+        bundle = mgr.remember(state.question, state.history, current_turn=turn)
+
+        return {
+            "memory_block": bundle.prompt_block,
+            "memory_policy": bundle.policy,
+            "memory_tokens": bundle.total_tokens,
+            "memory_layers": [lay.model_dump() for lay in bundle.layers],
+            "memory_dropped": bundle.dropped + bundle.notes,
+            "slots_provenance": mgr.slots.provenance(),
+            "steps": state.steps + 1,
+            "progress_keys": [f"memory:{bundle.policy}:t{turn}"],
+            "trace": [
+                TraceStep(
+                    step=state.steps + 1,
+                    node="remember",
+                    elapsed_ms=(_now() - t0) * 1000,
+                    note=(
+                        f"第 {turn} 轮｜{bundle.total_tokens} token｜"
+                        + "、".join(f"{lay.name}:{lay.items}" for lay in bundle.layers)
+                    ),
+                    detail={"policy": bundle.policy, "dropped": bundle.dropped},
+                )
+            ],
+        }
 
     # ------------------------------------------------------------------ #
     # 入口：路由
@@ -278,6 +432,9 @@ class Nodes:
         records: list[ToolCallRecord] = []
         tool_messages: list[dict[str, Any]] = []
         refused_by_model = False
+        prefilled: dict[str, Any] = {}
+        conflicts: list[str] = []
+        missing: list[str] = []
 
         for call in resp.tool_calls:
             fn = call.get("function") or {}
@@ -314,6 +471,14 @@ class Nodes:
                 )
                 continue
 
+            # ⚠️ **补参数必须在 `args_hash` 之前。**
+            # 幂等键是按参数算的，补完之后再算才能让"模型漏填"和
+            # "模型填全"这两种到达同一个调用的情况命中同一个缓存。
+            # 顺序反了不报错，只是幂等缓存永远命中不了。
+            args, pre_note, con_note = self._prefill_args(state, name, args)
+            prefilled.update(pre_note)
+            conflicts.extend(con_note)
+
             outcome = self.deps.executor.call(name, args, idempotency_key=args_hash(args))
             payload = outcome.payload()
             rec = ToolCallRecord(
@@ -329,6 +494,15 @@ class Nodes:
                 payload=payload,
             )
             records.append(rec)
+
+            # 工具算不出结果时，看是不是"用户没说过必要的事实"。
+            # ⚠️ **只有这种情况才记缺什么**——工具因为别的原因失败（超时、
+            # 降级、内部错误）时，追问用户是毫无道理的：他不知道你要什么，
+            # 而且知道了也帮不上。判据是错误类型，不是"失败了"。
+            if not outcome.ok:
+                mgr = state.memory or self.deps.memory
+                if mgr is not None:
+                    missing.extend(self._missing_fact_labels(name, outcome.error, mgr))
 
             if name == "refuse_to_answer" and outcome.ok:
                 # 模型主动拒答。**这是被鼓励的**（见 prompts.AGENT_SYSTEM），
@@ -376,6 +550,12 @@ class Nodes:
             # 三层重试）。
             next_step = "generate"
 
+        note = "、".join(f"{r.tool}:{r.status}" for r in records) or "无调用"
+        if prefilled:
+            note += f"（槽位补了 {len(prefilled)} 个参数）"
+        if conflicts:
+            note += f"（{len(conflicts)} 处与用户原话不一致）"
+
         return {
             "tool_results": records,
             "tool_messages": [assistant_msg, *tool_messages],
@@ -383,17 +563,131 @@ class Nodes:
             "tokens_used": tokens,
             "next_step": next_step,
             "refusal": refusal if refused_by_model else None,
+            # 去重保序：一次工具循环里可能好几个工具都缺同一个事实。
+            "missing_slots": list(dict.fromkeys([*state.missing_slots, *missing])),
+            "errors": conflicts,
             "progress_keys": [progress_signature(tool_results=records)],
             "trace": [
                 TraceStep(
                     step=state.steps + 1,
                     node="tool",
                     elapsed_ms=(_now() - t0) * 1000,
-                    note="、".join(f"{r.tool}:{r.status}" for r in records) or "无调用",
-                    detail=base_detail,
+                    note=note,
+                    detail={
+                        **base_detail,
+                        "prefilled": prefilled,
+                        "conflicts": conflicts,
+                        "missing_slots": missing,
+                    },
                 )
             ],
         }
+
+    def _missing_fact_labels(self, tool: str, error: dict[str, Any] | None, mgr: Any) -> list[str]:
+        """这次工具失败里**有几个"用户没说过的必需事实"**，给它们的中文名。
+
+        ## 为什么不能直接 `slots.missing_labels(tool)`
+
+        那个方法的定义是"槽位表里还缺哪些必填项"，**不是"这次调用缺哪几个"**。
+        两者差得远：
+
+        模型填了 `cause`（解除情形）、漏了 `months_of_service`（工作年限）时，
+        `missing_labels()` 会连 `cause` 一起报出来。于是追问变成
+        「请补充：解除情形、工作年限」——**第一个用户根本答不上来**
+        （那不是他能提供的事实，是法律定性），而且模型其实已经处理好了。
+        用户会觉得这个助手在乱问。
+
+        所以两次过滤，缺一不可：
+
+        1. **只认这次真的报缺的字段**（字段级 `type=="missing"`，且能映射回槽位）。
+           类型不符、枚举越界不在此列——那是模型的错。
+        2. **再和"槽位表里也没有"求交集**。
+           槽位里明明有值却还报缺，说明预填被关了、或者工具参数名对错了地方——
+           那种情况要查实现，**不该拿用户当挡箭牌**。
+
+        映射不到槽位的字段（比如工具新加的、槽位表还没覆盖的参数）
+        **直接跳过**：宁可少问一句，也不能把 `months_of_service`
+        这种英文字段名原样发给用户。
+        """
+        if not _is_missing_fact(error):
+            return []
+        field_slot = _field_to_slot(tool)
+        labels: list[str] = []
+        for f in (error or {}).get("field_errors") or []:
+            if not isinstance(f, dict) or not str(f.get("type", "")).startswith("missing"):
+                continue
+            loc = str(f.get("loc", "")).split(".")[-1]  # "a.b" → "b"
+            name = field_slot.get(loc)
+            if name is None:
+                continue
+            spec = SLOT_SPECS.get(name)
+            labels.append(spec.label if spec else name)
+        have = set(mgr.slots.missing_labels(tool))
+        return [x for x in labels if x in have]
+
+    def _prefill_args(
+        self, state: AgentState, name: str, args: dict[str, Any]
+    ) -> tuple[dict[str, Any], dict[str, Any], list[str]]:
+        """**用槽位把模型漏填的工具参数补上。** 返回 `(补好的参数, 补了什么, 冲突说明)`。
+
+        ## 这是在解决哪个具体故障
+
+        第 1 轮用户说"月薪 12000"，第 20 轮问"那能赔多少"。
+        记忆层把月薪渲染进了提示词，模型**知道**这个数——第四轮对话里
+        它甚至引用过。但**填工具参数的时候它就是会漏**：工具调用是模型的
+        输出，而输出里的字段不是"必须填满的表格"，它只填它觉得相关的。
+        结果 `calc_severance` 报"缺 months_of_service"，转一圈回来再问一遍。
+
+        `fill_args()` 把这件事从模型手里拿走：**参数是程序填的，模型没有机会忘。**
+
+        ## 三条规则，按重要性排
+
+        1. **只补不覆盖。** 模型明确填了的字段一律不动。
+        2. **对不上就记一笔，不当场纠正。**
+        3. **只在开关打开时生效**（`JURIS_AGENT_MEMORY_PREFILL_TOOL_ARGS`）。
+
+        ⚠️ 第 1 条和第 2 条看起来矛盾（"既然相信用户原话，为什么不直接覆盖？"），
+        其实不是。理由：**槽位是"用户说过什么"的记录，不是"这次该算什么"的答案。**
+        用户第 1 轮说"月薪 12000"，第 9 轮说"这里面含 2000 餐补"——
+        槽位更新成 12000 了，可"算经济补偿基数该不该算餐补"是**法律问题**，
+        得靠模型判断。程序在这里强行覆盖，就把一个法律判断降级成了一个字符串比较。
+
+        所以选的是：**缺的补上（模型没意见，程序说了算），
+        有分歧的留痕（让模型的判断留在场上，但把它和原话的出入写进 trace）**。
+        """
+        mgr = state.memory or self.deps.memory
+        if mgr is None or not self.deps.settings.memory.prefill_tool_args:
+            return args, {}, []
+
+        from_slots = mgr.slots.fill_args(name)
+        if not from_slots:
+            return args, {}, []
+
+        field_slot = _field_to_slot(name)
+        merged = dict(args)
+        filled: dict[str, Any] = {}
+        conflicts: list[str] = []
+
+        for fld, value in from_slots.items():
+            if fld not in merged or merged[fld] is None or merged[fld] == "":
+                merged[fld] = value
+                filled[fld] = value
+                continue
+            if merged[fld] == value:
+                continue  # 模型填的和用户原话一致，什么都不用做（最常见的情况）
+            slot_name = field_slot.get(fld, fld)
+            spec = SLOT_SPECS.get(slot_name)
+            entry = mgr.slots.entry(slot_name)
+            label = spec.label if spec else slot_name
+            turn = entry.turn if entry else 0
+            quote = entry.quote if entry else ""
+            conflicts.append(
+                f"{name}.{fld}：模型填了 {merged[fld]!r}，"
+                f"但用户第 {turn} 轮说的是「{quote or value}」（{label}={value}）。"
+                "两者不一致——按模型的填法执行，但这里留了记录。"
+            )
+
+        return merged, filled, conflicts
 
     # ------------------------------------------------------------------ #
     # 生成
@@ -455,6 +749,8 @@ class Nodes:
             state.question,
             state.injected,
             state.tool_results,
+            history_block=state.memory_block,
+            missing=state.missing_slots,
         )
         try:
             resp = llm.chat(
@@ -771,19 +1067,38 @@ class Nodes:
     def _agent_messages(self, state: AgentState) -> list[dict[str, Any]]:
         """工具循环用的消息列表。
 
-        结构固定为：系统提示 → （可选）多轮历史 → 本轮问题 → 之前几轮的工具往返。
+        结构固定为：系统提示（+ 记忆块）→ 本轮问题 → 之前几轮的工具往返。
 
-        ⚠️ **历史只带最近 6 条**。这不是偷懒，是 F20 的工作记忆：
-        20 轮对话全塞进去，光历史就吃掉几千 token，而真正决定这次回答的
-        是"这一轮的问题 + 这几轮的工具结果"。**更久远的信息该由槽位和摘要承载**
-        （F19/F21），不该靠无限堆消息。
+        ## ⚠️ 记忆层接进来之后，这里**不再自己截取历史了**
+
+        原来这里是 `state.history[-6:]`——**写死 6 条**。那是 F20 之前
+        "工作记忆"的临时替身：那时候还没有记忆层，只能在这里手切一刀。
+        现在记忆层（`remember` 节点）已经在做同一件事，而且是按预算、
+        按策略做的（槽位优先、摘要其次、窗口按 token 填）。
+
+        两块都留着就是**同一个决定有两个实现**，而两者必然漂移：
+        改这边忘了那边，表现是"答案节点看到的上下文和工具节点看到的不一样"——
+        这种不一致不会报错，只会让"模型为什么没算对"的排查找不到北。
+        所以这里**让位给记忆层**：`state.memory_block` 里已经包含了
+        「最近的对话（原文，未压缩）」，而且是**完整的用户提问原文**。
+
+        记忆层没装配时（`memory_block` 为空）退回老做法，
+        保证"没接记忆层也能跑"。
         """
-        msgs: list[dict[str, Any]] = [{"role": "system", "content": prompts.AGENT_SYSTEM}]
-        for m in state.history[-6:]:
-            role = str(m.get("role", "user"))
-            if role not in ("user", "assistant"):
-                continue
-            msgs.append({"role": role, "content": str(m.get("content", ""))})
+        system = prompts.AGENT_SYSTEM
+        if state.memory_block:
+            # 记忆块**拼进 system 消息**，不另起一条 user 消息。
+            # 理由：它描述的是"用户此前说过的事实"，不是"这一轮用户在说"。
+            # 混成 user 消息的话，模型可能把它当成新的一轮提问去回答。
+            system = f"{system}\n\n{state.memory_block}"
+
+        msgs: list[dict[str, Any]] = [{"role": "system", "content": system}]
+        if not state.memory_block:
+            for m in state.history[-6:]:
+                role = str(m.get("role", "user"))
+                if role not in ("user", "assistant"):
+                    continue
+                msgs.append({"role": role, "content": str(m.get("content", ""))})
         msgs.append({"role": "user", "content": state.question})
         msgs.extend(state.tool_messages)
         return msgs

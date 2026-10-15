@@ -80,6 +80,9 @@ ANSWER_SYSTEM = """你是一名严谨的劳动法咨询助手。请**只根据�
 4. 用口语化的中文，不要用"兹""本条款项"这类公文腔。
    给普通劳动者看，不是给法务看。
 5. 结尾用一句话给出**可操作的建议**（下一步该做什么、去哪、注意什么期限）。
+6. 如果下面列出了「还缺哪些事实」，**先说清楚缺什么、请用户补充**，
+   不要用假设值（"假设你工作了三年"）代替。**假设出来的数字会让用户
+   按一个错的数去谈判**，那比不回答更糟。
 
 ## 回答结构
 
@@ -154,16 +157,41 @@ def build_tool_results_block(tool_results: Sequence[Any]) -> str:
     return "\n".join(lines).rstrip()
 
 
+def build_missing_block(missing: Sequence[str]) -> str:
+    """「还缺哪些事实」那一段。**这是把"工具报错"翻译成"该问用户什么"。**
+
+    工具因为缺参数失败时，返回给模型的是 `{"field_errors": [{"loc":
+    "months_of_service", "type": "missing"}]}`——**字段名是英文的、
+    是给程序看的**。照着它追问，用户会收到一句"请提供 months_of_service"。
+
+    所以这里做一层翻译：拿槽位表里的中文标签写成人话。
+    翻译的依据是 `SLOTS.required`（哪些字段是"没有就算不出来"的），
+    不是"工具报了什么"——**用户没提过、但法条有默认值的字段
+    （比如"有没有提前 30 天通知"）不该问**，问了是打扰。
+    """
+    if not missing:
+        return ""
+    items = "、".join(dict.fromkeys(str(x) for x in missing))
+    return (
+        "## 还缺哪些事实\n"
+        f"用户还没有提供这些信息：**{items}**。\n"
+        "**先向用户提问澄清这几项，不要用假设值算下去。**"
+        "可以顺带说明「为什么要这几项」（例如算经济补偿必须先知道工作了多久），"
+        "用户才知道这些信息是干什么用的、值不值得去查。"
+    )
+
+
 def build_answer_prompt(
     question: str,
     injected: Sequence[InjectedArticle],
     tool_results: Sequence[Any] = (),
     *,
     history_block: str = "",
+    missing: Sequence[str] = (),
 ) -> str:
     """生成节点用的 user 消息。
 
-    ⚠️ 顺序是「记忆 → 法条 → 工具结果 → 问题」，**问题放最后**。
+    ⚠️ 顺序是「记忆 → 法条 → 工具结果 → 缺什么 → 问题」，**问题放最后**。
     理由：模型对**末尾**内容的注意力最高，问题放最后能让它在写完之前的
     上下文后立刻对准要回答的事。反过来（问题放最前）实测更容易出现
     "答了一半开始总结上下文"。
@@ -174,6 +202,9 @@ def build_answer_prompt(
     parts.append(build_context_block(injected))
     if tool_results:
         parts.append(build_tool_results_block(tool_results))
+    missing_block = build_missing_block(missing)
+    if missing_block:
+        parts.append(missing_block)
     parts.append("## 用户的问题")
     parts.append(question)
     parts.append("")
@@ -209,6 +240,7 @@ __all__ = [
     "CHITCHAT_SYSTEM",
     "build_answer_prompt",
     "build_context_block",
+    "build_missing_block",
     "build_refusal",
     "build_tool_results_block",
 ]

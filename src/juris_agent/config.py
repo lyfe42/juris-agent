@@ -124,6 +124,51 @@ class GuardSettings(BaseSettings):
     token_budget: int = 60_000
 
 
+class MemorySettings(BaseSettings):
+    """记忆层的旋钮（F19–F22）。
+
+    ⚠️ **这里放的是"怎么装记忆层"，不是"记忆层的实现在哪"。**
+    层的实现全在 `juris_agent/memory/`，这里只是把它的开关暴露成配置——
+    理由和项目里其它配置一样：**调参不该改代码**，
+    因为改了代码就分不清"这次变好是参数还是逻辑"。
+
+    `policy` 的四个取值就是 F22 消融报告里那四种策略。
+    **默认 `layered`**（槽位 + 窗口 + 摘要 + 长期召回），依据在
+    `reports/memory_ablation.md`：同样 300 多 token 的提示词预算下，
+    它的照抄型保持率是 1.000，滑动窗口是 0.500，无记忆是 0.000。
+    """
+
+    model_config = SettingsConfigDict(env_prefix="JURIS_AGENT_MEMORY_", extra="ignore")
+
+    enabled: bool = True
+    """关掉它，图里那个 `remember` 节点就什么都不做。
+    **留这个开关是为了能做对照实验**：要证明"记忆层有用"，
+    必须能把它整个摘掉跑一遍，而不是嘴上说它有用。"""
+
+    policy: str = Field(
+        default="layered",
+        pattern="^(no_memory|sliding_window|sliding_window_summary|layered)$",
+    )
+
+    total_tokens: int = 2048
+    """记忆层的总预算。**这个数不是"上下文塞得下多少"，是"够用就好"。**
+    prompt 里还有 8 条法条正文（大头），记忆只是其中一段。"""
+
+    slots_max: int = 400
+    window: int = 6
+    """保留最近几轮**原文**。6 轮的依据见 `memory/working.py`。"""
+    segment: int = 6
+    """几轮并成一段摘要。默认和 `window` 一样大，
+    让分界线干净：「最近 6 轮原文 + 再往前每 6 轮一段摘要」。"""
+
+    prefill_tool_args: bool = True
+    """**用槽位补全模型漏填的工具参数**（这是"第 20 轮还记得月薪"的正解）。
+
+    开了之后，凡是被槽位表覆盖的字段，模型没填的就由程序补上；
+    模型填了的**不覆盖**，只在两边对不上时记一条冲突（见 `nodes._prefill_args`）。
+    关掉它就能对比出"补参数"这一步到底值多少——**能关的开关才好说服人**。"""
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_prefix="JURIS_AGENT_",
@@ -186,6 +231,7 @@ class Settings(BaseSettings):
     retrieval: RetrievalSettings = Field(default_factory=RetrievalSettings)
     tool: ToolSettings = Field(default_factory=ToolSettings)
     guard: GuardSettings = Field(default_factory=GuardSettings)
+    memory: MemorySettings = Field(default_factory=MemorySettings)
 
     @property
     def is_prod(self) -> bool:

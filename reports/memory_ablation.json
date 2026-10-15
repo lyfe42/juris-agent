@@ -2259,8 +2259,8 @@
       "n_computed": 20,
       "n_computed_passed": 20,
       "retention_computed": 1.0,
-      "mean_tokens": 359.7307692307692,
-      "total_cost_cny": 0.037412,
+      "mean_tokens": 358.9230769230769,
+      "total_cost_cny": 0.037328,
       "by_gap": {
         "0-5": 1.0,
         "6-10": 1.0,
@@ -2278,8 +2278,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 339,
-          "cost_cny": 0.000678
+          "tokens": 338,
+          "cost_cny": 0.000676
         },
         {
           "session": "s01_layoff",
@@ -2292,8 +2292,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 517,
-          "cost_cny": 0.001034
+          "tokens": 516,
+          "cost_cny": 0.001032
         },
         {
           "session": "s01_layoff",
@@ -2306,8 +2306,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 461,
-          "cost_cny": 0.000922
+          "tokens": 460,
+          "cost_cny": 0.00092
         },
         {
           "session": "s02_illegal",
@@ -2320,8 +2320,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 326,
-          "cost_cny": 0.000652
+          "tokens": 325,
+          "cost_cny": 0.00065
         },
         {
           "session": "s02_illegal",
@@ -2334,8 +2334,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 376,
-          "cost_cny": 0.000752
+          "tokens": 375,
+          "cost_cny": 0.00075
         },
         {
           "session": "s02_illegal",
@@ -2348,8 +2348,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 376,
-          "cost_cny": 0.000752
+          "tokens": 375,
+          "cost_cny": 0.00075
         },
         {
           "session": "s02_illegal",
@@ -2362,8 +2362,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 446,
-          "cost_cny": 0.000892
+          "tokens": 445,
+          "cost_cny": 0.00089
         },
         {
           "session": "s03_probation",
@@ -2376,8 +2376,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 307,
-          "cost_cny": 0.000614
+          "tokens": 306,
+          "cost_cny": 0.000612
         },
         {
           "session": "s03_probation",
@@ -2390,8 +2390,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 497,
-          "cost_cny": 0.000994
+          "tokens": 496,
+          "cost_cny": 0.000992
         },
         {
           "session": "s03_probation",
@@ -2404,8 +2404,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 452,
-          "cost_cny": 0.000904
+          "tokens": 451,
+          "cost_cny": 0.000902
         },
         {
           "session": "s03_probation",
@@ -2418,8 +2418,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 452,
-          "cost_cny": 0.000904
+          "tokens": 451,
+          "cost_cny": 0.000902
         },
         {
           "session": "s04_overtime",
@@ -2432,8 +2432,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 313,
-          "cost_cny": 0.000626
+          "tokens": 311,
+          "cost_cny": 0.000622
         },
         {
           "session": "s04_overtime",
@@ -2446,8 +2446,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 362,
-          "cost_cny": 0.000724
+          "tokens": 361,
+          "cost_cny": 0.000722
         },
         {
           "session": "s04_overtime",
@@ -2460,8 +2460,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 362,
-          "cost_cny": 0.000724
+          "tokens": 361,
+          "cost_cny": 0.000722
         },
         {
           "session": "s04_overtime",
@@ -2474,8 +2474,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 454,
-          "cost_cny": 0.000908
+          "tokens": 452,
+          "cost_cny": 0.000904
         },
         {
           "session": "s05_no_written_contract",
@@ -2488,8 +2488,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 292,
-          "cost_cny": 0.000584
+          "tokens": 291,
+          "cost_cny": 0.000582
         },
         {
           "session": "s05_no_written_contract",
@@ -2502,8 +2502,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 338,
-          "cost_cny": 0.000676
+          "tokens": 337,
+          "cost_cny": 0.000674
         },
         {
           "session": "s05_no_written_contract",
@@ -2516,8 +2516,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 390,
-          "cost_cny": 0.00078
+          "tokens": 389,
+          "cost_cny": 0.000778
         },
         {
           "session": "s06_wage_arrears",
@@ -2614,8 +2614,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 363,
-          "cost_cny": 0.000726
+          "tokens": 362,
+          "cost_cny": 0.000724
         },
         {
           "session": "s07_limitation",
@@ -2628,8 +2628,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 363,
-          "cost_cny": 0.000726
+          "tokens": 362,
+          "cost_cny": 0.000724
         },
         {
           "session": "s08_noncompete",
@@ -2642,8 +2642,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 260,
-          "cost_cny": 0.00052
+          "tokens": 259,
+          "cost_cny": 0.000518
         },
         {
           "session": "s08_noncompete",
@@ -2656,8 +2656,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 305,
-          "cost_cny": 0.00061
+          "tokens": 304,
+          "cost_cny": 0.000608
         },
         {
           "session": "s08_noncompete",
@@ -2670,8 +2670,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 413,
-          "cost_cny": 0.000826
+          "tokens": 412,
+          "cost_cny": 0.000824
         },
         {
           "session": "s09_notice_pay",
@@ -2712,8 +2712,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 381,
-          "cost_cny": 0.000762
+          "tokens": 380,
+          "cost_cny": 0.00076
         },
         {
           "session": "s09_notice_pay",
@@ -2726,8 +2726,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 381,
-          "cost_cny": 0.000762
+          "tokens": 380,
+          "cost_cny": 0.00076
         },
         {
           "session": "s10_expiry",
@@ -2740,8 +2740,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 288,
-          "cost_cny": 0.000576
+          "tokens": 287,
+          "cost_cny": 0.000574
         },
         {
           "session": "s10_expiry",
@@ -2754,8 +2754,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 345,
-          "cost_cny": 0.00069
+          "tokens": 344,
+          "cost_cny": 0.000688
         },
         {
           "session": "s10_expiry",
@@ -2810,8 +2810,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 453,
-          "cost_cny": 0.000906
+          "tokens": 452,
+          "cost_cny": 0.000904
         },
         {
           "session": "s11_social_insurance",
@@ -2824,8 +2824,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 456,
-          "cost_cny": 0.000912
+          "tokens": 455,
+          "cost_cny": 0.00091
         },
         {
           "session": "s12_maternity",
@@ -2838,8 +2838,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 294,
-          "cost_cny": 0.000588
+          "tokens": 293,
+          "cost_cny": 0.000586
         },
         {
           "session": "s12_maternity",
@@ -2852,8 +2852,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 335,
-          "cost_cny": 0.00067
+          "tokens": 334,
+          "cost_cny": 0.000668
         },
         {
           "session": "s12_maternity",
@@ -2866,8 +2866,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 384,
-          "cost_cny": 0.000768
+          "tokens": 383,
+          "cost_cny": 0.000766
         },
         {
           "session": "s13_part_time",
@@ -2880,8 +2880,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 267,
-          "cost_cny": 0.000534
+          "tokens": 266,
+          "cost_cny": 0.000532
         },
         {
           "session": "s13_part_time",
@@ -2894,8 +2894,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 294,
-          "cost_cny": 0.000588
+          "tokens": 293,
+          "cost_cny": 0.000586
         },
         {
           "session": "s13_part_time",
@@ -2908,8 +2908,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 411,
-          "cost_cny": 0.000822
+          "tokens": 410,
+          "cost_cny": 0.00082
         },
         {
           "session": "s14_dispatch",
@@ -2922,8 +2922,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 280,
-          "cost_cny": 0.00056
+          "tokens": 279,
+          "cost_cny": 0.000558
         },
         {
           "session": "s14_dispatch",
@@ -2936,8 +2936,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 310,
-          "cost_cny": 0.00062
+          "tokens": 309,
+          "cost_cny": 0.000618
         },
         {
           "session": "s14_dispatch",
@@ -2964,8 +2964,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 301,
-          "cost_cny": 0.000602
+          "tokens": 300,
+          "cost_cny": 0.0006
         },
         {
           "session": "s15_commission",
@@ -2978,8 +2978,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 347,
-          "cost_cny": 0.000694
+          "tokens": 346,
+          "cost_cny": 0.000692
         },
         {
           "session": "s15_commission",
@@ -2992,8 +2992,8 @@
           "text_visible": true,
           "structured": true,
           "passed": true,
-          "tokens": 383,
-          "cost_cny": 0.000766
+          "tokens": 382,
+          "cost_cny": 0.000764
         }
       ]
     }

@@ -66,8 +66,11 @@ def test_law_path_retrieves_then_generates() -> None:
     assert st.finish_reason == "answered"
     assert st.citations == ["lcl#47"]
     assert [c[0] for c in r.calls] == ["被辞退有补偿吗？"], "检索应该只发生一次"
+    # ⚠️ 这里断言的是**整条轨迹的形状**，所以每加一个节点都要来这里改一次。
+    # 这是刻意留着的摩擦：节点多了、顺序变了，必须有人显式确认一次
+    # "这版图还是我想要的那张图吗"。自动放过的话，图会慢慢长成没人认得的样子。
     assert [t.node for t in st.trace] == [
-        "entry", "retrieve", "guard", "generate", "guard", "finalize",
+        "remember", "entry", "retrieve", "guard", "generate", "guard", "finalize",
     ]
 
 

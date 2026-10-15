@@ -4,7 +4,11 @@
 
 ```
                     ┌─────────────┐
-        START ─────▶│   entry     │  路由（规则，不用模型）
+        START ─────▶│  remember   │  记忆（槽位/窗口/摘要/长期召回）
+                    └──────┬──────┘
+                           ▼
+                    ┌─────────────┐
+                    │   entry     │  路由（规则，不用模型）
                     └──────┬──────┘
              ┌─────────────┼──────────────┬──────────────┐
         law  │        calc │   out_of_scope│      chitchat│
@@ -30,6 +34,24 @@
                              │  finalize   │ ──▶ END
                              └─────────────┘
 ```
+
+## `remember` 为什么在最前面、而且**不经过闸门**
+
+**在最前面**：路由和工具循环都要看它产出的事实（第 20 轮的月薪、
+用户的工作年限）。放在 `entry` 后面也行——但路由将来要看槽位
+（"上下文里有解除情形就该走计算路"），到时候再挪顺序，
+一定会漏掉某个分支。**顺序先定对，比将来挪一次安全。**
+
+**不经过闸门**，原因很直接：**闸门的唯一职责是回答"下一步去哪"。**
+`remember` 只有一个后继（`entry`），没有分支可判。
+让它绕一圈闸门，换来的是"多一条恒真的边"——那不是防护，那是装饰。
+
+⚠️ 但它**算一步**（`steps` 加 1）。口径统一比省下那一圈预算重要：
+`steps` 的含义是"这条轨迹走了几步"，不是"调了几次模型"。
+两种口径混在一个字段里，报表上"平均几步跑完"这个数就没法解释了。
+
+再想往图上加节点时先问一句：**它有几个后继？**
+只有一个的话，它不需要走闸门。
 
 ## 为什么 `guard` 只有一个、而且所有节点都经过它
 
@@ -123,6 +145,7 @@ def build_graph(deps: AgentDeps, *, checkpointer: Any | None = None) -> Any:
     nodes = Nodes(deps)
     g = StateGraph(AgentState)
 
+    g.add_node("remember", nodes.remember)
     g.add_node("entry", nodes.entry)
     g.add_node("retrieve", nodes.retrieve)
     g.add_node("tool", nodes.tool)
@@ -132,7 +155,8 @@ def build_graph(deps: AgentDeps, *, checkpointer: Any | None = None) -> Any:
     g.add_node("guard", nodes.guard)
     g.add_node("finalize", nodes.finalize)
 
-    g.add_edge(START, "entry")
+    g.add_edge(START, "remember")
+    g.add_edge("remember", "entry")
     g.add_conditional_edges("entry", _route_after_entry, _AFTER_ENTRY)
 
     # 三个"工作节点"的出口都指向同一个闸门。**这是本文件的核心结构。**
@@ -166,31 +190,89 @@ class AgentRunner:
         self.deps = deps
         self.graph = build_graph(deps, checkpointer=checkpointer)
 
+    def new_memory(self) -> Any:
+        """**开一段新会话时该调这个**：造一个干净的记忆管理器。
+
+        单独留一个方法，是因为"会话"这个概念目前只体现在这里。
+        将来接了 FastAPI，会话表里存的就是这个对象
+        （按 `thread_id` 存，一个会话一个）。
+        """
+        from juris_agent.memory.manager import manager_from_settings
+
+        return manager_from_settings(self.deps.settings)
+
+    def _memory_for(self, memory: Any, history: list[dict[str, str]]) -> Any:
+        """决定这一轮用哪个记忆管理器。
+
+        ## 默认行为的取舍（值得说清楚，因为它是本项目唯一一个"隐式约定"）
+
+        **不传 `memory` 时，每轮现造一个新的。** 这看着浪费，其实是对的：
+
+        - 结果是**正确的**。`MemoryManager.catch_up()` 会从完整历史里
+          补齐槽位，所以"每轮新建"和"跨轮复用"算出来的槽位表一样。
+        - 代价是每轮把历史重抽一遍正则（20 轮规模下几十毫秒），
+          **换掉的是一个很脏的失败模式**：进程里共用一个管理器，
+          A 用户的月薪会出现在 B 用户的答案里。这种串数据一旦发生，
+          日志里完全看不出来。
+
+        **想省那几十毫秒就自己传**：一个会话一个实例，由调用方持有。
+        这是显式的优化，出问题的范围也明确（"你把两个会话指向同一个了"）。
+        """
+        if memory is not None:
+            return memory
+        if self.deps.memory is not None:
+            return self.deps.memory
+        if not self.deps.settings.memory.enabled:
+            return None
+        return self.new_memory()
+
     def ask(
         self,
         question: str,
         *,
         history: list[dict[str, str]] | None = None,
+        memory: Any = None,
         thread_id: str | None = None,
     ) -> AgentState:
         """跑一轮。**返回完整状态**，包括 trace——
-        调用方要展示"检索了哪些、引用了哪些"，这些都在里面。"""
-        init = AgentState(question=question, history=list(history or []))
+        调用方要展示"检索了哪些、引用了哪些"，这些都在里面。
+
+        `memory` 给多轮会话用：把同一段会话的每一轮都指向同一个管理器，
+        省掉每轮重抽历史的开销。**不同会话之间绝不能共用**——
+        理由写在 `_memory_for` 里。
+        """
+        hist = list(history or [])
+        init = AgentState(
+            question=question, history=hist, memory=self._memory_for(memory, hist)
+        )
         cfg = {"configurable": {"thread_id": thread_id}} if thread_id else None
         out = self.graph.invoke(init, cfg) if cfg else self.graph.invoke(init)
         # LangGraph 在有 checkpointer 时返回 dict；无 checkpointer 时返回状态对象。
         # 两种都归一成 `AgentState`，免得调用方要判类型。
         return out if isinstance(out, AgentState) else AgentState.model_validate(out)
 
-    def stream(self, question: str, *, history: list[dict[str, str]] | None = None):
+    def stream(
+        self,
+        question: str,
+        *,
+        history: list[dict[str, str]] | None = None,
+        memory: Any = None,
+    ):
         """按步产出 `(节点名, 该步的状态增量)`。
 
         ⚠️ **`stream_mode="updates"` 给的是"增量"不是"全量"**。
         SSE 层要的是"这一步发生了什么"（`tool_call`、`token`），
         增量正好对应；要全量得自己累积。这个 swap 在写 SSE 时很容易搞反，
         所以在这里写清楚，别到 `api/` 里再猜。
+
+        ⚠️ 流式模式下**调用方要自己把增量拼起来**才能拿到
+        `memory_block` / `injected` 这些跨节点的字段。SSE 层真正要的是
+        "这一步产出了什么事件"，不是"现在的完整状态"。
         """
-        init = AgentState(question=question, history=list(history or []))
+        hist = list(history or [])
+        init = AgentState(
+            question=question, history=hist, memory=self._memory_for(memory, hist)
+        )
         yield from self.graph.stream(init, stream_mode="updates")
 
 
@@ -202,6 +284,7 @@ def make_runner(
     llm: Any = None,
     settings: Any = None,
     logger: Any = None,
+    memory: Any = None,
     checkpointer: Any | None = None,
 ) -> AgentRunner:
     """便利构造。
@@ -231,6 +314,7 @@ def make_runner(
         retriever=retriever,
         llm=llm,
         logger=logger,
+        memory=memory,
     )
     return AgentRunner(deps, checkpointer=checkpointer)
 

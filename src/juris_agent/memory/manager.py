@@ -111,6 +111,12 @@ class MemoryBundle(BaseModel):
     dropped: list[str] = Field(default_factory=list)
     """被砍掉的东西 + 为什么。**这份清单是 F22 报告的核心素材**——
     "第 20 轮丢了信息"能一眼看出"是因为摘要层被砍了"。"""
+    notes: list[str] = Field(default_factory=list)
+    """装配过程中的说明性事件（目前只有"补喂了几轮历史"）。
+
+    ⚠️ **和 `dropped` 分开，不是图省事。** 两者混在一起的话，
+    "这次丢了 3 样东西"这个统计会把"补喂了 4 轮"也算进去，
+    而这两件事的含义完全相反：一个是信息没进去，一个是信息刚被补上。"""
     policy: str = MemoryPolicy.LAYERED.value
     total_tokens: int = 0
 
@@ -131,9 +137,89 @@ class MemoryManager(BaseModel):
     long_term: LongTermStore = Field(default_factory=LongTermStore)
     slots: Slots = Field(default_factory=Slots)
 
+    observed_upto: int = 0
+    """槽位层**已经看过**到第几轮了。`catch_up()` 靠它决定要补喂哪几轮。
+
+    ⚠️ 这个字段是"管理器可以随用随建"这件事的地基，值得多说两句。
+
+    四种层里只有槽位层**真的需要跨轮累积**：窗口和摘要是纯函数
+    （喂全量历史就能算出同样的结果），长期层在 `build()` 里由窗口边界推出来。
+    可槽位是靠 `observe()` 一轮一轮**读人话**攒的——只喂当前这一轮，
+    它就只知道这一轮说过的事。
+
+    没有这个字段的时候只有两种办法，都不好：
+    - 要求调用方**保证同一个会话复用同一个管理器**：忘了就静默变傻，
+      而且"忘了"这件事不报错——这正是本项目最讨厌的一类 bug。
+    - 每次 `build()` 都把全历史重抽一遍：20 轮 × 每轮正则，白白多跑一遍，
+      而且 `observe()` 的冲突消解会**重复写 history**（同一条"模糊值被拒"
+      记 20 遍），把日志淹掉。
+
+    `catch_up()` 取中间值：**只补没看过的**，看完记账。这样
+    "每轮新建一个管理器"和"一个会话复用一个"结果一样，
+    后者只是省掉重抽的那几十毫秒。"""
+
     # ------------------------------------------------------------------ #
     # 喂数据
     # ------------------------------------------------------------------ #
+
+    def catch_up(self, history: list[dict[str, str]], *, current_turn: int) -> int:
+        """把历史里**还没喂过**的那几轮补喂进槽位层。返回补了几轮。
+
+        轮次编号的口径必须和 `build()` 一致（都走 `_to_messages`），
+        否则会出现"槽位记着第 7 轮、窗口算出来第 6 轮"这种对不上的情况——
+        对不上不报错，只是让"第 20 轮丢了信息"的排查全对错地方。
+        """
+        msgs = _to_messages(history)
+        pending = sorted(
+            {m.turn for m in msgs if m.role == "user" and m.turn > self.observed_upto}
+        )
+        fed = 0
+        for t in pending:
+            if t >= current_turn:  # 当前这一轮由 `remember()` 单独喂，别喂两遍
+                continue
+            text = next((m.content for m in msgs if m.turn == t and m.role == "user"), "")
+            self.observe(text, turn=t)
+            self.derive(turn=t)
+            self.observed_upto = t
+            fed += 1
+        return fed
+
+    def remember(
+        self,
+        question: str,
+        history: list[dict[str, str]],
+        *,
+        current_turn: int,
+    ) -> MemoryBundle:
+        """**一轮对话要做的全部记忆动作，合成一次调用**：补喂 → 抽当前轮 → 派生 → 组装。
+
+        ⚠️ 顺序不能换，每一步都依赖前一步：
+
+        1. `catch_up()` 先补齐历史。**必须在抽当前轮之前**——
+           不然"用户第 3 轮改口说月薪 15000"和"第 15 轮又说 12000"
+           的先后顺序会乱，冲突消解会认错哪个是新的。
+        2. `observe()` 抽当前这一轮。
+        3. `derive()` 派生（入职日期 → 工作月数）。**必须在前两步之后**：
+           它用的是刚抽到的原料。
+        4. `build()` 组装。**必须最后**：它要看到最新的槽位表。
+
+        为什么做成一个方法而不是让调用方自己调四步：**这四步的顺序是一份知识**，
+        散在调用方就意味着每多一个调用方就多一次搞错顺序的机会，
+        而搞错了不报错（只是记住了错的值）。
+        """
+        fed = self.catch_up(history, current_turn=current_turn)
+        self.observe(question, turn=current_turn)
+        self.derive(turn=current_turn)
+        self.observed_upto = max(self.observed_upto, current_turn)
+        bundle = self.build(question, history, current_turn=current_turn)
+        if fed:
+            # 补喂这件事要留痕：出问题时"这一轮到底看过几轮历史"是第一个要问的问题。
+            #
+            # ⚠️ 刻意**不写进 `dropped`**：那份清单的含义是"什么东西被预算砍掉了"，
+            # 补喂不是被砍，混进去之后报表上"因为预算不足丢了 3 条"这类结论就没法信了。
+            # 两种性质不同的信息不能共用一个字段——这是当初把它拆成两个字段的理由。
+            bundle.notes.append(f"记忆层补喂了 {fed} 轮此前未看过的历史")
+        return bundle
 
     def observe(self, text: str, *, turn: int) -> list[str]:
         """把一句用户话喂进槽位层。**返回这次真正写进去的槽位名。**
@@ -479,4 +565,47 @@ def _render_recent(msgs: list[Message]) -> str:
     return "\n".join(lines)
 
 
-__all__ = ["LayerUse", "MemoryBudget", "MemoryBundle", "MemoryManager", "MemoryPolicy"]
+def manager_from_settings(settings: Any) -> MemoryManager:
+    """按 `Settings.memory` 造一个**新会话**的记忆管理器。
+
+    ## 为什么是一个函数，不是 `MemoryManager.from_settings()` 类方法
+
+    因为 `memory/` 这一层**不该认识 `Settings`**。让它认识的话，将来
+    评测脚本想用一套"和线上不一样的预算"试参数，就得先伪造一个 `Settings`
+    对象——那是把配置系统的复杂度硬塞进算法层。
+    现在这样：谁想用 `Settings` 谁自己读，读出来传三个数进来。
+    **依赖方向是 memory ← config，不是 memory → config。**
+
+    默认值全部对齐 `MemorySettings` 的默认值，所以直接
+    `manager_from_settings(Settings())` 拿到的是生产配置。
+
+    ⚠️ `working.window` 只在非 `sliding_window` 策略下由这里设。
+    `sliding_window` 策略会**自己把窗口拉大**（把节省下来的摘要/槽位预算
+    全给原文）——见 `_allocate_recent`。这是刻意的：
+    那个策略的含义就是"不压缩、全靠原文"，窗口开小了它就不成其为对照了。
+    """
+    m = getattr(settings, "memory", None)
+    # 没配 `memory` 段的老配置对象（测试里常见）→ 用默认值，别抛异常。
+    # 理由：一个配置项缺失不该让整条链路挂掉，这里降级成"用默认策略"的后果很轻。
+    policy = MemoryPolicy(getattr(m, "policy", MemoryPolicy.LAYERED.value))
+    return MemoryManager(
+        policy=policy,
+        budget=MemoryBudget(
+            total=getattr(m, "total_tokens", 2048),
+            slots_max=getattr(m, "slots_max", 400),
+        ),
+        working=WorkingMemory(
+            window=getattr(m, "window", 6),
+            segment=getattr(m, "segment", 6),
+        ),
+    )
+
+
+__all__ = [
+    "LayerUse",
+    "MemoryBudget",
+    "MemoryBundle",
+    "MemoryManager",
+    "MemoryPolicy",
+    "manager_from_settings",
+]

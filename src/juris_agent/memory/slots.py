@@ -316,6 +316,30 @@ for _spec in SLOT_SPECS.values():
 # ============================================================================
 
 
+def render_value(value: Any) -> str:
+    """把槽位值渲染成人会写的样子。**只改写法，不改值。**
+
+    ⚠️ **存在的理由很具体：金额从人话里抽出来必然是 float（`12000.0`），
+    而没人会那么写钱。** 直接把 `12000.0` 塞进提示词有两个代价：
+
+    1. 模型跟着照抄，答案里写成"月薪 12000.0 元"——用户看到的是机器腔。
+    2. 更糟的是**它会被抄进 `[编号]` 旁边的数字里**，而"12000.0"这种写法
+       在中文法律文书里是错的（保留两位是财务口径：`12000.00`）。
+
+    所以：整数值的 float 去掉小数点，其余原样（`7900.0` → `7900`，
+    `0.5` 还是 `0.5`）。`True`/`False` 这类布尔值保持 Python 的写法——
+    它们渲染进提示词是给模型看的（"是否提前 30 日通知：False"），
+    翻译成"是/否"反而会在 `Bool` 型工具参数那里多一层来回。
+
+    ⚠️ **不要在这里做单位换算或四舍五入**。这个函数只影响"怎么写"，
+    一旦它开始改数值，`prompt_block` 里的数就和 `values` 里的数不一样了——
+    而"提示词里的数"正是报错时用户拿来对账的那一份。
+    """
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value)
+
+
 class SlotValue(BaseModel):
     """槽位里的一个值。**值只是一半，另一半是"它是怎么来的"。**"""
 
@@ -332,7 +356,7 @@ class SlotValue(BaseModel):
     冲突消解只看这一个数，见模块 docstring 的第 3 条。"""
 
     def __str__(self) -> str:
-        return f"{self.value}（第{self.turn}轮）"
+        return f"{render_value(self.value)}（第{self.turn}轮）"
 
 
 class Slots(BaseModel):
@@ -368,11 +392,18 @@ class Slots(BaseModel):
         }
 
     def provenance(self) -> dict[str, str]:
-        """值 → 出处的一行说明。给 trace 和前端用（"月薪 12000（第1轮：『月薪 12000』）"）。"""
-        return {
-            k: f"{v.value}（第{v.turn}轮：『{v.quote}』）" if v.quote else f"{v.value}（第{v.turn}轮）"
-            for k, v in self.values.items()
-        }
+        """值 → 出处的一行说明。给 trace 和前端用（"月薪 12000（第1轮：『月薪 12000』）"）。
+
+        走 `render_value` 而不是直接 `f"{v.value}"`，是为了和 `prompt_block()`
+        写出同一个样子——**同一份事实在两处显示成两个写法**（一个 12000、
+        一个 12000.0）会让"用户看到的数"和"模型看到的数"对不上，
+        而这两份数本来是要能逐字对上的。
+        """
+        out: dict[str, str] = {}
+        for k, v in self.values.items():
+            val = render_value(v.value)
+            out[k] = f"{val}（第{v.turn}轮：『{v.quote}』）" if v.quote else f"{val}（第{v.turn}轮）"
+        return out
 
     # -- 写 --------------------------------------------------------------- #
 
@@ -557,7 +588,7 @@ class Slots(BaseModel):
         for name, v in shown.items():
             spec = SLOT_SPECS[name]
             mark = "" if v.precision >= 2 else "（用户表述模糊，注意核对）"
-            lines.append(f"- {spec.label}：{v.value}{mark}")
+            lines.append(f"- {spec.label}：{render_value(v.value)}{mark}")
         return "\n".join(lines)
 
 
@@ -1217,4 +1248,5 @@ __all__ = [
     "SlotValue",
     "Slots",
     "cn_to_int",
+    "render_value",
 ]

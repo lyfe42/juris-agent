@@ -88,11 +88,52 @@ class GuardDecision(BaseModel):
         )
 
 
+def _canonical(value: Any) -> Any:
+    """把参数值归一成"同一种东西只有一种写法"。
+
+    ⚠️ **这不是洁癖，是一个被测试抓出来的真 bug。**
+
+    模型给的参数是从 JSON 解析来的：`12000` 是 **int**。
+    槽位预填给的是从人话里抽出来的：`12000` 是 **float**（`12000.0`）。
+    两者在 Python 里 `==` 相等，`json.dumps` 出来却是两个字符串——
+    于是**同一笔钱、同一个计算，算出两个不同的指纹**。后果有两处，
+    都不报错：
+
+    1. **幂等缓存永远命中不了**：模型漏填的那次和填全的那次本该复用同一份结果，
+       实际各算一遍。（`tests/test_agent_memory.py::test_prefill_happens_before_the_idempotency_key`）
+    2. **重复调用闸门漏判**：模型第一次用 `12000`、第二次用 `12000.0` 调同一个工具，
+       签名不同 → 不算"重复调用" → 少了一道防死循环。
+
+    归一规则只有两条，够用且不激进：
+    - 整数值的 float → int（`12000.0` → `12000`）
+    - 递归处理 dict / list / tuple，其余原样
+
+    **不做**的事：不把 `"12000"`（字符串）也归成数字。
+    那是类型不符，工具入参校验会拦下来并让模型改正——
+    在这里悄悄归一，等于替模型掩盖了它填错类型的事实。
+    """
+    if isinstance(value, bool):  # bool 是 int 的子类，必须排在前面
+        return value
+    if isinstance(value, float) and value.is_integer():
+        return int(value)
+    if isinstance(value, dict):
+        return {str(k): _canonical(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_canonical(v) for v in value]
+    return value
+
+
 def args_hash(args: dict[str, Any] | None) -> str:
-    """参数指纹。**先排序键再序列化**——否则 `{"a":1,"b":2}` 和 `{"b":2,"a":1}`
-    会被算成两个不同的调用，闸门就形同虚设（模型换个键序就绕过去了）。
-    `sort_keys=True` + `separators` 是经典写法：紧凑且确定。"""
-    payload = json.dumps(args or {}, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    """参数指纹。**先归一、再排序键、再序列化。**
+
+    - **归一**：`12000.0` 和 `12000` 必须同指纹，理由见 `_canonical`。
+    - **排序键**：否则 `{"a":1,"b":2}` 和 `{"b":2,"a":1}` 会被算成两个不同的调用，
+      闸门就形同虚设（模型换个键序就绕过去了）。
+    - `sort_keys=True` + `separators` 是经典写法：紧凑且确定。
+    """
+    payload = json.dumps(
+        _canonical(args or {}), sort_keys=True, ensure_ascii=False, separators=(",", ":")
+    )
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12]
 
 
