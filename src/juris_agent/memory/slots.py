@@ -463,6 +463,80 @@ class Slots(BaseModel):
         不能让用户看 `months_of_service` 这种字段名。"""
         return [SLOT_SPECS[n].label for n in self.missing_for(tool)]
 
+    # -- 跨轮更新 ---------------------------------------------------------- #
+
+    def observe(self, text: str, *, turn: int) -> list[str]:
+        """看一句用户话，更新槽位。**返回这一次真正写进去的槽位名**。
+
+        返回列表而不是 bool，是因为"第 12 轮更新了哪几个槽位"这件事
+        要进 trace——排查"为什么第 20 轮少了一个数"时，第一眼看的就是它。
+
+        ⚠️ **内部槽位也照存不误，别在这里过滤。**
+        `work_start`（入职日期）正是 `derive()` 的原料——滤掉它，
+        "用户只给了入职日期、没给年限"这条最常见的路径就直接断了，
+        而且**不报错**（`derive()` 只是什么都不做）。
+        内部槽位"不给模型看"这件事由 `prompt_block()` 负责，
+        不该由"存不存"来管。**职责放错了地方，就会出现这种静默失效。**
+        """
+        changed: list[str] = []
+        for name, sv in SlotExtractor.extract(text, turn=turn).items():
+            if self.put(
+                name, sv.value, turn=sv.turn, quote=sv.quote,
+                source=sv.source, precision=sv.precision,
+            ):
+                changed.append(name)
+        return changed
+
+    def derive(self, *, turn: int) -> list[str]:
+        """**派生槽位**：用已经抽到的槽位算出新的槽位。
+
+        目前只有两条，都是真实咨询里反复出现的：
+
+        - 入职日期 + 今天 → 工作月数（用户常给日期不给年限）
+        - 城市 → 当地社平工资（查表；查不到就不填，**不编**）
+
+        放在一个单独的方法里而不是塞进 `observe()`：派生是**纯计算**，
+        幂等、可重放；抽取是**读人话**，会漏会错。两者混在一起以后没法分别调。
+
+        ⚠️ 这两个方法挂在 `Slots` 上而不是 `SlotStore` 上，是因为
+        `SlotStore` 只是个"持有者"，真正的状态全在 `Slots.values` 里。
+        逻辑跟着状态走——`MemoryManager` 手里有的是 `Slots`，
+        它就不需要为了调这两个方法再包一层 `SlotStore`。
+        """
+        import datetime as _dt
+
+        changed: list[str] = []
+
+        # ---- 入职日期 → 工作月数 ----
+        start = self.get("work_start")
+        if start and not self.has("months_of_service"):
+            try:
+                d0 = _dt.date.fromisoformat(str(start))
+                today = _dt.date.today()
+                months = (today.year - d0.year) * 12 + (today.month - d0.month)
+                if today.day < d0.day:
+                    months -= 1
+                if months >= 0 and self.put(
+                    "months_of_service", months, turn=turn,
+                    quote=f"由入职日期 {d0} 推算", source="manual", precision=2,
+                ):
+                    changed.append("months_of_service")
+            except ValueError:
+                pass
+
+        # ---- 城市 → 社平工资 ----
+        city = self.get("city")
+        if city and not self.has("local_avg_monthly_wage"):
+            wage = CITY_AVG_WAGE.get(str(city))
+            if wage and self.put(
+                "local_avg_monthly_wage", wage, turn=turn,
+                quote=f"{city} 上年度职工月平均工资（内置表，需人工复核）",
+                source="manual", precision=1,  # **精度只给 1**：这是表里的值，会过期
+            ):
+                changed.append("local_avg_monthly_wage")
+
+        return changed
+
     # -- 渲染 -------------------------------------------------------------- #
 
     def prompt_block(self) -> str:
@@ -507,6 +581,10 @@ _CN_YUAN_RE = re.compile(
     r"(?P<tail>[一二两三四五六七八九十百千零]*)\s*(?:元|块钱|块)?"
 )
 _MONTHS_RE = re.compile(r"(?P<num>\d+)\s*(?:个)?月")
+# "三个月""十个月" 这种中文数字的月数。**不能省**——
+# 中文口语里"三年零一个月""两年三个月"全是这么说的，
+# 只认阿拉伯数字会把"零一个月""三个月"整个丢掉，年限直接从 37 变成 36。
+_CN_MONTHS_RE = re.compile(r"(?P<cn>[一二两三四五六七八九十]+)\s*(?:个)?月")
 _YEARS_RE = re.compile(r"(?P<num>\d+)\s*年")
 _CN_YEARS_RE = re.compile(r"(?P<cn>[一二两三四五六七八九十半]+)\s*年")
 _DATE_RE = re.compile(r"(?P<y>\d{4})\s*[-/年.]\s*(?P<m>\d{1,2})(?:\s*[-/月.]\s*(?P<d>\d{1,2}))?")
@@ -518,6 +596,13 @@ _CN_TIME_RE = re.compile(r"[一二两三四五六七八九十半]+\s*(?:个)?(?:
 # 理由见 `SlotExtractor.extract` 里那一段注释。
 _ENDED_CUES = (
     "离职", "走了", "辞退", "开除", "解除", "终止", "不干了", "离开公司", "被裁",
+)
+
+# "这是在说我干了多久"的说法。**只在"纯月数"的时长上用来做判据**——
+# 带"年"的说法不需要它（见 `_extract_durations` 里的说明）。
+# "签"也算：合同期限也是时长，只是归属不同（由局部窗口决定）。
+_SERVICE_CUES = (
+    "干", "工作", "上班", "工龄", "入职", "在职", "做了", "待了", "签", "满",
 )
 
 
@@ -580,6 +665,34 @@ _WAGE_CUES = (
 # ⚠️ 刻意**不收"不是""其实"**：它们太常见，而且常常是否定句
 # （"不是我不想签"），收进来会把很多普通数字误判成金额。
 _CORRECTION_CUES = ("不对", "应该是", "改成", "更正", "说错", "记错", "打错")
+
+# "公司欠着工资没给"的说法。**这是个正则而不是几个关键词**，
+# 因为这句话的语序太活："公司欠我最后一个月工资没结"、"已经三个月没发工资了"、
+# "拖欠的工资能要利息吗"——动词可能在"工资"前面，也可能在后面。
+# 所以两头都要认：`欠/拖/没发…工资` 和 `工资…没发/没结`。
+#
+# ⚠️ 中间的 `[^。；，？！]{0,6}?` 是**非贪婪 + 有上限**的：
+# 不限长度的话，"他不给我加班费，公司还欠我工资"里的"不给"会一路吃到
+# 很远的"工资"上；限定 6 个字，夸不过一个短句。
+_ARREARS_RE = re.compile(
+    r"(?:拖欠|拖了|欠|克扣|扣着|不发|没发|未发|没结|未结|不给)"
+    r"[^。；，？！]{0,6}?工资"
+    r"|工资[^。；，？！]{0,6}?(?:没发|不发|未发|没结|未结|拖欠|拖着|欠着)"
+)
+
+# "这里的『一年/两年』是法律上的期限，不是他干了多久"的信号。
+#
+# ⚠️ 踩过的坑：`"这个是不是不受一年限制"` —— "一年"被抽成了**工作年限 12 个月**。
+# 它是仲裁时效的法定期限，和"我在这家公司干了多久"没有任何关系。
+# 一旦写进槽位，第 20 轮算补偿金就会按 12 个月算——**用户看不出来**。
+#
+# 判据：这些词出现在时长附近，就说明这是个"法定期限"的语境，
+# 那就**必须**同时出现"干了/工作/签"这类线索才认（见 `_extract_durations`）。
+# 单靠"带年就不查线索"那条规则挡不住它，因为"一年"恰好带年。
+_LEGAL_ONLY_CUES = (
+    "时效", "限制", "起算", "届满", "过期", "之内", "以内",
+    "不超过", "不得超过", "追溯",
+)
 
 
 def _money_from(match: re.Match[str], text: str) -> tuple[float, int, str, bool]:
@@ -768,6 +881,12 @@ class SlotExtractor:
         for m in _MONTHS_RE.finditer(text):
             if not clash(*m.span()) and not is_probation(m.start()):
                 raw.append((m.start(), m.end(), int(m.group("num"))))
+        for m in _CN_MONTHS_RE.finditer(text):
+            if clash(*m.span()) or is_probation(m.start()):
+                continue
+            n = cn_to_int(m.group("cn"))
+            if n:
+                raw.append((m.start(), m.end(), n))
         for m in _YEARS_RE.finditer(text):
             if not clash(*m.span()):
                 raw.append((m.start(), m.end(), int(m.group("num")) * 12))
@@ -806,6 +925,34 @@ class SlotExtractor:
             months = sum(h[2] for h in g)
             if months <= 0 or months > 600:
                 continue  # 见上面「一个上限保护」
+
+            # ⚠️ **只有"月"、没有"年"的时长，必须真有一句"我干了多久"在旁边。**
+            #
+            # 踩过的坑：`"赔我两个月工资"` 里的"两个月"被算成**工龄 2 个月**，
+            # `"拖欠工资三个月"` 也算成工龄 3 个月。这类句子里的"几个月"
+            # 说的是**一笔钱**或者**拖了多久**，和"我在这家公司干了多久"
+            # 完全是两回事。而工龄是算补偿金的第一个参数，错了就全错。
+            #
+            # 判据：这个组里**一个"年"都没有**（纯月数），那就得在它前后
+            # 8 个字里看到"干了/工作/签/在职"这类词才认。
+            # 为什么"带年"的组不用查：`"三年零一个月"`、`"两年三个月"`
+            # 这种说法本身就只用来描述时长，"年终奖三个月"这类说法不存在。
+            #
+            # ⚠️ **但"带年"不等于"在说工龄"。** 第二个坑：
+            # `"这个是不是不受一年限制"` 里的"一年"是**仲裁时效的法定期限**，
+            # 它照样带年、照样是 12 的倍数，上面那条规则放它过去了——
+            # 于是工作年限被悄悄改成了 12 个月。
+            # 所以再加一条：**时长附近出现法律期限的词（时效/限制/起算/过期…）
+            # 时，无论带不带年，都必须有"干了/工作"这类线索才认。**
+            # 这两条规则是**叠加**的，不是替代——
+            # 前一条管"没有年"，后一条管"有年但语境不对"。
+            window = text[max(0, start - 8) : end + 8]
+            has_service = any(c in window for c in _SERVICE_CUES)
+            legal_context = any(c in window for c in _LEGAL_ONLY_CUES)
+            has_year = any(h[2] % 12 == 0 and h[2] >= 12 for h in g)
+            if not has_service and (legal_context or not has_year):
+                continue
+
             for h in g:
                 taken.append((h[0], h[1]))
 
@@ -930,9 +1077,14 @@ class SlotExtractor:
             out["notice_given"] = SlotValue(
                 value=not neg, turn=turn, quote="提前通知", source="rule"
             )
-        if any(w in text for w in ("拖欠工资", "欠薪", "不发工资", "没发工资")):
+        # 拖欠劳动报酬。**判据是正则不是关键词表** —— "公司还欠我最后一个月工资没结"
+        # 这种语序里，"欠"和"工资"中间隔着 6 个字，关键词表根本认不出来。
+        # 这一条很值钱：仲裁时效第 27 条第 4 款对"拖欠劳动报酬"有例外，
+        # 漏了它就会把一个"还来得及"的案子答成"过期了"。
+        m = _ARREARS_RE.search(text)
+        if m:
             out["is_wage_arrears"] = SlotValue(
-                value=True, turn=turn, quote="拖欠工资", source="rule"
+                value=True, turn=turn, quote=m.group(0), source="rule"
             )
 
         # 劳动关系终止之日。⚠️ **它是个日期，不是"结束了没有"。**
@@ -1017,75 +1169,24 @@ _KNOWN_CITIES = (
 
 
 class SlotStore(BaseModel):
-    """一次会话的槽位。**跨轮持久**——这就是它和"把事实塞进 prompt"的区别。"""
+    """一次会话的槽位。**跨轮持久**——这就是它和"把事实塞进 prompt"的区别。
+
+    ⚠️ 它现在只是个**持有者**：真正干活的两个方法（`observe` / `derive`）
+    挂在 `Slots` 上，这里只做转发。留着这一层是因为 `tests/` 和早先的调用方
+    都按 `store.observe(...)` 这个形状写，改签名没有收益；
+    但**逻辑不能再有第二份**——两份逻辑迟早会漂移，而漂移的方向
+    一定是"其中一条路径忘了更新"，那是最难查的一种 bug。
+    """
 
     slots: Slots = Field(default_factory=Slots)
 
     def observe(self, text: str, *, turn: int) -> list[str]:
-        """看一句用户话，更新槽位。**返回这一次真正写进去的槽位名**。
-
-        返回列表而不是 bool，是因为"第 12 轮更新了哪几个槽位"这件事
-        要进 trace——排查"为什么第 20 轮少了一个数"时，第一眼看的就是它。
-        """
-        changed: list[str] = []
-        # ⚠️ **内部槽位也照存不误，别在这里过滤。**
-        # `work_start`（入职日期）正是 `derive()` 的原料——滤掉它，
-        # "用户只给了入职日期、没给年限"这条最常见的路径就直接断了，
-        # 而且**不报错**（`derive()` 只是什么都不做）。
-        # 内部槽位"不给模型看"这件事由 `prompt_block()` 负责，
-        # 不该由"存不存"来管。**职责放错了地方，就会出现这种静默失效。**
-        for name, sv in SlotExtractor.extract(text, turn=turn).items():
-            if self.slots.put(
-                name, sv.value, turn=sv.turn, quote=sv.quote,
-                source=sv.source, precision=sv.precision,
-            ):
-                changed.append(name)
-        return changed
+        """转给 `Slots.observe`。见那边的 docstring。"""
+        return self.slots.observe(text, turn=turn)
 
     def derive(self, *, turn: int) -> list[str]:
-        """**派生槽位**：用已经抽到的槽位算出新的槽位。
-
-        目前只有两条，都是真实咨询里反复出现的：
-
-        - 入职日期 + 今天 → 工作月数（用户常给日期不给年限）
-        - 城市 → 当地社平工资（查表；查不到就不填，**不编**）
-
-        放在一个单独的方法里而不是塞进 `observe()`：派生是**纯计算**，
-        幂等、可重放；抽取是**读人话**，会漏会错。两者混在一起以后没法分别调。
-        """
-        import datetime as _dt
-
-        changed: list[str] = []
-
-        # ---- 入职日期 → 工作月数 ----
-        start = self.slots.get("work_start")
-        if start and not self.slots.has("months_of_service"):
-            try:
-                d0 = _dt.date.fromisoformat(str(start))
-                today = _dt.date.today()
-                months = (today.year - d0.year) * 12 + (today.month - d0.month)
-                if today.day < d0.day:
-                    months -= 1
-                if months >= 0 and self.slots.put(
-                    "months_of_service", months, turn=turn,
-                    quote=f"由入职日期 {d0} 推算", source="manual", precision=2,
-                ):
-                    changed.append("months_of_service")
-            except ValueError:
-                pass
-
-        # ---- 城市 → 社平工资 ----
-        city = self.slots.get("city")
-        if city and not self.slots.has("local_avg_monthly_wage"):
-            wage = CITY_AVG_WAGE.get(str(city))
-            if wage and self.slots.put(
-                "local_avg_monthly_wage", wage, turn=turn,
-                quote=f"{city} 上年度职工月平均工资（内置表，需人工复核）",
-                source="manual", precision=1,  # **精度只给 1**：这是表里的值，会过期
-            ):
-                changed.append("local_avg_monthly_wage")
-
-        return changed
+        """转给 `Slots.derive`。见那边的 docstring。"""
+        return self.slots.derive(turn=turn)
 
 
 CITY_AVG_WAGE: dict[str, float] = {
