@@ -483,6 +483,61 @@ def _fields(obj: Any, model: type[Any]) -> dict[str, Any]:
     return {k: v for k, v in d.items() if k in model.model_fields}
 
 
+def _inline_refs(node: Any, root: dict[str, Any], seen: frozenset[str] = frozenset()) -> Any:
+    """把 JSON Schema 里的 `$ref` 就地展开。**只展开，不改写别的东西。**
+
+    ## 为什么要有这个函数（这是被测试逼出来的）
+
+    `ToolSpec.args_schema()` 是 pydantic 生成的 schema，
+    `to_openai_tool()` 发给模型的和这个**是同一份**。而 pydantic 对
+    枚举类型的字段**不写 `enum`，写 `$ref`**：
+
+    ```json
+    "cause": {"$ref": "#/$defs/TerminationCause",
+              "description": "解除或终止的情形。必须选一个最贴近的：…"}
+    // 真正的取值集合在 args_schema["$defs"]["TerminationCause"]["enum"] 里
+    ```
+
+    给模型看没问题（它读得懂 $ref）。但**给界面生成表单就有问题了**：
+    读 `properties.cause.enum` 拿到 `undefined`，于是十种解除情形
+    变成一个空白输入框，用户得自己手打 `illegal_dismissal`——
+    打错一个字母，工具返回"参数不合法"，而他根本不知道合法值有哪些。
+
+    **这个坑是 `test_enum_args_reach_the_ui_as_enum` 抓出来的**：
+    我原本以为点一下就能拿到 `enum`。
+
+    ## 为什么在服务端展开，而不是让前端自己解析 $ref
+
+    前端解析 `$ref` 要写十来行（顺着 `#/$defs/xxx` 查表），
+    而那十来行**没有任何测试盖得住**（这个项目的前端只有字符串级断言）。
+    放服务端的话，展开逻辑可以被单测钉住，前端读到的就是平的。
+    另外这一步是**机械变换**，不是"另写一份 schema"——
+    输出仍然是一份合法的 JSON Schema，只是去掉了间接层。
+    """
+    if isinstance(node, list):
+        return [_inline_refs(x, root, seen) for x in node]
+    if not isinstance(node, dict):
+        return node
+
+    ref = node.get("$ref")
+    if isinstance(ref, str) and ref.startswith("#/") and ref not in seen:
+        target: Any = root
+        for part in ref[2:].split("/"):
+            target = target.get(part, {}) if isinstance(target, dict) else {}
+        # 引用处的**兄弟键优先**：JSON Schema 规定 `$ref` 旁边的兄弟键
+        # 不是装饰，是要盖在目标上的（pydantic 就靠这个给字段挂 description）。
+        merged = {
+            **_inline_refs(target, root, seen | {ref}),
+            **{k: v for k, v in node.items() if k != "$ref"},
+        }
+        return _inline_refs(merged, root, seen | {ref})
+
+    # `$defs` 展开完就没用了，**不能留在返回值里**：留着的话前端那点
+    # "读 properties" 的代码不会报错，但 schema 里躺着一份重复的取值定义，
+    # 下次有人改了枚举，两份就不一致了。
+    return {k: _inline_refs(v, root, seen) for k, v in node.items() if k != "$defs"}
+
+
 def _citation(a: Any) -> CitationOut:
     return CitationOut(**_fields(a, CitationOut))
 
@@ -752,6 +807,103 @@ def create_app(runtime: Runtime | None = None, *, serve_web: bool = True) -> Fas
             "effective_date": art.effective_date.isoformat() if art.effective_date else None,
             "version_date": art.version_date.isoformat() if art.version_date else None,
             "effective_date_source": art.effective_date_source,
+        }
+
+    # ---- 工具（法条检索、各计算器）------------------------------------- #
+    #
+    # 这一组接口存在的理由是**让这套东西在没有模型的时候也能用**。
+    #
+    # 一次问答要花掉一个 API key 和几秒钟；而"我干了 3 年，该拿多少补偿"
+    # 这个问题，答案是 `calc_severance` 一个纯函数算出来的，跟模型一点关系都没有。
+    # 原来这个函数**只有模型能碰到**（Agent 自己决定调它），
+    # 于是界面上想算个补偿金也得先配好 key、先付一次模型调用。
+    #
+    # 现在把它直接露出来。附带的好处是它是**确定性的**：
+    # 同一组输入永远同一个答案，用户可以自己核对算式。
+    # 问答那边做不到这一点（同样的问题模型可能换个说法），
+    # 而"可核验"恰恰是这个项目想证明的东西。
+
+    def _tools_rt(request: Request) -> Runtime:
+        """取 runtime 并确认工具这一层真的装配上了。
+
+        ⚠️ **判据是 registry/executor，不是 `rt.ready`。**
+        `ready` 要求 runner 存在，而 runner 的装配条件是"检索器或模型至少有一个"
+        （见 `runtime.build_runtime`）。工具挂在 runner 的 deps 上，
+        所以这两个判据在实践中一致——但**含义不同**：这里要的是"能算"，
+        `ready` 要的是"能答"。分开写，将来 runner 的装配条件变了，
+        这里不会跟着一起错。
+        """
+        rt = rt_of(request)
+        if rt.registry is None or rt.executor is None:
+            raise HTTPException(status_code=503, detail={"problems": rt.problems})
+        return rt
+
+    @app.get("/api/tools")
+    async def list_tools(request: Request) -> dict[str, Any]:
+        """把注册表摊开给界面：**界面据此现场生成表单**（见 `schemas.ToolOut`）。"""
+        rt = _tools_rt(request)
+        return {
+            "tools": [
+                {
+                    "name": s.name,
+                    "label": s.label,
+                    "group": s.group,
+                    "description": s.description,
+                    # ⚠️ 展开成平的再发（理由见 `_inline_refs`）。
+                    # 发给**模型**的那份（`to_openai_tool()`）保持原样，
+                    # 因为模型本来就要求 `$ref` 形式，而我们没有理由
+                    # 去改一条已经在跑的、有实测覆盖的路径。
+                    "args_schema": _inline_refs(s.args_schema(), s.args_schema()),
+                    "idempotent": s.idempotent,
+                    "timeout_seconds": s.timeout_seconds,
+                }
+                for s in rt.registry.all()
+            ],
+            "problems": list(rt.problems),
+        }
+
+    @app.post("/api/tools/{name}")
+    async def run_tool(name: str, args: dict[str, Any], request: Request) -> dict[str, Any]:
+        """直接跑一个工具，**不过模型**。
+
+        ⚠️ 入参错、工具内部炸、熔断开着——**一律 HTTP 200**，
+        结果里 `status` 是 `failed`。理由见 `schemas.ToolRunOut` 的 docstring：
+        这是工具的常规业务结果，不是 HTTP 层的错误。
+        唯一会返回非 200 的是"工具名根本不存在"（404）——
+        那是调用方写错了程序，不是业务结果。
+        """
+        rt = _tools_rt(request)
+        if name not in rt.registry:
+            raise HTTPException(
+                status_code=404,
+                detail={
+                    "message": f"没有这个工具：{name}",
+                    "available": rt.registry.names(),
+                },
+            )
+        # ⚠️ 执行器是**同步**的，而且里面真的会有阻塞的东西（`search_law`
+        # 要算向量、要 re-rank）。直接 await 它会卡住整个事件循环——
+        # 和 `_run_turn` 里把图丢进线程是同一个理由，那里写得更细。
+        outcome = await asyncio.to_thread(rt.executor.call, name, args)
+        # 工具跑了就该有日志。**跟问答一样留一行**：不然"用户说这个计算器
+        # 算错了"的时候，日志里查不出他到底填了什么。
+        log.info(
+            "工具直调",
+            tool=name,
+            status=outcome.status.value,
+            attempts=outcome.attempts,
+            ms=round(outcome.elapsed_ms, 1),
+        )
+        return {
+            "tool": outcome.tool,
+            "status": outcome.status.value,
+            "attempts": outcome.attempts,
+            "elapsed_ms": outcome.elapsed_ms,
+            "idempotency_hit": outcome.idempotency_hit,
+            "breaker_state": outcome.breaker_state,
+            "payload": outcome.payload() if outcome.ok else None,
+            "error": outcome.error,
+            "warnings": list(outcome.warnings),
         }
 
     # ---- 静态页面 ------------------------------------------------------ #

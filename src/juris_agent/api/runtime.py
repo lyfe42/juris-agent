@@ -94,6 +94,36 @@ class Runtime:
             "sessions": self.sessions.stats(),
         }
 
+    @property
+    def registry(self) -> Any:
+        """工具注册表。**从 `runner.deps` 里取**，不是 `Runtime` 自己持有。
+
+        为什么绕这一下：注册表和执行器是 `agent.graph.make_runner` **内部造**的
+        （因为"一个新 runner 配一份新熔断器"这件事得由造 runner 的人决定，
+        见 `graph.build_graph` 的 docstring）。`Runtime` 再存一份的话就有了
+        两个句柄指向同一对象——将来谁把其中一个换成新的，另一个还在指旧的，
+        而那种事**不报错**，只是熔断器开始"记不住东西"。
+
+        所以这里只做一件事：把"取法"收敛到一处。
+        否则接口层每加一个要用注册表的地方，就得各自写一遍
+        `getattr(getattr(rt.runner, 'deps', None), 'registry', None)`。
+
+        `runner` 为 `None`（装配失败）时返回 `None`，调用方按"工具不可用"处理。
+        """
+        return getattr(getattr(self.runner, "deps", None), "registry", None)
+
+    @property
+    def executor(self) -> Any:
+        """工具执行器（带重试、熔断、幂等缓存的那个）。取法同上。
+
+        ⚠️ **走执行器而不是直接调 `spec.fn`**，是为了让"界面上按一下按钮"
+        和"Agent 自己决定调工具"走**同一条路**：同样的入参校验、同样的重试、
+        同样的熔断与幂等。直接调 `fn` 的话，界面上永远是理想的成功态，
+        而真实 Agent 那边会遇到超时、降级、熔断——**两边跑的不是同一个系统，
+        界面上看到的就不能证明任何事。**
+        """
+        return getattr(getattr(self.runner, "deps", None), "executor", None)
+
     def close(self) -> None:
         """关掉持有资源的东西。
 

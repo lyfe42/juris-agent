@@ -103,6 +103,8 @@ def make_search_law_spec(retriever: Retriever) -> ToolSpec:
         idempotent=True,
         # 检索有本地向量库 IO 与 rerank 推理，给一个真超时
         timeout_seconds=None,
+        label="查法条",
+        group="查法律",
     )
 
 
@@ -296,6 +298,8 @@ def build_registry(retriever: Retriever | None = None) -> ToolRegistry:
     reg.register(
         ToolSpec(
             name="calc_severance",
+            label="算经济补偿 / 赔偿金",
+            group="算钱",
             description=(
                 "【用途】计算解除/终止劳动合同的经济补偿、违法解除的二倍赔偿金、"
                 "以及第40条情形下的代通知金。**先判断该不该付，再算金额。**\n"
@@ -316,6 +320,8 @@ def build_registry(retriever: Retriever | None = None) -> ToolRegistry:
     reg.register(
         ToolSpec(
             name="calc_overtime",
+            label="算加班费",
+            group="算钱",
             description=(
                 "【用途】按《劳动法》第44条计算加班费：工作日延长 150%、休息日 200%、"
                 "法定休假日 300%。\n"
@@ -335,6 +341,8 @@ def build_registry(retriever: Retriever | None = None) -> ToolRegistry:
     reg.register(
         ToolSpec(
             name="check_probation",
+            label="查试用期合不合法",
+            group="查合同条款",
             description=(
                 "【用途】判定试用期是否合法：期限是否超过第19条的分档上限、"
                 "试用期工资是否低于第20条的下限、以及第83条违法约定试用期的赔偿金。\n"
@@ -354,6 +362,8 @@ def build_registry(retriever: Retriever | None = None) -> ToolRegistry:
     reg.register(
         ToolSpec(
             name="calc_limitation",
+            label="算仲裁时效还剩多久",
+            group="算时点",
             description=(
                 "【用途】计算劳动仲裁时效：截止日期、是否已过期、剩余天数。"
                 "覆盖第27条的一年时效、时效中断重算、中止顺延、以及拖欠劳动报酬的"
@@ -372,6 +382,8 @@ def build_registry(retriever: Retriever | None = None) -> ToolRegistry:
     reg.register(
         ToolSpec(
             name="review_contract",
+            label="体检劳动合同",
+            group="查合同条款",
             description=(
                 "【用途】体检劳动合同文本的条款是否合法：试用期、书面合同与二倍工资、"
                 "服务期违约金上限、竞业限制期限与补偿、以及第25条禁止的兜底违约金。\n"
@@ -390,6 +402,8 @@ def build_registry(retriever: Retriever | None = None) -> ToolRegistry:
     reg.register(
         ToolSpec(
             name="refuse_to_answer",
+            label="（内部）拒答",
+            group="其他",
             description=(
                 "【用途】当问题超出劳动法咨询范围、或缺少必要事实而无法可靠回答时，"
                 "调用本工具给出结构化的拒答，而不是硬编一个答案。**这是被鼓励的行为，"

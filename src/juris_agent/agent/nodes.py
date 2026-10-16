@@ -492,6 +492,7 @@ class Nodes:
                 breaker_state=outcome.breaker_state,
                 error=outcome.error,
                 payload=payload,
+                warnings=list(outcome.warnings),
             )
             records.append(rec)
 

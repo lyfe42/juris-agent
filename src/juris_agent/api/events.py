@@ -240,6 +240,10 @@ def _from_tool(d: dict[str, Any]) -> list[Event]:
                     "breaker_state": r.get("breaker_state", "closed"),
                     "payload": r.get("payload"),
                     "error": r.get("error"),
+                    # 降级说明。**必须一路带到界面上**——「⚠️ 降级」这四个字
+                    # 不说明任何事，用户需要知道"还能用，但精度下降了"，
+                    # 否则他会把降级结果当正常结果用。
+                    "warnings": list(r.get("warnings") or []),
                 },
             )
         )

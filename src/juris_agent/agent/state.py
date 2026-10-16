@@ -84,6 +84,13 @@ class ToolCallRecord(BaseModel):
     error: dict[str, Any] | None = None
     payload: Any = None
     """结果（可 JSON 序列化）。失败时为 None。"""
+    warnings: list[str] = Field(default_factory=list)
+    """执行器附带的提醒。目前只有"走了降级路径"这一种（`ToolOutcome.warnings`）。
+
+    ⚠️ 加这个字段是因为**不加就会在路上丢掉**：`ToolOutcome` 上有 warnings，
+    而这里只抄了 error——于是降级发生时，界面上只显示一个 ⚠️，
+    那句"结果可用，但精度或覆盖度下降"停在执行器里没人看见。
+    **降级最怕的就是被当成正常结果**，所以这句话必须跟着结果一起走。"""
 
 
 class CitationReport(BaseModel):

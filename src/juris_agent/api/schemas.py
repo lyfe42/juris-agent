@@ -189,6 +189,69 @@ class ChatResponse(BaseModel):
     request_id: str = ""
 
 
+class ToolOut(BaseModel):
+    """注册表里的一个工具，**原样摊给界面**。
+
+    这里最有用的一个字段是 `args_schema`——它是 `args_model` 的 JSON Schema。
+    界面拿它**现场生成表单**（字段名、类型、说明、枚举选项、上下限全在里面），
+    不需要跟后端约好"经济补偿那张表单长什么样"。
+
+    为什么值得这么做：**加一个工具不用改前端。** 在 `builtin.py` 里注册一个
+    带 `args_model` 的新工具，界面上就会多出一张表单。反过来（前端手写每张表单）
+    的话，新工具上线后界面上根本没有入口，而且**不会报错**——
+    它只是"少了一个按钮"，没有任何东西提醒你漏了。
+
+    ⚠️ 唯一的例外是 `refuse_to_answer`：它是给模型用的兜底出口，
+    界面上摆一个"我要拒答"的按钮对用户没有意义。但**前端不做白名单**，
+    而是照常渲染（它的 `label` 写着"（内部）拒答"）——
+    界面上的白名单迟早会和真实的注册表不一致。
+    """
+
+    name: str
+    label: str = ""
+    """人看的短名。空的话前端退回显示 `name`。"""
+    group: str = "其他"
+    description: str = ""
+    """**写给模型的那段**（含"不适用场景"）。前端折叠显示，不删——
+    它是"这个工具什么时候不该用"的唯一书面说明。"""
+    args_schema: dict[str, Any] = Field(default_factory=dict)
+    idempotent: bool = True
+    timeout_seconds: float | None = None
+
+
+class ToolRunOut(BaseModel):
+    """按一次界面上那个"运行"按钮的结果。
+
+    ## 字段和 `tool_result` 事件**刻意保持一致**
+
+    同一件事（调用一个工具）在两条路上发生：Agent 自己调（走 SSE 的
+    `tool_result` 事件）、用户手动点（走这个接口）。两边的字段名如果不一样，
+    前端就得写两套渲染，而两套里必然有一套先烂——那时
+    "界面上看到的"和"Agent 真跑出来的"就不是一回事了，
+    而这个项目一直在强调的正是"看到的就是真跑的"。
+
+    ## ⚠️ 入参写错**不返回 4xx**
+
+    `status="failed"` + `error` 里的结构化反馈才是正确形状。理由：
+    入参校验失败是**这个工具的常规业务结果**（Agent 那边每天都遇到，
+    它靠这份反馈换策略），不是"HTTP 请求有问题"。
+    返回 400 的话，前端得把"请求错了"和"参数不合法"分成两条路处理，
+    而后者其实和"工具执行失败"是同一条路——**多分的这一条就是将来会忘的那条。**
+    """
+
+    tool: str
+    status: str = ""
+    """`ok` / `degraded` / `failed`。`degraded` = 走了降级路径，结果可用但精度下降。"""
+    attempts: int = 0
+    elapsed_ms: float = 0.0
+    idempotency_hit: bool = False
+    breaker_state: str = "closed"
+    payload: Any = None
+    """结果的 JSON 形式（`ToolOutcome.payload()`）。**失败时为 None。**"""
+    error: dict[str, Any] | None = None
+    warnings: list[str] = Field(default_factory=list)
+
+
 class HealthOut(BaseModel):
     """服务自检。**没有它，前端报错时你分不清是服务没起还是请求写错了。**
 
@@ -220,5 +283,7 @@ __all__ = [
     "HealthOut",
     "MemoryOut",
     "SlotProvenanceOut",
+    "ToolOut",
+    "ToolRunOut",
     "TraceOut",
 ]

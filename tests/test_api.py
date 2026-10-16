@@ -1013,6 +1013,230 @@ class TestArticle:
 # --------------------------------------------------------------------------- #
 
 
+# --------------------------------------------------------------------------- #
+# ⑦' 工具直调：让"不配 key 也能用"
+# --------------------------------------------------------------------------- #
+
+
+class TestTools:
+    """`GET /api/tools` + `POST /api/tools/{name}` 的契约。
+
+    ## 这两个接口为什么值得单独测
+
+    它们的作用是**把界面和注册表绑死**：界面不认识任何工具名，
+    它拿到 `args_schema` 之后现场生成表单。所以这里要断言的
+    不是"接口返回了东西"，而是"**界面需要的那几样东西确实都在**"——
+    少了 `enum`，下拉框就变成输入框（用户会把 `illegal_dismissal` 敲错）；
+    少了 `label`，界面上就挂着一个叫 `calc_severance` 的按钮。
+    **这两种坏法都不报错**，只是界面上悄悄少了一个东西。
+    """
+
+    async def test_list_mirrors_the_real_registry(self):
+        app, rt = _app([ANSWER, ANSWER, ANSWER])
+        async with _client(app) as c:
+            r = await c.get("/api/tools")
+        assert r.status_code == 200
+        got = [t["name"] for t in r.json()["tools"]]
+        # ⚠️ 和**真注册表**比，不写死一份名单。写死名单的话，
+        # 以后加了一个工具，这条测试照样绿——而它本来该盯的就是"界面能看见所有工具"。
+        assert got == rt.registry.names(), "接口里的工具和注册表对不上"
+        assert "calc_severance" in got and "search_law" in got
+
+    async def test_every_tool_gives_the_ui_enough_to_draw_a_form(self):
+        """每个工具都得有：人看的名字、分组、入参 schema。
+
+        ⚠️ 这条测试盯的是**将来加工具的人**。`label` 有默认值（空串），
+        所以忘了写不会报错、不会红、接口照常返回——**只是界面上多出一个
+        叫 `calc_xxx` 的按钮**。等有人看见了才发现的 bug，就该用测试挡在之前。
+        """
+        app, _ = _app([ANSWER, ANSWER, ANSWER])
+        async with _client(app) as c:
+            tools = (await c.get("/api/tools")).json()["tools"]
+        for t in tools:
+            assert t["label"], f"{t['name']} 没有给人看的名字（label）"
+            assert t["group"], f"{t['name']} 没有分组（group）"
+            assert t["description"], f"{t['name']} 没有说明"
+            assert t["args_schema"].get("properties"), f"{t['name']} 的入参 schema 是空的"
+
+    async def test_enum_args_reach_the_ui_as_enum(self):
+        """枚举必须原样传下来——**界面上它就是一个下拉框**。
+
+        传丢了的话，用户面对一个空白输入框去手打 `illegal_dismissal`，
+        打错一个字母，工具返回"参数不合法"，而他根本不知道合法值有哪些。
+        这类"后端知道合法值集合、界面上却要用户猜"的界面到处都是，
+        根源就是 schema 在中途被拍扁成了一句话。
+        """
+        app, _ = _app([ANSWER, ANSWER, ANSWER])
+        async with _client(app) as c:
+            tools = {t["name"]: t for t in (await c.get("/api/tools")).json()["tools"]}
+        cause = tools["calc_severance"]["args_schema"]["properties"]["cause"]
+        assert "enum" in cause, "cause 的枚举没传下来"
+        assert "illegal_dismissal" in cause["enum"]
+        # 每个合法值旁边的那句解释也要在——它才是用户判断"我属于哪种"的依据。
+        assert "违法解除" in cause["description"]
+
+    async def test_schema_reaches_the_ui_without_any_ref(self):
+        """`$ref` / `$defs` 必须已经展开掉（理由见 `app._inline_refs`）。
+
+        ⚠️ 这里断言的是"整份 JSON 里没有一处 `$ref`"，
+        不是"cause 那个字段有 enum"。差别在于：前者是**结构性**的，
+        后加一个枚举字段、一个嵌套模型，都会被它拦住；
+        后者只盯着当前这一个例子，新加的字段照样可以带着 `$ref` 溜过去。
+        """
+        app, _ = _app([ANSWER, ANSWER, ANSWER])
+        async with _client(app) as c:
+            tools = (await c.get("/api/tools")).json()["tools"]
+        for t in tools:
+            blob = json.dumps(t["args_schema"])
+            assert "$ref" not in blob, f"{t['name']} 的 schema 里还有 $ref"
+            assert "$defs" not in blob, f"{t['name']} 的 schema 里还留着 $defs"
+
+    async def test_running_a_tool_returns_the_payload(self):
+        app, _ = _app([ANSWER, ANSWER, ANSWER])
+        async with _client(app) as c:
+            r = await c.post(
+                "/api/tools/calc_overtime",
+                json={"kind": "extended", "monthly_wage": 12000, "hours": 10},
+            )
+        assert r.status_code == 200
+        d = r.json()
+        assert d["status"] == "ok", d
+        # 算式是这块最要紧的输出（用户靠它核对），**必须跟着结果一起回来**。
+        assert d["payload"]["steps"], "结果里没有算式"
+        assert float(d["payload"]["amount"]) > 0
+        assert d["elapsed_ms"] >= 0
+
+    async def test_bad_args_are_a_business_result_not_an_http_error(self):
+        """入参写错 → **HTTP 200 + `status=failed`**，不是 400。
+
+        理由见 `schemas.ToolRunOut`：这是工具的常规业务结果
+        （Agent 那边每天都会遇到，靠这份反馈换策略），
+        走 400 的话前端就要为"参数不合法"单独写一条分支，
+        而它其实和"工具执行失败"是同一条路——**多分出来的那条就是将来会忘的那条。**
+        """
+        app, _ = _app([ANSWER, ANSWER, ANSWER])
+        async with _client(app) as c:
+            r = await c.post("/api/tools/calc_overtime", json={"kind": "extended"})
+        assert r.status_code == 200, "入参错不该是 HTTP 错误"
+        d = r.json()
+        assert d["status"] == "failed"
+        assert d["payload"] is None, "失败了就不该有 payload（有的话界面会把它当结果画出来）"
+        assert d["error"], "失败必须带结构化原因，否则界面上只能显示'失败了'"
+
+    async def test_unknown_tool_is_404_with_the_list_of_real_ones(self):
+        """工具名写错 → **404**。这是唯一一个真属于 HTTP 层的错误：调用方写错了程序。
+
+        ⚠️ 顺手把**真有的那些**名字带回去。演示现场敲错一个字母时，
+        "没有这个工具"和"没有这个工具，可用的是：[…]"是两个体验。
+        """
+        app, _ = _app([ANSWER, ANSWER, ANSWER])
+        async with _client(app) as c:
+            r = await c.post("/api/tools/calc_severence", json={})
+        assert r.status_code == 404
+        assert "calc_severance" in r.json()["detail"]["available"]
+
+    async def test_503_when_nothing_is_wired(self):
+        """装配失败时明确说"工具用不了"，而不是返回一个空的工具列表。
+
+        ⚠️ 空列表是**最糟的返回**：界面会显示一个空白的工具箱，
+        用户以为"这个项目什么工具都没有"，而真相是"少装了一个依赖"。
+        """
+        rt = Runtime(settings=_settings(), sessions=SessionStore(new_memory=lambda: None))
+        app = create_app(rt, serve_web=False)
+        async with _client(app) as c:
+            r = await c.get("/api/tools")
+        assert r.status_code == 503
+
+    async def test_dry_run_does_not_touch_the_model(self):
+        """直调工具**一次模型都不该调**——否则"不配 key 也能用"就是假的。
+
+        判据是假模型的调用次数：它是 0 才说明这条路上真的没有模型。
+        只断言"返回了结果"是不够的——结果对，但底下偷偷调了一次模型，
+        在没有 key 的机器上就会变成 500。
+        """
+        app, rt = _app([ANSWER, ANSWER, ANSWER])
+        async with _client(app) as c:
+            await c.post(
+                "/api/tools/calc_severance",
+                json={
+                    "cause": "illegal_dismissal",
+                    "months_of_service": 24,
+                    "avg_monthly_wage": 12000,
+                },
+            )
+        assert rt.runner.deps.llm.msg_counts == [], "直调工具不该调模型"
+
+
+class TestToolWarnings:
+    """工具执行器的 `warnings` 要一路走到浏览器。
+
+    它是**半路加上去的**：`ToolOutcome` 上一直有 warnings，但
+    `ToolCallRecord` 当初只抄了 `error`，于是降级时那句
+    「结果可用，但精度或覆盖度下降」停在了执行器里没人看见，
+    界面上只剩一个光秃秃的 ⚠️。**降级最怕的就是被当成正常结果。**
+    """
+
+    def test_warning_from_the_executor_becomes_an_event_field(self):
+        from juris_agent.agent.state import ToolCallRecord
+        from juris_agent.api.events import events_from_update
+
+        rec = ToolCallRecord(
+            step=1,
+            tool="calc_severance",
+            status="degraded",
+            warnings=["已降级：TimeoutError。结果可用，但精度或覆盖度下降。"],
+        )
+        evs = events_from_update("tool", {"tool_results": [rec]})
+        result = next(e for e in evs if e.name == "tool_result")
+        assert result.data["warnings"], "降级说明在翻译成事件时丢了"
+        assert "精度" in result.data["warnings"][0]
+
+
+class TestInlineRefs:
+    """`_inline_refs` 本身的边界。**它是纯函数，所以能在这里干净地测。**"""
+
+    def test_recursive_schema_does_not_hang(self):
+        """自引用的 schema **不能把服务器转死**。
+
+        现实里暂时没有这种入参模型，但"展开 `$ref`"这件事一旦碰到环
+        （`Node.children: list[Node]`）就是无限递归，而它的症状是
+        **请求永远不返回**——不是报错、不是超时提示，是浏览器一直转圈。
+        这种坏法没法靠"我记得别写自引用模型"来防，所以用一个 `seen` 集合兜住。
+        """
+        from pydantic import BaseModel
+
+        from juris_agent.api.app import _inline_refs
+
+        class Node(BaseModel):
+            name: str
+            children: list["Node"] = []
+
+        raw = Node.model_json_schema()
+        flat = _inline_refs(raw, raw)  # 不挂就算过——挂了这里会跑不完
+        assert flat["properties"]["name"]["type"] == "string"
+
+    def test_ref_siblings_win_over_the_target(self):
+        """引用处旁边的兄弟键要盖在目标上。
+
+        这条不是理论：**pydantic 就是靠这个把每个字段的 `description`
+        挂在 `$ref` 旁边的**。合并方向写反（目标盖兄弟）的话，
+        所有枚举字段的解释说明会**集体消失**，而表单照样能画出来——
+        只是每个下拉框旁边少了一句"这个选项是什么意思"。
+        """
+        from juris_agent.api.app import _inline_refs
+
+        raw = {
+            "properties": {
+                "cause": {"$ref": "#/$defs/E", "description": "现场的解释"},
+            },
+            "$defs": {"E": {"enum": ["a", "b"], "description": "定义处的解释"}},
+        }
+        flat = _inline_refs(raw, raw)
+        c = flat["properties"]["cause"]
+        assert c["enum"] == ["a", "b"], "目标里的 enum 没并进来"
+        assert c["description"] == "现场的解释", "兄弟键被目标覆盖了"
+
+
 class TestWeb:
     async def test_index_is_served_when_enabled(self):
         app, _ = _app([ANSWER, ANSWER, ANSWER], serve_web=True)

@@ -17,10 +17,46 @@
      不需要 node / npm / 构建步骤。这个项目的定位是"能当场演示"，
      而一个要先 `npm install` 三分钟的前端**在演示里等于不存在**。
 
-  3. 代价是**没有组件复用**。几百行原生 DOM 操作，比 react 啰嗦。
-     这是明确接受的取舍：**这个界面的复杂度是一次性的，不是会长大的**。
-     等它真的长到需要框架，再换也不迟——那时候换的成本比现在猜要低。
+  3. 代价是**没有组件复用**。上千行原生 DOM 操作，比 react 啰嗦。
+     这不是"以后换框架"的过渡态，是**明确接受的取舍**：
+     这个界面的复杂度是一次性的、不会长大的。
+     真长到需要框架的时候再换，那时换的成本比现在猜要低。
+
+  ⚠️ 有一条测试盯着"页面里不许有外链"
+  （`tests/test_api.py::TestWeb::test_page_has_no_external_requests`）。
+  它是在这份 HTML 的**原始文本**里直接搜那几个字面量的，
+  所以**注释里写一个网址也照样会被判违规**——
+  下面这段注释本身就刚踩过这个坑（写了例子网址，跑测试直接红）。
+
+  ============================================================================
+  这个页面有两个视图，它们是两个不同的东西
+  ============================================================================
+    问答     走模型。会检索、会调工具、会引用校验，**要花几秒和几分钱**。
+    工具箱   不过模型。直接调工具层的纯函数，**毫秒级、不花钱、结果确定**。
+
+  为什么要分成两个视图，而不是把计算器塞进聊天框：
+  用户问"我干了 3 年该拿多少补偿"，聊天会给他一段解释和法条——
+  那是**普法**。但一个要拿这个数去跟公司谈的人，需要的是**反复试**：
+  把工龄改成 2 年 11 个月试试、把月薪改高一点看看会不会触发封顶。
+  在聊天框里做这件事，每改一个数都要等模型回一遍，又慢又花钱，
+  而且**同一组输入两次答案的文字可能不一样**（模型是有随机性的），
+  用户没法确认"是我改的数字起作用了，还是它换了个说法"。
+
+  工具箱里的结果是**纯函数算的**：同一组输入永远同一个答案。
+  这才是"可核验"能落地的地方——和法条要附原文编号是同一个道理。
+
+  ============================================================================
+  工具箱的表单是**从后端 schema 现场生成的**，前端不认识任何工具名
+  ============================================================================
+  按钮和输入框全部来自 `GET /api/tools` 返回的 `args_schema`
+  （JSON Schema）。所以后端在 `builtin.py` 里注册一个新工具，
+  刷新页面就多一张表单——**不用改这个文件一行**。
+
+  反过来（前端手写每张表单）的坏处不是"多写点代码"，而是
+  **新工具上线后界面上根本没有入口，而且不报错**：没有异常、没有红字，
+  只是少了一个按钮。这种"少了一个东西"的坏法，没有任何机制会提醒你。
 -->
+
 <style>
   /* 配色只用一个变量表。改主题只改这里，不用全文件搜颜色值。 */
   :root {
@@ -48,11 +84,13 @@
     font-size: 15px;
     line-height: 1.65;
   }
+  code, pre { font-family: Consolas, "SFMono-Regular", Menlo, monospace; }
+
   header {
     background: var(--panel);
     border-bottom: 1px solid var(--line);
     padding: 10px 20px;
-    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
     position: sticky; top: 0; z-index: 10;
   }
   header h1 { font-size: 17px; margin: 0; font-weight: 650; }
@@ -64,6 +102,16 @@
   }
   .pill.bad { background: #fef2f2; color: var(--bad); border-color: #fecaca; }
   .pill.ok  { background: #f0fdf4; color: var(--ok);  border-color: #bbf7d0; }
+
+  /* ---- 两个视图的切换 ---- */
+  .tabs { display: flex; gap: 3px; background: var(--code); padding: 3px; border-radius: 9px; }
+  .tabs button {
+    border: none; background: transparent; color: var(--ink-dim);
+    font-size: 13.5px; padding: 4px 13px; border-radius: 7px;
+  }
+  .tabs button.on { background: var(--panel); color: var(--ink); font-weight: 600;
+                    box-shadow: 0 1px 2px rgba(0,0,0,.07); }
+  .tabs button:not(.on):hover { color: var(--ink); }
 
   main { max-width: 900px; margin: 0 auto; padding: 18px 20px 120px; }
 
@@ -85,6 +133,26 @@
     background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
     padding: 13px 15px; margin-top: 12px;
   }
+
+  /* ---- 空状态 / 欢迎页 ----
+     一进来是空白页会让人不知道该问什么。这页要回答的正是
+     "你能拿它干什么、不能拿它干什么"——**后一半尤其重要**，
+     它决定了用户会不会拿一个编出来的答案去做决定。 */
+  .welcome { background: var(--panel); border: 1px solid var(--line);
+             border-radius: 10px; padding: 18px 20px; margin-bottom: 18px; }
+  .welcome h2 { font-size: 16px; margin: 0 0 4px; }
+  .welcome p { margin: 4px 0; color: var(--ink-dim); font-size: 13.5px; }
+  .wgrid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+           margin-top: 12px; }
+  .wcard { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+           background: #fcfcfd; }
+  .wcard h3 { font-size: 13.5px; margin: 0 0 3px; }
+  .wcard p { font-size: 12.5px; margin: 0 0 7px; }
+  .wcard button { font-size: 12.5px; padding: 3px 10px; border-radius: 999px;
+                  background: var(--panel); color: var(--ink); border-color: var(--line);
+                  margin: 0 5px 5px 0; }
+  .wcard button:hover { border-color: var(--accent); color: var(--accent); }
+  .wcard.no h3 { color: var(--warn); }
 
   /* ---- 系统动作时间线 ---- */
   /* ⚠️ 外层 `<details>` 用 `.stepsbox`、内层列表用 `.steps`，两个类名必须不同。
@@ -205,10 +273,119 @@
   }
   .examples button:hover { border-color: var(--accent); color: var(--accent); }
 
+  /* ==========================================================================
+     工具箱
+     ========================================================================== */
+
+  /* 分组是"用户在什么场景下会用"，不是代码模块（见 registry.ToolSpec.group）。
+     它和工具一起从后端来，所以后端加一个 `group="新模式"` 的工具，
+     这里就会多一段——**这个文件里没有一份分组名单**。 */
+  .tgroup { margin: 20px 0 8px; font-size: 13px; font-weight: 650;
+            color: var(--ink-dim); letter-spacing: .04em; }
+  .tgroup:first-child { margin-top: 4px; }
+
+  .tool { background: var(--panel); border: 1px solid var(--line);
+          border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+  .tool > summary { padding: 11px 14px; cursor: pointer; list-style: none;
+                    display: flex; align-items: baseline; gap: 9px; font-size: 14.5px; }
+  .tool > summary::-webkit-details-marker { display: none; }
+  .tool > summary::before { content: "▸"; color: var(--ink-dim); }
+  .tool[open] > summary::before { content: "▾"; }
+  .tool > summary:hover { background: #fafbfd; }
+  .tool > summary .tname { font-weight: 600; }
+  .tool > summary .tslug { margin-left: auto; font-size: 11.5px; color: var(--ink-dim);
+                           font-family: Consolas, monospace; }
+  .tool > summary .tneed { font-size: 11.5px; color: var(--warn); }
+  .toolbody { padding: 0 14px 14px; border-top: 1px solid var(--line); }
+
+  /* 工具 description 是**写给模型的那段**（含"不适用场景"），一屏放不下。
+     默认折起来但**不删掉**——它是"什么情况下不该用这个工具"的唯一书面说明，
+     而用户拿它去算钱的场景，恰恰是最需要知道"这个前提对不对"的地方。 */
+  .tdoc { font-size: 12.5px; color: var(--ink-dim); margin: 10px 0; }
+  .tdoc summary { cursor: pointer; user-select: none; }
+  .tdoc .body { margin-top: 6px; white-space: pre-wrap; line-height: 1.6;
+                border-left: 2px solid var(--line); padding-left: 10px; }
+
+  .form { display: grid; gap: 11px 14px;
+          grid-template-columns: repeat(auto-fill, minmax(235px, 1fr)); margin: 12px 0; }
+  .field { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .field > label { font-size: 12.5px; font-weight: 600; color: #374151; }
+  .field > label .req { color: var(--bad); margin-left: 2px; }
+  .field > label .opt { color: var(--ink-dim); font-weight: 400; margin-left: 4px; }
+  .field input, .field select, .field textarea {
+    font: inherit; font-size: 13.5px; padding: 6px 9px; border: 1px solid var(--line);
+    border-radius: 7px; background: var(--panel); width: 100%; min-width: 0;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: 2px solid var(--accent-soft); border-color: var(--accent);
+  }
+  .field.err input, .field.err select { border-color: var(--bad); background: #fff7f7; }
+  .field.err > label { color: var(--bad); }
+
+  /* 说明文字按两行截断、点一下展开。**不直接删掉**：
+     这些 description 是"这个参数到底该怎么填"的唯一书面依据
+     （比如 cause 那条，把十种解除情形的区别写在了一句话里）。 */
+  .hint { font-size: 11.5px; color: var(--ink-dim); line-height: 1.5;
+          display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+          overflow: hidden; cursor: pointer; }
+  .hint.open { -webkit-line-clamp: unset; display: block; }
+
+  .runbar { display: flex; align-items: center; gap: 11px; flex-wrap: wrap; }
+  .runbar .note { font-size: 12px; color: var(--ink-dim); }
+
+  /* ---- 工具结果 ----
+     这一块和问答里的 `tool_result` 事件**共用同一个渲染函数**
+     （`renderPayload`）。分开写两份的话必然有一套先烂，
+     而那意味着"界面上算出来的"和"Agent 真跑出来的"长得不一样——
+     用户就没有理由相信任何一个。 */
+  .result { margin-top: 13px; border-top: 1px dashed var(--line); padding-top: 12px; }
+  .reshead { display: flex; gap: 9px; align-items: baseline; flex-wrap: wrap;
+             font-size: 12.5px; color: var(--ink-dim); margin-bottom: 9px; }
+  .badge { font-size: 12px; padding: 2px 9px; border-radius: 999px; font-weight: 600; }
+  .badge.ok { background: #f0fdf4; color: var(--ok); border: 1px solid #bbf7d0; }
+  .badge.degraded { background: #fffbeb; color: var(--warn); border: 1px solid #fde68a; }
+  .badge.failed { background: #fef2f2; color: var(--bad); border: 1px solid #fecaca; }
+
+  /* 关键结论的键值表。**顺序就是结果模型里字段的顺序**，
+     不按重要性重排——重排要维护一张"哪些字段重要"的表，
+     而那张表会和结果模型漂移（加了字段没人想起来往表里加）。 */
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px;
+        font-size: 13px; margin-bottom: 9px; }
+  .kv .k { color: var(--ink-dim); }
+  .kv .v { word-break: break-word; }
+  .kv .v.num { font-family: Consolas, monospace; }
+  .kv .v.yes { color: var(--ok); }
+  .kv .v.no  { color: var(--bad); }
+
+  .notice { font-size: 13px; padding: 8px 11px; border-radius: 7px; margin-top: 8px; }
+  .notice.warn { border-left: 3px solid #fcd34d; background: #fffbeb; color: #78350f; }
+  .notice.gray { border-left: 3px solid var(--line); background: #fafbfc;
+                 color: var(--ink-dim); font-size: 12.5px; }
+  .notice.bad  { border-left: 3px solid var(--bad); background: #fef2f2; color: #7f1d1d; }
+
+  .evid { font-size: 12.5px; color: var(--ink-dim); margin-top: 8px; }
+  .evid code { background: var(--code); padding: 1px 5px; border-radius: 4px; margin-right: 4px; }
+
+  .finding { border: 1px solid var(--line); border-left-width: 3px; border-radius: 7px;
+             padding: 8px 11px; margin-top: 8px; font-size: 13px; background: #fcfcfd; }
+  .finding.illegal { border-left-color: var(--bad); }
+  .finding.risky   { border-left-color: var(--warn); }
+  .finding.ok      { border-left-color: var(--ok); }
+  .finding .ft { font-weight: 600; }
+  .finding .fd { margin-top: 3px; }
+  .finding .fs { margin-top: 4px; color: var(--warn); font-size: 12.5px; }
+  .finding .fc { margin-top: 4px; font-size: 12px; color: var(--ink-dim); }
+
+  .raw { margin-top: 9px; }
+  .raw summary { cursor: pointer; font-size: 12px; color: var(--ink-dim); }
+  .raw pre { margin: 6px 0 0; padding: 9px; background: var(--code); border-radius: 6px;
+             overflow-x: auto; font-size: 12px; }
+
   /* 窄屏：把固定输入区收窄一点，别把正文挤没了 */
   @media (max-width: 640px) {
     main { padding: 14px 12px 150px; }
     .q { max-width: 92%; }
+    header .sub { display: none; }
   }
 </style>
 </head>
@@ -218,6 +395,10 @@
   <h1>juris-agent</h1>
   <span class="sub">劳动法咨询 · 答案附法条原文 · 超出范围会明确拒答</span>
   <span class="right">
+    <div class="tabs">
+      <button id="tab-chat" class="on">问答</button>
+      <button id="tab-tools">工具箱</button>
+    </div>
     <span class="pill" id="health">检查服务中…</span>
     <button class="ghost" id="newSession" title="清掉前面对话的上下文，从头开始">新会话</button>
   </span>
@@ -228,10 +409,53 @@
     <b>这不是法律意见。</b>本页答案是机器生成的普法参考，可能出错。
     涉及真实劳动争议（尤其金额、时效、证据），请以现行法律原文和执业律师意见为准。
   </div>
-  <div id="turns"></div>
+
+  <!-- ===================== 视图一：问答 ===================== -->
+  <section id="view-chat">
+    <div class="welcome" id="welcome">
+      <h2>问一个劳动法问题</h2>
+      <p>答案一律附法条编号和原文，你可以自己点开核对。下面三条路走的是**完全不同的代码**，
+         你可以都试一遍看看区别。</p>
+      <div class="wgrid">
+        <div class="wcard">
+          <h3>算钱</h3>
+          <p>经济补偿、违法解除二倍赔偿金、加班费。答案里会给<b>完整的算式</b>，
+             每一步代入了什么数都能看到。</p>
+          <button data-q="我在公司干了 3 年 2 个月，月薪 12000，被无故辞退能拿多少经济补偿？">算经济补偿</button>
+          <button data-q="月薪 8000，上个月法定节假日加班了 3 天，能拿多少加班费？">算加班费</button>
+        </div>
+        <div class="wcard">
+          <h3>查法条</h3>
+          <p>「法律怎么规定的」这类问题走检索 + 生成，引用的每一条都带原文和编号，
+             编造的编号会被程序删掉。</p>
+          <button data-q="试用期最长可以约定多久？">试用期最长多久</button>
+          <button data-q="公司拖欠我三个月工资不发，我可以怎么办？">拖欠工资怎么办</button>
+        </div>
+        <div class="wcard no">
+          <h3>它会拒答</h3>
+          <p><b>这个反而更值得看。</b>超出劳动法范围的问题它会明说不知道，
+             而不是硬编一个听起来很像的答案。</p>
+          <button data-q="帮我写一首关于秋天的诗。">问一个范围外的问题</button>
+          <button data-q="我朋友借了我五万块钱不还，我能告他吗？">问一个非劳动法问题</button>
+        </div>
+      </div>
+    </div>
+    <div id="turns"></div>
+  </section>
+
+  <!-- ===================== 视图二：工具箱 ===================== -->
+  <section id="view-tools" hidden>
+    <div class="welcome">
+      <h2>工具箱</h2>
+      <p>这里的计算器<b>不走模型</b>：毫秒级返回、不花钱、<b>同一组输入永远同一个答案</b>。
+         适合反复试数——把工龄改成 2 年 11 个月试试、把月薪改高看看会不会触发封顶。</p>
+      <p>表单是从后端注册表现场生成的，所以这里列出的一定就是系统真正有的工具。</p>
+    </div>
+    <div id="toolbox"><div class="welcome"><p>正在读取工具列表…</p></div></div>
+  </section>
 </main>
 
-<div class="composer">
+<div class="composer" id="composer">
   <div class="examples" id="examples">
     <button data-q="试用期最长可以约定多久？">试用期最长多久</button>
     <button data-q="我在公司干了 3 年 2 个月，月薪 12000，被无故辞退能拿多少经济补偿？">算经济补偿</button>
@@ -248,11 +472,14 @@
 <script>
 "use strict";
 /* ============================================================================
- * 这个脚本要干的三件事
+ * 这个脚本的骨架
  * ============================================================================
- *   ① 把问题发给后端（`POST /api/chat/stream`），**自己解析 SSE**
- *   ② 把收到的事件画到页面上（答案逐字追加、"系统做了什么"进时间线）
- *   ③ 会话不丢：把 session_id 存 localStorage，刷新页面还能接着聊
+ *   ① 小工具       esc / el / 富文本（**加粗** + 【1】引用） / JSON 取值
+ *   ② 渲染工具结果 renderPayload —— **问答和工具箱共用这一份**
+ *   ③ 表单生成     schemaToForm —— 从 JSON Schema 生成输入框
+ *   ④ 工具箱视图   拉 /api/tools、画表单、POST /api/tools/{name}
+ *   ⑤ 问答视图     SSE 解析 + 事件渲染（这一块基本没动，它是测过的）
+ *   ⑥ 视图切换     两个 section 互斥显示
  *
  * 为什么不用 `EventSource`
  * ---------------------------------------------------------------------------
@@ -267,17 +494,6 @@
  * 拿不准的时候，`curl -N` 打一遍接口，肉眼看帧长什么样最快。
  */
 
-// ---------------------------------------------------------------------------
-// 第一个坑：网络的断点不是"帧的断点"
-// ---------------------------------------------------------------------------
-// `reader.read()` 返回的 chunk **可能在任意位置切开**——一帧被切成两半、
-// 或者三帧粘在一起，都是正常的。所以必须自己攒一个 buffer，
-// 只在看到完整的空行时才切出一帧，剩下的留着等下一个 chunk。
-//
-// 忘了这件事的典型症状是："答案偶尔缺字/串行，刷新一下又好了"——
-// 因为短回答通常刚好一个 chunk 读完，长回答才会被切开。
-// **这种 bug 只在长回答上出现，测试短句子永远测不出来。**
-
 const $ = (id) => document.getElementById(id);
 const turnsEl = $("turns");
 const inputEl = $("input");
@@ -285,15 +501,17 @@ const sendBtn = $("send");
 
 const state = {
   sessionId: localStorage.getItem("juris.session") || null,
+  view: "chat",
   // 发给后端的历史。**只用来给记忆层当上下文**，页面上不复原渲染——
   // 页面刷新后旧气泡会消失，但后端记得住（那正是"记忆层"要展示的能力）。
   history: [],
   busy: false,
   abort: null,
+  toolsLoaded: false,
 };
 
 // ---------------------------------------------------------------------------
-// 小工具
+// ① 小工具
 // ---------------------------------------------------------------------------
 
 /** 把文本里的 HTML 特殊字符转义掉。
@@ -319,13 +537,569 @@ function scoreText(s) {
   return typeof s === "number" ? s.toFixed(3) : String(s ?? "—");
 }
 
+/** 转义 + `**加粗**` + `【1】` 引用链接。
+ *
+ * ⚠️ **顺序不能反**：先转义再套标签。
+ * 反过来（先套 `<strong>` 再转义）会把刚拼好的标签一起转义掉，
+ * 页面上就直接显示出 HTML 源码。
+ *
+ * 工具返回的文本里带 `**…**`（`domain/*.py` 里写的强调标记），
+ * 不处理的话它们会原样露出来——用户看到一堆星号，
+ * 只会觉得"这东西没做完"。
+ */
+function rich(text, validIndexes) {
+  let html = esc(text).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  if (validIndexes && validIndexes.length) {
+    const ok = new Set(validIndexes);
+    html = html.replace(/【(\d+)】/g, (m, d) => {
+      const i = parseInt(d, 10);
+      if (!ok.has(i)) return m;   // 不在校验通过集合里的原样显示
+      return `<span class="cite-ref" data-idx="${i}">【${d}】</span>`;
+    });
+  }
+  return html;
+}
+
+/** 字段名 → 人话。表里的键是英文，直接显示一行 `total_payable` 太糙。 */
+const FIELD_NAMES = {
+  cause: "解除情形", cause_label: "情形", pays: "是否应付", months_of_service: "工作月数",
+  service_multiplier: "折算补偿月数", monthly_wage_used: "计算用月工资",
+  capping_applied: "触发三倍封顶", years_cap_applied: "触发十二年封顶",
+  severance_pay: "经济补偿", compensation_total: "赔偿金", notice_pay: "代通知金",
+  total_payable: "应付合计", hourly_wage: "小时工资", daily_wage: "日工资",
+  kind: "加班类型", rate: "倍率", hours: "小时数", days: "天数", amount: "加班费",
+  term_months: "合同期限(月)", agreed_probation_months: "约定试用期(月)",
+  max_probation_months: "法定上限(月)", is_period_legal: "期限是否合法",
+  excess_months: "超出月数", probation_wage_ok: "试用期工资是否达标",
+  wage_floor: "工资下限", agreed_wage_ratio: "与约定工资之比",
+  penalty_for_excess: "违法约定试用期赔偿金", base_start: "起算日",
+  start_reason: "起算理由", deadline: "截止日", unlimited: "是否不受时效限制",
+  interrupted: "是否发生中断", suspended_days: "中止顺延天数", expired: "是否已过期",
+  days_remaining: "剩余天数(负数=已过期)", illegal_count: "违法条款数",
+  risky_count: "高风险条款数", query: "检索词", suggested_next_action: "下一步建议",
+  reason: "理由", category: "类别", suggestion: "建议",
+};
+
+function fieldName(k) {
+  return FIELD_NAMES[k] || k;
+}
+
+/** 值 → 显示文本。布尔值说成"是/否"比 `true/false` 好读。 */
+function valueText(v) {
+  if (v === null || v === undefined) return "—";
+  if (typeof v === "boolean") return v ? "是" : "否";
+  if (Array.isArray(v)) return v.length ? v.join("、") : "—";
+  if (typeof v === "object") return JSON.stringify(v);
+  return String(v);
+}
+
 // ---------------------------------------------------------------------------
-// 时间线：把"系统做了什么"画出来
+// ② 渲染工具结果 —— 问答和工具箱共用
 // ---------------------------------------------------------------------------
-// 这一块是这个项目和"套壳聊天框"的分界线。
-// 面试官/用户看到的不只是答案，还有：路由为什么这么判、检索命中几条、
-// 调了哪个工具、工具是不是幂等命中、有没有撞上防死循环闸门。
-// **看不到这些，"可溯源"就只是一句话。**
+// 各工具的结果模型长得不一样（`SeveranceResult` / `ProbationCheck` /
+// `ContractReviewResult`…），但**它们的形状是同一类**：
+// 一堆标量 + 若干列表（算式 / 发现 / 命中的法条）+ 提醒。
+//
+// 所以这里不按工具名分派，而是按**形状**渲染：
+//   · 标量        → 键值表
+//   · steps       → 有序列表（算式）
+//   · findings    → 分级卡片（可能是字符串，也可能是对象——两种都吃）
+//   · hits        → 法条卡片
+//   · citations   → 法条依据行
+//   · warnings    → 黄条
+//   · disclaimer  → 灰条
+//   · 其余        → 键值表
+//
+// 按形状而不是按工具名，意味着**后端加一个新计算器，这里不用改**。
+// 按名字分派的话，新工具在界面上会渲染成一坨 JSON。
+
+const _SPECIAL = new Set([
+  "steps", "findings", "hits", "citations", "warnings", "disclaimer",
+  "interruption_chain",
+]);
+
+function renderPayload(payload, validIndexes) {
+  const box = el("div");
+  if (payload === null || payload === undefined) return box;
+  if (typeof payload !== "object") {
+    box.appendChild(el("div", "kv", `<span class="v">${esc(valueText(payload))}</span>`));
+    return box;
+  }
+
+  // ---- 标量键值表 ----
+  const kv = el("div", "kv");
+  let rows = 0;
+  for (const [k, v] of Object.entries(payload)) {
+    if (_SPECIAL.has(k)) continue;
+    if (Array.isArray(v) || (v && typeof v === "object")) continue;
+    const cls = typeof v === "number" || /^-?\d+(\.\d+)?$/.test(String(v))
+      ? "v num" : "v";
+    kv.appendChild(el("div", "k", esc(fieldName(k))));
+    kv.appendChild(el("div", cls, esc(valueText(v))));
+    rows++;
+  }
+  if (rows) box.appendChild(kv);
+
+  // ---- 算式 ----
+  const steps = payload.steps;
+  if (Array.isArray(steps) && steps.length) {
+    const c = el("div", "calc");
+    c.appendChild(el("div", "title", `算式与代入过程（${steps.length} 步）`));
+    const ol = el("ol");
+    // 逐条转义。工具的输出**不能当 HTML 用**——这一步漏了，
+    // 返回文本里带一段标签就会在页面上变成真的标签。
+    steps.forEach(s => ol.appendChild(el("li", null, rich(String(s), validIndexes))));
+    c.appendChild(ol);
+    box.appendChild(c);
+  }
+
+  // ---- 时效中断链 `[[中断日, 新截止日], …]` ----
+  // ⚠️ **必须单独渲染，不能只放进"原始 JSON"。**
+  // 它在 `_SPECIAL` 里（不是标量），如果这里不画，它就只会出现在折叠的
+  // 原始 JSON 里——也就是**用户看不到**。而中断链恰恰是"为什么时效还没过"
+  // 的全部解释：每中断一次，一年重新起算一次。
+  // 只给一个 `days_remaining = -45`，用户没有任何办法核对这个数。
+  const chain = payload.interruption_chain;
+  if (Array.isArray(chain) && chain.length) {
+    const c = el("div", "calc");
+    c.appendChild(el("div", "title", `时效中断链（每中断一次，一年重新起算）`));
+    const ol = el("ol");
+    chain.forEach((pair, i) => {
+      // 每项是 `[中断发生日, 重新起算后的截止日]`。形状对不上就不画，
+      // 免得把一个结构变化渲染成一句错话。
+      if (!Array.isArray(pair) || pair.length < 2) return;
+      ol.appendChild(el("li", null,
+        `${esc(String(pair[0]))} 发生中断 → 从次日重新起算，截止日顺延到 ` +
+        `<strong>${esc(String(pair[1]))}</strong>`));
+    });
+    if (ol.children.length) { c.appendChild(ol); box.appendChild(c); }
+  }
+
+  // ---- 发现（体检/试用期）：字符串和对象两种形状都吃 ----
+  const findings = payload.findings;
+  if (Array.isArray(findings) && findings.length) {
+    findings.forEach((f, i) => {
+      const isObj = f && typeof f === "object";
+      const sev = isObj ? (f.severity || "") : (/违法|超出|不合规/.test(String(f)) ? "illegal" : "risky");
+      const fx = el("div", "finding " + esc(sev));
+      if (isObj) {
+        fx.appendChild(el("div", "ft", esc(f.title || `发现 ${i + 1}`)));
+        fx.appendChild(el("div", "fd", rich(String(f.detail || ""), validIndexes)));
+        if (f.suggestion) fx.appendChild(el("div", "fs", "建议：" + esc(f.suggestion)));
+        if (f.citation) fx.appendChild(el("div", "fc", esc(f.citation)));
+      } else {
+        fx.appendChild(el("div", "fd", rich(String(f), validIndexes)));
+      }
+      box.appendChild(fx);
+    });
+  }
+
+  // ---- 检索命中 ----
+  const hits = payload.hits;
+  if (Array.isArray(hits) && hits.length) {
+    const wrap = el("div", "cites");
+    hits.forEach(h => {
+      const c = el("div", "cite");
+      const head = el("div", "head");
+      head.innerHTML =
+        `<span class="law">${esc(h.citation || `${h.law || ""}${h.article_no || ""}`)}</span>` +
+        `${h.effective_date ? `<span class="score">${esc(h.effective_date)} 起施行</span>` : ""}` +
+        `<span class="score">相关度 ${scoreText(h.score)}</span>`;
+      const body = el("div", "body");
+      body.textContent = h.text || "";
+      body.hidden = true;
+      head.addEventListener("click", () => { body.hidden = !body.hidden; });
+      c.appendChild(head); c.appendChild(body);
+      // 深链：地址栏带上编号，复制给别人能直接打开原文。
+      c.appendChild(el("div", "meta",
+        `编号 <code>${esc(h.article_key || "")}</code>　点标题展开原文`));
+      wrap.appendChild(c);
+    });
+    box.appendChild(el("div", "title", `命中 ${hits.length} 条`));
+    box.appendChild(wrap);
+  }
+
+  // ---- 法条依据 / 提醒 / 声明 ----
+  const cites = payload.citations;
+  if (Array.isArray(cites) && cites.length) {
+    const d = el("div", "evid");
+    d.innerHTML = "法条依据：" + cites.map(c => `<code>${esc(String(c))}</code>`).join("");
+    box.appendChild(d);
+  }
+  (payload.warnings || []).forEach(w =>
+    box.appendChild(el("div", "notice warn", "⚠︎ " + rich(String(w), validIndexes))));
+  if (payload.disclaimer) {
+    box.appendChild(el("div", "notice gray", esc(String(payload.disclaimer))));
+  }
+
+  // ---- 其余字段（含嵌套数组）+ 原始 JSON ----
+  // 原始值收起来给想深挖的人。**默认收起**：上面那些已经够看了，
+  // 一屏 JSON 会把结论挤下去。
+  const raw = el("details", "raw");
+  raw.appendChild(el("summary", null, "全部字段（原始值）"));
+  const pre = el("pre", null, esc(JSON.stringify(payload, null, 2)));
+  raw.appendChild(pre);
+  box.appendChild(raw);
+  return box;
+}
+
+/** 工具调用的"发生了什么"那一条（状态、重试、耗时、熔断、降级说明）。
+ *
+ * ⚠️ 问答和工具箱**共用**这一段。分开写两份的话，
+ * 迟早出现"界面上算出来的"和"Agent 真跑出来的"显示不一样，
+ * 而那会让"看到的就是真跑的"这句话变成假的。 */
+function statusBits(d) {
+  const bits = [`${Math.round(d.elapsed_ms || 0)}ms`];
+  if (d.attempts > 1) bits.push(`重试 ${d.attempts - 1} 次`);
+  if (d.idempotency_hit) bits.push("命中幂等缓存");
+  if (d.breaker_state && d.breaker_state !== "closed") bits.push(`熔断器：${d.breaker_state}`);
+  return bits;
+}
+
+// ---------------------------------------------------------------------------
+// ③ 从 JSON Schema 生成表单
+// ---------------------------------------------------------------------------
+// ⚠️ 后端已经把 `$ref` 展开成平的了（见 `api/app.py::_inline_refs`）。
+// 这里**不用处理 `$ref`**——它要是漏展开了，下面的 `normalize` 认不出类型，
+// 字段会变成"填 JSON"的兜底输入框（难看，但不会静默出错）。
+
+/** 拆掉 `anyOf`，把"可为空的 X"还原成 X + `nullable`。
+ *
+ * pydantic 对 `bool | None` 生成的是
+ * `{"anyOf": [{"type": "boolean"}, {"type": "null"}], "default": null}`，
+ * 不是 `{"type": "boolean"}`。不拆的话，`notice_given`（是否提前通知）
+ * 会掉进兜底分支，用户得手打 JSON——而它其实是界面上最该做成三选一的字段
+ * （没提过 / 通知了 / 没通知，三个都得能表达，见它的 description）。
+ */
+function normalize(raw) {
+  const spec = { ...raw };
+  if (Array.isArray(spec.anyOf)) {
+    const parts = spec.anyOf.filter(p => p && p.type !== "null");
+    spec.nullable = spec.anyOf.some(p => p && p.type === "null");
+    if (parts.length === 1) Object.assign(spec, parts[0], { description: spec.description });
+    else spec.type = "__unsupported__";
+  }
+  return spec;
+}
+
+/** 从 description 里把 `值=解释` 抠出来，做成下拉框每个选项的说明。
+ *
+ * 这不是我编的约定，是 `builtins.py` 里**已经这么写的**：
+ *   "…必须选一个最贴近的：employee_forced=单位有过错劳动者被迫解除；
+ *    mutual_employer_proposed=单位提出协商一致；…"
+ * 模型读这段文字来选，用户也读同一段来选——**同一份说明，两个读者**。
+ * 所以界面直接把每个选项的说明挂在选项上（`title`），
+ * 用户不用回到上面那坨文字里找。
+ *
+ * ⚠️ 只认**真的在 enum 里的**键。不这么过滤的话，一段普通叙述里
+ * 恰好带 `xx=yy` 形状的文字也会被当成选项，下拉框里就会多出莫名其妙的条目。
+ */
+function enumLabels(desc, values) {
+  const out = {};
+  const ok = new Set(values);
+  String(desc || "").split(/[；;\n]/).forEach(chunk => {
+    const m = chunk.match(/([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.+)/);
+    if (m && ok.has(m[1])) out[m[1]] = m[2].replace(/\*\*/g, "").trim();
+  });
+  return out;
+}
+
+function makeField(name, raw) {
+  const spec = normalize(raw);
+  const wrap = el("div", "field");
+  const lab = el("label", null, esc(fieldName(name)));
+
+  // 类型判定的**顺序是有讲究的，不能随便换**：
+  //   ① `enum` 优先——枚举字段在 pydantic 里也带 `type: "string"`，
+  //      先看 `type` 的话它会被当成普通文本框，用户得手打 `illegal_dismissal`。
+  //   ② `boolean` 在 `string` 之前无所谓（两者互斥），但必须在下面的
+  //      兜底之前，否则 `true/false` 会掉进 JSON 框。
+  //   ③ 最后才是兜底。**刻意保留兜底**：认不出的类型给一个"填 JSON"的框，
+  //      比静默当成字符串好——当成字符串的话值原样传过去会变成校验错误，
+  //      而报错说的是"输入不是数组"，用户对着一个文本框根本不知道自己错在哪。
+  const type = spec.enum ? "enum"
+    : spec.type === "boolean" ? "boolean"
+    : spec.type === "integer" || spec.type === "number" ? "number"
+    : spec.type === "array" ? "array"
+    : spec.type === "string" ? (spec.format === "date" ? "date" : "text")
+    : "json";
+
+  let input;
+  if (type === "enum") {
+    input = document.createElement("select");
+    const labels = enumLabels(spec.description, spec.enum);
+    input.appendChild(new Option("（请选择）", ""));
+    spec.enum.forEach(v => {
+      const o = new Option(labels[v] ? `${labels[v]}` : String(v), String(v));
+      if (labels[v]) o.title = `${v} = ${labels[v]}`;   // 悬停能看到原始值
+      input.appendChild(o);
+    });
+  } else if (type === "boolean") {
+    if (spec.nullable) {
+      // ⚠️ **三选一，不是勾选框。** "没提过"和"说了没有"是两回事：
+      // `notice_given=None` 表示用户没说、工具会提示缺这个信息；
+      // `false` 表示明确没提前通知、会加一个月代通知金。
+      // 用勾选框就把这两件事压成了一个 —— 而压掉的那个状态（未填）
+      // 恰恰是"工具提醒你还需要补充什么"的触发条件。
+      input = document.createElement("select");
+      input.appendChild(new Option("（没说 / 不适用）", ""));
+      input.appendChild(new Option("是", "true"));
+      input.appendChild(new Option("否", "false"));
+    } else {
+      input = document.createElement("select");
+      input.appendChild(new Option("否", "false"));
+      input.appendChild(new Option("是", "true"));
+      input.value = String(spec.default ?? false);
+    }
+  } else if (type === "date") {
+    input = document.createElement("input");
+    input.type = "date";
+  } else if (type === "number") {
+    input = document.createElement("input");
+    input.type = "number";
+    input.step = spec.type === "integer" ? "1" : "any";
+    if (spec.minimum != null) input.min = spec.minimum;
+    if (spec.maximum != null) input.max = spec.maximum;
+  } else if (type === "array") {
+    // 数组只支持"标量数组"（`["2024-09-01", …]`）——逗号分隔填一行。
+    // 对象数组（很少见）走下面的兜底，让用户填 JSON：
+    // 给它现造一套增删行的控件，代码量会翻倍，而这个项目暂时用不上。
+    const itemType = spec.items && spec.items.type;
+    if (itemType === "string" || itemType === "number" || itemType === "integer") {
+      input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "多个用逗号隔开，留空表示没有";
+    } else {
+      input = document.createElement("textarea");
+      input.rows = 2;
+      input.placeholder = "这个字段要填 JSON 数组";
+    }
+  } else if (type === "text") {
+    input = document.createElement("input");
+    input.type = "text";
+  } else {
+    // 兜底：认不出的类型让用户填 JSON。**比静默当成字符串好**——
+    // 当成字符串的话，值原样传过去会变成校验错误，
+    // 而报错信息说的是"输入不是数组"，用户对着一个文本框完全不知道自己错在哪。
+    input = document.createElement("textarea");
+    input.rows = 2;
+    input.placeholder = "这个字段要填 JSON";
+  }
+
+  if (spec.default != null && type !== "boolean") input.value = String(spec.default);
+  input.dataset.kind = type;
+  if (spec.items && spec.items.type) input.dataset.itemType = spec.items.type;
+
+  const hint = el("div", "hint", esc(spec.description || ""));
+  hint.title = "点一下展开/收起说明";
+  hint.addEventListener("click", () => hint.classList.toggle("open"));
+
+  wrap.appendChild(lab);
+  wrap.appendChild(input);
+  if (spec.description) wrap.appendChild(hint);
+  wrap._input = input;
+  wrap._spec = spec;
+  return wrap;
+}
+
+/** 从一个表单元素读出参数。返回 `{v, present}`。 */
+function readField(w) {
+  const input = w._input, spec = w._spec, kind = input.dataset.kind;
+  const raw = input.value;
+  if (kind === "boolean" && !spec.nullable) {
+    return { v: raw === "true", present: true };   // 勾选类永远有值
+  }
+  if (raw === "" || raw == null) return { v: undefined, present: false };
+  if (kind === "number") {
+    const n = Number(raw);
+    if (Number.isNaN(n)) return { v: undefined, present: false, bad: true };
+    return { v: spec.type === "integer" ? Math.trunc(n) : n, present: true };
+  }
+  if (kind === "boolean") return { v: raw === "true", present: true };
+  if (kind === "array") {
+    if (input.tagName === "TEXTAREA") {
+      try { return { v: JSON.parse(raw), present: true }; }
+      catch { return { v: undefined, present: false, bad: true }; }
+    }
+    const parts = raw.split(/[,，\s]+/).filter(Boolean);
+    const isNum = input.dataset.itemType !== "string";
+    return { v: parts.map(x => (isNum && !Number.isNaN(Number(x)) ? Number(x) : x)), present: true };
+  }
+  if (kind === "json") {
+    try { return { v: JSON.parse(raw), present: true }; }
+    catch { return { v: undefined, present: false, bad: true }; }
+  }
+  return { v: raw, present: true };
+}
+
+function schemaToForm(schema) {
+  const props = (schema && schema.properties) || {};
+  const required = new Set((schema && schema.required) || []);
+  const form = el("div", "form");
+  const fields = [];
+  for (const [name, raw] of Object.entries(props)) {
+    const w = makeField(name, raw);
+    w._name = name;
+    w._required = required.has(name);
+    const lab = w.querySelector("label");
+    if (w._required) lab.innerHTML += '<span class="req" title="必填">*</span>';
+    else lab.innerHTML += '<span class="opt">选填</span>';
+    form.appendChild(w);
+    fields.push(w);
+  }
+  return { form, fields };
+}
+
+function readForm(fields) {
+  const args = {};
+  const missing = [];
+  const bad = [];
+  for (const w of fields) {
+    const r = readField(w);
+    w.classList.remove("err");
+    if (r.bad) { w.classList.add("err"); bad.push(fieldName(w._name)); continue; }
+    if (r.present) args[w._name] = r.v;
+    else if (w._required) { w.classList.add("err"); missing.push(fieldName(w._name)); }
+  }
+  return { args, missing, bad };
+}
+
+// ---------------------------------------------------------------------------
+// ④ 工具箱
+// ---------------------------------------------------------------------------
+
+function toolCard(t) {
+  const det = el("details", "tool");
+  const sum = el("summary");
+  const nRequired = ((t.args_schema || {}).required || []).length;
+  sum.innerHTML =
+    `<span class="tname">${esc(t.label || t.name)}</span>` +
+    (nRequired ? `<span class="tneed">${nRequired} 个必填</span>` : "") +
+    `<span class="tslug">${esc(t.name)}</span>`;
+  det.appendChild(sum);
+
+  const body = el("div", "toolbody");
+  // 给模型的那种 description：折起来，但**不删**。
+  // 它是"什么情况下不该用这个工具"的唯一书面说明——
+  // 而用户拿它去算钱的场景，恰恰是最需要核对"我这种情况适不适用"的地方。
+  const doc = el("details", "tdoc");
+  doc.appendChild(el("summary", null, "这个工具是干什么的（写给模型的说明）"));
+  doc.appendChild(el("div", "body", esc(t.description || "")));
+  body.appendChild(doc);
+
+  const { form, fields } = schemaToForm(t.args_schema);
+  body.appendChild(form);
+
+  const bar = el("div", "runbar");
+  const runBtn = el("button", null, "运行");
+  const note = el("span", "note", "不调用模型，结果确定");
+  bar.appendChild(runBtn); bar.appendChild(note);
+  body.appendChild(bar);
+  const out = el("div");
+  body.appendChild(out);
+
+  runBtn.addEventListener("click", async () => {
+    const { args, missing, bad } = readForm(fields);
+    out.innerHTML = "";
+    if (bad.length || missing.length) {
+      const msgs = [];
+      if (missing.length) msgs.push(`还需要填：${missing.join("、")}`);
+      if (bad.length) msgs.push(`这几个填的不是数字/JSON：${bad.join("、")}`);
+      // ⚠️ **在本地就拦住**，不发给后端。后端的入参校验也会拦住并给出
+      // 结构化反馈，但让用户为了"我漏填了一个框"来回一趟网络没有意义——
+      // 而且后端返回的错误说的是字段的**英文名**，用户对不上。
+      out.appendChild(el("div", "notice bad", esc(msgs.join("；"))));
+      return;
+    }
+    runBtn.disabled = true;
+    note.textContent = "运行中…";
+    const t0 = performance.now();
+    try {
+      const r = await fetch(`/api/tools/${encodeURIComponent(t.name)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(args),
+      });
+      if (!r.ok) {
+        const detail = await r.json().catch(() => ({}));
+        throw new Error(`HTTP ${r.status} ${JSON.stringify(detail.detail || detail)}`);
+      }
+      out.appendChild(renderToolAnswer(await r.json()));
+    } catch (e) {
+      out.appendChild(el("div", "notice bad", "请求失败：" + esc(e.message || String(e))));
+    } finally {
+      runBtn.disabled = false;
+      note.textContent = `不调用模型｜上次 ${Math.round(performance.now() - t0)}ms（含网络）`;
+    }
+  });
+
+  det.appendChild(body);
+  return det;
+}
+
+const BADGE = { ok: "成功", degraded: "降级", failed: "失败" };
+
+function renderToolAnswer(d) {
+  const box = el("div", "result");
+  const head = el("div", "reshead");
+  head.innerHTML =
+    `<span class="badge ${esc(d.status)}">${esc(BADGE[d.status] || d.status)}</span>` +
+    `<span>${statusBits(d).map(esc).join(" · ")}</span>`;
+  box.appendChild(head);
+
+  if (d.payload) {
+    box.appendChild(renderPayload(d.payload));
+  }
+  // 失败时把**结构化原因**原样显示出来。工具的错误反馈是给模型换策略用的，
+  // 信息量比一句"失败了"大得多（哪一类错、哪个字段、能不能重试）。
+  if (d.error) {
+    const e = d.error;
+    const parts = [];
+    if (e.message) parts.push(e.message);
+    if (e.code) parts.push(`（${e.code}）`);
+    if (e.hint) parts.push(e.hint);
+    if (e.retryable != null) parts.push(e.retryable ? "可以重试" : "重试没用");
+    box.appendChild(el("div", "notice bad", esc(parts.join(" ") || JSON.stringify(e))));
+  }
+  (d.warnings || []).forEach(w => box.appendChild(el("div", "notice warn", esc(w))));
+  return box;
+}
+
+async function loadTools() {
+  const box = $("toolbox");
+  box.innerHTML = "";
+  try {
+    const r = await fetch("/api/tools");
+    if (!r.ok) {
+      const detail = await r.json().catch(() => ({}));
+      const probs = (detail.detail || {}).problems || [];
+      // ⚠️ 装配失败时后端返回 503 而**不是空列表**。空列表在界面上是
+      // "这个项目什么工具都没有"，503 才是"少装了一个依赖"——
+      // 两者的下一步动作完全不同（一个该放弃，一个该去装依赖）。
+      box.appendChild(el("div", "notice bad",
+        "工具层没装配好：" + esc(probs.join("；") || `HTTP ${r.status}`)));
+      return;
+    }
+    const data = await r.json();
+    const byGroup = new Map();
+    data.tools.forEach(t => {
+      const g = t.group || "其他";
+      if (!byGroup.has(g)) byGroup.set(g, []);
+      byGroup.get(g).push(t);
+    });
+    for (const [g, tools] of byGroup) {
+      box.appendChild(el("div", "tgroup", esc(g)));
+      tools.forEach(t => box.appendChild(toolCard(t)));
+    }
+    state.toolsLoaded = true;
+  } catch (e) {
+    box.appendChild(el("div", "notice bad", "读不到工具列表：" + esc(e.message || String(e))));
+  }
+}
+
+// ---------------------------------------------------------------------------
+// ⑤ 问答视图
+// ---------------------------------------------------------------------------
 
 function addStep(turn, cls, html) {
   const box = turn.querySelector(".steps");
@@ -336,11 +1110,8 @@ function addStep(turn, cls, html) {
   return n;
 }
 
-// ---------------------------------------------------------------------------
-// 一次问答 = 一个 turn 元素
-// ---------------------------------------------------------------------------
-
 function newTurn(question) {
+  $("welcome").hidden = true;
   const t = el("div", "turn");
   t.appendChild(el("div", "q", esc(question)));
 
@@ -369,21 +1140,15 @@ function newTurn(question) {
   return t;
 }
 
-// ---------------------------------------------------------------------------
-// 点开引用看原文
-// ---------------------------------------------------------------------------
-// 两个入口共用这一个函数：
-//   ① 答案正文里的 【1】 标记
-//   ② 答案下面的法条卡片
-// 两条路都走这里，是为了**行为完全一致**——分别实现的话，
-// 迟早出现"点标记能展开、点卡片没反应"这类只在一条路上存在的毛病。
-
+/** 点开引用看原文。两个入口共用：
+ *  ① 答案正文里的 【1】 标记；② 答案下面的法条卡片。
+ * 两条路都走这里，是为了**行为完全一致**——分别实现的话，
+ * 迟早出现"点标记能展开、点卡片没反应"这类只在一条路上存在的毛病。 */
 function showArticle(turn, index) {
-  let box = turn.querySelector(`.cite[data-idx="${index}"]`);
+  const box = turn.querySelector(`.cite[data-idx="${index}"]`);
   if (box) {
-    // 已经画出来了就直接展开/收起。
     const body = box.querySelector(".body");
-    if (body) { body.hidden = !body.hidden; }
+    if (body) body.hidden = !body.hidden;
     box.scrollIntoView({ block: "nearest", behavior: "smooth" });
     return;
   }
@@ -392,25 +1157,6 @@ function showArticle(turn, index) {
   // 静默忽略会让用户以为自己点错了。
   alert(`这条引用（${index}）没有对应的法条原文。可能是编号被改动过。`);
 }
-
-/** 把答案里的 【1】【2】 变成可点的 span。
- *
- * ⚠️ 只在**转义之后**做替换，而且用正则匹配"全角括号包数字"这种特定形状。
- * 反过来（先替换再转义）会把刚拼好的 `<span>` 标签一起转义掉，
- * 页面上就会直接显示出 HTML 源码。
- */
-function linkifyCitations(text, validIndexes) {
-  const ok = new Set(validIndexes || []);
-  return esc(text).replace(/【(\d+)】/g, (m, d) => {
-    const i = parseInt(d, 10);
-    if (ok.size && !ok.has(i)) return m;   // 不在校验通过集合里的原样显示
-    return `<span class="cite-ref" data-idx="${i}">【${d}】</span>`;
-  });
-}
-
-// ---------------------------------------------------------------------------
-// 各事件的渲染
-// ---------------------------------------------------------------------------
 
 const render = {
   memory(turn, d) {
@@ -457,50 +1203,22 @@ const render = {
 
   tool_result(turn, d) {
     const mark = { ok: "✅", degraded: "⚠️", failed: "❌" }[d.status] || "·";
-    const bits = [];
-    if (d.idempotency_hit) bits.push("命中幂等缓存");
-    if (d.attempts > 1) bits.push(`重试 ${d.attempts - 1} 次`);
-    if (d.breaker_state && d.breaker_state !== "closed") bits.push(`熔断器：${d.breaker_state}`);
-    if (d.error) bits.push(`原因：${d.error.message || d.error.code || JSON.stringify(d.error)}`);
-    bits.push(`${(d.elapsed_ms || 0).toFixed(0)}ms`);
     const node = addStep(turn, "tool",
-      `${mark} <code>${esc(d.tool)}</code> ${esc(d.status)}　<span style="color:var(--ink-dim)">${esc(bits.join(" · "))}</span>`);
+      `${mark} <code>${esc(d.tool)}</code> ${esc(d.status)}　` +
+      `<span style="color:var(--ink-dim)">${esc(statusBits(d).join(" · "))}</span>`);
 
-    // ---- 计算题的算式与代入过程 ----
-    //
-    // ⚠️ **`payload` 一直都有，是这里没渲染。** 后端的计算器返回里带着
-    // `steps`（每个数是怎么代进去的、哪一步触发了封顶），
-    // `tool_result` 事件也一路把它送到浏览器了——但界面只显示了
-    // "✅ calc_severance ok 12ms"，把最要紧的那部分扔了。
-    //
-    // 为什么这块值得单独写：计算题如果只给一句结论（"能拿 24000"），
-    // 用户**没有任何办法核对它对不对**，只能信或者不信。
-    // 算式才是"可核验"这件事的全部来源——和法条必须附原文编号是同一个道理。
-    const p = d.payload;
-    const steps = (p && Array.isArray(p.steps)) ? p.steps : [];
-    if (steps.length) {
-      const box = el("div", "calc");
-      box.appendChild(el("div", "title", `算式与代入过程（${steps.length} 步）`));
-      const ol = el("ol");
-      // 逐条转义。模型/工具的输出**不能当 HTML 用**——
-      // 这一步漏了，工具返回里带一段标签就会在页面上变成真的标签。
-      steps.forEach(s => ol.appendChild(el("li", null, esc(String(s)))));
-      box.appendChild(ol);
-
-      // 工具的提醒（比如"三倍封顶已触发""这个数需要你自己核对"）也要显示：
-      // 它们是**结论的适用条件**，藏起来等于让用户拿一个条件不明的数去谈判。
-      (p.warnings || []).forEach(w => box.appendChild(el("div", "warn", "⚠︎ " + esc(String(w)))));
-
-      // 原始字段收起来给想深挖的人。**默认收起**：上面那些步骤已经够看了，
-      // 一屏 JSON 会把答案挤下去。
-      const det = el("details");
-      det.appendChild(el("summary", null, "全部字段（原始值）"));
-      const pre = el("pre", null, esc(JSON.stringify(p, null, 2)));
-      det.appendChild(pre);
-      box.appendChild(det);
-
-      node.appendChild(box);
+    // ---- 结果的正文 ----
+    // ⚠️ **和工具箱那边是同一个渲染函数。** 分开写两份的话，
+    // "界面上算出来的"和"Agent 真跑出来的"迟早长得不一样，
+    // 而那会让"看到的就是真跑的"变成一句空话。
+    if (d.payload) node.appendChild(renderPayload(d.payload));
+    if (d.error) {
+      const e = d.error;
+      node.appendChild(el("div", "notice bad",
+        "原因：" + esc(e.message || e.code || JSON.stringify(e))));
     }
+    (d.warnings || []).forEach(w =>
+      node.appendChild(el("div", "notice warn", esc(w))));
   },
 
   missing(turn, d) {
@@ -524,12 +1242,11 @@ const render = {
   },
 
   refusal(turn, d) {
-    const box = turn._errs;
     const n = el("div", "refusal");
     n.appendChild(el("div", "cat", "这个问题超出了我的范围：" + esc(d.category || "")));
-    n.appendChild(el("div", null, esc(d.reason || "")));
+    n.appendChild(el("div", null, rich(d.reason || "")));
     if (d.suggestion) n.appendChild(el("div", "sugg", "可以试试：" + esc(d.suggestion)));
-    box.appendChild(n);
+    turn._errs.appendChild(n);
   },
 
   error(turn, d) {
@@ -564,7 +1281,7 @@ const render = {
     const report = d.citation_report || {};
     const valid = report.valid || [];
     turn._answer.classList.remove("streaming");
-    turn._answer.innerHTML = linkifyCitations(d.answer || "", valid);
+    turn._answer.innerHTML = rich(d.answer || "", valid);
 
     // 法条卡片
     turn._cites.innerHTML = "";
@@ -654,7 +1371,7 @@ function autoscroll(force) {
 }
 
 // ---------------------------------------------------------------------------
-// 发一次请求
+// 发一次请求（SSE）
 // ---------------------------------------------------------------------------
 
 async function ask(question) {
@@ -695,6 +1412,13 @@ async function ask(question) {
     let buf = "";
 
     // ---- SSE 解析主循环 ----
+    //
+    // ⚠️ 网络的断点**不是帧的断点**：`reader.read()` 返回的 chunk
+    // 可能在任意位置切开——一帧被切成两半、或者三帧粘在一起，都是正常的。
+    // 所以必须自己攒一个 buffer，只在看到完整的空行时才切出一帧。
+    // 忘了这件事的症状是"答案偶尔缺字/串行，刷新一下又好了"——
+    // 因为短回答通常刚好一个 chunk 读完，长回答才会被切开。
+    // **这种 bug 只在长回答上出现，测试短句子永远测不出来。**
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
@@ -764,8 +1488,22 @@ function dispatch(turn, name, data) {
 }
 
 // ---------------------------------------------------------------------------
-// 输入区
+// ⑥ 视图切换 + 输入区
 // ---------------------------------------------------------------------------
+
+function switchView(view) {
+  state.view = view;
+  $("view-chat").hidden = view !== "chat";
+  $("view-tools").hidden = view !== "tools";
+  // 底部输入区和"新会话"只对问答有意义：工具箱里没有"发送"这个动作，
+  // 留着一个用了会跳走的输入框比藏起来更让人困惑。
+  $("composer").style.display = view === "chat" ? "" : "none";
+  $("newSession").style.display = view === "chat" ? "" : "none";
+  $("tab-chat").classList.toggle("on", view === "chat");
+  $("tab-tools").classList.toggle("on", view === "tools");
+  if (view === "tools" && !state.toolsLoaded) loadTools();
+  window.scrollTo({ top: 0 });
+}
 
 function submit() {
   const q = inputEl.value.trim();
@@ -774,6 +1512,9 @@ function submit() {
   inputEl.style.height = "auto";
   ask(q);
 }
+
+$("tab-chat").addEventListener("click", () => switchView("chat"));
+$("tab-tools").addEventListener("click", () => switchView("tools"));
 
 sendBtn.addEventListener("click", () => {
   // 忙的时候按钮变成"停止"——这就是取消的唯一入口。
@@ -793,10 +1534,17 @@ inputEl.addEventListener("input", () => {
   inputEl.style.height = Math.min(inputEl.scrollHeight, 180) + "px";
 });
 
-$("examples").addEventListener("click", (e) => {
-  if (e.target.tagName !== "BUTTON") return;
-  inputEl.value = e.target.dataset.q;
+function askExample(q) {
+  switchView("chat");
+  inputEl.value = q;
   submit();
+}
+
+// 两处示例按钮（欢迎页的卡片、底部那排小胶囊）都走这一个入口。
+// **不给两处各写一份**：那样迟早出现"一处点了没反应"。
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-q]");
+  if (btn) askExample(btn.dataset.q);
 });
 
 $("newSession").addEventListener("click", () => {
@@ -805,17 +1553,13 @@ $("newSession").addEventListener("click", () => {
   state.sessionId = null;
   state.history = [];
   localStorage.removeItem("juris.session");
-  turn_placeholder();
-});
-
-function turn_placeholder() {
   const t = el("div", "turn");
   const c = el("div", "card");
   c.innerHTML = '<span style="color:var(--ink-dim)">已开始新会话。' +
                 '后端不再把之前的对话当作上下文。</span>';
   t.appendChild(c); turnsEl.appendChild(t);
   autoscroll(true);
-}
+});
 
 // ---------------------------------------------------------------------------
 // 启动时问一次健康检查
@@ -830,13 +1574,17 @@ function turn_placeholder() {
     const r = await fetch("/api/health");
     const h = await r.json();
     if (h.ready) {
-      const bits = [h.model_gen, h.retrieval?.chunker, "记忆 " + (h.memory?.policy || "")];
+      const bits = [h.model_gen, h.retrieval && h.retrieval.chunker,
+                    "记忆 " + ((h.memory && h.memory.policy) || "")];
       pill.textContent = "服务就绪 · " + bits.filter(Boolean).join(" · ");
       pill.className = "pill ok";
     } else {
       pill.textContent = "服务在跑，但答不了问题（缺配置，看控制台）";
       pill.className = "pill bad";
       console.warn("后端自报的问题：", h.problems);
+      // ⚠️ **工具箱仍然能用**（它不过模型）。所以这里不把用户拦在门外，
+      // 只是把话说明白："问答缺配置，但工具箱是好的"。
+      $("welcome").querySelector("h2").textContent = "问答还用不了（后端缺配置）";
     }
   } catch (e) {
     pill.textContent = "连不上后端";
