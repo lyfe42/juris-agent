@@ -97,7 +97,7 @@ const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
 
 // 把脚本末尾挂一个 return，好把内部函数取出来。
 const factory = new Function(
-  script + "\n; return { normalize, enumLabels, valueText, schemaToForm, readForm, renderPayload, parseFrame, rich, esc };"
+  script + "\n; return { normalize, enumLabels, valueText, schemaToForm, readForm, renderPayload, parseFrame, esc, inlineMd, mdToHtml, linkifyCites, streamSafe };"
 );
 const api = factory();
 

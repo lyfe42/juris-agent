@@ -55,6 +55,22 @@
   反过来（前端手写每张表单）的坏处不是"多写点代码"，而是
   **新工具上线后界面上根本没有入口，而且不报错**：没有异常、没有红字，
   只是少了一个按钮。这种"少了一个东西"的坏法，没有任何机制会提醒你。
+
+  ============================================================================
+  答案区的 Markdown 是**自己写的渲染器**（`mdToHtml` / `inlineMd`），不引库
+  ============================================================================
+  模型输出的本来就是 Markdown（`#`、`**`、`-`、管道表格），
+  提示词没规定格式，它按训练习惯默认这么写。原样显示的话用户看到的是
+  `## 依据` 和一地星号——**看着像没做完**，而它其实是好答案。
+
+  支持哪几种语法是**数出来的**，不是猜的：把 `fixtures/replay/llm/` 里
+  555 条有正文的录制统计了一遍（加粗 55、引用 45、无序列表 16、标题 13、
+  有序列表 8、表格 7、分割线 2；斜体 0、行内代码 0）。
+  ⚠️ 但平均每条只有 159 字——**这 555 条里绝大多数是内部调用不是答案**
+  （路由、记忆抽取、改写），所以别拿这个分母去读比例。
+  但结论是清楚的：**表格真的出现过**（如果只靠猜，我一定会漏掉它）。
+  而**故意不做 `*斜体*`**——一次都没出现，它的正则会吃掉算式里的乘号。
+  详细理由在那个函数上面写着。
 -->
 
 <style>
@@ -194,7 +210,62 @@
   .calc pre { margin: 5px 0 0; padding: 7px 9px; background: var(--code);
               border-radius: 6px; overflow-x: auto; font-size: 12px; }
 
-  .answer { white-space: pre-wrap; word-break: break-word; }
+  /* 答案区：里面是 mdToHtml 生成的真标签，所以**不能**再留 pre-wrap。
+     pre-wrap 是给纯文本用的——留着它，我们自己插的换行和外层的
+     自动换行会叠在一起，段落之间凭空多出一行。
+     （工具箱那边是 JSON 树，还留着 pre-wrap，那个是对的。） */
+  .answer { word-break: break-word; }
+
+  /* ---- Markdown 块的排版 ----
+     全部用 `.answer` 派生的选择器，**只作用在答案区**，
+     免得把工具箱和页头也一起改了。
+     每个块的首尾外边距都归零、改用 `gap` 控制间距：
+     模型经常写 `##` 满屏的短块，默认的 1em 上下边距会让答案长出一倍。 */
+  .answer > *:first-child { margin-top: 0; }
+  .answer > *:last-child { margin-bottom: 0; }
+  .answer p { margin: 0 0 9px; }
+  .answer h3, .answer h4, .answer h5 {
+    margin: 14px 0 6px; line-height: 1.35; font-weight: 600;
+  }
+  /* 层级：页面自己的页头是 h1、欢迎卡片是 h2，所以答案从 h3 起步。
+     字号差得很小是故意的——法律答案的标题是"小标题"，
+     不是章节大标题，做大了反而喧宾夺主。 */
+  .answer h3 { font-size: 15.5px; }
+  .answer h4 { font-size: 14.5px; }
+  .answer h5 { font-size: 13.5px; color: #444; }
+  .answer ul, .answer ol { margin: 0 0 9px; padding-left: 22px; }
+  .answer li { margin: 2px 0; }
+  .answer li > p { margin: 0; }
+  .answer hr { border: 0; border-top: 1px solid var(--line); margin: 13px 0; }
+  .answer blockquote {
+    margin: 0 0 9px; padding: 2px 0 2px 11px;
+    border-left: 3px solid var(--line); color: #4a4a55;
+  }
+  .answer code {
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    font-size: 12.5px; background: var(--code); border-radius: 4px; padding: 1px 4px;
+  }
+  .answer strong { font-weight: 600; color: #1a1a22; }
+
+  /* ---- 表格 ----
+     ⚠️ **必须给 wrapper 加 overflow-x: auto**，不能只给 table。
+     表格是模型自己排的，列一多就一定会比屏幕宽；不滚的话整个页面跟着横向滚，
+     用户读正文时左右晃。用法是先包一层 div（见 mdToHtml 的调用处）。 */
+  .answer .tw { overflow-x: auto; margin: 0 0 9px; }
+  .answer table { border-collapse: collapse; font-size: 13px; min-width: 100%; }
+  .answer th, .answer td {
+    border: 1px solid var(--line); padding: 5px 9px; text-align: left;
+    vertical-align: top;
+  }
+  .answer th { background: #f6f7f9; font-weight: 600; white-space: nowrap; }
+
+  /* 提醒框和发现卡片里也可能有 Markdown（工具返回的文本带 `**…**`），
+     把默认外边距压掉，免得单行提醒被撑成两行高。 */
+  .notice p, .finding .fd p { margin: 0 0 4px; }
+  .notice p:last-child, .finding .fd p:last-child { margin-bottom: 0; }
+  .notice ul, .notice ol, .finding .fd ul, .finding .fd ol {
+    margin: 4px 0 0; padding-left: 20px;
+  }
   .answer.streaming::after {
     /* 光标。**它同时是一个状态指示器**：还在闪 = 还在生成，
        停了 = 生成完了或者断了。用户不用去看别的按钮。 */
@@ -233,6 +304,9 @@
   }
   .refusal .cat { font-weight: 650; margin-bottom: 4px; }
   .refusal .sugg { margin-top: 7px; font-size: 13.5px; color: #78350f; }
+  /* 拒答理由走的是 mdToHtml，单行会被包成 <p>，默认上下各 1em 太撑。 */
+  .refusal p { margin: 0 0 5px; }
+  .refusal p:last-child { margin-bottom: 0; }
 
   .err {
     border-left: 3px solid var(--bad); background: #fef2f2; color: #7f1d1d;
@@ -537,27 +611,236 @@ function scoreText(s) {
   return typeof s === "number" ? s.toFixed(3) : String(s ?? "—");
 }
 
-/** 转义 + `**加粗**` + `【1】` 引用链接。
+/* ============================================================================
+ * ② Markdown 渲染（自己写，不引库）
+ * ============================================================================
+ * **为什么自己写**：这个页面不许有任何外部请求（有测试盯着，
+ * 见 `web/index.html` 顶部第 1 条），所以 marked / markdown-it 这类
+ * 从 CDN 拉的库一个都用不了。要么自己写，要么就让用户看着 `## 依据`。
  *
- * ⚠️ **顺序不能反**：先转义再套标签。
- * 反过来（先套 `<strong>` 再转义）会把刚拼好的标签一起转义掉，
- * 页面上就直接显示出 HTML 源码。
+ * **支持哪些语法，不是我拍脑袋定的，是数出来的。**
+ * 把 `fixtures/replay/llm/` 里 555 条有正文的录制全部统计了一遍，
+ * 按出现次数排（一共 88300 字，平均每条才 159 字）：
  *
- * 工具返回的文本里带 `**…**`（`domain/*.py` 里写的强调标记），
- * 不处理的话它们会原样露出来——用户看到一堆星号，
- * 只会觉得"这东西没做完"。
+ *     加粗 55 · 引用标记 45 · 无序列表 16 · 标题 13 · 有序列表 8 · 表格 7 · 分割线 2
+ *     斜体 0 · 行内代码 0
+ *
+ * ⚠️ 平均 159 字说明了一件事：**这 555 条里绝大多数不是给用户看的答案**，
+ * 而是路由、记忆抽取、查询改写这些内部调用（它们短、也没有格式）。
+ * 真正长的那几条——也就是用户会盯着看的那几条——才是上面这些构造的来源。
+ * 所以别把"只有 5 条出现了加粗"读成"加粗很少见"：
+ * 分母里大部分根本就不是答案。**先看清分母是什么，再读比例。**
+ *
+ * 所以下面**故意不支持 `*斜体*`**：它一次都没出现过，而支持它的代价是
+ * **把算式里的乘号吃掉**——「12000 × 3.5」模型有时会写成 `12000 * 3.5`，
+ * 斜体正则会把中间那段变成斜体。在一个满是算式的东西里，这个代价不能接受。
+ * （`_斜体_` 也不做，同样一次没出现过。）
+ *
+ * ⚠️ **这套东西不是"美化"，是修一个显示错误。** 用户看到的 `##`、`**`
+ * 是**提示词没要求的副产物**：`prompts.py` 只规定了引用写 `[1]` 和回答的结构，
+ * 没规定格式，模型就按训练习惯默认输出了 Markdown。
+ * 所以这里做的是"把它本来想说的事显示出来"，不是给答案换风格。
  */
-function rich(text, validIndexes) {
-  let html = esc(text).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-  if (validIndexes && validIndexes.length) {
-    const ok = new Set(validIndexes);
-    html = html.replace(/【(\d+)】/g, (m, d) => {
-      const i = parseInt(d, 10);
-      if (!ok.has(i)) return m;   // 不在校验通过集合里的原样显示
-      return `<span class="cite-ref" data-idx="${i}">【${d}】</span>`;
-    });
+
+/** 引用标记 → 可点的 span。三种写法都认，**跟后端 `agent/verify.py::_CITE_RE` 保持一致**：
+ *  `[1]`、`【1】`、以及 `[1,2]` / `[1][2]` 这种连写。
+ *
+ * ⚠️ **这条以前是坏的，而且是静默坏的，值得记一笔。**
+ * 提示词（`prompts.py`）明确要求模型写 `[1]`；而页面里原来的正则只认 `【1】`。
+ * 于是**正文里的引用编号从来就点不动**——能点的只有答案下面那排法条卡片，
+ * 所以"点了没反应"看起来像是"这里本来就不能点"，不像 bug。
+ * 实测 45 处引用标记全是 `[1]` 写法，一处 `【1】` 都没有。
+ *
+ * 教训和项目里其他几条一样：**两处各写一份正则，就会有一处先烂。**
+ * 改的时候两边必须一起改，否则修了还是白修。
+ */
+function linkifyCites(escaped, validIndexes) {
+  const ok = new Set(validIndexes || []);
+  // **没有可校验的编号就一个都不做。** 别把"编号列表是空的"当成
+  // "所有编号都算数"——那样正文里的 `[1]` 会变成一个点上去只会弹
+  // "没有对应的法条原文"的链接。**不可点比假可点诚实地多。**
+  if (!ok.size) return escaped;
+  return escaped.replace(
+    /([\[【])\s*(\d{1,2}(?:\s*[,，、]\s*\d{1,2})*)\s*([\]】])/g,
+    (m, open, nums, close) => {
+      const idxs = nums.split(/[,，、]\s*/).map((s) => parseInt(s, 10));
+      // 只要有一个编号没通过引用校验，就**整段原样留着**。
+      // 半截可点（`[1]` 点得动、`[9]` 点不动）比整段不可点更让人困惑。
+      if (!idxs.every((i) => ok.has(i))) return m;
+      return idxs
+        .map((i) => `<span class="cite-ref" data-idx="${i}">${open}${i}${close}</span>`)
+        .join("");
+    }
+  );
+}
+
+/** 行内格式：`**加粗**`、`` `代码` ``、以及引用标记。
+ *
+ * ⚠️ **下面四步的顺序是硬的，不能换**（换一步就有东西被吃掉）：
+ *
+ *   ① `esc()` **必须在最前**。先把 `<` `&` 变成实体，之后无论怎么拼标签，
+ *      模型或者工具返回的尖括号都不可能变成真标签。
+ *      反过来（先套 `<strong>` 再转义）会把刚拼好的标签也转义掉，
+ *      页面上直接显示 HTML 源码。
+ *   ② **行内代码第二**。先把 `` `x` `` 里的内容摘出来存进占位符——
+ *      不摘的话，里面的 `*` 会被下一步的加粗正则吃掉。
+ *   ③ **加粗在引用标记之前**，这样 `**...**` 里的 `[1]` 也会被正常处理。
+ *   ④ **引用标记最后**。它不参与任何格式，只是把编号变成可点的 span。
+ *
+ * 工具返回的文本里也带 `**…**`（`tools/domain/*.py` 里写的强调标记），
+ * 走的**就是这一个函数**——分开写两份的话，迟早出现
+ * "正文里的加粗好好的、算式里的星号露出来了"这种一半好一半坏的状态。
+ */
+function inlineMd(text, validIndexes) {
+  let s = esc(text);
+
+  // ② 行内代码：先摘出来。用 \u0000 包住的下标当占位符——
+  //    它不可能出现在正常文本里（PDF 复制出来都很少带），
+  //    比用 `@@1@@` 这种可能和正文撞车的标记安全。
+  const stash = [];
+  s = s.replace(/`([^`\n]+)`/g, (m, code) => {
+    stash.push(`<code>${code}</code>`);
+    return `\u0000${stash.length - 1}\u0000`;
+  });
+
+  // ③ 加粗。要求非空、且不跨行（`[^*\n]+`）——跨行的 `**` 基本是模型写歪了，
+  //    让它原样显示比把半篇答案吞进一个 <strong> 里好。
+  s = s.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
+
+  // 把代码还回去（此时里面已经是转义过的了，不会再被上面两条动到）
+  s = s.replace(/\u0000(\d+)\u0000/g, (m, k) => stash[Number(k)]);
+
+  // ④ 引用标记
+  return linkifyCites(s, validIndexes);
+}
+
+/** 块级 Markdown → HTML。**递归的**：引用块里再调一次自己。 */
+function mdToHtml(src, validIndexes) {
+  const lines = String(src ?? "").replace(/\r\n?/g, "\n").split("\n");
+  const out = [];
+  let i = 0;
+
+  // 这一行是不是"新块的开始"。用来决定段落在哪里断掉。
+  //
+  // ⚠️ **分割线那一支不能少。** 少了它，`前一行\n---` 里的 `---`
+  // 会被当成段落的续行吸进去，页面上就字面显示三个横杠。
+  // 真实语料里 `---` 前后都带空行（所以量出来是 0 条残留），
+  // 但那是数据碰巧给的，不是代码保证的——**这种"靠数据碰巧没出事"的写法
+  // 迟早会在某一条上出事**，而那时它看起来只会像"这行有点怪"。
+  // （顺带：正经 CommonMark 这里会把 `前一行` 变成二级标题。
+  //   我不跟它——法律答案里 `---` 就是想画条线，不是想把上一行变大字。）
+  const BLOCK_START = /^(#{1,6}\s|\s*[-*+]\s+|\s*\d+[.)]\s+|\s*>|\s*\||\s*([-*_])\2{2,}\s*$)/;
+  const splitRow = (row) =>
+    row.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+
+  while (i < lines.length) {
+    const line = lines[i];
+    if (!line.trim()) { i++; continue; }
+
+    // ---- 分割线 ----
+    // ⚠️ **必须排在无序列表前面。** `---` 也满足下面那条列表标记的正则
+    // （`-` 后面跟着 `--`），先判列表的话它会变成一个内容为 `--` 的列表项。
+    if (/^\s*([-*_])\1{2,}\s*$/.test(line)) { out.push("<hr>"); i++; continue; }
+
+    // ---- 标题 ----
+    let m = line.match(/^(#{1,6})\s+(.*?)\s*#*\s*$/);
+    if (m) {
+      // 模型在答案里是从 `##` 起步的（它把这当成"文档的标题"），
+      // 而页面自己的 h1 是页头、h2 是欢迎卡片。所以 `#`/`##` 都落到 h3，
+      // 往下一级一级降——直接照搬层级的话 `##` 会变成页面里最大的一号字，
+      // 比"juris-agent"这个页头标题还大。
+      const n = m[1].length;
+      const lvl = n <= 2 ? 3 : n === 3 ? 4 : 5;
+      out.push(`<h${lvl}>${inlineMd(m[2], validIndexes)}</h${lvl}>`);
+      i++; continue;
+    }
+
+    // ---- 表格（GFM 管道表）----
+    // 判据是"这一行以 | 开头、且**下一行是分隔行**（|---|---|）"。
+    // 只看第一行是不够的：正文里偶尔会出现一个孤零零的 `|`。
+    if (/^\s*\|/.test(line) && i + 1 < lines.length &&
+        /^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1])) {
+      const head = splitRow(line);
+      i += 2;
+      const rows = [];
+      while (i < lines.length && /^\s*\|/.test(lines[i])) { rows.push(splitRow(lines[i])); i++; }
+      let html = "<table><thead><tr>" +
+        head.map((c) => `<th>${inlineMd(c, validIndexes)}</th>`).join("") + "</tr></thead><tbody>";
+      for (const r of rows) {
+        html += "<tr>" + r.map((c) => `<td>${inlineMd(c, validIndexes)}</td>`).join("") + "</tr>";
+      }
+      // 外面**必须**再包一层 `.tw`：宽表格要能自己横向滚，
+      // 而不是把整个页面撑宽（CSS 里写明了原因）。
+      // 包在这里而不是各个调用处——调用处有六七个，漏一个就漏一个。
+      out.push(`<div class="tw">${html}</tbody></table></div>`);
+      continue;
+    }
+
+    // ---- 引用块 ----
+    if (/^\s*>\s?/.test(line)) {
+      const buf = [];
+      while (i < lines.length && /^\s*>\s?/.test(lines[i])) {
+        buf.push(lines[i].replace(/^\s*>\s?/, ""));
+        i++;
+      }
+      out.push(`<blockquote>${mdToHtml(buf.join("\n"), validIndexes)}</blockquote>`);
+      continue;
+    }
+
+    // ---- 列表 ----
+    const isUl = /^\s*[-*+]\s+/.test(line);
+    const isOl = /^\s*\d+[.)]\s+/.test(line);
+    if (isUl || isOl) {
+      const ordered = isOl;
+      const itemRe = ordered ? /^\s*\d+[.)]\s+(.*)$/ : /^\s*[-*+]\s+(.*)$/;
+      // 存一组**原始行**，不是拼好的字符串（理由见下面 map 那里）。
+      // ⚠️ 从**空数组**开始，不能预塞一个 `[[]]`：
+      // 进到这个分支说明第一行必定是列表标记，而预塞一个空项
+      // 会让每个列表都多出一个空的 `<li></li>`——列表顶上多一条空白，
+      // 不报错，只是看着"缩进有点怪"。
+      const items = [];
+      while (i < lines.length) {
+        const cur = lines[i];
+        if (!cur.trim()) {
+          // 列表中间的空行：后面跟着同类列表项就继续，否则这一块结束。
+          const nxt = lines[i + 1];
+          if (nxt && (ordered ? /^\s*\d+[.)]\s+/.test(nxt) : /^\s*[-*+]\s+/.test(nxt))) {
+            i++;
+            continue;
+          }
+          break;
+        }
+        const mm = cur.match(itemRe);
+        if (mm) { items.push([mm[1]]); i++; continue; }
+        // 续行：既不是新项、也不是别的块的开始 → 接到上一项。
+        // 模型偶尔会把一个长句折成两行，不接的话后半句会变成一个独立段落。
+        if (!BLOCK_START.test(cur)) { items[items.length - 1].push(cur.trim()); i++; continue; }
+        break;
+      }
+      const tag = ordered ? "ol" : "ul";
+      out.push(
+        `<${tag}>` +
+        items
+          .map((ls) => `<li>${ls.map((l) => inlineMd(l, validIndexes)).join("<br>")}</li>`)
+          .join("") +
+        `</${tag}>`
+      );
+      continue;
+    }
+
+    // ---- 段落 ----
+    // 段落内的**单个换行渲染成 <br>**，不按标准 Markdown 当成空格。
+    // 这是个刻意的偏离：法律答案里短行很多（每条依据一行），
+    // 按标准做法会被合并成一大坨，反而更难读。
+    const buf = [line];
+    i++;
+    while (i < lines.length && lines[i].trim() && !BLOCK_START.test(lines[i])) {
+      buf.push(lines[i]);
+      i++;
+    }
+    out.push(`<p>${buf.map((l) => inlineMd(l.trim(), validIndexes)).join("<br>")}</p>`);
   }
-  return html;
+  return out.join("");
 }
 
 /** 字段名 → 人话。表里的键是英文，直接显示一行 `total_payable` 太糙。 */
@@ -648,7 +931,7 @@ function renderPayload(payload, validIndexes) {
     const ol = el("ol");
     // 逐条转义。工具的输出**不能当 HTML 用**——这一步漏了，
     // 返回文本里带一段标签就会在页面上变成真的标签。
-    steps.forEach(s => ol.appendChild(el("li", null, rich(String(s), validIndexes))));
+    steps.forEach(s => ol.appendChild(el("li", null, inlineMd(String(s), validIndexes))));
     c.appendChild(ol);
     box.appendChild(c);
   }
@@ -684,11 +967,11 @@ function renderPayload(payload, validIndexes) {
       const fx = el("div", "finding " + esc(sev));
       if (isObj) {
         fx.appendChild(el("div", "ft", esc(f.title || `发现 ${i + 1}`)));
-        fx.appendChild(el("div", "fd", rich(String(f.detail || ""), validIndexes)));
+        fx.appendChild(el("div", "fd", mdToHtml(String(f.detail || ""), validIndexes)));
         if (f.suggestion) fx.appendChild(el("div", "fs", "建议：" + esc(f.suggestion)));
         if (f.citation) fx.appendChild(el("div", "fc", esc(f.citation)));
       } else {
-        fx.appendChild(el("div", "fd", rich(String(f), validIndexes)));
+        fx.appendChild(el("div", "fd", mdToHtml(String(f), validIndexes)));
       }
       box.appendChild(fx);
     });
@@ -727,7 +1010,7 @@ function renderPayload(payload, validIndexes) {
     box.appendChild(d);
   }
   (payload.warnings || []).forEach(w =>
-    box.appendChild(el("div", "notice warn", "⚠︎ " + rich(String(w), validIndexes))));
+    box.appendChild(el("div", "notice warn", "⚠︎ " + mdToHtml(String(w), validIndexes))));
   if (payload.disclaimer) {
     box.appendChild(el("div", "notice gray", esc(String(payload.disclaimer))));
   }
@@ -1137,13 +1420,24 @@ function newTurn(question) {
   turnsEl.appendChild(t);
   t._answer = ans; t._cites = cites; t._errs = errs; t._foot = foot;
   t._articles = {};   // index → 法条对象，供点开原文用
+
+  // 流式渲染用的三个状态，都在这里一次开好。
+  // **不用 `undefined` 兜底**：少写一个，`_answerText += ...` 会拼出
+  // 字符串 "undefined"（不报错，页面上直接显示出来），
+  // 而 `_rafPending` 少写会从上一条答案那里继承 `true`，**这条答案一行都不显示**。
+  t._answerText = "";      // 原始 Markdown（累计）
+  t._rafPending = false;   // 这一帧已经排上重渲染了吗
+  t._done = false;         // done 事件来过了吗（来了就停止流式重渲染）
+  t._liveValid = null;     // 流式期间用它做引用校验；null = 全都认
   return t;
 }
 
 /** 点开引用看原文。两个入口共用：
- *  ① 答案正文里的 【1】 标记；② 答案下面的法条卡片。
+ *  ① 答案正文里的 `[1]` 标记；② 答案下面的法条卡片。
  * 两条路都走这里，是为了**行为完全一致**——分别实现的话，
- * 迟早出现"点标记能展开、点卡片没反应"这类只在一条路上存在的毛病。 */
+ * 迟早出现"点标记能展开、点卡片没反应"这类只在一条路上存在的毛病。
+ * （写完这句话我去数了一遍：正文那条路**确实**没接上，见文件末尾
+ * 那段点击委托的注释。所以这句话以前是句空话。） */
 function showArticle(turn, index) {
   const box = turn.querySelector(`.cite[data-idx="${index}"]`);
   if (box) {
@@ -1156,6 +1450,54 @@ function showArticle(turn, index) {
   // 因为生成后引用校验会把编造的编号删掉）。**不静默忽略**——
   // 静默忽略会让用户以为自己点错了。
   alert(`这条引用（${index}）没有对应的法条原文。可能是编号被改动过。`);
+}
+
+/** 流式答案的渲染节流。
+ *
+ * ⚠️ **必须让它停**，这是这段代码存在的唯一理由。
+ * `render.answer` 每收到一批就调一次这里，而一条答案能来几十批；
+ * 每批都立刻重渲染的话，一秒钟能重排几十次 DOM——CPU 白烧，
+ * 打字动画还会卡。所以用 requestAnimationFrame 攒到下一帧再画一次，
+ * 一帧内来多少批都只画一次（浏览器一帧 16ms，人眼看不出区别）。
+ *
+ * `turn._rafPending` 是"已经排上了、别排第二遍"的标记。
+ * 没有它的话，rAF 队列里会塞进几十个回调，**每个回调都重渲染一次，
+ * 等于完全没节流**——这个函数就成了纯粹的仪式。
+ */
+function scheduleAnswerRender(turn) {
+  if (turn._rafPending || turn._done) return;   // 收尾了就别再画流式版
+  turn._rafPending = true;
+  requestAnimationFrame(() => {
+    turn._rafPending = false;
+    if (turn._done) return;      // 这期间 done 已经来过，让它去画最终版
+    turn._answer.innerHTML = mdToHtml(streamSafe(turn._answerText), turn._liveValid);
+  });
+}
+
+/** 把"还没写完"的尾巴藏起来，免得用户看见半截标记。
+ *
+ * 出问题的是 `**`：模型写 `**加粗**` 是一个字一个字吐的，
+ * 吐到一半的时候屏幕上会出现一个孤零零的 `**`（或者更糟，
+ * 从中间开始加粗，后面半篇答案全变粗体，然后下一个 `**` 到了又弹回来）。
+ *
+ * 所以：数一下 `**` 的个数，**是奇数说明最后那个还没等到配对**，就砍掉。
+ * 只砍最后那一个，不动前面的——前面的都是配好对的。
+ *
+ * 只处理 `**`，不管 `|` 和 ```：那两个写坏了顶多是"这一行没变成表格"，
+ * 不会把后面的正文吃掉，属于视觉噪音而不是错误。
+ * （反引号其实在 `inlineMd` 里就有保护——它要求有配对的闭合反引号才认。）
+ *
+ * 注意这是**纯粹的显示层截断**，不碰 `_answerText` 本身。
+ * 屏幕上少显示一个 `**` 和真把数据改了是两回事——
+ * 后者会让最终答案和流式期间看到的对不上。
+ */
+function streamSafe(text) {
+  const marks = text.split("**").length - 1;
+  if (marks % 2 === 1) {
+    const i = text.lastIndexOf("**");
+    return text.slice(0, i);
+  }
+  return text;
 }
 
 const render = {
@@ -1192,6 +1534,11 @@ const render = {
     // **正文是跟着检索事件一起到的**（后端刻意这么发），所以点开的时候
     // 不需要再发一次请求——那一次往返的延迟正好会让"点开看原文"发顿。
     arts.forEach(a => { turn._articles[a.index] = a; });
+    // 流式期间用来做引用校验的编号集合。取"检索到的全部"，
+    // 而不是"校验通过的"——校验报告要等 `done` 才到，
+    // 流式期间根本没有那个信息。宁可多认几个，也不要让正文里的 `[1]`
+    // 在流式期间是死的、结束后又活了（那种闪烁比一直不可点更明显）。
+    turn._liveValid = arts.map(a => a.index);
     addStep(turn, "retrieval",
       `<b>检索</b> 命中 ${arts.length} 条` +
       (d.note ? `　<span style="color:var(--ink-dim)">${esc(d.note)}</span>` : ""));
@@ -1244,7 +1591,7 @@ const render = {
   refusal(turn, d) {
     const n = el("div", "refusal");
     n.appendChild(el("div", "cat", "这个问题超出了我的范围：" + esc(d.category || "")));
-    n.appendChild(el("div", null, rich(d.reason || "")));
+    n.appendChild(el("div", null, mdToHtml(d.reason || "")));
     if (d.suggestion) n.appendChild(el("div", "sugg", "可以试试：" + esc(d.suggestion)));
     turn._errs.appendChild(n);
   },
@@ -1254,10 +1601,19 @@ const render = {
   },
 
   answer(turn, d) {
-    // 逐字追加。**这里不转义就拼**是故意的吗？不是——用的是 textContent，
-    // 由浏览器负责转义，比手写 `innerHTML += esc(x)` 更安全也更快
-    // （后者每次都重新解析整段 HTML）。
-    turn._answer.textContent += (d.text || "");
+    // 逐字流式：**攒原始文本，整段重渲染**，不是往 DOM 上追加。
+    //
+    // ⚠️ 这是这次改动里唯一一处"改了机制"的地方，值得说清为什么。
+    // 原来是把每个增量 `textContent +=` 上去——那时候答案是一坨纯文本，
+    // 追加是对的（又快又不用重排）。现在答案要当 Markdown 渲染，
+    // 就**没法再增量拼**了：`**加粗**` 的两个星号是分两批到的，
+    // 只看到半个的时候不知道它是要加粗还是就是个乘号；
+    // `|` 开头的一行在下一行到达前也不知道那是表格还是正文。
+    // 所以每来一批就整段重渲染一次。代价是复杂度 O(n²)，
+    // 但答案撑死几 KB，实测完全看不出来——换来的是"流式期间和结束后
+    // 长得一样"，比省那点 CPU 值。
+    turn._answerText += (d.text || "");
+    scheduleAnswerRender(turn);
     autoscroll(turn);
   },
 
@@ -1281,7 +1637,13 @@ const render = {
     const report = d.citation_report || {};
     const valid = report.valid || [];
     turn._answer.classList.remove("streaming");
-    turn._answer.innerHTML = rich(d.answer || "", valid);
+    // ⚠️ **先把 `_done` 立起来，再写 innerHTML。**
+    // 反过来的话，上面那次覆盖可能刚写完，就有一帧流式重渲染排到了后面，
+    // 用**旧的、带编造编号的**文本把最终版盖回去。
+    // 那样"屏幕上是什么、后端存的就是什么"就不成立了——
+    // 而这正是这一行覆盖的意义所在。
+    turn._done = true;
+    turn._answer.innerHTML = mdToHtml(d.answer || "", valid);
 
     // 法条卡片
     turn._cites.innerHTML = "";
@@ -1545,6 +1907,28 @@ function askExample(q) {
 document.addEventListener("click", (e) => {
   const btn = e.target.closest("button[data-q]");
   if (btn) askExample(btn.dataset.q);
+});
+
+// 正文里 `[1]` 那种引用标记的点击。
+//
+// ⚠️ **这一段是补的，补的是一个存在了很久的"假的能点"。**
+// `.cite-ref` 的样式（蓝色、虚线下划线、`cursor: pointer`）一直都在，
+// 但从来没有绑过任何处理器——用户看着它像链接，点下去什么也不发生。
+// 更糟的是它**看不出来是坏的**：人点了没反应，第一反应是"这儿本来就不能点"，
+// 而不是"这是个 bug"。有样式没行为，比完全没样式还坏。
+//
+// 用**委托**（绑在 document 上）而不是给每个 span 单独绑：
+// 流式期间整段 innerHTML 会被反复重写，单独绑的话每重写一次就全部失效。
+// 委托是绑在不会变的父节点上，重写多少次都还在。
+document.addEventListener("click", (e) => {
+  const ref = e.target.closest(".cite-ref");
+  if (!ref) return;
+  const turn = ref.closest(".turn");
+  if (!turn) return;
+  // data-idx 是 linkifyCites 写上去的。**用 ?? 而不是 ||**：
+  // 编号 0 是假值，`|| 0` 会把 `[1]` 悄悄变成 `[0]` 去查。
+  // （编号确实从 1 起，所以现在踩不到，但这是那种"以后改一处就中招"的写法。）
+  showArticle(turn, Number(ref.dataset.idx ?? -1));
 });
 
 $("newSession").addEventListener("click", () => {

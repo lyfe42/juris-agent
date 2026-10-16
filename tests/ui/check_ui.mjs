@@ -193,8 +193,128 @@ console.log("\n⑤ 转义");
 const evil = api.renderPayload({ steps: ["<img src=x onerror=alert(1)>"], warnings: ["<b>x</b>"] });
 ok(!flat(evil).includes("<img"), "算式里的 HTML 标签被转义了");
 ok(!flat(evil).includes("<b>x</b>"), "提醒里的 HTML 标签被转义了");
-ok(api.rich("看**这里**").includes("<strong>这里</strong>"), "**加粗** 生效");
-ok(api.rich("行内 <script> 被转义").includes("&lt;script&gt;"), "先转义再套标签（顺序对）");
+ok(api.inlineMd("看**这里**").includes("<strong>这里</strong>"), "**加粗** 生效");
+ok(api.inlineMd("行内 <script> 被转义").includes("&lt;script&gt;"), "先转义再套标签（顺序对）");
+
+// 转义必须**在套标签之前**做完。只测"尖括号被转义"是不够的——
+// 顺序写反（先拼 <strong> 再整体转义）会让标签本身也被转义掉，
+// 页面上显示字面的 <strong>。所以这里同时断言"标签在、源码不在"。
+const order = api.inlineMd("**<b>粗</b>**");
+ok(order.includes("<strong>") && !order.includes("&lt;strong&gt;"), "标签没被二次转义");
+ok(order.includes("&lt;b&gt;"), "模型写的标签仍在加粗里被转义");
+
+// 这三个是 Markdown 渲染器**新引入**的攻击面（原来只有 esc 一条路）：
+// 链接、图片、以及代码块里的内容，都得照样转义。
+classic: {
+  const cases = [
+    ["代码块", api.inlineMd("`<script>alert(1)</script>`")],
+    ["标题", api.mdToHtml("## <img src=x onerror=alert(1)>")],
+    ["表格", api.mdToHtml("| a | b |\n|---|---|\n| <img src=x> | y |")],
+    ["列表", api.mdToHtml("- <img src=x onerror=alert(1)>")],
+    ["引用块", api.mdToHtml("> <img src=x onerror=alert(1)>")],
+  ];
+  for (const [what, html] of cases) {
+    ok(!html.includes("<img") && !html.includes("<script"),
+       `${what}里的标签也被转义`);
+  }
+}
+
+// ---- ⑥ Markdown 渲染 ----
+// 支持范围是**数出来的**（见 web/index.html 文件头），所以这里断言的就是
+// 那几样真的出现过的东西，外加几个"写错了也不能把正文吃掉"的边界。
+console.log("\n⑥ Markdown");
+
+ok(api.mdToHtml("## 依据").includes("<h3>依据</h3>"), "## → h3（不是 h2：页头在用）");
+ok(api.mdToHtml("# 标题").includes("<h3>"), "# → h3（跟 ## 同级）");
+ok(api.mdToHtml("### 细项").includes("<h4>细项</h4>"), "### → h4");
+ok(api.mdToHtml("#### 更细").includes("<h5>"), "#### → h5（到顶了，不再降）");
+ok(!api.mdToHtml("## 依据").includes("<h1>"), "绝不生成 h1/h2（会和页面自己抢）");
+
+ok(api.mdToHtml("- 甲\n- 乙").includes("<ul><li>甲</li><li>乙</li></ul>"), "无序列表");
+ok(api.mdToHtml("1. 甲\n2. 乙").includes("<ol><li>甲</li><li>乙</li></ol>"), "有序列表");
+ok(api.mdToHtml("- 甲\n  续行").includes("<li>甲<br>续行</li>"),
+   "列表续行接回上一项（不另起一段）");
+const loop = api.mdToHtml("- 甲\n\n- 乙");
+ok(loop.includes("<ul>") && loop.split("<ul>").length === 2, "列表中间的空行不断成两个 ul");
+
+// ⚠️ 分割线必须在列表**之前**判：`---` 也满足 `- ` 那条列表正则，
+// 判反了它就是一个内容为 `--` 的列表项。这是这套解析器最脆的一处。
+const hr = api.mdToHtml("前\n\n---\n\n后");
+ok(hr.includes("<hr>"), "--- 渲染成分割线");
+ok(!hr.includes("<li>"), "--- 没有变成 `-` 列表项（顺序对）");
+// ⚠️ 紧贴在上一行后面的 `---`（中间没空行）也要断掉段落。
+// 真实语料里 `---` 前后恰好都有空行，所以漏渲染统计是 0——
+// 但那是**数据碰巧**，不是代码保证的。这条断言管的是代码这一侧。
+ok(api.mdToHtml("前一行\n---\n后一行").includes("<hr>"),
+   "没有空行隔开的 --- 也断段（不靠数据碰巧）");
+ok(api.mdToHtml("***").includes("<hr>") && api.mdToHtml("___").includes("<hr>"),
+   "* * * 和 ___ 也算分割线");
+
+const tbl = api.mdToHtml("| 情形 | 倍数 |\n|---|---|\n| 违法解除 | 2 |");
+ok(tbl.includes("<table>") && tbl.includes("<th>情形</th>"), "管道表：表头成 th");
+ok(tbl.includes("<td>违法解除</td>"), "管道表：数据行成 td");
+// 宽表格要能自己横向滚，而不是把整个页面撑宽。
+ok(tbl.includes('class="tw"') && tbl.indexOf('class="tw"') < tbl.indexOf("<table>"),
+   "表格套了 .tw 横向滚动容器（不在调用处，在渲染器里）");
+// 判据是"下一行是分隔行"。只看第一行的话，正文里一个孤零零的 `|` 会被误判成表格。
+ok(!api.mdToHtml("| 这不是表格，下面没有分隔行").includes("<table>"),
+   "只有一行 | 不认成表格（要下一行是分隔行才算）");
+
+ok(api.mdToHtml("> 引用一句").includes("<blockquote>"), "引用块");
+ok(api.mdToHtml("> 外层\n> > 内层").includes("<blockquote>") &&
+   api.mdToHtml("> 外层\n> > 内层").includes("<blockquote><p>内层</p></blockquote>"),
+   "引用块嵌套（渲染器是递归的）");
+
+ok(api.mdToHtml("第一行\n第二行").includes("第一行<br>第二行"), "段落里的单换行 → <br>");
+ok(api.mdToHtml("甲\n\n乙").includes("<p>甲</p><p>乙</p>"), "空行分成两段");
+
+// ⚠️ **故意不支持 `*斜体*`**：一次都没在真实答案里出现过，
+// 而它的正则会吃掉算式里的乘号。这条断言就是钉死这个决定——
+// 哪天有人"顺手补上斜体"，这里会立刻红。
+const math = api.mdToHtml("12000 * 3.5 * 2");
+ok(!math.includes("<em>") && math.includes("12000 * 3.5 * 2"), "乘号没被当成斜体标记");
+
+// `**` 不跨行：跨行的多半是模型写歪了，宁可原样显示，
+// 也别把半篇答案吞进一个 <strong> 里。
+ok(api.inlineMd("**没闭合\n下一行").includes("**没闭合"), "跨行的 ** 不当加粗（不吞正文）");
+
+// 行内代码里的 `*` 不能被加粗正则吃掉（占位符那一步存在的理由）
+ok(api.inlineMd("`a * b`").includes("<code>a * b</code>"), "行内代码原样保留");
+
+// ---- 引用标记：后端写 `[1]`，这里必须认，两种括法都认 ----
+console.log("\n⑦ 引用标记");
+const c1 = api.inlineMd("依据《劳动合同法》[1] 第 47 条", [1]);
+ok(c1.includes('class="cite-ref" data-idx="1"'), "[1] 变成可点标记（后端就是这么写的）");
+ok(c1.includes("[1]</span>"), "标记文字保持 [1] 原样，没换成 【1】");
+ok(api.inlineMd("见【1】", [1]).includes('data-idx="1"'), "【1】也认（两种括法都认）");
+
+const c2 = api.inlineMd("见 [1,2]", [1, 2]);
+ok(c2.split('class="cite-ref"').length === 3 && c2.includes('data-idx="2"'),
+   "[1,2] 拆成两个可点标记");
+ok(api.inlineMd("见 [1][2]", [1, 2]).split('class="cite-ref"').length === 3, "[1][2] 也拆");
+
+// 校验没过的不做链接。**整段原样留着**，不是只留坏的那个：
+// 半截可点（[1] 点得动、[9] 点不动）比整段不可点更让人困惑。
+const bad = api.inlineMd("见 [1] 和 [9]", [1]);
+ok(bad.includes('data-idx="1"') && !bad.includes('data-idx="9"'), "没校验过的编号不链接");
+ok(api.inlineMd("见 [9]", [1]).includes("[9]") &&
+   !api.inlineMd("见 [9]", [1]).includes("cite-ref"), "都不合法时整段原样");
+
+// 没有可校验的编号 → 一个都不链接。
+// 别把"列表是空的"当成"全都算数"，那样点上去只会弹"没有对应的法条原文"。
+ok(!api.inlineMd("见 [1]", []).includes("cite-ref"), "validate 列表为空时一律不链接");
+ok(!api.inlineMd("见 [1]", undefined).includes("cite-ref"), "没传 validIndexes 时不链接");
+// 编号 0 是假值。渲染这条路用 Number()/模板串，没问题；
+// 出问题的是点击那条路（`ref.dataset.idx || 0` 会把 1 变成 0），
+// 那条要真 DOM 事件才测得到，所以这里只钉住渲染这半边的行为。
+ok(api.inlineMd("见 [0]", [0]).includes('data-idx="0"'), "编号 0 渲染成 data-idx=0，没被吞掉");
+
+// ---- ⑧ 流式：写到一半的标记不能露出来 ----
+console.log("\n⑧ 流式");
+ok(!api.streamSafe("答案是 **加粗").includes("**"), "没配对的 ** 被藏起来");
+ok(api.streamSafe("**甲** 和 **乙**").includes("**乙**"), "配好对的 ** 不动");
+ok(api.streamSafe("**甲** 和 **乙").endsWith("和 "), "只砍最后那一个，前面不动");
+ok(api.streamSafe("普通文本").includes("普通文本"), "没有 ** 时原样返回");
 
 console.log(failed ? `\n❌ ${failed} 项没过` : "\n✅ 全部通过");
 process.exit(failed ? 1 : 0);
