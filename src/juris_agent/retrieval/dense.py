@@ -78,7 +78,19 @@ class Encoder:
             device = "cuda" if torch.cuda.is_available() else "cpu"
         self.device = device
         self.model = SentenceTransformer(model_name, device=device)
-        self.dim = int(self.model.get_sentence_embedding_dimension())
+        # ⚠️ 维度这个属性**改过名**：sentence-transformers 较新的版本里叫
+        # `get_embedding_dimension`，旧的（以及本项目当前锁定的那个版本）
+        # 叫 `get_sentence_embedding_dimension`。直接在代码里写新名字会在
+        # 旧版本上 `AttributeError`，写旧名字会在新版本上打一条
+        # `FutureWarning`（就是 CLI 里那行噪音，它会在真机上到处出现）。
+        #
+        # 所以两个都试：优先新名字，没有就退回旧名字。
+        # **这比"直接钉死一个版本"好**——钉版本会让想升级的人先改这里，
+        # 而他改的时候不会知道为什么这里有这个名字。
+        get_dim = getattr(self.model, "get_embedding_dimension", None) or getattr(
+            self.model, "get_sentence_embedding_dimension"
+        )
+        self.dim = int(get_dim())
 
     def encode_documents(self, texts: list[str]) -> np.ndarray:
         """文档侧：**不加**指令前缀。返回 L2 归一化后的 `(n, dim)` float32。"""

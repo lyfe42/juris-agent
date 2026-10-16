@@ -37,6 +37,22 @@ dependencies = [
     "langgraph>=1.2.15",
 ]
 
+# 装上之后有 `juris` 这个命令（见 `src/juris_agent/cli.py`）。
+#
+# ⚠️ **入口写的是 `main`，不是 `main()`。** 它要的是"冒号后面那个可调用对象"，
+# 而 console_scripts 生成的包装器长这样：
+#     sys.exit(main())
+# 也就是**退出码由 `main()` 的返回值决定**。写成 `main()` 的话
+# 那里会变成 `sys.exit(main()())`——把返回值当函数再调一次，
+# 症状是 `TypeError: 'int' object is not callable`，而报错栈里
+# 一行自己的代码都没有（全在生成的那个包装器里）。
+#
+# ⚠️ 另一个容易踩的：`main()` 里**不能自己 `sys.exit()`**。
+# 那样它一被调用就把进程带走，单测里没法直接调它（`SystemExit` 会从
+# 断言中间穿出去）。所以它返回 int，由外面决定怎么用。
+[project.scripts]
+juris = "juris_agent.cli:main"
+
 [project.optional-dependencies]
 # 检索与重排的 GPU 栈。单独成组是刻意的：工具层（domain + executor）与它的测试
 # 只需要 pydantic，不该为了跑一次单元测试下载 2.5GB 的 CUDA torch。

@@ -78,8 +78,9 @@
 | CI + Recall 门禁 | ✅ | `.github/workflows/ci.yml` + `scripts/check_recall.py`（三条门禁，含"基线过期拒绝比较"）|
 | QPS 压测 | ✅ | `scripts/bench_qps.py` + `reports/qps.md`；三档（mock/nollm/real）分开报。**报告的主要价值是那两次排查**：① 第一版把云主机降频当成了"高并发拖慢服务"，靠一段与项目无关的纯计算负载定位；② 修好 harness（多轮取最快 + 倒序重跑）之后发现**推翻过头了**——并发确实掉吞吐（1→32 从 101 掉到 57），真因是**线程抢 GIL**，用 `--probe`（对照组）和 `--threads 1`（把池子压到一个线程，吞吐回到 90）两个实验分开证明 |
 | 成本报表 | ✅ | `scripts/cost_report.py` + `reports/cost.md`；**报表先后推翻了作者两处想当然**：① 缓存命中率 71.4%、输入开销省 64.3%（不是"缓存没用"），但命中的是"同一段前缀被反复发"，不是"用户越多越省"；② `inject_k` 8→2 只省 9.7% 的钱却掉 10.0 个点召回 → 不划算，因为占成本 34.1% 的工具循环完全不随它变 |
+| 调用门面 + 命令行 | ✅ | `client.py`（`ask()` / `JurisAgent`）+ `cli.py`（`juris ask/chat/serve/doctor`）。**不是新装配**——复用 `api/runtime.build_runtime`，否则两套会漂移、且门面这条路没有那 43 个契约测试覆盖。四条命令都真跑过；顺手抓到三个"看着对、其实错了"的坑：日志污染 stdout 弄坏 `--json`；`PrintLoggerFactory(file=X)` 永久绑死 X（一绑就把整套测试打红 13 条）；`--stream` 在"回调一次都没被调"的路由上会**静默丢掉答案**（判断"用户开没开开关"简单，判断"这件事到底发生过没有"才对） |
 
-测试：**738 passed**（`uv run pytest`，不需要 key、不需要 GPU）
+测试：**764 passed**（`uv run pytest`，不需要 key、不需要 GPU）
 
 ---
 

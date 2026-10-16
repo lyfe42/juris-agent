@@ -19,6 +19,109 @@
 
 ---
 
+## 三分钟用起来
+
+**这一节是给「用它的人」看的**；下面各节是给「改它的人」看的。
+分成两拨是因为这两件事的读者关心的问题完全不同——前者只想知道"怎么问一句话"，
+后者才关心"检索是怎么融合的"。
+
+### 1. 装
+
+```bash
+uv sync --extra ml             # 核心 + 检索栈（CUDA torch，约 2.5GB）
+cp .env.example .env           # 然后把 DEEPSEEK_API_KEY 填进去
+```
+
+> 明细和"为什么卡在 Python 3.12"见下面的[安装](#安装)。
+
+### 2. 先体检
+
+```bash
+juris doctor
+```
+
+缺什么就说缺什么，**退出码 0 = 能答问题、1 = 不能**，所以也能塞进脚本。
+装不起来时它会**按最常见的顺序**列排查步骤（`.env` 有没有、key 填没填、
+`--extra ml` 装没装、语料建没建、huggingface 要不要换镜像）。
+
+### 3. 问一个
+
+```bash
+juris ask "公司裁员，我干了 3 年月薪 1 万，能赔多少？"
+```
+
+```bash
+juris ask "试用期最长能有多久？" --stream --trace
+```
+
+`--stream` 是打字机效果（边生成边打），`--trace` 会再打一份**执行轨迹**——
+走了哪几个节点、各花多久、token 花在哪。加 `--json` 输出一整段 JSON
+（给脚本用，**stdout 里只有 JSON**，日志全在 stderr）。
+
+### 4. 连着聊
+
+```bash
+juris chat
+```
+
+多轮是记忆层在起作用，**同一段会话里它会记住你报过的月薪、工龄、地点**，
+所以第一句说完背景，第二句直接问结论就够了：
+
+```
+> 我在西安，月薪 12000，干了 2 年，被裁了
+  …（答：能拿 24000）
+> 那到底能赔多少？
+  …（答：24000 元 = 12000 × 2 年，并检查了当地社平三倍封顶）
+```
+
+> `/new` 开一段新会话，`/session` 看当前会话 id，`--session <id>` 能接着上次聊。
+
+### 5. 起网页
+
+```bash
+juris serve                    # http://127.0.0.1:8000
+```
+
+### 6. 或者直接写 Python
+
+```python
+from juris_agent import ask
+
+a = ask("被辞退有补偿吗？")
+print(a.text)        # 答案 + 引用法条（带原文）
+print(a.cost_text)   # 这一轮真花了多少
+print(a.citations)   # [《劳动合同法》第四十七条, …]，每条都能回到原文
+```
+
+多轮用同一个 `session_id`；要长期持有就 `with JurisAgent() as agent:`。
+**门面的完整契约（懒加载、装不起来时抛什么、`close()` 之后还能不能用）
+写在 [`src/juris_agent/client.py`](src/juris_agent/client.py) 的 docstring 里。**
+
+> ⚠️ 在这之前，"用一下这个 Agent"要自己攒五样东西
+> （settings、retriever、llm、registry、executor）才够 `make_runner` 开跑，
+> 而且里面藏着**三个只有读过源码才知道的约束**（重装配要进程级共享、
+> 没有 key 会在第三个 import 里抛、成本记账必须在同一个线程里开账）。
+> 门面就是把这三个约束收起来——**它不改变任何行为**，只是不再要求调用方知道这些。
+
+### 装不起来怎么办
+
+`juris doctor` 已经会告诉你缺什么。如果它报的东西看不懂，按这个顺序试：
+
+| 症状 | 先看这个 |
+|---|---|
+| `检索器未装配：ModuleNotFoundError` | `uv sync --extra ml`（检索栈在可选的 `ml` 组里） |
+| `检索器未装配：… 语料/索引不存在` | `uv run python scripts/build_index.py` |
+| 卡在下载模型 / `ConnectionError` | `.env` 里设 `HF_ENDPOINT=https://hf-mirror.com` |
+| `LLM 未装配：没有 DEEPSEEK_API_KEY` | 复制 `.env.example` 为 `.env` 并填 key |
+| 想在**不花钱、不装模型**时试一遍 | `juris doctor` 不需要 key；`uv run python scripts/demo.py` 支持回放模式 |
+
+⚠️ 修完配置后**要重新起一个进程**（`juris` 每次都是新进程，天生就是重装的）。
+如果在同一个 Python 进程里改（REPL、notebook），得新建一个 `JurisAgent`
+或调 `agent.close()`——**装失败的那个结果会被记住**，
+不然每问一题都要先卡几十秒再报同一个错（理由见 `client.py` 的 `_ensure`）。
+
+---
+
 ## 当前状态
 
 **数据层、检索层、评测层、Agent 层、记忆层、产品壳都已落地，CI 与 Recall 门禁也接上了。**
@@ -39,6 +142,7 @@
 | `agent/` Agent 层 | ✅ | `remember` → 路由 → 检索 → 工具循环（Function Calling）→ 生成 → 收尾；四道防死循环闸门；引用校验 |
 | `memory/` 记忆层 | ✅ | 四层（槽位 / 窗口 / 摘要 / 长期召回）+ 预算分配 + 四策略开关；**已接进主链路** |
 | `api/` 产品壳 | ✅ | FastAPI：非流式 + SSE 流式 + 法条原文查询 + 静态页；会话加锁 + 版本号防覆盖；**43 项契约测试** |
+| `client.py` + `cli.py` 调用门面 | ✅ | 一行 `ask()` 或四条 `juris` 命令就能用；**复用 `api/runtime` 的装配**（不另起一套，避免两边漂移） |
 | `web/` 演示界面 | ✅ | 单文件、零外部请求；事件流按步展开、法条可点开原文、拒答有明确说明 |
 | `observability/` 成本与日志 | ✅ | 分项 token（含缓存命中/思考）+ 按牌价表算钱 + 请求 id 串起来 |
 | CI + Recall 门禁 | ✅ | `pytest -m "not network"` + 三条 Recall 门禁；语料/评测集变过就**拒绝比较**（不产生假涨跌）|
@@ -103,8 +207,21 @@ pytest                         # 全部通过
 uv sync --extra ml --extra dev # 本机 RTX 4060，走 cu124 源（见 pyproject.toml）
 ```
 
+`uv sync` 会顺手装上 `juris` 这个命令（`[project.scripts]` → `src/juris_agent/cli.py:main`）。
+装完可以先跑 `juris doctor` 看环境齐不齐，用法见上面的[三分钟用起来](#三分钟用起来)。
+
+> ⚠️ **入口必须写成 `juris_agent.cli:main`，不能写成 `main()`。**
+> `console_scripts` 生成的包装器是 `sys.exit(main())`——写 `main()` 就变成
+> 把返回值当函数再调一次，报 `TypeError: 'int' object is not callable`，
+> 而且栈里一行自己的代码都没有。同理 `main()` 里也不能自己 `sys.exit()`，
+> 那样单测没法直接调它（`SystemExit` 会从断言中间穿出去）。
+
 > `HF_ENDPOINT` 必须在 `transformers` 首次 import **之前**生效。`src/juris_agent/__init__.py`
 > 里的引导负责这件事——任何 `from juris_agent.x import y` 都会先执行它。详见该文件 docstring。
+> 也正因为这个，`juris_agent` 对外的门面（`ask` / `JurisAgent`）走的是
+> **PEP 562 的模块级 `__getattr__`** 懒导出，而不是顶部一句 `from .client import ask`——
+> 后者会把 pydantic-settings 拉进引导阶段。
+> 代价是 IDE 补全可能看不到这几个名字（`__all__` 是给它的提示）。
 
 复制 `.env.example` 为 `.env` 并填入 `DEEPSEEK_API_KEY`。`.env` 已在 `.gitignore` 中。
 
@@ -639,15 +756,32 @@ python scripts/memory_ablation.py     # 不需要 key、不需要 GPU
 
 ## 产品壳：怎么把它当场演示出来
 
-有两个入口，**但它们不是两套实现**：
+有三个入口，**但它们不是三套实现**：
 
 ```bash
+juris ask "被辞退有补偿吗？" --trace   # 终端：问一句就走（日常用这个）
+juris chat                            # 终端：多轮对话（记忆层最直观的地方）
+juris serve --port 8000               # 浏览器：http://127.0.0.1:8000
+
 python scripts/demo.py --mode replay   # 终端：离线重放，零成本，不联网
-uvicorn juris_agent.api.app:app --port 8077   # 浏览器：http://127.0.0.1:8077
 ```
 
-两个入口都调同一个 `AgentRunner.stream`，都把增量喂给同一个 `api/events.py`
-翻译成事件。区别只在事件的终点——终端打印，网页发 SSE。
+前三个是同一个东西（`client.py` 的门面，四个子命令都在 `cli.py` 里），
+`scripts/demo.py` 是**开发视角**的那个——它会把"系统里发生了什么"逐条摊开打，
+适合看链路；`juris ask --trace` 是它的精简版。
+
+⚠️ **这里是两件事，别混说**（第一版这段写成了一句"所有入口都调
+`AgentRunner.stream`"，那是错的）：
+
+| | 走哪条 | 事件层（`api/events.py`） |
+|---|---|---|
+| `juris serve`、`scripts/demo.py` | `AgentRunner.stream` | **经过**——图里的更新被翻译成对外事件，终端打印或发 SSE |
+| `juris ask` / `juris chat` | `AgentRunner.ask` | **不经过**——直接拿最后那份 `AgentState` |
+
+两条路跑的是**同一张图**（同一个 `AgentRunner`），所以"路由、闸门、引用校验"
+这些行为完全一致；差别只在**出口**：事件层那条能看见中间的每一步，
+`ask` 那条只看见结果（想看中间步骤用 `--trace`，它读的是状态里的 `trace`，
+和事件层是两份数据源）。
 
 **为什么要共用那一层，而不是各写一份**：演示脚本和网页各自解释一遍图里发生了什么，
 就会出现"终端说走了工具循环、网页没显示"这类**两个界面互相矛盾**的问题，
@@ -805,7 +939,7 @@ uvicorn juris_agent.api.app:app --port 8077   # 浏览器：http://127.0.0.1:807
 
 | | 管什么 | 坏了的时候 | 谁在做 |
 |---|---|---|---|
-| **单测** | 系统还**跑不跑得通** | 立刻红 | 738 条测试 |
+| **单测** | 系统还**跑不跑得通** | 立刻红 | 764 条测试 |
 | **门禁** | **质量有没有掉** | **不会红** | `scripts/check_recall.py` |
 
 第二行是这个项目里最容易被跳过、也最值得讲的一格。Recall 从 0.90 掉到 0.85，
@@ -869,7 +1003,9 @@ hit 口径对这件事完全看不见。三个刻度同时用：
 
 ```
 src/juris_agent/
-├── __init__.py          # HF_ENDPOINT 引导（必须先于 transformers）
+├── __init__.py          # HF_ENDPOINT 引导（必须先于 transformers）+ 门面的懒导出
+├── client.py            # ★ 对外门面：ask / JurisAgent（复用 api/runtime 的装配，不另起一套）
+├── cli.py               # ★ `juris` 命令：ask / chat / serve / doctor
 ├── config.py            # 配置单一来源；单价/阈值不硬编码，读 configs/*.yaml
 ├── tools/
 │   ├── domain/          # 纯函数劳动法计算器（无 IO / 无 LLM / 金额用 Decimal）
@@ -937,7 +1073,7 @@ scripts/
 ├── memory_ablation.py   # F22 长对话记忆四策略对照
 ├── diagnose.py          # 排名与直觉不符时，逐题摊开看是谁赢在哪
 ├── fault_inject.py      # 工具层故障注入
-├── demo.py              # ★ 终端演示：把"系统里发生了什么"打在屏幕上
+├── demo.py              # 终端演示：把"系统里发生了什么"打在屏幕上（`juris ask --trace` 是精简版）
 ├── check_recall.py      # F34 Recall 回归门禁：现场重跑，变差了就变红
 ├── bench_qps.py         # F32 压测：mock/nollm/real 三档分开报（**自带宽严的防坑机制**，
 │                        #      因为这台机器会被跑慢，见脚本开头）
@@ -947,7 +1083,7 @@ scripts/
 │                        #      再报打转率（`--real` 才真调模型，默认免费）
 └── check_api.py         # 验 key + 列模型名，配置写错时大声失败
 .github/workflows/ci.yml # CI：单测 + Recall 门禁（含手动触发的 ml 组门禁）
-tests/                   # 738 项
+tests/                   # 764 项
 ```
 
 ---
@@ -955,13 +1091,20 @@ tests/                   # 738 项
 ## 复现命令
 
 ```bash
+# ---- 先用起来（[三分钟用起来](#三分钟用起来)那四条）-----------------------
+uv run juris doctor                    # 体检，退出码 0/1，不起模型也不花钱的那部分也查
+uv run juris ask "试用期最长能有多久？" --stream --trace
+uv run juris chat                      # 多轮；`--session <id>` 接着上次聊
+uv run juris serve --port 8000         # 浏览器界面
+
+# ---- 跑测试和数字 ---------------------------------------------------------
 uv sync --extra dev
-pytest                                 # 738 项，不需要 key、不需要 GPU
-                                       # ⚠️ 只装 --extra dev 时是 **737 通过 + 1 跳过**
+pytest                                 # 764 项，不需要 key、不需要 GPU
+                                       # ⚠️ 只装 --extra dev 时是 **761 通过 + 1 跳过**
                                        #    （跳过的是 FAISS 那条：它是 ml 组的可选后端，
                                        #    `test_dense.py` 里用 importorskip 主动跳过）。
                                        #    **跳过的不是失败，但要知道自己少跑了什么**——
-                                       #    跑 `uv sync --extra dev --extra ml` 就是 738 通过。
+                                       #    跑 `uv sync --extra dev --extra ml` 就是 764 通过。
 
 python scripts/ingest_corpus.py         # 语料清洗 → data/laws.jsonl + corpus_hash
 
